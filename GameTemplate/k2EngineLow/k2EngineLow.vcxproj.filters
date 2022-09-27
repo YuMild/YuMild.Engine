@@ -227,6 +227,8 @@
     </ClCompile>
     <ClCompile Include="ModelRender.cpp" />
     <ClCompile Include="SceneLight.cpp" />
+    <ClCompile Include="Bloom.cpp" />
+    <ClCompile Include="PostEffect.cpp" />
     <ClCompile Include="RenderingEngine.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -504,6 +506,8 @@
     </ClInclude>
     <ClInclude Include="ModelRender.h" />
     <ClInclude Include="SceneLight.h" />
+    <ClInclude Include="Bloom.h" />
+    <ClInclude Include="PostEffect.h" />
     <ClInclude Include="RenderingEngine.h" />
   </ItemGroup>
   <ItemGroup>

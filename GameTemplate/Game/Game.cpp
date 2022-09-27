@@ -3,7 +3,7 @@
 
 bool Game::Start()
 {
-	m_modelRender.Init("Assets/modelData/teapot.tkm");
+	m_modelRender.Init("Assets/modelData/unityChan.tkm");
 	m_modelRender.SetPosition({ 0.0f,0.0f,0.0f });
 
 	return true;
@@ -39,7 +39,7 @@ void Game::Update()
 	g_sceneLight.SetPointLightPosition(m_pointLightPosition);
 }
 
-void Game::Render(RenderContext& rc)
+void Game::Render(RenderContext& renderContext)
 {
-	m_modelRender.Draw(rc);
+	m_modelRender.Draw(renderContext);
 }

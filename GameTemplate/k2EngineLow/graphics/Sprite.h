@@ -162,15 +162,15 @@ namespace nsK2EngineLow {
 			Vector4 mulColor;
 			Vector4 screenParam;
 		};
-		LocalConstantBuffer m_constantBufferCPU;	//CPU側の定数バッファ。
-		ConstantBuffer		m_constantBufferGPU;	//GPU側の定数バッファ。
+		LocalConstantBuffer m_constantBufferCPU;			//CPU側の定数バッファ。
+		ConstantBuffer		m_constantBufferGPU;			//GPU側の定数バッファ。
 		ConstantBuffer		m_userExpandConstantBufferGPU;	//ユーザー拡張の定数バッファ(GPU側)
 		void* m_userExpandConstantBufferCPU = nullptr;		//ユーザー拡張の定数バッファ(CPU側)
-		DescriptorHeap		m_descriptorHeap;		//ディスクリプタヒープ。
-		RootSignature		m_rootSignature;		//ルートシグネチャ。
-		PipelineState		m_pipelineState;		//パイプラインステート。
-		Shader				m_vs;					//頂点シェーダー。
-		Shader				m_ps;					//ピクセルシェーダー。
+		DescriptorHeap		m_descriptorHeap;				//ディスクリプタヒープ。
+		RootSignature		m_rootSignature;				//ルートシグネチャ。
+		PipelineState		m_pipelineState;				//パイプラインステート。
+		Shader				m_vs;							//頂点シェーダー。
+		Shader				m_ps;							//ピクセルシェーダー。
 		Vector4				m_mulColor = Vector4::White;	//乗算カラー。
 	};
 }

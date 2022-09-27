@@ -4,7 +4,7 @@ class Game : public IGameObject
 {
 public:
 	bool Start();
-	void Render(RenderContext& rc);
+	void Render(RenderContext& renderContext);
 	void Update();
 
 private:

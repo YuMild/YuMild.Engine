@@ -18,9 +18,31 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	g_k2EngineLow->Init(g_hWnd, FRAME_BUFFER_W, FRAME_BUFFER_H);
 	g_camera3D->SetPosition({ 0.0f, 100.0f, -200.0f });
 	g_camera3D->SetTarget({ 0.0f, 50.0f, 0.0f });
-
+	
+	//ライト
 	g_sceneLight.SetEyePosition({ g_camera3D->GetPosition().x, g_camera3D->GetPosition().y, g_camera3D->GetPosition().z });
 	g_sceneLight.SetDirectionColor({ 1.0f,1.0f,1.0f });
+	g_sceneLight.SetAmbientLight({ 5.0f,5.0f,5.0f });
+
+	//ブルーム
+	//g_bloom.InitBloom();
+
+	//RenderTarget.Create()を利用してレンダリングターゲットを作成する
+	RenderTarget mainRenderTarget;
+	mainRenderTarget.Create(
+		1600,                           //テクスチャの幅
+		900,                            //テクスチャの長さ
+		1,                              //Mipmapレベル
+		1,                              //テクスチャ配列のサイズ
+		DXGI_FORMAT_R32G32B32A32_FLOAT, //カラーバッファーのフォーマット
+		DXGI_FORMAT_D32_FLOAT           //デプステンシルバッファーのフォーマット
+	);
+
+	g_bloom.InitRenderTarget();
+	g_bloom.InitLuminanceSprite(mainRenderTarget);
+	g_bloom.InitBlurSprite();
+	g_bloom.InitFinalSprite();
+	g_bloom.InitSprite(mainRenderTarget);
 
 	NewGO<Game>(0, "game");
 
@@ -31,6 +53,13 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 
 		// フレームの開始時に呼び出す必要がある処理を実行
 		g_k2EngineLow->BeginFrame();
+		
+		// レンダリングターゲットとして利用できるまで待つ
+		renderContext.WaitUntilToPossibleSetRenderTarget(mainRenderTarget);
+		// レンダリングターゲットを設定
+		renderContext.SetRenderTargetAndViewport(mainRenderTarget);
+		// レンダリングターゲットをクリア
+		renderContext.ClearRenderTargetView(mainRenderTarget);
 
 		// ゲームオブジェクトマネージャーの更新処理を呼び出す。
 		g_k2EngineLow->ExecuteUpdate();
@@ -41,6 +70,17 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 		// デバッグ描画処理を実行する。
 		g_k2EngineLow->DebubDrawWorld();
 
+		renderContext.WaitUntilFinishDrawingToRenderTarget(mainRenderTarget);
+
+		//ブラー前のレンダー
+		g_bloom.BlurBeforeRender(renderContext);
+
+		//ガウシアンブラーを実行
+		g_bloom.Blur(renderContext);
+
+		//ブラー後のレンダー
+		g_bloom.BlurAfterRender(renderContext,mainRenderTarget);
+
 		// フレームの終了時に呼び出す必要がある処理を実行。
 		g_k2EngineLow->EndFrame();
 	}
@@ -49,4 +89,3 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 
 	return 0;
 }
-

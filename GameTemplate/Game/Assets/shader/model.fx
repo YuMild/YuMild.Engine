@@ -60,9 +60,13 @@ struct SSkinVSIn
 // 頂点シェーダーへの入力。
 struct SVSIn
 {
-	float4 pos 		: POSITION;		//モデルの頂点座標
-    float3 normal	: NORMAL;		//法線
-	float2 uv 		: TEXCOORD0;	//UV座標
+    float4 pos      : POSITION;     //モデルの頂点座標
+    float3 normal   : NORMAL;       //法線
+    float2 uv       : TEXCOORD0;    //UV座標
+    
+    float3 tangent  : TANGENT;      //接ベクトル
+    float3 biNormal : BINORMAL;     //従ベクトル
+    
 	SSkinVSIn skinVert;				//スキン用のデータ
 };
 
@@ -73,14 +77,19 @@ struct SPSIn
     float3 normal	: NORMAL;		//法線
 	float2 uv 		: TEXCOORD0;	//uv座標
     float3 worldPos : TEXCOORD1;	//ワールド座標
+    
+    float3 tangent  : TANGENT;      //接ベクトル
+    float3 biNormal : BINORMAL;     //従ベクトル
 };
 
 ////////////////////////////////////////////////
 // グローバル変数。
 ////////////////////////////////////////////////
-Texture2D<float4> g_texture : register(t0); //アルベドマップ。
-StructuredBuffer<float4x4> g_boneMatrix : register(t3);		//ボーン行列
-sampler g_sampler : register(s0);							//サンプラステート
+Texture2D<float4> g_texture                 : register(t0);     //アルベドマップ
+Texture2D<float4> g_normalMap               : register(t1);     //法線マップ
+Texture2D<float4> g_specularMap             : register(t2);     //スペキュラマップ
+StructuredBuffer<float4x4> g_boneMatrix     : register(t3);		//ボーン行列
+sampler g_sampler                           : register(s0);		//サンプラステート
 
 ////////////////////////////////////////////////
 // 関数定義。
@@ -121,9 +130,12 @@ SPSIn VSMainCore(SVSIn vsIn, uniform bool hasSkin)
     psIn.worldPos = vsIn.pos;
 	psIn.pos = mul(mView, psIn.pos);
 	psIn.pos = mul(mProj, psIn.pos);
-
-    psIn.normal = mul(m, vsIn.normal);
+    psIn.normal = normalize(mul(mWorld, vsIn.normal));
 	
+    //接ベクトルと従ベクトルをワールド行列に変換する
+    psIn.tangent = normalize(mul(mWorld, vsIn.tangent));
+    psIn.biNormal = normalize(mul(mWorld, vsIn.biNormal));
+    
 	psIn.uv = vsIn.uv;
 
 	return psIn;
@@ -150,10 +162,22 @@ SPSIn VSSkinMain( SVSIn vsIn )
 /// </summary>
 float4 PSMain( SPSIn psIn ) : SV_Target0
 {
+    float3 normal = psIn.normal;
+    //法線マップからタンジェントスペースの法線をサンプリングする
+    float3 localNormal = g_normalMap.Sample(g_sampler, psIn.uv).xyz;
+    //タンジェントスペースの法線を0~1の範囲から-1~1の範囲に復元する
+    localNormal = (localNormal - 0.5f) * 2.0f;
+    //タンジェントスペースの法線をワールドスペースに変換する
+    normal = psIn.tangent * localNormal.x 
+    + psIn.biNormal * localNormal.y 
+    + normal * localNormal.z;
+    
+    
+    
     //ディレクションライトのLambert拡散反射光とPhong鏡面反射光を計算
     //ディレクションライトのLambert拡散反射光を計算
     //ピクセルの法線とライトの方向の内積を計算して-1を乗算
-    float t = dot(psIn.normal, directionLight.direction) * -1.0f;
+    float t = dot(normal, directionLight.direction) * -1.0f;
 	//内積の結果が0以下なら0にする
 	if(	t < 0.0f)
     {
@@ -166,7 +190,7 @@ float4 PSMain( SPSIn psIn ) : SV_Target0
     
 	//ディレクションライトのPhong鏡面反射光を計算
     //反射ベクトルを計算
-    float3 reflectionVectorDirectionLight = reflect(directionLight.direction, psIn.normal);
+    float3 reflectionVectorDirectionLight = reflect(directionLight.direction, normal);
     //光が当たったサーフェイスから視点に伸びるベクトルを計算
     float3 toEyeDirectionLight = eyePos - psIn.worldPos;
     toEyeDirectionLight = normalize(toEyeDirectionLight);
@@ -191,7 +215,7 @@ float4 PSMain( SPSIn psIn ) : SV_Target0
     pointLightDirection = normalize(pointLightDirection);
     //ポイントライトのLambert拡散反射光を計算
     //ピクセルの法線とライトの方向の内積を計算して-1を乗算
-    t = dot(psIn.normal, pointLightDirection) * -1.0f;
+    t = dot(normal, pointLightDirection) * -1.0f;
     //内積の結果が0以下なら0にする
     if (t < 0.0f)
     {
@@ -204,7 +228,7 @@ float4 PSMain( SPSIn psIn ) : SV_Target0
     
     //ポイントライトのPhong鏡面反射光を計算
     //反射ベクトルを計算
-    float3 reflectionVectorPointLight = reflect(pointLightDirection, psIn.normal);
+    float3 reflectionVectorPointLight = reflect(pointLightDirection, normal);
     //光が当たったサーフェイスから視点に伸びるベクトルを計算
     float3 toEyePointLight = eyePos - psIn.worldPos;
     toEyePointLight = normalize(toEyePointLight);
@@ -239,14 +263,23 @@ float4 PSMain( SPSIn psIn ) : SV_Target0
     
     
     
+    //スペキュラマップ
+    float specularPower = g_specularMap.Sample(g_sampler, psIn.uv).r;
+    specularFinalLight *= specularPower * 10.0f;
+    
+
+    
 	//拡散反射と鏡面反射を足して最終的な光を求める
     float3 finalLight = diffseFinalLight + specularFinalLight + ambientLight;
 	//ライトの効果を一律で上げる
     finalLight.x += 0.2f;
     finalLight.y += 0.2f;
     finalLight.z += 0.2f;
-	
+    
+    
+    
     float4 finalColor = g_texture.Sample(g_sampler, psIn.uv);
+	
     finalColor.xyz *= finalLight;
     
     return finalColor;

@@ -21,6 +21,7 @@ namespace nsK2EngineLow {
 
 		delete g_soundEngine;
 	}
+
 	void K2EngineLow::Init(HWND hwnd, UINT frameBufferWidth, UINT frameBufferHeight)
 	{
 		if (hwnd) {
@@ -49,6 +50,7 @@ namespace nsK2EngineLow {
 #endif
 		g_engine = this;
 	}
+
 	void K2EngineLow::BeginFrame()
 	{
 		m_fpsLimitter.BeginFrame();
@@ -58,8 +60,8 @@ namespace nsK2EngineLow {
 		for (auto& pad : m_pad) {
 			pad.BeginFrame();
 		}
-
 	}
+
 	void K2EngineLow::EndFrame()
 	{
 #ifdef K2_DEBUG
@@ -76,7 +78,6 @@ namespace nsK2EngineLow {
 		m_fpsLimitter.Wait();
 #endif
 		m_gameTime.EndMeasurement();
-
 	}
 
 	void K2EngineLow::ExecuteUpdate()
@@ -97,7 +98,6 @@ namespace nsK2EngineLow {
 		auto& renderContext = g_graphicsEngine->GetRenderContext();
 		// ゲームオブジェクトマネージャーの描画処理を実行。
 		GameObjectManager::GetInstance()->ExecuteRender(renderContext);
-		
 	}
 
 	/// <summary>

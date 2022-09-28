@@ -1,9 +1,11 @@
 #pragma once
+
 namespace nsK2EngineLow
 {
 	class PostEffect
 	{
 	public:
+
 		/// <summary>
 		/// ポストエフェクトを作成
 		/// </summary>
@@ -16,6 +18,9 @@ namespace nsK2EngineLow
 		void Render(RenderContext& renderContext);
 
 		RenderTarget luminanceRenderTarget;
+
+	private:
+
 	};
 	extern PostEffect g_postEffect;
 }

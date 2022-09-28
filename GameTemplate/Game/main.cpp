@@ -24,9 +24,6 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	g_sceneLight.SetDirectionColor({ 1.0f,1.0f,1.0f });
 	g_sceneLight.SetAmbientLight({ 5.0f,5.0f,5.0f });
 
-	//ブルーム
-	//g_bloom.InitBloom();
-
 	//RenderTarget.Create()を利用してレンダリングターゲットを作成する
 	RenderTarget mainRenderTarget;
 	mainRenderTarget.Create(
@@ -38,11 +35,9 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 		DXGI_FORMAT_D32_FLOAT           //デプステンシルバッファーのフォーマット
 	);
 
-	g_bloom.InitRenderTarget();
-	g_bloom.InitLuminanceSprite(mainRenderTarget);
-	g_bloom.InitBlurSprite();
-	g_bloom.InitFinalSprite();
-	g_bloom.InitSprite(mainRenderTarget);
+	g_renderingEngine.Init();
+	g_postEffect.Init();
+	g_bloom.Init();
 
 	NewGO<Game>(0, "game");
 
@@ -51,37 +46,19 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	{
 		auto& renderContext = g_graphicsEngine->GetRenderContext();
 
-		// フレームの開始時に呼び出す必要がある処理を実行
+		//フレームの開始時に呼び出す必要がある処理を実行
 		g_k2EngineLow->BeginFrame();
 		
-		// レンダリングターゲットとして利用できるまで待つ
-		renderContext.WaitUntilToPossibleSetRenderTarget(mainRenderTarget);
-		// レンダリングターゲットを設定
-		renderContext.SetRenderTargetAndViewport(mainRenderTarget);
-		// レンダリングターゲットをクリア
-		renderContext.ClearRenderTargetView(mainRenderTarget);
-
-		// ゲームオブジェクトマネージャーの更新処理を呼び出す。
+		//ゲームオブジェクトマネージャーの更新処理
 		g_k2EngineLow->ExecuteUpdate();
 
-		// ゲームオブジェクトマネージャーの描画処理を呼び出す。
-		g_k2EngineLow->ExecuteRender();
+		//モデルの描画
+		g_renderingEngine.Execute(renderContext);
 
-		// デバッグ描画処理を実行する。
+		//デバッグ描画処理を実行
 		g_k2EngineLow->DebubDrawWorld();
 
-		renderContext.WaitUntilFinishDrawingToRenderTarget(mainRenderTarget);
-
-		//ブラー前のレンダー
-		g_bloom.BlurBeforeRender(renderContext);
-
-		//ガウシアンブラーを実行
-		g_bloom.Blur(renderContext);
-
-		//ブラー後のレンダー
-		g_bloom.BlurAfterRender(renderContext,mainRenderTarget);
-
-		// フレームの終了時に呼び出す必要がある処理を実行。
+		//フレームの終了時に呼び出す必要がある処理を実行
 		g_k2EngineLow->EndFrame();
 	}
 

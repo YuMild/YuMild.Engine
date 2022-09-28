@@ -13,7 +13,7 @@ namespace nsK2EngineLow
 		/// •`‰æ
 		/// </summary>
 		/// <param name="rc"></param>
-		void Render(RenderContext& rc);
+		void Render(RenderContext& renderContext);
 
 		RenderTarget luminanceRenderTarget;
 	};

@@ -6,25 +6,15 @@ namespace nsK2EngineLow
 
 	Bloom g_bloom;
 
-	void Bloom::InitBloom()
+	void Bloom::Init()
 	{
-		InitRenderTarget();
+		InitLuminanceSprite();
+		InitBlurSprite();
+		InitFinalSprite();
+		InitSprite();
 	}
 
-	void Bloom::InitRenderTarget()
-	{	
-		//輝度抽出用のレンダリングターゲットを作成
-		luminanceRenderTarget.Create(
-			1600,                           //テクスチャの幅
-			900,                            //テクスチャの長さ
-			1,                              //Mipmapレベル
-			1,                              //テクスチャ配列のサイズ
-			DXGI_FORMAT_R32G32B32A32_FLOAT, //カラーバッファーのフォーマット
-			DXGI_FORMAT_D32_FLOAT           //デプステンシルバッファーのフォーマット
-		);
-	}
-
-	void Bloom::InitLuminanceSprite(RenderTarget& renderTarget)
+	void Bloom::InitLuminanceSprite()
 	{
 		//輝度抽出用のスプライトイニットデータを作成
 		SpriteInitData luminanceSpriteInitData;
@@ -37,7 +27,7 @@ namespace nsK2EngineLow
 		luminanceSpriteInitData.m_width = 1600;
 		luminanceSpriteInitData.m_height = 900;
 		//テクスチャはメインレンダリングターゲットのカラーバッファー
-		luminanceSpriteInitData.m_textures[0] = &renderTarget.GetRenderTargetTexture();
+		luminanceSpriteInitData.m_textures[0] = &g_renderingEngine.GetMainRenderTarget().GetRenderTargetTexture();
 		//描き込むレンダリングターゲットのフォーマットを指定する
 		luminanceSpriteInitData.m_colorBufferFormat[0] = DXGI_FORMAT_R32G32B32A32_FLOAT;
 		
@@ -48,7 +38,7 @@ namespace nsK2EngineLow
 	void Bloom::InitBlurSprite()
 	{
 		//輝度テクスチャにガウシアンブラーを掛ける
-		gaussianBlur[0].Init(&luminanceRenderTarget.GetRenderTargetTexture());
+		gaussianBlur[0].Init(&g_postEffect.luminanceRenderTarget.GetRenderTargetTexture());
 		//gaussianBlur[0]にガウシアンブラーを掛ける
 		gaussianBlur[1].Init(&gaussianBlur[0].GetBokeTexture());
 		//gaussianBlur[1]にガウシアンブラーを掛ける
@@ -81,11 +71,11 @@ namespace nsK2EngineLow
 		finalSprite.Init(finalSpriteInitData);
 	}
 
-	void Bloom::InitSprite(RenderTarget& renderTarget)
+	void Bloom::InitSprite()
 	{
 		//最終合成後のテクスチャ
 		SpriteInitData spriteInitData;
-		spriteInitData.m_textures[0] = &renderTarget.GetRenderTargetTexture();
+		spriteInitData.m_textures[0] = &g_renderingEngine.GetMainRenderTarget().GetRenderTargetTexture();
 		spriteInitData.m_width = 1600;
 		spriteInitData.m_height = 900;
 		//画像描画用のシェーダーのファイルパスを指定する
@@ -93,20 +83,6 @@ namespace nsK2EngineLow
 
 		//作成した初期化情報をもとにスプライトを初期化する
 		copyToFrameBufferSprite.Init(spriteInitData);
-	}
-
-	void Bloom::BlurBeforeRender(RenderContext& renderContext)
-	{
-		//輝度抽出用のレンダリングターゲットに変更
-		renderContext.WaitUntilToPossibleSetRenderTarget(luminanceRenderTarget);
-		//レンダリングターゲットを設定
-		renderContext.SetRenderTargetAndViewport(luminanceRenderTarget);
-		//レンダリングターゲットをクリア
-		renderContext.ClearRenderTargetView(luminanceRenderTarget);
-		//輝度抽出を行う
-		luminanceSprite.Draw(renderContext);
-		//レンダリングターゲットへの書き込み終了待ち
-		renderContext.WaitUntilFinishDrawingToRenderTarget(luminanceRenderTarget);
 	}
 
 	void Bloom::Blur(RenderContext& renderContext)
@@ -118,23 +94,17 @@ namespace nsK2EngineLow
 		gaussianBlur[3].ExecuteOnGPU(renderContext, 10);
 	}
 
-	void Bloom::BlurAfterRender(RenderContext& renderContext, RenderTarget& renderTarget)
+	void Bloom::Render(RenderContext& rc, RenderTarget& rt)
 	{
-		//レンダリングターゲットとして利用できるまで待つ
-		renderContext.WaitUntilToPossibleSetRenderTarget(renderTarget);
-		//レンダリングターゲットを設定
-		renderContext.SetRenderTargetAndViewport(renderTarget);
-		//最終合成
-		finalSprite.Draw(renderContext);
-		//レンダリングターゲットへの書き込み終了待ち
-		renderContext.WaitUntilFinishDrawingToRenderTarget(renderTarget);
-		//メインレンダリングターゲットの絵をフレームバッファーにコピー
-		renderContext.SetRenderTarget(
-			g_graphicsEngine->GetCurrentFrameBuffuerRTV(),
-			g_graphicsEngine->GetCurrentFrameBuffuerDSV()
-		);
+		rc.WaitUntilToPossibleSetRenderTarget(rt);
+		rc.SetRenderTargetAndViewport(rt);
+		finalSprite.Draw(rc);
+		rc.WaitUntilFinishDrawingToRenderTarget(rt);
+	}
+
+	void Bloom::Draw(RenderContext& rc)
+	{
 		copyToFrameBufferSprite.SetMulColor(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
-		//ブラーを行ったテクスチャを描画
-		copyToFrameBufferSprite.Draw(renderContext);
+		copyToFrameBufferSprite.Draw(rc);
 	}
 }

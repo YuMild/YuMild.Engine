@@ -17,4 +17,30 @@ namespace nsK2EngineLow
 			DXGI_FORMAT_D32_FLOAT           //デプステンシルバッファーのフォーマット
 		);
 	}
-}
+
+	void PostEffect::Render(RenderContext& renderContext)
+	{
+		RenderTarget* renderTargets[] =
+		{
+			&luminanceRenderTarget
+		};
+
+		renderContext.WaitUntilToPossibleSetRenderTargets(1, renderTargets);
+		renderContext.SetRenderTargets(1, renderTargets);
+		renderContext.ClearRenderTargetViews(1, renderTargets);
+
+		g_bloom.LuminanceSpriteDraw(renderContext);
+
+		renderContext.WaitUntilFinishDrawingToRenderTargets(1, renderTargets);
+
+		g_bloom.Blur(renderContext);
+		g_bloom.Render(renderContext, g_renderingEngine.GetMainRenderTarget());
+
+		renderContext.SetRenderTarget(
+			g_graphicsEngine->GetCurrentFrameBuffuerRTV(),
+			g_graphicsEngine->GetCurrentFrameBuffuerDSV()
+		);
+
+		g_bloom.Draw(renderContext);
+	};
+};

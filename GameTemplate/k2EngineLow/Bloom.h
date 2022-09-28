@@ -8,22 +8,12 @@ namespace nsK2EngineLow
 		/// <summary>
 		/// ブルームを実行
 		/// </summary>
-		void InitBloom();
-
-		/// <summary>
-		/// レンダーターゲットを作成
-		/// </summary>
-		void InitRenderTarget();
-
-		/// <summary>
-		/// 最初
-		/// </summary>
-		void InitSprite(RenderTarget& renderTarget);
+		void Init();
 
 		/// <summary>
 		/// 輝度テクスチャ
 		/// </summary>
-		void InitLuminanceSprite(RenderTarget& renderTarget);
+		void InitLuminanceSprite();
 
 		/// <summary>
 		/// 輝度テクスチャにブラーを掛ける
@@ -36,11 +26,9 @@ namespace nsK2EngineLow
 		void InitFinalSprite();
 
 		/// <summary>
-		/// ブラー前のレンダー
+		/// 最初
 		/// </summary>
-		/// <param name="rc"></param>
-		/// <param name="rt"></param>
-		void BlurBeforeRender(RenderContext& renderContext);
+		void InitSprite();
 
 		/// <summary>
 		/// ブラー処理
@@ -49,13 +37,28 @@ namespace nsK2EngineLow
 		void Blur(RenderContext& renderContext);
 
 		/// <summary>
+		/// ブラー前のレンダー
+		/// </summary>
+		/// <param name="rc"></param>
+		/// <param name="rt"></param>
+		void Render(RenderContext& renderContext, RenderTarget& renderTarget);
+
+		/// <summary>
 		/// ブラー後のレンダー
 		/// </summary>
 		/// <param name="rc"></param>
 		/// <param name="rt"></param>
-		void BlurAfterRender(RenderContext& renderContext, RenderTarget& renderTarget);
+		void Draw(RenderContext& renderContext);
 
-		RenderTarget luminanceRenderTarget;
+		/// <summary>
+		/// 輝度テクスチャを描画
+		/// </summary>
+		/// <param name="rc"></param>
+		void LuminanceSpriteDraw(RenderContext& rc)
+		{
+			luminanceSprite.Draw(rc);
+		}
+
 		GaussianBlur gaussianBlur[4];
 		Sprite luminanceSprite;
 		Sprite copyToFrameBufferSprite;

@@ -1,8 +1,8 @@
 #include "k2EngineLowPreCompile.h"
 #include "ModelRender.h"
 
-namespace  nsK2EngineLow {
-
+namespace  nsK2EngineLow
+{
 	ModelRender::ModelRender()
 	{
 

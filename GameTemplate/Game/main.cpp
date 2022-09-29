@@ -23,28 +23,13 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	g_sceneLight.SetEyePosition({ g_camera3D->GetPosition().x, g_camera3D->GetPosition().y, g_camera3D->GetPosition().z });
 	g_sceneLight.SetDirectionColor({ 1.0f,1.0f,1.0f });
 
-	//シャドウ
 	g_shadowMapRender.Init();
+	g_shadowMapRender.DrawShadowModelInit("Assets/modelData/unityChan.tkm");
 
-	//影を落とすティーポットモデル
-	ModelInitData teapotShadowModelInitData;
-	teapotShadowModelInitData.m_fxFilePath = "Assets/shader/DrawShadowMap.fx";
-	teapotShadowModelInitData.m_tkmFilePath = "Assets/modelData/teapot.tkm";
-
-	teapotShadowModelInitData.m_colorBufferFormat[0] = DXGI_FORMAT_R32_FLOAT;
-
-	Model teapotShadowModel;
-	teapotShadowModel.Init(teapotShadowModelInitData);
-	teapotShadowModel.UpdateWorldMatrix(
-		{ 0, 0, 0 },
-		g_quatIdentity,
-		g_vec3One
-	);
-
-	/*ModelRender m_drawShadowMapModel;
-	m_drawShadowMapModel.InitDrawShadowMapModel("Assets/modelData/teapot.tkm");
+	ModelRender m_drawShadowMapModel;
+	m_drawShadowMapModel.InitDrawShadowMapModel("Assets/modelData/unityChan.tkm");
 	m_drawShadowMapModel.SetPosition({ 0.0f,30.0f,0.0f });
-	m_drawShadowMapModel.Update();*/
+	m_drawShadowMapModel.Update();
 
 	ModelRender stageInitData;
 	stageInitData.InitShadowRecieverModel("Assets/modelData/bg/bg.tkm");
@@ -66,11 +51,11 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 		//ゲームオブジェクトマネージャーの更新処理
 		g_k2EngineLow->ExecuteUpdate();
 
-		renderContext.WaitUntilToPossibleSetRenderTarget(g_shadowMapRender.GetRenderTarget());
+		/*renderContext.WaitUntilToPossibleSetRenderTarget(g_shadowMapRender.GetRenderTarget());
 		renderContext.SetRenderTargetAndViewport(g_shadowMapRender.GetRenderTarget());
 		renderContext.ClearRenderTargetView(g_shadowMapRender.GetRenderTarget());
 
-		teapotShadowModel.Draw(renderContext, g_shadowMapRender.GetLightCamera());
+		m_drawShadowMapModel.ShadowMapDraw(renderContext, g_shadowMapRender.GetLightCamera());
 
 		renderContext.WaitUntilFinishDrawingToRenderTarget(g_shadowMapRender.GetRenderTarget());
 
@@ -79,9 +64,9 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 			g_graphicsEngine->GetCurrentFrameBuffuerDSV()
 		);
 
-		renderContext.SetViewportAndScissor(g_graphicsEngine->GetFrameBufferViewport());
+		renderContext.SetViewportAndScissor(g_graphicsEngine->GetFrameBufferViewport());*/
 
-		//g_shadowMapRender.Render(renderContext);
+		g_shadowMapRender.Render(renderContext);
 
 		//モデルの描画
 		g_renderingEngine.Execute(renderContext);

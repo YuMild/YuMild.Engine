@@ -14,6 +14,12 @@ namespace nsK2EngineLow
 		void Init();
 
 		/// <summary>
+		/// シャドウマップ描画用のモデルを作成
+		/// </summary>
+		/// <param name="filePath"></param>
+		void DrawShadowModelInit(const char* filePath);
+
+		/// <summary>
 		/// 描画
 		/// </summary>
 		/// <param name="rc"></param>

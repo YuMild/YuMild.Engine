@@ -3,7 +3,7 @@
 
 bool Game::Start()
 {
-	m_modelRender.Init("Assets/ModelData/teapot.tkm");
+	m_modelRender.Init("Assets/ModelData/unityChan.tkm");
 	m_modelRender.SetPosition({ 0.0f,30.0f,0.0f });
 	m_modelRender.Update();
 

@@ -1,6 +1,8 @@
 #include "k2EngineLowPreCompile.h"
 #include "RenderingEngine.h"
 
+#include "ShadowMapRender.h"
+
 namespace nsK2EngineLow
 {
 	RenderingEngine g_renderingEngine;
@@ -42,9 +44,14 @@ namespace nsK2EngineLow
 		renderContext.WaitUntilFinishDrawingToRenderTargets(1, renderTargets);
 	}
 
+	void RenderingEngine::ShadowMapDraw(RenderContext& renderContext)
+	{
+		m_shadowMapRender.Render(renderContext);
+	}
+
 	void RenderingEngine::Execute(RenderContext& renderContext)
 	{
 		Draw(renderContext);
-		g_postEffect.Render(renderContext);
+		//g_postEffect.Render(renderContext);
 	}
 }

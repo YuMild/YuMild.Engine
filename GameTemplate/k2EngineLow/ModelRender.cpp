@@ -43,6 +43,32 @@ namespace  nsK2EngineLow {
 		Update();
 	}
 
+	void ModelRender::InitDrawShadowMapModel(const char* filePath)
+	{
+		ModelInitData shadowModelInitData;
+
+		shadowModelInitData.m_tkmFilePath = filePath;
+		shadowModelInitData.m_fxFilePath = "Assets/shader/DrawShadowMap.fx";
+		shadowModelInitData.m_colorBufferFormat[0] = DXGI_FORMAT_R32_FLOAT;
+
+		m_drawShadowModel.Init(shadowModelInitData);
+		Update();
+	}
+
+	void ModelRender::InitShadowRecieverModel(const char* filePath)
+	{
+		ModelInitData shadowModelInitData;
+
+		shadowModelInitData.m_tkmFilePath = filePath;
+		shadowModelInitData.m_fxFilePath = "Assets/shader/ShadowReciever.fx";
+		shadowModelInitData.m_expandShaderResoruceView[0] = &g_shadowMapRender.GetRenderTarget().GetRenderTargetTexture();
+		shadowModelInitData.m_expandConstantBuffer = (void*)&g_shadowMapRender.GetLightCamera().GetViewProjectionMatrix();
+		shadowModelInitData.m_expandConstantBufferSize = sizeof(g_shadowMapRender.GetLightCamera().GetViewProjectionMatrix());
+
+		m_shadowRecieverModel.Init(shadowModelInitData);
+		Update();
+	}
+
 	void ModelRender::InitSkeleton(const char* filePath)
 	{
 		std::string skeletonFilePath = filePath;
@@ -76,8 +102,23 @@ namespace  nsK2EngineLow {
 		m_animation.Progress(g_gameTime->GetFrameDeltaTime());
 	}
 
-	void ModelRender::Draw(RenderContext& rc)
+	void ModelRender::Draw(RenderContext& renderContext)
 	{
-		m_model.Draw(rc);
+		m_model.Draw(renderContext);
+	}
+
+	void ModelRender::Draw(RenderContext& renderContext, Camera& camera)
+	{
+		m_model.Draw(renderContext, camera.GetViewMatrix(), camera.GetProjectionMatrix());
+	}
+
+	void ModelRender::ShadowMapDraw(RenderContext& renderContext, Camera& camera)
+	{
+		m_drawShadowModel.Draw(renderContext, camera.GetViewMatrix(), camera.GetProjectionMatrix());
+	}
+
+	void ModelRender::ShadowRecieverDraw(RenderContext& renderContext)
+	{
+		m_shadowRecieverModel.Draw(renderContext);
 	}
 }

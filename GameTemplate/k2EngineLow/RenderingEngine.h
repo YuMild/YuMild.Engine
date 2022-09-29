@@ -1,5 +1,7 @@
 #pragma once
 
+#include "ShadowMapRender.h"
+
 namespace nsK2EngineLow
 {
 	class RenderingEngine
@@ -18,6 +20,12 @@ namespace nsK2EngineLow
 		void Draw(RenderContext& renderContext);
 
 		/// <summary>
+		/// ï`âÊ
+		/// </summary>
+		/// <param name="renderContext"></param>
+		void ShadowMapDraw(RenderContext& renderContext);
+
+		/// <summary>
 		/// é¿çs
 		/// </summary>
 		/// <param name="renderTarget"></param>
@@ -33,7 +41,7 @@ namespace nsK2EngineLow
 		}
 
 	private:
-
+		ShadowMapRender m_shadowMapRender;
 		RenderTarget m_mainRenderTarget;
 	};
 

@@ -7,7 +7,7 @@ namespace nsK2EngineLow
 {
 	RenderingEngine g_renderingEngine;
 
-	void RenderingEngine::Init()
+	void RenderingEngine::InitMainRenderTarget()
 	{
 		//RenderTarget.Create()を利用してレンダリングターゲットを作成する
 		m_mainRenderTarget.Create(
@@ -44,14 +44,14 @@ namespace nsK2EngineLow
 		renderContext.WaitUntilFinishDrawingToRenderTargets(1, renderTargets);
 	}
 
-	void RenderingEngine::ShadowMapDraw(RenderContext& renderContext)
+	void RenderingEngine::RenderToShadowMap(RenderContext& renderContext)
 	{
 		m_shadowMapRender.Render(renderContext);
 	}
 
 	void RenderingEngine::Execute(RenderContext& renderContext)
 	{
+		//g_shadowMapRender.Render(renderContext);
 		Draw(renderContext);
-		//g_postEffect.Render(renderContext);
 	}
 }

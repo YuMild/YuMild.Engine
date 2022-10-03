@@ -11,7 +11,7 @@ namespace nsK2EngineLow
 		/// <summary>
 		/// レンダーターゲットを作成
 		/// </summary>
-		void Init();
+		void InitMainRenderTarget();
 
 		/// <summary>
 		/// 描画
@@ -23,7 +23,7 @@ namespace nsK2EngineLow
 		/// 描画
 		/// </summary>
 		/// <param name="renderContext"></param>
-		void ShadowMapDraw(RenderContext& renderContext);
+		void RenderToShadowMap(RenderContext& renderContext);
 
 		/// <summary>
 		/// 実行

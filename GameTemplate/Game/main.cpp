@@ -24,17 +24,11 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	g_sceneLight.SetDirectionColor({ 1.0f,1.0f,1.0f });
 
 	g_shadowMapRender.Init();
-	g_shadowMapRender.DrawShadowModelInit("Assets/modelData/unityChan.tkm");
-
-	ModelRender m_drawShadowMapModel;
-	m_drawShadowMapModel.InitDrawShadowMapModel("Assets/modelData/unityChan.tkm");
-	m_drawShadowMapModel.SetPosition({ 0.0f,30.0f,0.0f });
-	m_drawShadowMapModel.Update();
 
 	ModelRender stageInitData;
 	stageInitData.InitShadowRecieverModel("Assets/modelData/bg/bg.tkm");
 
-	g_renderingEngine.Init();
+	g_renderingEngine.InitMainRenderTarget();
 	g_postEffect.Init();
 	g_bloom.Init();
 
@@ -50,23 +44,6 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 		
 		//ゲームオブジェクトマネージャーの更新処理
 		g_k2EngineLow->ExecuteUpdate();
-
-		/*renderContext.WaitUntilToPossibleSetRenderTarget(g_shadowMapRender.GetRenderTarget());
-		renderContext.SetRenderTargetAndViewport(g_shadowMapRender.GetRenderTarget());
-		renderContext.ClearRenderTargetView(g_shadowMapRender.GetRenderTarget());
-
-		m_drawShadowMapModel.ShadowMapDraw(renderContext, g_shadowMapRender.GetLightCamera());
-
-		renderContext.WaitUntilFinishDrawingToRenderTarget(g_shadowMapRender.GetRenderTarget());
-
-		renderContext.SetRenderTarget(
-			g_graphicsEngine->GetCurrentFrameBuffuerRTV(),
-			g_graphicsEngine->GetCurrentFrameBuffuerDSV()
-		);
-
-		renderContext.SetViewportAndScissor(g_graphicsEngine->GetFrameBufferViewport());*/
-
-		g_shadowMapRender.Render(renderContext);
 
 		//モデルの描画
 		g_renderingEngine.Execute(renderContext);

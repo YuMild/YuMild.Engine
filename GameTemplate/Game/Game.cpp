@@ -7,16 +7,16 @@ bool Game::Start()
 	m_modelRender.SetPosition({ 0.0f,30.0f,0.0f });
 	m_modelRender.Update();
 
+	m_modelRenderReciever.InitShadowRecieverModel("Assets/modelData/bg/bg.tkm");
+	m_modelRenderReciever.SetPosition({ 0.0f,0.0f,0.0f });
+	m_modelRenderReciever.Update();
+
 	return true;
 }
 
 void Game::Update()
 {
 	m_num += g_gameTime->GetFrameDeltaTime() * 10.0f;
-
-	//g_sceneLight.SetDirectionColor({ m_num,m_num,m_num });
-	//g_sceneLight.SetDirectionColor({ 1.0f,1.0f,1.0f });
-	//g_sceneLight.SetAmbientLight({ m_num,m_num,m_num });
 	
 	if (g_pad[0]->IsPress(enButtonB))
 	{
@@ -43,4 +43,5 @@ void Game::Update()
 void Game::Render(RenderContext& renderContext)
 {
 	m_modelRender.Draw(renderContext);
+	m_modelRender.ShadowMapDraw(renderContext, g_shadowMapRender.GetLightCamera());
 }

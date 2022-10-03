@@ -41,7 +41,7 @@ namespace nsK2EngineLow
 		m_modelRender.ShadowMapDraw(renderContext, m_lightCamera);
 		
 		renderContext.WaitUntilFinishDrawingToRenderTarget(m_shadowMap);
-		
+
 		renderContext.SetRenderTarget(
 			g_graphicsEngine->GetCurrentFrameBuffuerRTV(),
 			g_graphicsEngine->GetCurrentFrameBuffuerDSV()

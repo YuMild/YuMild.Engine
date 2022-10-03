@@ -41,6 +41,8 @@ namespace  nsK2EngineLow
 		initData.m_modelUpAxis = enModelUpAxis;
 		m_model.Init(initData);
 		Update();
+
+		InitDrawShadowMapModel(filePath);
 	}
 
 	void ModelRender::InitDrawShadowMapModel(const char* filePath)
@@ -94,6 +96,9 @@ namespace  nsK2EngineLow
 	void ModelRender::Update()
 	{
 		m_model.UpdateWorldMatrix(m_position, m_rotation, m_scale);
+		m_drawShadowModel.UpdateWorldMatrix(m_position, m_rotation, m_scale);
+		m_shadowRecieverModel.UpdateWorldMatrix(m_position, m_rotation, m_scale);
+
 		if (m_skeleton.IsInited())
 		{
 			m_skeleton.Update(m_model.GetWorldMatrix());
@@ -105,11 +110,6 @@ namespace  nsK2EngineLow
 	void ModelRender::Draw(RenderContext& renderContext)
 	{
 		m_model.Draw(renderContext);
-	}
-
-	void ModelRender::Draw(RenderContext& renderContext, Camera& camera)
-	{
-		m_model.Draw(renderContext, camera.GetViewMatrix(), camera.GetProjectionMatrix());
 	}
 
 	void ModelRender::ShadowMapDraw(RenderContext& renderContext, Camera& camera)

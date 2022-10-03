@@ -71,7 +71,7 @@ namespace nsK2EngineLow {
 		mWorld = mBias * mScale * mRot * mTrans;
 		return mWorld;
 	}
-	//todo ここも変更する必要あり？？
+
 	void Model::ChangeAlbedoMap(const char* materialName, Texture& albedoMap)
 	{
 		m_meshParts.QueryMeshs([&](const SMesh& mesh) {

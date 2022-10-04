@@ -9,9 +9,19 @@ namespace nsK2EngineLow
 	public:
 
 		/// <summary>
+		/// 各種Initを実行
+		/// </summary>
+		void Init();
+
+		/// <summary>
 		/// レンダーターゲットを作成
 		/// </summary>
 		void InitMainRenderTarget();
+
+		/// <summary>
+		/// シャドウマップレンダーを作成
+		/// </summary>
+		void InitShadowMapRender();
 
 		/// <summary>
 		/// 描画

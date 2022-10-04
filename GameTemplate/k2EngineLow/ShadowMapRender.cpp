@@ -27,18 +27,16 @@ namespace nsK2EngineLow
 		);
 	}
 
-	void ShadowMapRender::DrawShadowModelInit(const char* filePath)
-	{
-		m_modelRender.InitDrawShadowMapModel(filePath);
-	}
-
 	void ShadowMapRender::Render(RenderContext& renderContext)
 	{
 		renderContext.WaitUntilToPossibleSetRenderTarget(m_shadowMap);
 		renderContext.SetRenderTargetAndViewport(m_shadowMap);
 		renderContext.ClearRenderTargetView(m_shadowMap);
 
-		m_modelRender.ShadowMapDraw(renderContext, m_lightCamera);
+		for (auto& model : m_modelRenders)
+		{
+			model.ShadowMapDraw(renderContext, m_lightCamera);
+		}
 		
 		renderContext.WaitUntilFinishDrawingToRenderTarget(m_shadowMap);
 

@@ -7,6 +7,12 @@ namespace nsK2EngineLow
 {
 	RenderingEngine g_renderingEngine;
 
+	void RenderingEngine::Init()
+	{
+		InitMainRenderTarget();
+		InitShadowMapRender();
+	}
+
 	void RenderingEngine::InitMainRenderTarget()
 	{
 		//RenderTarget.Create()を利用してレンダリングターゲットを作成する
@@ -19,6 +25,11 @@ namespace nsK2EngineLow
 			DXGI_FORMAT_D32_FLOAT           //デプステンシルバッファーのフォーマット
 		);
 		g_postEffect.Init();
+	}
+
+	void RenderingEngine::InitShadowMapRender()
+	{
+		m_shadowMapRender.Init();
 	}
 
 	void RenderingEngine::Draw(RenderContext& renderContext)
@@ -51,7 +62,7 @@ namespace nsK2EngineLow
 
 	void RenderingEngine::Execute(RenderContext& renderContext)
 	{
-		//g_shadowMapRender.Render(renderContext);
+		RenderToShadowMap(renderContext);
 		Draw(renderContext);
 	}
 }

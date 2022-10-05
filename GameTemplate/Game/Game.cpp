@@ -3,11 +3,11 @@
 
 bool Game::Start()
 {
-	m_modelRender.Init("Assets/ModelData/unityChan.tkm",true);
+	m_modelRender.Init("Assets/ModelData/unityChan.tkm",1);
 	m_modelRender.SetPosition({ 0.0f,30.0f,0.0f });
 	m_modelRender.Update();
 
-	m_modelRenderReciever.Init("Assets/ModelData/bg/bg.tkm", true);
+	m_modelRenderReciever.Init("Assets/ModelData/bg/bg.tkm", 3);
 	m_modelRenderReciever.SetPosition({ 0.0f,0.0f,0.0f });
 	m_modelRenderReciever.Update();
 

@@ -14,7 +14,7 @@ namespace  nsK2EngineLow
 	}
 
 	void ModelRender::Init(const char* filePath,
-		bool shadowRecieve,
+		int shadow,
 		AnimationClip* animationClips,
 		int numAnimationClips,
 		EnModelUpAxis enModelUpAxis)
@@ -23,14 +23,29 @@ namespace  nsK2EngineLow
 
 		initData.m_tkmFilePath = filePath;
 
-		if (shadowRecieve == true)
+		if (shadow == 1)
+		{
+			initData.m_fxFilePath = "Assets/shader/model.fx";
+			initData.m_expandConstantBuffer = &g_sceneLight.GetLight();
+			initData.m_expandConstantBufferSize = sizeof(g_sceneLight.GetLight());
+			InitDrawShadowMapModel(filePath);
+		}
+		else if (shadow == 2)
+		{
+			initData.m_fxFilePath = "Assets/shader/ShadowReciever.fx";
+			initData.m_expandShaderResoruceView[0] = &g_shadowMapRender.GetRenderTarget().GetRenderTargetTexture();
+			initData.m_expandConstantBuffer = (void*)&g_shadowMapRender.GetLightCamera().GetViewProjectionMatrix();
+			initData.m_expandConstantBufferSize = sizeof(g_shadowMapRender.GetLightCamera().GetViewProjectionMatrix());
+			InitDrawShadowMapModel(filePath);
+		}
+		else if (shadow == 3)
 		{
 			initData.m_fxFilePath = "Assets/shader/ShadowReciever.fx";
 			initData.m_expandShaderResoruceView[0] = &g_shadowMapRender.GetRenderTarget().GetRenderTargetTexture();
 			initData.m_expandConstantBuffer = (void*)&g_shadowMapRender.GetLightCamera().GetViewProjectionMatrix();
 			initData.m_expandConstantBufferSize = sizeof(g_shadowMapRender.GetLightCamera().GetViewProjectionMatrix());
 		}
-		else
+		else if (shadow == 4)
 		{
 			initData.m_fxFilePath = "Assets/shader/model.fx";
 			initData.m_expandConstantBuffer = &g_sceneLight.GetLight();
@@ -52,8 +67,6 @@ namespace  nsK2EngineLow
 		initData.m_modelUpAxis = enModelUpAxis;
 		m_model.Init(initData);
 		Update();
-
-		InitDrawShadowMapModel(filePath);
 
 		g_renderingEngine.AddModelRenderObject(this);
 	}

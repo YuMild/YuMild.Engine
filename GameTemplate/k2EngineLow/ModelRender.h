@@ -9,7 +9,10 @@ namespace  nsK2EngineLow {
 
 		/// <summary>
 		/// モデルの作成
-		/// boolがtrueならシャドウを落とす
+		/// 1=シャドウを落とす
+		/// 2=シャドウを受けつつ落とす
+		/// 3=シャドウを受ける
+		/// 4=何もしない
 		/// </summary>
 		/// <param name="filePath"></param>
 		/// <param name="shadowRecieve"></param>
@@ -17,7 +20,7 @@ namespace  nsK2EngineLow {
 		/// <param name="numAnimationClips"></param>
 		/// <param name="enModelUpAxis"></param>
 		void Init(const char* filePath,
-			bool shadowRecieve,
+			int shadow,
 			AnimationClip* animationClips = nullptr,
 			int numAnimationClips = 0,
 			EnModelUpAxis enModelUpAxis = enModelUpAxisZ);

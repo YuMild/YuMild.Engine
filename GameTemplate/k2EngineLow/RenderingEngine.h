@@ -24,6 +24,15 @@ namespace nsK2EngineLow
 		void InitShadowMapRender();
 
 		/// <summary>
+		/// モデルレンダーオブジェクトの数を追加
+		/// </summary>
+		/// <param name="modelRenderObject"></param>
+		void AddModelRenderObject(ModelRender* modelRenderObject)
+		{
+			m_modelRenderObject.push_back(modelRenderObject);
+		}
+
+		/// <summary>
 		/// 描画
 		/// </summary>
 		/// <param name="renderContext"></param>
@@ -51,7 +60,9 @@ namespace nsK2EngineLow
 		}
 
 	private:
-		ShadowMapRender m_shadowMapRender;
+
+		std::vector<ModelRender*> m_modelRenderObject;
+		ShadowMapRender* m_shadowMapRender;
 		RenderTarget m_mainRenderTarget;
 	};
 

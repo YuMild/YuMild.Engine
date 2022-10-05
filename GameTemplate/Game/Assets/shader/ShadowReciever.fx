@@ -60,7 +60,7 @@ float4 PSMain(SPSIn psIn) : SV_Target0
         && shadowMapUV.y > 0.0f && shadowMapUV.y < 1.0f)
     {
         float zInShadowMap = g_shadowMap.Sample(g_sampler, shadowMapUV).r;
-        if (zInLVP > zInShadowMap)
+        if (zInLVP > zInShadowMap +0.000025f)
         {
             color.xyz *= 0.5f;
         }

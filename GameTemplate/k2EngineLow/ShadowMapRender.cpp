@@ -11,7 +11,7 @@ namespace nsK2EngineLow
 	{
 		m_lightCamera.SetPosition({ g_camera3D->GetTarget().x,g_camera3D->GetTarget().y + 500.0f,g_camera3D->GetTarget().z });
 		m_lightCamera.SetTarget(g_camera3D->GetTarget());
-		m_lightCamera.SetUp(1, 0, 0);
+		m_lightCamera.SetUp(0, 0, 1);
 		m_lightCamera.Update();
 
 		float clearColor[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
@@ -27,23 +27,23 @@ namespace nsK2EngineLow
 		);
 	}
 
-	void ShadowMapRender::Render(RenderContext& renderContext)
+	void ShadowMapRender::Render(RenderContext& renderContext, std::vector<ModelRender*>& modelRenderObject)
 	{
 		renderContext.WaitUntilToPossibleSetRenderTarget(m_shadowMap);
 		renderContext.SetRenderTargetAndViewport(m_shadowMap);
 		renderContext.ClearRenderTargetView(m_shadowMap);
 
-		for (auto& model : m_modelRenders)
+		for (auto& model : modelRenderObject)
 		{
-			model.ShadowMapDraw(renderContext, m_lightCamera);
+			model->ShadowMapDraw(renderContext, m_lightCamera);
 		}
-		
+
 		renderContext.WaitUntilFinishDrawingToRenderTarget(m_shadowMap);
 
 		renderContext.SetRenderTarget(
 			g_graphicsEngine->GetCurrentFrameBuffuerRTV(),
 			g_graphicsEngine->GetCurrentFrameBuffuerDSV()
-			);
+		);
 
 		renderContext.SetViewportAndScissor(g_graphicsEngine->GetFrameBufferViewport());
 	}

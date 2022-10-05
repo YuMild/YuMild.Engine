@@ -10,6 +10,7 @@ public:
 private:
 	ModelRender m_modelRender;
 	ModelRender m_modelRenderReciever;
+	ModelRender m_stageModelRender;
 	float m_num;
 	Vector3 m_pointLightPosition;
 };

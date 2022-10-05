@@ -88,10 +88,10 @@ namespace nsK2EngineLow
 	void Bloom::Blur(RenderContext& renderContext)
 	{
 		//ガウシアンブラーを4回実行する
-		gaussianBlur[0].ExecuteOnGPU(renderContext, 10);
-		gaussianBlur[1].ExecuteOnGPU(renderContext, 10);
-		gaussianBlur[2].ExecuteOnGPU(renderContext, 10);
-		gaussianBlur[3].ExecuteOnGPU(renderContext, 10);
+		gaussianBlur[0].ExecuteOnGPU(renderContext, 5);
+		gaussianBlur[1].ExecuteOnGPU(renderContext, 5);
+		gaussianBlur[2].ExecuteOnGPU(renderContext, 5);
+		gaussianBlur[3].ExecuteOnGPU(renderContext, 5);
 	}
 
 	void Bloom::Render(RenderContext& rc, RenderTarget& rt)

@@ -14,6 +14,7 @@ namespace  nsK2EngineLow
 	}
 
 	void ModelRender::Init(const char* filePath,
+		bool shadowRecieve,
 		AnimationClip* animationClips,
 		int numAnimationClips,
 		EnModelUpAxis enModelUpAxis)
@@ -21,10 +22,20 @@ namespace  nsK2EngineLow
 		ModelInitData initData;
 
 		initData.m_tkmFilePath = filePath;
-		initData.m_fxFilePath = "Assets/shader/model.fx";
 
-		initData.m_expandConstantBuffer = &g_sceneLight.GetLight();
-		initData.m_expandConstantBufferSize = sizeof(g_sceneLight.GetLight());
+		if (shadowRecieve == true)
+		{
+			initData.m_fxFilePath = "Assets/shader/ShadowReciever.fx";
+			initData.m_expandShaderResoruceView[0] = &g_shadowMapRender.GetRenderTarget().GetRenderTargetTexture();
+			initData.m_expandConstantBuffer = (void*)&g_shadowMapRender.GetLightCamera().GetViewProjectionMatrix();
+			initData.m_expandConstantBufferSize = sizeof(g_shadowMapRender.GetLightCamera().GetViewProjectionMatrix());
+		}
+		else
+		{
+			initData.m_fxFilePath = "Assets/shader/model.fx";
+			initData.m_expandConstantBuffer = &g_sceneLight.GetLight();
+			initData.m_expandConstantBufferSize = sizeof(g_sceneLight.GetLight());
+		}
 
 		if (animationClips == nullptr)
 		{
@@ -43,6 +54,8 @@ namespace  nsK2EngineLow
 		Update();
 
 		InitDrawShadowMapModel(filePath);
+
+		g_renderingEngine.AddModelRenderObject(this);
 	}
 
 	void ModelRender::InitDrawShadowMapModel(const char* filePath)
@@ -54,20 +67,6 @@ namespace  nsK2EngineLow
 		shadowModelInitData.m_colorBufferFormat[0] = DXGI_FORMAT_R32_FLOAT;
 
 		m_drawShadowModel.Init(shadowModelInitData);
-		Update();
-	}
-
-	void ModelRender::InitShadowRecieverModel(const char* filePath)
-	{
-		ModelInitData shadowModelInitData;
-
-		shadowModelInitData.m_tkmFilePath = filePath;
-		shadowModelInitData.m_fxFilePath = "Assets/shader/ShadowReciever.fx";
-		shadowModelInitData.m_expandShaderResoruceView[0] = &g_shadowMapRender.GetRenderTarget().GetRenderTargetTexture();
-		shadowModelInitData.m_expandConstantBuffer = (void*)&g_shadowMapRender.GetLightCamera().GetViewProjectionMatrix();
-		shadowModelInitData.m_expandConstantBufferSize = sizeof(g_shadowMapRender.GetLightCamera().GetViewProjectionMatrix());
-
-		m_shadowRecieverModel.Init(shadowModelInitData);
 		Update();
 	}
 
@@ -115,10 +114,5 @@ namespace  nsK2EngineLow
 	void ModelRender::ShadowMapDraw(RenderContext& renderContext, Camera& camera)
 	{
 		m_drawShadowModel.Draw(renderContext, camera.GetViewMatrix(), camera.GetProjectionMatrix());
-	}
-
-	void ModelRender::ShadowRecieverDraw(RenderContext& renderContext)
-	{
-		m_shadowRecieverModel.Draw(renderContext);
 	}
 }

@@ -23,9 +23,6 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	g_sceneLight.SetEyePosition({ g_camera3D->GetPosition().x, g_camera3D->GetPosition().y, g_camera3D->GetPosition().z });
 	g_sceneLight.SetDirectionColor({ 1.0f,1.0f,1.0f });
 
-	ModelRender stageInitData;
-	stageInitData.InitShadowRecieverModel("Assets/modelData/bg/bg.tkm");
-
 	g_renderingEngine.Init();
 	g_postEffect.Init();
 	g_bloom.Init();
@@ -45,8 +42,6 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 
 		//ƒ‚ƒfƒ‹‚Ì•`‰æ
 		g_renderingEngine.Execute(renderContext);
-		
-		stageInitData.ShadowRecieverDraw(renderContext);
 
 		g_postEffect.Render(renderContext);
 

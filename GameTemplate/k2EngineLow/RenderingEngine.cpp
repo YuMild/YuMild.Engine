@@ -9,6 +9,7 @@ namespace nsK2EngineLow
 
 	void RenderingEngine::Init()
 	{
+		m_shadowMapRender = &g_shadowMapRender;
 		InitMainRenderTarget();
 		InitShadowMapRender();
 	}
@@ -29,7 +30,7 @@ namespace nsK2EngineLow
 
 	void RenderingEngine::InitShadowMapRender()
 	{
-		m_shadowMapRender.Init();
+		m_shadowMapRender->Init();
 	}
 
 	void RenderingEngine::Draw(RenderContext& renderContext)
@@ -57,7 +58,7 @@ namespace nsK2EngineLow
 
 	void RenderingEngine::RenderToShadowMap(RenderContext& renderContext)
 	{
-		m_shadowMapRender.Render(renderContext);
+		m_shadowMapRender->Render(renderContext, m_modelRenderObject);
 	}
 
 	void RenderingEngine::Execute(RenderContext& renderContext)

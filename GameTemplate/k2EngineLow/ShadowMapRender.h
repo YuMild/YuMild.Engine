@@ -17,7 +17,7 @@ namespace nsK2EngineLow
 		/// 描画
 		/// </summary>
 		/// <param name="rc"></param>
-		void Render(RenderContext& renderContext);
+		void Render(RenderContext& renderContext, std::vector<ModelRender*>& modelRenderObject);
 
 		/// <summary>
 		/// シャドウマップ作成用のカメラを取得
@@ -39,7 +39,6 @@ namespace nsK2EngineLow
 
 	private:
 
-		std::vector<ModelRender> m_modelRenders;
 		RenderTarget m_shadowMap;
 		Camera m_lightCamera;
 	};

@@ -9,12 +9,15 @@ namespace  nsK2EngineLow {
 
 		/// <summary>
 		/// モデルの作成
+		/// boolがtrueならシャドウを落とす
 		/// </summary>
 		/// <param name="filePath"></param>
+		/// <param name="shadowRecieve"></param>
 		/// <param name="animationClips"></param>
 		/// <param name="numAnimationClips"></param>
 		/// <param name="enModelUpAxis"></param>
 		void Init(const char* filePath,
+			bool shadowRecieve,
 			AnimationClip* animationClips = nullptr,
 			int numAnimationClips = 0,
 			EnModelUpAxis enModelUpAxis = enModelUpAxisZ);
@@ -23,11 +26,6 @@ namespace  nsK2EngineLow {
 		/// シャドウマップを落とすモデルを作成
 		/// </summary>
 		void InitDrawShadowMapModel(const char* filePath);
-
-		/// <summary>
-		/// シャドウマップを受け取るモデルを作成
-		/// </summary>
-		void InitShadowRecieverModel(const char* filePath);
 
 		/// <summary>
 		/// 更新処理
@@ -52,12 +50,6 @@ namespace  nsK2EngineLow {
 		/// </summary>
 		/// <param name="rc"></param>
 		void ShadowMapDraw(RenderContext& rc, Camera& camera);
-
-		/// <summary>
-		/// シャドウレシーバーモデルの描画
-		/// </summary>
-		/// <param name="rc"></param>
-		void ShadowRecieverDraw(RenderContext& rc);
 
 		/// <summary>
 		/// ポジションを設定

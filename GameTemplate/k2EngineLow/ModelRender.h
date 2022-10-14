@@ -67,7 +67,7 @@ namespace  nsK2EngineLow {
 		/// ƒXƒP[ƒ‹‚ğİ’è
 		/// </summary>
 		/// <param name="scale"></param>
-		void SetScale(Vector3& scale)
+		void SetScale(const Vector3& scale)
 		{
 			m_scale = scale;
 		}

@@ -1,50 +1,60 @@
 #include "stdafx.h"
 #include "Game.h"
 
+namespace
+{
+	Vector3 STAGE_FIRST_POSITION = { 0.0f,0.0f,0.0f };
+	Vector3 STAGE_FIRST_SCALE = { 0.0f,0.0f,0.0f };
+
+	float PLAYER_COLLISION_SIZE_X = 20.0f;
+	float PLAYER_COLLISION_SIZE_Y = 100.0f;
+}
+
 bool Game::Start()
 {
-	m_modelRender.Init("Assets/ModelData/unityChan.tkm",1);
-	m_modelRender.SetPosition({ 0.0f,30.0f,0.0f });
-	m_modelRender.Update();
+	m_playerModelRender.Init("Assets/ModelData/UnityChan/unityChan.tkm",1);
+	m_playerModelRender.SetPosition(m_playerPosition);
+	m_playerModelRender.Update();
 
-	m_modelRenderReciever.Init("Assets/ModelData/Stage.tkm", 3);
-	m_modelRenderReciever.SetPosition({ 0.0f,0.0f,0.0f });
-	m_modelRenderReciever.Update();
+	stageModelRender.Init("Assets/ModelData/Stage/Stage.tkm", 3);
+	stageModelRender.SetPosition(STAGE_FIRST_POSITION);
+	stageModelRender.SetScale(STAGE_FIRST_SCALE);
+	stageModelRender.Update();
+
+	m_characterController.Init
+	(
+		PLAYER_COLLISION_SIZE_X, 
+		PLAYER_COLLISION_SIZE_Y,
+		m_playerPosition
+	);
 
 	return true;
 }
 
 void Game::Update()
 {
-	if (g_pad[0]->IsPress(enButtonB))
-	{
-		g_camera3D->SetPosition({ g_camera3D->GetPosition().x - 10.0f,g_camera3D->GetPosition().y-10.0f,g_camera3D->GetPosition().z - 10.0f });
-		g_camera3D->Update();
-	}
-	if (g_pad[0]->IsPress(enButtonA))
-	{
-		g_camera3D->SetPosition({ g_camera3D->GetPosition().x + 10.0f,g_camera3D->GetPosition().y + 10.0f,g_camera3D->GetPosition().z + 10.0f });
-		g_camera3D->Update();
-	}
-	if (g_pad[0]->IsPress(enButtonX))
-	{
-		m_num += 1.0f;
-		m_pointLightPosition.y -= 1.0f;
-	}
-	if (g_pad[0]->IsPress(enButtonY))
-	{
-		m_num -= 1.0f;
-		m_pointLightPosition.z += 1.0f;
-	}
-
-	m_modelRender.SetPosition({ m_num,0.0f,0.0f });
-	m_modelRender.Update();
+	//ƒvƒŒƒCƒ„[‚ÌˆÚ“®
+	m_moveSpeed.x = 0.0f;
+	m_moveSpeed.z = 0.0f;
+	float lStick_x = g_pad[0]->GetLStickXF();
+	float lStick_y = g_pad[0]->GetLStickYF();
+	Vector3 cameraForward = g_camera3D->GetForward();
+	Vector3 cameraRight = g_camera3D->GetRight();
+	cameraForward.y = 0.0f;
+	cameraForward.Normalize();
+	cameraRight.y = 0.0f;
+	cameraRight.Normalize();
+	m_moveSpeed += cameraForward * lStick_y * 500.0f;
+	m_moveSpeed += cameraRight * lStick_x * 500.0f;
+	m_playerPosition = m_characterController.Execute(m_moveSpeed, g_gameTime->GetFrameDeltaTime());
+	m_playerModelRender.SetPosition(m_playerPosition);
+	m_playerModelRender.Update();
 
 	g_sceneLight.SetPointLightPosition(m_pointLightPosition);
 }
 
 void Game::Render(RenderContext& renderContext)
 {
-	m_modelRender.Draw(renderContext);
-	m_modelRenderReciever.Draw(renderContext);
+	m_playerModelRender.Draw(renderContext);
+	stageModelRender.Draw(renderContext);
 }

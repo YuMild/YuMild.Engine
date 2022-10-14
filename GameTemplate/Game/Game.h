@@ -3,15 +3,24 @@
 class Game : public IGameObject
 {
 public:
+
 	bool Start();
 	void Render(RenderContext& renderContext);
 	void Update();
 
 private:
-	ModelRender m_modelRender;
-	ModelRender m_modelRenderReciever;
-	ModelRender m_stageModelRender;
 
-	float m_num;
+	//モデルレンダー
+	ModelRender m_playerModelRender;
+	ModelRender stageModelRender;
+
+	//キャラクターコントローラー
+	CharacterController m_characterController;
+
+	//プレイヤー
+	Vector3 m_playerPosition;
+	Vector3 m_moveSpeed;
+
+	//ポイントライト
 	Vector3 m_pointLightPosition;
 };

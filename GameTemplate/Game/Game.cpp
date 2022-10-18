@@ -58,35 +58,51 @@ void Game::OperationNormal()
 
 void Game::OperationSetTurret()
 {
-	//上ボタン
+	//上ボタン(8キー)
 	if (g_pad[0]->IsTrigger(enButtonUp))
 	{
 		m_cursorPosition = m_dualGunTurret->GetPosition();
-		m_cursorPosition.z -= TURRET_POSITION_MOVE_NUM;
+		//稼働範囲内なら
+		if (m_cursorPosition.z >= -9600.0f)
+		{
+			m_cursorPosition.z -= TURRET_POSITION_MOVE_NUM;
+		}
 		m_dualGunTurret->SetPosition(m_cursorPosition);
 	}
 
-	//下ボタン
+	//下ボタン(2キー)
 	if (g_pad[0]->IsTrigger(enButtonDown))
 	{
 		m_cursorPosition = m_dualGunTurret->GetPosition();
-		m_cursorPosition.z += TURRET_POSITION_MOVE_NUM;
+		//稼働範囲内なら
+		if (m_cursorPosition.z <= 0.0f)
+		{
+			m_cursorPosition.z += TURRET_POSITION_MOVE_NUM;
+		}
 		m_dualGunTurret->SetPosition(m_cursorPosition);
 	}
 
-	//右ボタン
+	//右ボタン(6キー)
 	if (g_pad[0]->IsTrigger(enButtonRight))
 	{
 		m_cursorPosition = m_dualGunTurret->GetPosition();
-		m_cursorPosition.x -= TURRET_POSITION_MOVE_NUM;
+		//稼働範囲内なら
+		if (m_cursorPosition.x >= -3200.0f)
+		{
+			m_cursorPosition.x -= TURRET_POSITION_MOVE_NUM;
+		}
 		m_dualGunTurret->SetPosition(m_cursorPosition);
 	}
 
-	//左ボタン
+	//左ボタン(4キー)
 	if (g_pad[0]->IsTrigger(enButtonLeft))
 	{
 		m_cursorPosition = m_dualGunTurret->GetPosition();
-		m_cursorPosition.x += TURRET_POSITION_MOVE_NUM;
+		//稼働範囲内なら
+		if (m_cursorPosition.x <= 3200.0f)
+		{
+			m_cursorPosition.x += TURRET_POSITION_MOVE_NUM;
+		}
 		m_dualGunTurret->SetPosition(m_cursorPosition);
 	}
 
@@ -95,6 +111,18 @@ void Game::OperationSetTurret()
 	{
 		//操作モードを変更
 		m_operationState = 0;
+	}
+
+	//Xボタン(Lボタン)
+	if (g_pad[0]->IsTrigger(enButtonX))
+	{
+		m_dualGunTurret->RotationTurnRight();
+	}
+
+	//Yボタン(Iボタン)
+	if (g_pad[0]->IsTrigger(enButtonY))
+	{
+		m_dualGunTurret->RotationTurnLeft();
 	}
 
 	//Aボタン(Jキー)

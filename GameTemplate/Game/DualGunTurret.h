@@ -28,9 +28,32 @@ public:
 		return m_position;
 	}
 
+	/// <summary>
+	/// ŽžŒv‰ñ‚è‚É‰ñ“]
+	/// </summary>
+	/// <param name="rotation"></param>
+	/// <returns></returns>
+	Quaternion RotationTurnRight()
+	{
+		m_rotation.AddRotationDegY(180.0f);
+		return m_rotation;
+	}
+
+	/// <summary>
+	/// ”½ŽžŒv‰ñ‚è‚É‰ñ“]
+	/// </summary>
+	/// <param name="rotation"></param>
+	/// <returns></returns>
+	Quaternion RotationTurnLeft()
+	{
+		m_rotation.AddRotationDegY(-180.0f);
+		return m_rotation;
+	}
+
 private:
 
 	ModelRender		m_modelRender;
 
 	Vector3			m_position;
+	Quaternion		m_rotation;
 };

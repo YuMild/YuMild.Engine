@@ -1,60 +1,134 @@
 #include "stdafx.h"
 #include "Game.h"
 
+#include "DualGunTurret.h"
+
 namespace
 {
 	Vector3 STAGE_FIRST_POSITION = { 0.0f,0.0f,0.0f };
-	Vector3 STAGE_FIRST_SCALE = { 0.0f,0.0f,0.0f };
+	Vector3 STAGE_FIRST_SCALE = { 1.0f,1.0f,1.0f };
 
 	float PLAYER_COLLISION_SIZE_X = 20.0f;
 	float PLAYER_COLLISION_SIZE_Y = 100.0f;
+
+	float TURRET_POSITION_MOVE_NUM = 393.0f;
 }
 
 bool Game::Start()
 {
-	m_playerModelRender.Init("Assets/ModelData/UnityChan/unityChan.tkm",1);
-	m_playerModelRender.SetPosition(m_playerPosition);
-	m_playerModelRender.Update();
+	m_gameCamera = NewGO<GameCamera>(0, "gameCamera");
 
-	stageModelRender.Init("Assets/ModelData/Stage/Stage.tkm", 3);
-	stageModelRender.SetPosition(STAGE_FIRST_POSITION);
-	stageModelRender.SetScale(STAGE_FIRST_SCALE);
-	stageModelRender.Update();
+	m_stageModelRender.Init("Assets/ModelData/Stage/Stage.tkm", 3);
+	m_stageModelRender.SetPosition(STAGE_FIRST_POSITION);
+	m_stageModelRender.SetScale(STAGE_FIRST_SCALE);
+	m_stageModelRender.Update();
 
-	m_characterController.Init
-	(
-		PLAYER_COLLISION_SIZE_X, 
-		PLAYER_COLLISION_SIZE_Y,
-		m_playerPosition
-	);
+	m_gridModelRender.Init("Assets/ModelData/Stage/Grid.tkm", 3);
+	m_gridModelRender.SetPosition(STAGE_FIRST_POSITION);
+	m_gridModelRender.SetScale(STAGE_FIRST_SCALE);
+	m_gridModelRender.Update();
 
 	return true;
 }
 
+void Game::OperationNormal()
+{
+	//Startボタン(Enterキー)
+	if (g_pad[0]->IsTrigger(enButtonStart))
+	{
+		//操作モードを変更
+		m_operationState = 1;
+		m_dualGunTurret = NewGO<DualGunTurret>(0, "dualGunTurret");
+	}
+
+	//Aボタン(Jキー)
+	if (g_pad[0]->IsPress(enButtonA))
+	{
+		//カメラの高度を上げる
+		g_camera3D->SetPosition({ g_camera3D->GetPosition().x,g_camera3D->GetPosition().y + 100.0f,g_camera3D->GetPosition().z });
+	}
+
+	//Bボタン(Kキー)
+	if (g_pad[0]->IsPress(enButtonB))
+	{
+		//カメラの高度を下げる
+		g_camera3D->SetPosition({ g_camera3D->GetPosition().x,g_camera3D->GetPosition().y - 100.0f,g_camera3D->GetPosition().z });
+	}
+}
+
+void Game::OperationSetTurret()
+{
+	//上ボタン
+	if (g_pad[0]->IsTrigger(enButtonUp))
+	{
+		m_cursorPosition = m_dualGunTurret->GetPosition();
+		m_cursorPosition.z -= TURRET_POSITION_MOVE_NUM;
+		m_dualGunTurret->SetPosition(m_cursorPosition);
+	}
+
+	//下ボタン
+	if (g_pad[0]->IsTrigger(enButtonDown))
+	{
+		m_cursorPosition = m_dualGunTurret->GetPosition();
+		m_cursorPosition.z += TURRET_POSITION_MOVE_NUM;
+		m_dualGunTurret->SetPosition(m_cursorPosition);
+	}
+
+	//右ボタン
+	if (g_pad[0]->IsTrigger(enButtonRight))
+	{
+		m_cursorPosition = m_dualGunTurret->GetPosition();
+		m_cursorPosition.x -= TURRET_POSITION_MOVE_NUM;
+		m_dualGunTurret->SetPosition(m_cursorPosition);
+	}
+
+	//左ボタン
+	if (g_pad[0]->IsTrigger(enButtonLeft))
+	{
+		m_cursorPosition = m_dualGunTurret->GetPosition();
+		m_cursorPosition.x += TURRET_POSITION_MOVE_NUM;
+		m_dualGunTurret->SetPosition(m_cursorPosition);
+	}
+
+	//Startボタン(Enterキー)
+	if (g_pad[0]->IsTrigger(enButtonSelect) && m_operationState == 1)
+	{
+		//操作モードを変更
+		m_operationState = 0;
+	}
+
+	//Aボタン(Jキー)
+	if (g_pad[0]->IsPress(enButtonA))
+	{
+		//カメラの高度を上げる
+		g_camera3D->SetPosition({ g_camera3D->GetPosition().x,g_camera3D->GetPosition().y + 100.0f,g_camera3D->GetPosition().z });
+	}
+
+	//Bボタン(Kキー)
+	if (g_pad[0]->IsPress(enButtonB))
+	{
+		//カメラの高度を下げる
+		g_camera3D->SetPosition({ g_camera3D->GetPosition().x,g_camera3D->GetPosition().y - 100.0f,g_camera3D->GetPosition().z });
+	}
+}
+
 void Game::Update()
 {
-	//プレイヤーの移動
-	m_moveSpeed.x = 0.0f;
-	m_moveSpeed.z = 0.0f;
-	float lStick_x = g_pad[0]->GetLStickXF();
-	float lStick_y = g_pad[0]->GetLStickYF();
-	Vector3 cameraForward = g_camera3D->GetForward();
-	Vector3 cameraRight = g_camera3D->GetRight();
-	cameraForward.y = 0.0f;
-	cameraForward.Normalize();
-	cameraRight.y = 0.0f;
-	cameraRight.Normalize();
-	m_moveSpeed += cameraForward * lStick_y * 500.0f;
-	m_moveSpeed += cameraRight * lStick_x * 500.0f;
-	m_playerPosition = m_characterController.Execute(m_moveSpeed, g_gameTime->GetFrameDeltaTime());
-	m_playerModelRender.SetPosition(m_playerPosition);
-	m_playerModelRender.Update();
-
-	g_sceneLight.SetPointLightPosition(m_pointLightPosition);
+	if (m_operationState == 0)
+	{
+		OperationNormal();
+	}
+	if (m_operationState == 1)
+	{
+		OperationSetTurret();
+	}
 }
 
 void Game::Render(RenderContext& renderContext)
 {
-	m_playerModelRender.Draw(renderContext);
-	stageModelRender.Draw(renderContext);
+	m_stageModelRender.Draw(renderContext);
+	if (m_operationState == 1)
+	{
+		m_gridModelRender.Draw(renderContext);
+	}
 }

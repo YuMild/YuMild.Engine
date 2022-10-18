@@ -1,5 +1,9 @@
 #pragma once
 
+#include "DualGunTurret.h"
+#include "FontRender.h"
+#include "GameCamera.h"
+
 class Game : public IGameObject
 {
 public:
@@ -8,19 +12,28 @@ public:
 	void Render(RenderContext& renderContext);
 	void Update();
 
+	void OperationNormal();
+	void OperationSetTurret();
+
+	int GetOperationState() const
+	{
+		return m_operationState;
+	}
+
 private:
 
-	//モデルレンダー
-	ModelRender m_playerModelRender;
-	ModelRender stageModelRender;
-
-	//キャラクターコントローラー
-	CharacterController m_characterController;
+	DualGunTurret*				m_dualGunTurret;
+	GameCamera*					m_gameCamera;
+	
+	//レンダー
+	ModelRender					m_stageModelRender;
+	ModelRender					m_gridModelRender;
 
 	//プレイヤー
-	Vector3 m_playerPosition;
-	Vector3 m_moveSpeed;
+	Vector3						m_cursorPosition;
 
 	//ポイントライト
-	Vector3 m_pointLightPosition;
+	Vector3						m_pointLightPosition;
+
+	int							m_operationState = 0;
 };

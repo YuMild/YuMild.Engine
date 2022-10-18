@@ -4,6 +4,9 @@
     <Filter Include="system">
       <UniqueIdentifier>{22dd8095-74f9-46df-81a1-36675a040b1f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Turrets">
+      <UniqueIdentifier>{5166ca1d-efa3-49a6-963f-666fb4580a8d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp" />
@@ -13,6 +16,9 @@
     </ClCompile>
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameCamera.cpp" />
+    <ClCompile Include="DualGunTurret.cpp">
+      <Filter>Turrets</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -21,5 +27,8 @@
     </ClInclude>
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameCamera.h" />
+    <ClInclude Include="DualGunTurret.h">
+      <Filter>Turrets</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

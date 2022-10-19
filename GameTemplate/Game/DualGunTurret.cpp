@@ -12,7 +12,7 @@ bool DualGunTurret::Start()
 	m_position = FIRST_POSITION;
 	m_rotation.SetRotationDegY(FIRST_ROTATION_Y);
 
-	m_modelRender.Init("Assets/ModelData/Turret/DualGunTurret.tkm", 3);
+	m_modelRender.Init("Assets/ModelData/Turret/DualGunTurret.tkm", ShadowRecieveAndDrop,true);
 	m_modelRender.SetPosition(m_position);
 	m_modelRender.SetRotation(m_rotation);
 	m_modelRender.SetScale({ 1.0f,1.0f,1.0f });

@@ -165,7 +165,6 @@ namespace nsK2EngineLow
 		Vector3 m_ambientLight;
 		float m_pad1;
 		Vector3 m_eyePos;
-		float m_pad2;
 	};
 
 	class SceneLight

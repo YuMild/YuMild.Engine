@@ -1,28 +1,29 @@
+
 // YuMild.Engine
 
 // ディレクションライト
 struct DirectionLight
 {
-    float3 direction;               //ライトの方向
-    float3 color;                   //ライトのカラー
+    float3 direction;       //ライトの方向
+    float3 color;           //ライトのカラー
 };
 
 // ポイントライト
 struct PointLight
 {
-    float3 position;                //位置
-    float3 color;                   //カラー
-    float range;                    //影響範囲
+    float3 position;        //位置
+    float3 color;           //カラー
+    float range;            //影響範囲
 };
 
 // スポットライト
 struct SpotLight
 {
-    float3 position;                //位置
-    float3 color;                   //カラー
-    float range;                    //影響範囲
-    float3 direction;               //方向
-    float angle;                    //角度
+    float3 position;        //位置
+    float3 color;           //カラー
+    float range;            //影響範囲
+    float3 direction;       //方向
+    float angle;            //角度
 };
 
 ////////////////////////////////////////////////
@@ -38,12 +39,12 @@ cbuffer ModelCb : register(b0)
 
 cbuffer LightCb : register(b1)
 {
-    DirectionLight	directionLight;
-    PointLight		pointLight;
-    SpotLight		spotLight;
-    float3          ambientLight;
-	
-    float3          eyePos;
+    DirectionLight directionLight;
+    PointLight pointLight;
+    SpotLight spotLight;
+    float3 ambientLight;
+
+    float3 eyePos;
 }
 
 ////////////////////////////////////////////////
@@ -53,43 +54,43 @@ cbuffer LightCb : register(b1)
 // スキニング用の頂点データをひとまとめ。
 struct SSkinVSIn
 {
-	int4  Indices  	: BLENDINDICES0;
+    int4 Indices    : BLENDINDICES0;
     float4 Weights  : BLENDWEIGHT0;
 };
 
 // 頂点シェーダーへの入力。
 struct SVSIn
 {
-    float4 pos      : POSITION;     //モデルの頂点座標
-    float3 normal   : NORMAL;       //法線
-    float2 uv       : TEXCOORD0;    //UV座標
+    float4 pos      : POSITION;         //モデルの頂点座標
+    float3 normal   : NORMAL;           //法線
+    float2 uv       : TEXCOORD0;        //UV座標
     
-    float3 tangent  : TANGENT;      //接ベクトル
-    float3 biNormal : BINORMAL;     //従ベクトル
+    float3 tangent  : TANGENT;          //接ベクトル
+    float3 biNormal : BINORMAL;         //従ベクトル
     
-	SSkinVSIn skinVert;				//スキン用のデータ
+    SSkinVSIn skinVert;                 //スキン用のデータ
 };
 
 // ピクセルシェーダーへの入力。
 struct SPSIn
 {
-	float4 pos 		: SV_POSITION;	//スクリーン空間でのピクセルの座標
-    float3 normal	: NORMAL;		//法線
-	float2 uv 		: TEXCOORD0;	//uv座標
-    float3 worldPos : TEXCOORD1;	//ワールド座標
+    float4 pos      : SV_POSITION;      //スクリーン空間でのピクセルの座標
+    float3 normal   : NORMAL;           //法線
+    float2 uv       : TEXCOORD0;        //uv座標
+    float3 worldPos : TEXCOORD1;        //ワールド座標
     
-    float3 tangent  : TANGENT;      //接ベクトル
-    float3 biNormal : BINORMAL;     //従ベクトル
+    float3 tangent  : TANGENT;          //接ベクトル
+    float3 biNormal : BINORMAL;         //従ベクトル
 };
 
 ////////////////////////////////////////////////
 // グローバル変数。
 ////////////////////////////////////////////////
-Texture2D<float4> g_texture                 : register(t0);     //アルベドマップ
-Texture2D<float4> g_normalMap               : register(t1);     //法線マップ
-Texture2D<float4> g_specularMap             : register(t2);     //スペキュラマップ
-StructuredBuffer<float4x4> g_boneMatrix     : register(t3);		//ボーン行列
-sampler g_sampler                           : register(s0);		//サンプラステート
+Texture2D<float4> g_texture : register(t0);             //アルベドマップ
+Texture2D<float4> g_normalMap : register(t1);           //法線マップ
+Texture2D<float4> g_specularMap : register(t2);         //スペキュラマップ
+StructuredBuffer<float4x4> g_boneMatrix : register(t3); //ボーン行列
+sampler g_sampler : register(s0);                       //サンプラステート
 
 ////////////////////////////////////////////////
 // 関数定義。
@@ -100,8 +101,8 @@ sampler g_sampler                           : register(s0);		//サンプラス�
 /// </summary>
 float4x4 CalcSkinMatrix(SSkinVSIn skinVert)
 {
-	float4x4 skinning = 0;	
-	float w = 0.0f;
+    float4x4 skinning = 0;
+    float w = 0.0f;
 	[unroll]
     for (int i = 0; i < 3; i++)
     {
@@ -119,26 +120,29 @@ float4x4 CalcSkinMatrix(SSkinVSIn skinVert)
 /// </summary>
 SPSIn VSMainCore(SVSIn vsIn, uniform bool hasSkin)
 {
-	SPSIn psIn;
-	float4x4 m;
-	if( hasSkin ){
-		m = CalcSkinMatrix(vsIn.skinVert);
-	}else{
-		m = mWorld;
-	}
-	psIn.pos = mul(m, vsIn.pos);
+    SPSIn psIn;
+    float4x4 m;
+    if (hasSkin)
+    {
+        m = CalcSkinMatrix(vsIn.skinVert);
+    }
+    else
+    {
+        m = mWorld;
+    }
+    psIn.pos = mul(m, vsIn.pos);
     psIn.worldPos = vsIn.pos;
-	psIn.pos = mul(mView, psIn.pos);
-	psIn.pos = mul(mProj, psIn.pos);
+    psIn.pos = mul(mView, psIn.pos);
+    psIn.pos = mul(mProj, psIn.pos);
     psIn.normal = normalize(mul(mWorld, vsIn.normal));
 	
     //接ベクトルと従ベクトルをワールド行列に変換する
     psIn.tangent = normalize(mul(mWorld, vsIn.tangent));
     psIn.biNormal = normalize(mul(mWorld, vsIn.biNormal));
     
-	psIn.uv = vsIn.uv;
+    psIn.uv = vsIn.uv;
 
-	return psIn;
+    return psIn;
 }
 
 /// <summary>
@@ -146,21 +150,21 @@ SPSIn VSMainCore(SVSIn vsIn, uniform bool hasSkin)
 /// </summary>
 SPSIn VSMain(SVSIn vsIn)
 {
-	return VSMainCore(vsIn, false);
+    return VSMainCore(vsIn, false);
 }
 
 /// <summary>
 /// スキンありメッシュの頂点シェーダーのエントリー関数
 /// </summary>
-SPSIn VSSkinMain( SVSIn vsIn ) 
+SPSIn VSSkinMain(SVSIn vsIn)
 {
-	return VSMainCore(vsIn, true);
+    return VSMainCore(vsIn, true);
 }
 
 /// <summary>
 /// ピクセルシェーダーのエントリー関数。
 /// </summary>
-float4 PSMain( SPSIn psIn ) : SV_Target0
+float4 PSMain(SPSIn psIn) : SV_Target0
 {
     float3 normal = psIn.normal;
     //法線マップからタンジェントスペースの法線をサンプリングする
@@ -179,7 +183,7 @@ float4 PSMain( SPSIn psIn ) : SV_Target0
     //ピクセルの法線とライトの方向の内積を計算して-1を乗算
     float t = dot(normal, directionLight.direction) * -1.0f;
 	//内積の結果が0以下なら0にする
-	if(	t < 0.0f)
+    if (t < 0.0f)
     {
         t = 0.0f;
     }
@@ -197,7 +201,7 @@ float4 PSMain( SPSIn psIn ) : SV_Target0
 	//鏡面反射の強さを求める
     t = dot(reflectionVectorDirectionLight, toEyeDirectionLight);
     //内積の結果が0以下なら0にする
-	if( t < 0.0f)
+    if (t < 0.0f)
     {
         t = 0.0f;
     }
@@ -251,7 +255,7 @@ float4 PSMain( SPSIn psIn ) : SV_Target0
     if (affect < 0.0f)
     {
         affect = 0.0f;
-    } 
+    }
     //影響の仕方を指数関数的にする
     affect = pow(affect, 3.0f);
     //拡散反射光と鏡面反射光に影響率を乗算して影響を弱める

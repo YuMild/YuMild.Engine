@@ -1,5 +1,16 @@
 #pragma once
 
+namespace
+{
+	enum ShadowMode
+	{
+		ShadowDrop,
+		ShadowRecieve,
+		ShadowRecieveAndDrop,
+		ShadowNone
+	};
+}
+
 namespace  nsK2EngineLow {
 	class ModelRender : public Noncopyable
 	{
@@ -8,19 +19,19 @@ namespace  nsK2EngineLow {
 		~ModelRender();
 
 		/// <summary>
-		/// モデルの作成
-		/// 1=シャドウを落とす
-		/// 2=シャドウを受けつつ落とす
-		/// 3=シャドウを受ける
-		/// 4=何もしない
+		/// モデルの描画
+		/// シャドウ
+		/// ShadowDrop = シャドウを落とす
+		/// ShadowRecieve = シャドウを受ける
+		/// ShadowRecieveAndDrop = シャドウを受けつつ落とす
+		/// ShadowNone = シャドウイングをしない
+		/// 半透明
+		/// true = 半透明描画
 		/// </summary>
 		/// <param name="filePath"></param>
-		/// <param name="shadowRecieve"></param>
-		/// <param name="animationClips"></param>
-		/// <param name="numAnimationClips"></param>
-		/// <param name="enModelUpAxis"></param>
 		void Init(const char* filePath,
-			int shadow,
+			int shadow = ShadowNone,
+			bool trans = false,
 			AnimationClip* animationClips = nullptr,
 			int numAnimationClips = 0,
 			EnModelUpAxis enModelUpAxis = enModelUpAxisZ);
@@ -128,6 +139,7 @@ namespace  nsK2EngineLow {
 			EnModelUpAxis enModelUpAxis);
 
 	private:
+
 		AnimationClip*	m_animationClips = nullptr;
 		Animation		m_animation;
 		int				m_numAnimationClips = 0;

@@ -25,6 +25,9 @@
     <ClCompile Include="UFO.cpp">
       <Filter>Enemy</Filter>
     </ClCompile>
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Stage.cpp" />
+    <ClCompile Include="SpawnManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -39,5 +42,8 @@
     <ClInclude Include="UFO.h">
       <Filter>Enemy</Filter>
     </ClInclude>
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="Stage.h" />
+    <ClInclude Include="SpawnManager.h" />
   </ItemGroup>
 </Project>

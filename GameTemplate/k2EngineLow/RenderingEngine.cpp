@@ -54,6 +54,8 @@ namespace nsK2EngineLow
 
 		//レンダリングターゲットへの書き込み終了待ち
 		renderContext.WaitUntilFinishDrawingToRenderTargets(1, renderTargets);
+
+		m_modelRenderObject.clear();
 	}
 
 	void RenderingEngine::RenderToShadowMap(RenderContext& renderContext)

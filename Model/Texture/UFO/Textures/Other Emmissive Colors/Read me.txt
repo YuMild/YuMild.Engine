@@ -1,1 +1,0 @@
-Just replace the diffuse(Color) and emission textures with these ones.

@@ -80,6 +80,7 @@ namespace nsK2EngineLow
 		spriteInitData.m_height = 900;
 		//画像描画用のシェーダーのファイルパスを指定する
 		spriteInitData.m_fxFilePath = "Assets/shader/sprite.fx";
+		//spriteInitData.m_alphaBlendMode = AlphaBlendMode_Add;
 
 		//作成した初期化情報をもとにスプライトを初期化する
 		copyToFrameBufferSprite.Init(spriteInitData);

@@ -2,6 +2,9 @@
 
 #include "UFO.h"
 
+/// <summary>
+/// 敵オブジェクトのスポーンを管理するクラス
+/// </summary>
 class SpawnManager : public IGameObject
 {
 public:
@@ -16,5 +19,5 @@ private:
 
 	UFO*			m_ufo;
 
-	float			m_spawnTimer_UFO = 0;
+	float			m_spawnTimer_UFO = 0.0f;
 };

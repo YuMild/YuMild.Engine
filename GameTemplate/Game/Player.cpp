@@ -25,7 +25,7 @@ void Player::OperationNormal()
 	if (g_pad[0]->IsTrigger(enButtonStart))
 	{
 		//操作モードを変更
-		m_operationState = 1;
+		m_operationState = enOparationStateSetTurret;
 		m_dualGunTurret = NewGO<DualGunTurret>(0, "dualGunTurret");
 	}
 
@@ -95,10 +95,10 @@ void Player::OperationSetTurret()
 	}
 
 	//Startボタン(Enterキー)
-	if (g_pad[0]->IsTrigger(enButtonSelect) && m_operationState == 1)
+	if (g_pad[0]->IsTrigger(enButtonSelect) && m_operationState == enOparationStateSetTurret)
 	{
 		//操作モードを変更
-		m_operationState = 0;
+		m_operationState = enOparationStateNormal;
 	}
 
 	//Xボタン(Lボタン)
@@ -130,11 +130,11 @@ void Player::OperationSetTurret()
 
 void Player::Update()
 {
-	if (m_operationState == 0)
+	if (m_operationState == enOparationStateNormal)
 	{
 		OperationNormal();
 	}
-	if (m_operationState == 1)
+	if (m_operationState == enOparationStateSetTurret)
 	{
 		OperationSetTurret();
 	}
@@ -142,7 +142,7 @@ void Player::Update()
 
 void Player::Render(RenderContext& renderContext)
 {
-	if (m_operationState == 1)
+	if (m_operationState == enOparationStateSetTurret)
 	{
 		m_gridModelRender.Draw(renderContext);
 	}

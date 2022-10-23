@@ -1,5 +1,8 @@
 #pragma once
 
+/// <summary>
+/// UFO
+/// </summary>
 class UFO : public IGameObject
 {
 public:

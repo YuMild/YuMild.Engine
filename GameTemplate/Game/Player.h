@@ -19,6 +19,14 @@ public:
 		return m_operationState;
 	}
 
+public:
+
+	enum OparationState
+	{
+		enOparationStateNormal,
+		enOparationStateSetTurret
+	};
+
 private:
 
 	DualGunTurret*				m_dualGunTurret;
@@ -28,5 +36,5 @@ private:
 
 	Vector3						m_cursorPosition;
 
-	int							m_operationState = 0;
+	int							m_operationState = enOparationStateNormal;
 };

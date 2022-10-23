@@ -5,6 +5,9 @@
 #include "SpawnManager.h"
 #include "Stage.h"
 
+/// <summary>
+/// クラスの生成削除を行うクラス
+/// </summary>
 class Game : public IGameObject
 {
 public:

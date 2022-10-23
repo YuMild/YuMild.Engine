@@ -16,7 +16,7 @@ namespace
 	Vector3 POINT_6_POSITION = { 0.0f,0.0f,-2800.0f };
 	Vector3 POINT_7_POSITION = { 0.0f,0.0f,0.0f };
 
-	float MOVE_SPEED = 100.0f;
+	float MOVE_SPEED = 15.0f;
 }
 
 UFO::UFO()

@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "Game.h"
 
-
 bool Game::Start()
 {
 	m_gameCamera = NewGO<GameCamera>(0, "gameCamera");

@@ -10,6 +10,9 @@
     <Filter Include="Enemy">
       <UniqueIdentifier>{64433bd5-acdf-4995-965f-388b4aaa1f58}</UniqueIdentifier>
     </Filter>
+    <Filter Include="UI">
+      <UniqueIdentifier>{2466c311-7a7b-4871-b510-5d3a77fc9793}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp" />
@@ -28,6 +31,9 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Stage.cpp" />
     <ClCompile Include="SpawnManager.cpp" />
+    <ClCompile Include="LeftWindow.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -45,5 +51,8 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="Stage.h" />
     <ClInclude Include="SpawnManager.h" />
+    <ClInclude Include="LeftWindow.h">
+      <Filter>UI</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

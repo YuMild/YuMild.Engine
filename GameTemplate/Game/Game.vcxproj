@@ -226,6 +226,7 @@
     <ClCompile Include="DualGunTurret.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameCamera.cpp" />
+    <ClCompile Include="LeftWindow.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="SpawnManager.cpp" />
@@ -242,6 +243,7 @@
     <ClInclude Include="DualGunTurret.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameCamera.h" />
+    <ClInclude Include="LeftWindow.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="SpawnManager.h" />
     <ClInclude Include="Stage.h" />

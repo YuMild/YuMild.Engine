@@ -4,16 +4,16 @@
 namespace
 {
 	//初期値
-	Vector3 FIRST_POSITION = { 0.0f,0.0f,-9600.0f };
+	Vector3 FIRST_POSITION = { 0.0f,0.0f,-8000.0f };
 	float FIRST_ROTATION_Y = 0.0f;
 
 	//ポイントポジション
-	Vector3 POINT_1_POSITION = { 0.0f,0.0f,-6700.0f };
-	Vector3 POINT_2_POSITION = { -2800.0f,0.0f,-6700.0f };
-	Vector3 POINT_3_POSITION = { -2800.0f,0.0f,-4000.0f };
-	Vector3 POINT_4_POSITION = { 2800.0f,0.0f,-4000.0f };
-	Vector3 POINT_5_POSITION = { 2800.0f,0.0f,-2800.0f };
-	Vector3 POINT_6_POSITION = { 0.0f,0.0f,-2800.0f };
+	Vector3 POINT_1_POSITION = { 0.0f,0.0f,-5900.0f };
+	Vector3 POINT_2_POSITION = { -2750.0f,0.0f,-5900.0f };
+	Vector3 POINT_3_POSITION = { -2750.0f,0.0f,-3150.0f };
+	Vector3 POINT_4_POSITION = { 2750.0f,0.0f,-3150.0f };
+	Vector3 POINT_5_POSITION = { 2750.0f,0.0f,-2000.0f };
+	Vector3 POINT_6_POSITION = { 0.0f,0.0f,-2000.0f };
 	Vector3 POINT_7_POSITION = { 0.0f,0.0f,0.0f };
 
 	float MOVE_SPEED = 15.0f;
@@ -58,7 +58,7 @@ void UFO::Move()
 {
 	Vector3 difference = m_target - m_position;
 
-	if (difference.Length() <= 50.0f)
+	if (difference.Length() <= 10.0f)
 	{
 		if (m_pointNum < 6)
 		{

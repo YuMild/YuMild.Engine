@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "Player.h"
 
+#include "LeftWindow.h"
+
 namespace
 {
 	Vector3 STAGE_FIRST_POSITION = { 0.0f,0.0f,0.0f };
@@ -11,6 +13,8 @@ namespace
 
 bool Player::Start()
 {
+	m_leftWindow = FindGO<LeftWindow>("leftWindow");
+
 	m_gridModelRender.Init("Assets/ModelData/Stage/Grid.tkm", ShadowRecieveAndDrop);
 	m_gridModelRender.SetPosition(STAGE_FIRST_POSITION);
 	m_gridModelRender.SetScale(STAGE_FIRST_SCALE);
@@ -46,36 +50,36 @@ void Player::OperationNormal()
 void Player::OperationSelectTurret()
 {
 	//上ボタン(8キー)
-	if (g_pad[0]->IsTrigger(enButtonUp) && m_selectTurretNumber >= 4)
+	if (g_pad[0]->IsTrigger(enButtonUp))
 	{
-		m_selectTurretNumber -= 4;
+		m_leftWindow->TurretCursorUp();
 	}
 
 	//下ボタン(2キー)
-	if (g_pad[0]->IsTrigger(enButtonDown) && m_selectTurretNumber <= 7)
+	if (g_pad[0]->IsTrigger(enButtonDown))
 	{
-		m_selectTurretNumber += 4;
+		m_leftWindow->TurretCursorDown();
 	}
 
 	//右ボタン(6キー)
-	if (g_pad[0]->IsTrigger(enButtonRight) && m_selectTurretNumber != 3 && m_selectTurretNumber != 7 && m_selectTurretNumber != 11)
+	if (g_pad[0]->IsTrigger(enButtonRight))
 	{
-		m_selectTurretNumber += 1;
+		m_leftWindow->TurretCursorRight();
 	}
 
 	//左ボタン(4キー)
-	if (g_pad[0]->IsTrigger(enButtonLeft) && m_selectTurretNumber != 0 && m_selectTurretNumber != 4 && m_selectTurretNumber != 8)
+	if (g_pad[0]->IsTrigger(enButtonLeft))
 	{
-		m_selectTurretNumber -= 1;
+		m_leftWindow->TurretCursorLeft();
 	}
 
 	//Startボタン(Enterキー)
-	if (g_pad[0]->IsTrigger(enButtonSelect) && m_operationState == enOparationStateSelectTurret)
+	if (g_pad[0]->IsTrigger(enButtonStart) && m_operationState == enOparationStateSelectTurret)
 	{
-		if (m_selectTurretNumber == enTurretDualGunTurret)
-		{
+		//if (m_leftWindow->GetSelectTurretNumber() == enTurretDualGunTurret)
+		//{
 			m_dualGunTurret = NewGO<DualGunTurret>(0, "dualGunTurret");
-		}
+		//}
 		//操作モードを変更
 		m_operationState = enOparationStateSetTurret;
 	}
@@ -132,7 +136,7 @@ void Player::OperationSetTurret()
 	}
 
 	//Startボタン(Enterキー)
-	if (g_pad[0]->IsTrigger(enButtonSelect) && m_operationState == enOparationStateSetTurret)
+	if (g_pad[0]->IsTrigger(enButtonStart) && m_operationState == enOparationStateSetTurret)
 	{
 		//操作モードを変更
 		m_operationState = enOparationStateNormal;

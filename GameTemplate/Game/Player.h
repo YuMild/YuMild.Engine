@@ -1,7 +1,8 @@
 #pragma once
 
 #include "DualGunTurret.h"
-#include "UFO.h"
+
+class LeftWindow;
 
 class Player : public IGameObject
 {
@@ -15,6 +16,10 @@ public:
 	void OperationSelectTurret();
 	void OperationSetTurret();
 
+	/// <summary>
+	/// 操作ステートを取得
+	/// </summary>
+	/// <returns></returns>
 	int GetOperationState() const
 	{
 		return m_operationState;
@@ -48,12 +53,11 @@ public:
 private:
 
 	DualGunTurret*				m_dualGunTurret;
-	UFO*						m_ufo;
+	LeftWindow*					m_leftWindow;
 
 	ModelRender					m_gridModelRender;
 
 	Vector3						m_cursorPosition;
 
 	int							m_operationState = enOparationStateNormal;
-	int							m_selectTurretNumber = 0;
 };

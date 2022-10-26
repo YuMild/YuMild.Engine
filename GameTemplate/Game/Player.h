@@ -12,6 +12,7 @@ public:
 	void Render(RenderContext& renderContext);
 
 	void OperationNormal();
+	void OperationSelectTurret();
 	void OperationSetTurret();
 
 	int GetOperationState() const
@@ -24,7 +25,24 @@ public:
 	enum OparationState
 	{
 		enOparationStateNormal,
+		enOparationStateSelectTurret,
 		enOparationStateSetTurret
+	};
+
+	enum Turret
+	{
+		enTurretDualGunTurret,
+		enTurretLaserTurret,
+		enTurretLocketTurret,
+		en3,
+		en4,
+		en5,
+		en6,
+		en7,
+		en8,
+		en9,
+		en10,
+		en11
 	};
 
 private:
@@ -37,4 +55,5 @@ private:
 	Vector3						m_cursorPosition;
 
 	int							m_operationState = enOparationStateNormal;
+	int							m_selectTurretNumber = 0;
 };

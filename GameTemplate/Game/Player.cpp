@@ -25,8 +25,7 @@ void Player::OperationNormal()
 	if (g_pad[0]->IsTrigger(enButtonStart))
 	{
 		//操作モードを変更
-		m_operationState = enOparationStateSetTurret;
-		m_dualGunTurret = NewGO<DualGunTurret>(0, "dualGunTurret");
+		m_operationState = enOparationStateSelectTurret;
 	}
 
 	//Aボタン(Jキー)
@@ -41,6 +40,44 @@ void Player::OperationNormal()
 	{
 		//カメラの高度を下げる
 		g_camera3D->SetPosition({ g_camera3D->GetPosition().x,g_camera3D->GetPosition().y - 100.0f,g_camera3D->GetPosition().z });
+	}
+}
+
+void Player::OperationSelectTurret()
+{
+	//上ボタン(8キー)
+	if (g_pad[0]->IsTrigger(enButtonUp) && m_selectTurretNumber >= 4)
+	{
+		m_selectTurretNumber -= 4;
+	}
+
+	//下ボタン(2キー)
+	if (g_pad[0]->IsTrigger(enButtonDown) && m_selectTurretNumber <= 7)
+	{
+		m_selectTurretNumber += 4;
+	}
+
+	//右ボタン(6キー)
+	if (g_pad[0]->IsTrigger(enButtonRight) && m_selectTurretNumber != 3 && m_selectTurretNumber != 7 && m_selectTurretNumber != 11)
+	{
+		m_selectTurretNumber += 1;
+	}
+
+	//左ボタン(4キー)
+	if (g_pad[0]->IsTrigger(enButtonLeft) && m_selectTurretNumber != 0 && m_selectTurretNumber != 4 && m_selectTurretNumber != 8)
+	{
+		m_selectTurretNumber -= 1;
+	}
+
+	//Startボタン(Enterキー)
+	if (g_pad[0]->IsTrigger(enButtonSelect) && m_operationState == enOparationStateSelectTurret)
+	{
+		if (m_selectTurretNumber == enTurretDualGunTurret)
+		{
+			m_dualGunTurret = NewGO<DualGunTurret>(0, "dualGunTurret");
+		}
+		//操作モードを変更
+		m_operationState = enOparationStateSetTurret;
 	}
 }
 
@@ -134,7 +171,11 @@ void Player::Update()
 	{
 		OperationNormal();
 	}
-	if (m_operationState == enOparationStateSetTurret)
+	else if (m_operationState == enOparationStateSelectTurret)
+	{
+		OperationSelectTurret();
+	}
+	else if (m_operationState == enOparationStateSetTurret)
 	{
 		OperationSetTurret();
 	}

@@ -83,6 +83,9 @@ using namespace Microsoft::WRL;
 #include "Bloom.h"
 
 #include "ModelRender.h"
+
+#include "SpriteRender.h"
+
 #include "RenderingEngine.h"
 
 const UINT FRAME_BUFFER_W = 1600;	// フレームバッファの幅。

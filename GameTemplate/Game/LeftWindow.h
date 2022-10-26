@@ -9,4 +9,6 @@ public:
 
 private:
 
+	SpriteRender		m_frame;
+	SpriteRender		m_turretBackGround;
 };

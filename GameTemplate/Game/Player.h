@@ -25,7 +25,7 @@ public:
 		return m_operationState;
 	}
 
-public:
+private:
 
 	enum OparationState
 	{
@@ -49,8 +49,6 @@ public:
 		en10,
 		en11
 	};
-
-private:
 
 	DualGunTurret*				m_dualGunTurret;
 	LeftWindow*					m_leftWindow;

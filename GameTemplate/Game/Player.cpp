@@ -30,6 +30,7 @@ void Player::OperationNormal()
 	{
 		//操作モードを変更
 		m_operationState = enOparationStateSelectTurret;
+		m_leftWindow->SetOperationState(1);
 	}
 
 	//Aボタン(Jキー)
@@ -82,6 +83,7 @@ void Player::OperationSelectTurret()
 		//}
 		//操作モードを変更
 		m_operationState = enOparationStateSetTurret;
+		m_leftWindow->SetOperationState(0);
 	}
 }
 

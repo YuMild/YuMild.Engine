@@ -41,6 +41,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 		//モデルの描画
 		g_renderingEngine.Execute(renderContext);
 
+		//ポストエフェクト
 		g_postEffect.Render(renderContext);
 
 		//デバッグ描画処理を実行

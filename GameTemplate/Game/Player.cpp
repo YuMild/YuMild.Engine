@@ -77,10 +77,7 @@ void Player::OperationSelectTurret()
 	//Startボタン(Enterキー)
 	if (g_pad[0]->IsTrigger(enButtonStart) && m_operationState == enOparationStateSelectTurret)
 	{
-		//if (m_leftWindow->GetSelectTurretNumber() == enTurretDualGunTurret)
-		//{
-			m_dualGunTurret = NewGO<DualGunTurret>(0, "dualGunTurret");
-		//}
+		MakeModel();
 		//操作モードを変更
 		m_operationState = enOparationStateSetTurret;
 		m_leftWindow->SetOperationState(0);
@@ -168,6 +165,22 @@ void Player::OperationSetTurret()
 	{
 		//カメラの高度を下げる
 		g_camera3D->SetPosition({ g_camera3D->GetPosition().x,g_camera3D->GetPosition().y - 100.0f,g_camera3D->GetPosition().z });
+	}
+}
+
+void Player::MakeModel()
+{
+	if (m_leftWindow->GetSelectTurretNumber() == enTurretDualGunTurret)
+	{
+		m_dualGunTurret = NewGO<DualGunTurret>(0, "dualGunTurret");
+	}
+	if (m_leftWindow->GetSelectTurretNumber() == enTurretLaserTurret)
+	{
+		m_laserTurret = NewGO<LaserTurret>(0, "laserTurret");
+	}
+	if (m_leftWindow->GetSelectTurretNumber() == enTurretDualGunTurret)
+	{
+		m_dualGunTurret = NewGO<DualGunTurret>(0, "dualGunTurret");
 	}
 }
 

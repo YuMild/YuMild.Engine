@@ -1,6 +1,7 @@
 #pragma once
 
 #include "DualGunTurret.h"
+#include "LaserTurret.h"
 
 class LeftWindow;
 
@@ -15,6 +16,8 @@ public:
 	void OperationNormal();
 	void OperationSelectTurret();
 	void OperationSetTurret();
+
+	void MakeModel();
 
 	/// <summary>
 	/// 操作ステートを取得
@@ -51,6 +54,8 @@ private:
 	};
 
 	DualGunTurret*				m_dualGunTurret;
+	LaserTurret*				m_laserTurret;
+
 	LeftWindow*					m_leftWindow;
 
 	ModelRender					m_gridModelRender;

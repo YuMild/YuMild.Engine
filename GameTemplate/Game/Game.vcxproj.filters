@@ -34,6 +34,9 @@
     <ClCompile Include="LeftWindow.cpp">
       <Filter>UI</Filter>
     </ClCompile>
+    <ClCompile Include="LaserTurret.cpp">
+      <Filter>Turrets</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -53,6 +56,9 @@
     <ClInclude Include="SpawnManager.h" />
     <ClInclude Include="LeftWindow.h">
       <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="LaserTurret.h">
+      <Filter>Turrets</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

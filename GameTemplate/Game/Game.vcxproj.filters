@@ -37,6 +37,9 @@
     <ClCompile Include="LaserTurret.cpp">
       <Filter>Turrets</Filter>
     </ClCompile>
+    <ClCompile Include="TurretManager.cpp">
+      <Filter>Turrets</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -58,6 +61,9 @@
       <Filter>UI</Filter>
     </ClInclude>
     <ClInclude Include="LaserTurret.h">
+      <Filter>Turrets</Filter>
+    </ClInclude>
+    <ClInclude Include="TurretManager.h">
       <Filter>Turrets</Filter>
     </ClInclude>
   </ItemGroup>

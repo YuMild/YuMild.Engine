@@ -4,6 +4,7 @@
 #include "LaserTurret.h"
 
 class LeftWindow;
+class TurretManager;
 
 class Player : public IGameObject
 {
@@ -37,26 +38,13 @@ private:
 		enOparationStateSetTurret
 	};
 
-	enum Turret
-	{
-		enTurretDualGunTurret,
-		enTurretLaserTurret,
-		enTurretLocketTurret,
-		en3,
-		en4,
-		en5,
-		en6,
-		en7,
-		en8,
-		en9,
-		en10,
-		en11
-	};
+
+	std::vector<IGameObject>	m_turrets;
 
 	DualGunTurret*				m_dualGunTurret;
 	LaserTurret*				m_laserTurret;
-
 	LeftWindow*					m_leftWindow;
+	TurretManager*				m_turretManager;
 
 	ModelRender					m_gridModelRender;
 

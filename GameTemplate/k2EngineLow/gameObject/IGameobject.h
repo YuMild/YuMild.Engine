@@ -20,8 +20,8 @@ namespace nsK2EngineLow {
 		virtual ~IGameObject()
 		{
 		}
-	public:
 
+	public:
 
 		/*!
 		*@brief	Updateの直前で呼ばれる開始処理。

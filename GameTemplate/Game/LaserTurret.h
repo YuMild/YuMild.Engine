@@ -1,6 +1,6 @@
 #pragma once
 
-class DualGunTurret : public IGameObject
+class LaserTurret : public IGameObject
 {
 public:
 

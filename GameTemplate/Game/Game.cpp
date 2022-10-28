@@ -8,6 +8,7 @@ bool Game::Start()
 	m_player = NewGO<Player>(0, "payer");
 	m_spawnMananer = NewGO<SpawnManager>(0, "spawnManager");
 	m_stage = NewGO<Stage>(0, "stage");
+	m_turretManager = NewGO<TurretManager>(0, "turretManager");
 
 	return true;
 }

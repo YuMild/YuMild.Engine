@@ -5,6 +5,7 @@
 #include "Player.h"
 #include "SpawnManager.h"
 #include "Stage.h"
+#include "TurretManager.h"
 
 /// <summary>
 /// クラスの生成削除を行うクラス
@@ -24,6 +25,7 @@ private:
 	Player*						m_player;
 	SpawnManager*				m_spawnMananer;
 	Stage*						m_stage;
+	TurretManager*				m_turretManager;
 
 	ModelRender					m_stageModelRender;
 

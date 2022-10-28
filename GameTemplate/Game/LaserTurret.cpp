@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "DualGunTurret.h"
+#include "LaserTurret.h"
 
 namespace
 {
@@ -7,11 +7,11 @@ namespace
 	float FIRST_ROTATION_Y = 0.0f;
 }
 
-bool DualGunTurret::Start()
+bool LaserTurret::Start()
 {
 	m_rotation.SetRotationDegY(FIRST_ROTATION_Y);
 
-	m_modelRender.Init("Assets/ModelData/Turret/DualGunTurret.tkm", ShadowRecieveAndDrop,true);
+	m_modelRender.Init("Assets/ModelData/Turret/LaserTurret.tkm", ShadowRecieveAndDrop, true);
 	m_modelRender.SetPosition(m_position);
 	m_modelRender.SetRotation(m_rotation);
 	m_modelRender.SetScale({ 1.0f,1.0f,1.0f });
@@ -20,14 +20,14 @@ bool DualGunTurret::Start()
 	return true;
 }
 
-void DualGunTurret::Update()
+void LaserTurret::Update()
 {
 	m_modelRender.SetPosition(m_position);
 	m_modelRender.SetRotation(m_rotation);
 	m_modelRender.Update();
 }
 
-void DualGunTurret::Render(RenderContext& renderContext)
+void LaserTurret::Render(RenderContext& renderContext)
 {
 	m_modelRender.Draw(renderContext);
 }

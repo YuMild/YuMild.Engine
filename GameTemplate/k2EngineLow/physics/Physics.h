@@ -86,7 +86,6 @@ namespace nsK2EngineLow {
 			m_dynamicWorld->addRigidBody(rb.GetBody());
 		}
 
-
 		/*!
 		* @brief	„‘Ì‚ğ”jŠüB
 		*/

@@ -33,16 +33,31 @@ namespace nsK2EngineLow
 		}
 
 		/// <summary>
+		/// スプライトレンダーオブジェクトの数の追加
+		/// </summary>
+		/// <param name="spriteRenderObject"></param>
+		void AddSpriteRenderObject(SpriteRender* spriteRenderObject)
+		{
+			m_spriteRenderObject.push_back(spriteRenderObject);
+		}
+
+		/// <summary>
 		/// 描画
 		/// </summary>
 		/// <param name="renderContext"></param>
 		void Draw(RenderContext& renderContext);
 
 		/// <summary>
-		/// 描画
+		/// モデルの描画
 		/// </summary>
 		/// <param name="renderContext"></param>
 		void RenderToShadowMap(RenderContext& renderContext);
+
+		/// <summary>
+		/// 画像の描画
+		/// </summary>
+		/// <param name="renderContext"></param>
+		void SpriteDraw(RenderContext& renderContext);
 
 		/// <summary>
 		/// 実行
@@ -62,6 +77,7 @@ namespace nsK2EngineLow
 	private:
 
 		std::vector<ModelRender*> m_modelRenderObject;
+		std::vector<SpriteRender*> m_spriteRenderObject;
 		ShadowMapRender* m_shadowMapRender;
 		RenderTarget m_mainRenderTarget;
 	};

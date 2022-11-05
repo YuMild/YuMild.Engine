@@ -54,7 +54,7 @@ namespace  nsK2EngineLow
 
 		if (trans == true)
 		{
-			//initData.m_alphaBlendMode = AlphaBlendMode_Trans;
+			initData.m_alphaBlendMode = AlphaBlendMode_Trans;
 		}
 
 		if (animationClips == nullptr)

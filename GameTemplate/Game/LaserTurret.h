@@ -1,5 +1,7 @@
 #pragma once
 
+class LeftWindow;
+
 class LaserTurret : public IGameObject
 {
 public:
@@ -9,50 +11,89 @@ public:
 	void Render(RenderContext& renderContext);
 
 	/// <summary>
-	/// ポジションを設定
+	/// モデルのポジションを設定
 	/// </summary>
 	/// <param name="position"></param>
 	/// <returns></returns>
-	void SetPosition(const Vector3& position)
+	void SetModelPosition(const Vector3& position)
 	{
-		m_position = position;
+		m_modelPosition = position;
 	}
 
 	/// <summary>
-	/// ポジションを取得
+	/// モデルのポジションを取得
 	/// </summary>
 	/// <returns></returns>
-	Vector3 GetPosition() const
+	Vector3 GetModelPosition() const
 	{
-		return m_position;
+		return m_modelPosition;
 	}
 
 	/// <summary>
-	/// 時計回りに回転
+	/// 画像のポジションを設定
+	/// </summary>
+	/// <param name="position"></param>
+	void SetSpritePosition(const Vector3& position)
+	{
+		m_spritePosition = position;
+	}
+
+	/// <summary>
+	/// 画像のポジションを取得
+	/// </summary>
+	/// <returns></returns>
+	Vector3 GetSpritePosition() const
+	{
+		return m_spritePosition;
+	}
+
+	/// <summary>
+	/// モデルの回転を設定
 	/// </summary>
 	/// <param name="rotation"></param>
 	/// <returns></returns>
-	Quaternion RotationTurnRight()
+	void SetModelRotation(const float rotation)
 	{
-		m_rotation.AddRotationDegY(180.0f);
-		return m_rotation;
+		m_modelRotation.AddRotationDegY(rotation);
 	}
 
 	/// <summary>
-	/// 反時計回りに回転
+	/// モデルの回転を取得
+	/// </summary>
+	/// <returns></returns>
+	Quaternion GetModelRotation()
+	{
+		return m_modelRotation;
+	}
+
+	/// <summary>
+	/// モデルを時計回りに回転
 	/// </summary>
 	/// <param name="rotation"></param>
 	/// <returns></returns>
-	Quaternion RotationTurnLeft()
+	void ModelRotationTurnRight()
 	{
-		m_rotation.AddRotationDegY(-180.0f);
-		return m_rotation;
+		m_modelRotation.AddRotationDegY(180.0f);
+	}
+
+	/// <summary>
+	/// モデルを反時計回りに回転
+	/// </summary>
+	/// <param name="rotation"></param>
+	/// <returns></returns>
+	void ModelRotationTurnLeft()
+	{
+		m_modelRotation.AddRotationDegY(-180.0f);
 	}
 
 private:
 
-	ModelRender		m_modelRender;
+	LeftWindow*		m_leftWindow;
 
-	Vector3			m_position;
-	Quaternion		m_rotation;
+	ModelRender		m_modelRender;
+	SpriteRender	m_spriteRender;
+
+	Vector3			m_modelPosition;
+	Quaternion		m_modelRotation;
+	Vector3			m_spritePosition;
 };

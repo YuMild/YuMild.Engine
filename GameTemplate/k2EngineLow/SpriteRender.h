@@ -120,6 +120,12 @@ namespace nsK2EngineLow
 				m_pivot);
 		}
 
+		/// <summary>
+		/// •`‰æˆ—
+		/// </summary>
+		/// <param name="renderContext"></param>
+		void Render(RenderContext& renderContext);
+		
 	private:
 
 		Sprite			m_sprite;

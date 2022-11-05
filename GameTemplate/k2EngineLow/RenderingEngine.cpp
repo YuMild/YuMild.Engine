@@ -52,6 +52,9 @@ namespace nsK2EngineLow
 		//モデルをドロー
 		g_engine->ExecuteRender();
 
+		//画像をドロー
+		SpriteDraw(renderContext);
+
 		//レンダリングターゲットへの書き込み終了待ち
 		renderContext.WaitUntilFinishDrawingToRenderTargets(1, renderTargets);
 
@@ -61,6 +64,16 @@ namespace nsK2EngineLow
 	void RenderingEngine::RenderToShadowMap(RenderContext& renderContext)
 	{
 		m_shadowMapRender->Render(renderContext, m_modelRenderObject);
+	}
+
+	void RenderingEngine::SpriteDraw(RenderContext& renderContext)
+	{
+		for (auto& sprite : m_spriteRenderObject)
+		{
+			sprite->Render(renderContext);
+		}
+
+		m_spriteRenderObject.clear();
 	}
 
 	void RenderingEngine::Execute(RenderContext& renderContext)

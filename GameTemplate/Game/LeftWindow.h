@@ -1,6 +1,15 @@
 #pragma once
 
 class Player;
+class TurretManager;
+
+enum OperationState
+{
+	enOperationState_Normal_LeftWindow,
+	enOperationState_SelectTurret_LeftWindow,
+	enOperationState_SetTurret_LeftWindow,
+	enOperationState_Delete_LeftWindow
+};
 
 class LeftWindow : public IGameObject
 {
@@ -11,22 +20,21 @@ public:
 	void Render(RenderContext& renderContext);
 
 	/// <summary>
-	/// ウィンドウを非表示にしている時の動作を管理
-	/// </summary>
-	void NormalMode();
-
-	/// <summary>
-	/// ウィンドウを表示している状態の動作を管理
-	/// </summary>
-	void CursorMode();
-
-	/// <summary>
 	/// 操作ステートを設定
 	/// </summary>
 	/// <param name="number"></param>
-	void SetOperationState(const int number)
+	void SetOperationState(OperationState operationState)
 	{
-		m_operationState = number;
+		m_operationState = operationState;
+	}
+
+	/// <summary>
+	/// 操作ステートを取得
+	/// </summary>
+	/// <returns></returns>
+	int GetOperationState()
+	{
+		return m_operationState;
 	}
 
 	/// <summary>
@@ -84,20 +92,59 @@ public:
 
 private:
 
-	enum OparationState
+	/// <summary>
+	/// 通常時
+	/// </summary>
+	void OperationNormal();
+
+	/// <summary>
+	/// タレット選択時
+	/// </summary>
+	void OperationSelectTurret();
+
+	/// <summary>
+	/// タレット作成時
+	/// </summary>
+	void OperationSetTurret();
+
+	/// <summary>
+	/// タレット削除時
+	/// </summary>
+	void OperationDelete();
+	
+	/// <summary>
+	/// タレットを作成
+	/// </summary>
+	void MakeTurret();
+
+	/// <summary>
+	/// ウィンドウ切り替え時の音声を再生
+	/// </summary>
+	void SoundPlayWindow()
 	{
-		enOparationStateNormal,
-		enOparationStateSelectTurret,
-	};
+		m_choiceSE = NewGO<SoundSource>(1);
+		m_choiceSE->Init(1);
+		m_choiceSE->Play(false);
+	}
 
 	Player*				m_player;
+	TurretManager*		m_turretManager;
 
-	SpriteRender		m_frame;
-	SpriteRender		m_turretBackGround;
+	SoundSource*		m_choiceSE;
+
+	ModelRender			m_gridMR;
+
+	SpriteRender		m_frameSR;
+	SpriteRender		m_dualGunTurret_DetailSR;
+	SpriteRender		m_laserTurret_DetailSR;
+	SpriteRender		m_rocketTurret_DetailSR;
+	SpriteRender		m_weapons_BackGroundSR;
+	SpriteRender		m_delete_BackGroundSR;
+	SpriteRender		m_turret_BackGroundSR;
 
 	Vector3				m_turretBackGroundPosition[12];
 
-	int					m_operationState = enOparationStateNormal;
+	int					m_operationState = enOperationState_Normal_LeftWindow;
 	int					m_selectTurretNumber = 0;
 
 	float				m_move_Number = 0.0f;

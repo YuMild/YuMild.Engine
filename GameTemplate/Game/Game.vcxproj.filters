@@ -40,6 +40,9 @@
     <ClCompile Include="TurretManager.cpp">
       <Filter>Turrets</Filter>
     </ClCompile>
+    <ClCompile Include="RocketTurret.cpp">
+      <Filter>Turrets</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -64,6 +67,9 @@
       <Filter>Turrets</Filter>
     </ClInclude>
     <ClInclude Include="TurretManager.h">
+      <Filter>Turrets</Filter>
+    </ClInclude>
+    <ClInclude Include="RocketTurret.h">
       <Filter>Turrets</Filter>
     </ClInclude>
   </ItemGroup>

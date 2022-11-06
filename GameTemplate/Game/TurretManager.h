@@ -42,6 +42,15 @@ public:
 	/// <param name="enturret"></param>
 	void Init(Turret enturret);
 
+	/// <summary>
+	/// タレットの合計数を取得
+	/// </summary>
+	/// <returns></returns>
+	int GetTurretSum() const
+	{
+		return m_turretsSum;
+	}
+
 private:
 
 	void StateManager();
@@ -58,8 +67,6 @@ private:
 	RocketTurret*					m_rocketTurret;
 
 	Vector3							m_cursorPosition;
-
-	Vector3							m_spritePosition[12];
 
 	bool							m_isModelNewGO = false;
 	bool							m_isGorstModelNewGO = false;

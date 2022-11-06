@@ -90,6 +90,18 @@ public:
 		return m_selectTurretNumber;
 	}
 
+	/// <summary>
+	/// íœ‚µ‚½ƒ^ƒŒƒbƒg‚Ì”‚ğ“n‚·
+	/// </summary>
+	/// <param name="number"></param>
+	/// <returns></returns>
+	int SetDeleteTurretNumber(const int number)
+	{
+		m_deleteTurretNumber = number;
+
+		//for(int i=number;number<=)
+	}
+
 private:
 
 	/// <summary>
@@ -138,14 +150,18 @@ private:
 	SpriteRender		m_dualGunTurret_DetailSR;
 	SpriteRender		m_laserTurret_DetailSR;
 	SpriteRender		m_rocketTurret_DetailSR;
+	SpriteRender		m_deleteTurret[200];
 	SpriteRender		m_weapons_BackGroundSR;
 	SpriteRender		m_delete_BackGroundSR;
 	SpriteRender		m_turret_BackGroundSR;
 
 	Vector3				m_turretBackGroundPosition[12];
+	Vector3				m_turretDeletePosition[12];
 
 	int					m_operationState = enOperationState_Normal_LeftWindow;
 	int					m_selectTurretNumber = 0;
+	int					m_deleteTurretNumber = 0;
+	int					m_turretSum = 0;
 
 	float				m_move_Number = 0.0f;
 };

@@ -13,8 +13,6 @@ bool RocketTurret::Start()
 	m_modelRender.SetScale({ 1.0f,1.0f,1.0f });
 	m_modelRender.Update();
 
-	m_spriteRender.Init("Assets/sprite/LeftWindow/LeftWindow_RocketTurret.dds", 720.0f, 720.0f);
-
 	return true;
 }
 
@@ -31,9 +29,4 @@ void RocketTurret::Update()
 void RocketTurret::Render(RenderContext& renderContext)
 {
 	m_modelRender.Draw(renderContext);
-
-	if (m_leftWindow->GetOperationState() == enOperationState_Delete_LeftWindow)
-	{
-		m_spriteRender.Draw(renderContext);
-	}
 }

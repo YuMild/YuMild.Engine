@@ -19,19 +19,6 @@ bool TurretManager::Start()
 
 	m_cursorPosition = FIRST_CURSOR_POSITION;
 
-	m_spritePosition[0] = { -500.0f,0.0f,0.0f };
-	m_spritePosition[1] = { -415.0f,0.0f,0.0f };
-	m_spritePosition[2] = { -330.0f,0.0f,0.0f };
-	m_spritePosition[3] = { -245.0f,0.0f,0.0f };
-	m_spritePosition[4] = { -500.0f,-100.0f,0.0f };
-	m_spritePosition[5] = { -415.0f,-100.0f,0.0f };
-	m_spritePosition[6] = { -330.0f,-100.0f,0.0f };
-	m_spritePosition[7] = { -245.0f,-100.0f,0.0f };
-	m_spritePosition[8] = { -500.0f,-200.0f,0.0f };
-	m_spritePosition[9] = { -415.0f,-200.0f,0.0f };
-	m_spritePosition[10] = { -330.0f,-200.0f,0.0f };
-	m_spritePosition[11] = { -245.0f,-200.0f,0.0f };
-
 	return true;
 }
 
@@ -322,7 +309,6 @@ void TurretManager::MakeDualGunTurret()
 	auto* turret = NewGO<DualGunTurret>(0, "dualGunTurret");
 	turret->SetModelPosition(m_cursorPosition);
 	turret->SetModelRotation(m_rotation);
-	turret->SetSpritePosition(m_spritePosition[m_turretsSum]);
 	m_turrets.push_back(turret);
 	m_turretsSum++;
 	m_isModelNewGO = false;
@@ -333,7 +319,6 @@ void TurretManager::MakeLaserTurret()
 	auto* turret = NewGO<LaserTurret>(0, "laserTurret");
 	turret->SetModelPosition(m_cursorPosition);
 	turret->SetModelRotation(m_rotation);
-	turret->SetSpritePosition(m_spritePosition[m_turretsSum]);
 	m_turrets.push_back(turret);
 	m_turretsSum++;
 	m_isModelNewGO = false;
@@ -344,7 +329,6 @@ void TurretManager::MakeRocketTurret()
 	auto* turret = NewGO<RocketTurret>(0, "rocketTurret");
 	turret->SetModelPosition(m_cursorPosition);
 	turret->SetModelRotation(m_rotation);
-	turret->SetSpritePosition(m_spritePosition[m_turretsSum]);
 	m_turrets.push_back(turret);
 	m_turretsSum++;
 	m_isModelNewGO = false;
@@ -359,15 +343,11 @@ void TurretManager::Update()
 		it = std::find(
 			m_turrets.begin(),
 			m_turrets.end(),
-			m_turrets[m_turretsSum - 1]
+			m_turrets[m_leftWindow->GetSelectTurretNumber()]
 		);
 		//—v‘f‚ªŒ©‚Â‚©‚Á‚½‚ç
 		if (it != m_turrets.end())
 		{
-			if (it != m_turrets.end())
-			{
-				m_deleteNumber += 1;
-			}
 			//íœ‚·‚é
 			DeleteGO(m_turrets[m_leftWindow->GetSelectTurretNumber()]);
 			m_turrets.erase(it);

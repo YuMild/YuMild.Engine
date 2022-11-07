@@ -74,20 +74,6 @@ bool LeftWindow::Start()
 	m_turretBackGroundPosition[10] = { -780.0f,-200.0f,0.0f };
 	m_turretBackGroundPosition[11] = { -695.0f,-200.0f,0.0f };
 
-	//タレット一覧の位置
-	m_turretDeletePosition[0] = { -500.0f,0.0f,0.0f };
-	m_turretDeletePosition[1] = { -415.0f,0.0f,0.0f };
-	m_turretDeletePosition[2] = { -330.0f,0.0f,0.0f };
-	m_turretDeletePosition[3] = { -245.0f,0.0f,0.0f };
-	m_turretDeletePosition[4] = { -500.0f,-100.0f,0.0f };
-	m_turretDeletePosition[5] = { -415.0f,-100.0f,0.0f };
-	m_turretDeletePosition[6] = { -330.0f,-100.0f,0.0f };
-	m_turretDeletePosition[7] = { -245.0f,-100.0f,0.0f };
-	m_turretDeletePosition[8] = { -500.0f,-200.0f,0.0f };
-	m_turretDeletePosition[9] = { -415.0f,-200.0f,0.0f };
-	m_turretDeletePosition[10] = { -330.0f,-200.0f,0.0f };
-	m_turretDeletePosition[11] = { -245.0f,-200.0f,0.0f };
-
 	return true;
 }
 
@@ -150,21 +136,15 @@ void LeftWindow::OperationSelectTurret()
 		if (m_selectTurretNumber == enTurret_DualGunTurret)
 		{
 			m_turretManager->Init(enTurret_DualGunTurret);
-			m_deleteTurret[m_turretManager->GetTurretSum()].Init("Assets/sprite/LeftWindow/LeftWindow_DualGunTurret.dds", DEFAULT_SPRITE_SIZE, DEFAULT_SPRITE_SIZE);
 		}
 		else if (m_selectTurretNumber == enTurret_LaserTurret)
 		{
 			m_turretManager->Init(enTurret_LaserTurret);
-			m_deleteTurret[m_turretManager->GetTurretSum()].Init("Assets/sprite/LeftWindow/LeftWindow_LaserTurret.dds", DEFAULT_SPRITE_SIZE, DEFAULT_SPRITE_SIZE);
 		}
 		else if (m_selectTurretNumber == enTurret_RocketTurret)
 		{
 			m_turretManager->Init(enTurret_RocketTurret);
-			m_deleteTurret[m_turretManager->GetTurretSum()].Init("Assets/sprite/LeftWindow/LeftWindow_RocketTurret.dds", DEFAULT_SPRITE_SIZE, DEFAULT_SPRITE_SIZE);
 		}
-
-		m_deleteTurret[m_turretManager->GetTurretSum()].SetPosition(m_turretDeletePosition[m_turretManager->GetTurretSum()]);
-		m_deleteTurret[m_turretManager->GetTurretSum()].Update();
 
 		m_selectTurretNumber = 0;
 	}
@@ -281,11 +261,6 @@ void LeftWindow::Render(RenderContext& renderContext)
 		if (m_operationState == enOperationState_Delete_LeftWindow)
 		{
 			m_delete_BackGroundSR.Draw(renderContext);
-			m_turretSum = m_turretManager->GetTurretSum();
-			for (int i = 0; i < m_turretSum; i++)
-			{
-				m_deleteTurret[i].Draw(renderContext);
-			}
 		}
 	}
 

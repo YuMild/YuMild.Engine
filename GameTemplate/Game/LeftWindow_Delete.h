@@ -16,8 +16,22 @@ public:
 	bool Start();
 	void Update();
 	void Render(RenderContext& renderContext);
-
+	
+	/// <summary>
+	/// 削除用の画像を作成
+	/// </summary>
+	/// <param name="initDeleteTurretSprite"></param>
 	void Init(InitDeleteTurretSprite initDeleteTurretSprite);
+
+	/// <summary>
+	/// 削除用の画像のポジションを設定
+	/// </summary>
+	/// <param name="number"></param>
+	/// <returns></returns>
+	void SetPosition(const Vector3& position)
+	{
+		m_position = position;
+	}
 
 private:
 
@@ -26,7 +40,6 @@ private:
 	SpriteRender		m_spriteRender;
 
 	Vector3				m_position;
-	Vector3				m_deleteSpritePosition[12];
 
 	bool				m_isDraw = false;
 

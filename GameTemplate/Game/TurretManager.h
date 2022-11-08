@@ -1,6 +1,7 @@
 #pragma once
 
 class LeftWindow;
+class LeftWindow_Delete;
 
 class DualGunTurret;
 class LaserTurret;
@@ -61,16 +62,20 @@ private:
 	std::vector<IGameObject*>		m_turrets;
 
 	LeftWindow*						m_leftWindow;
+	LeftWindow_Delete*				m_leftWindow_Delete[12];
 	
 	DualGunTurret*					m_dualGunTurret;
 	LaserTurret*					m_laserTurret;
 	RocketTurret*					m_rocketTurret;
 
 	Vector3							m_cursorPosition;
+	Vector3							m_deleteSpritePosition[12];
+
 
 	bool							m_isModelNewGO = false;
 	bool							m_isGorstModelNewGO = false;
 
+	int								m_leftWindow_Delete_Number = 0;
 	int								m_deleteNumber = -1;
 	int								m_turretType = 0;
 	int								m_turretsSum = 0;

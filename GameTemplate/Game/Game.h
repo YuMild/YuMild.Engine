@@ -2,7 +2,6 @@
 
 #include "GameCamera.h"
 #include "LeftWindow.h"
-#include "LeftWindow_Delete.h"
 #include "Player.h"
 #include "SpawnManager.h"
 #include "Stage.h"
@@ -23,7 +22,6 @@ private:
 
 	GameCamera*					m_gameCamera;
 	LeftWindow*					m_leftWindow;
-	LeftWindow_Delete*			m_leftWindow_Delete;
 	Player*						m_player;
 	SpawnManager*				m_spawnMananer;
 	Stage*						m_stage;

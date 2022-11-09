@@ -18,8 +18,10 @@ bool TurretManager::Start()
 {
 	m_leftWindow = FindGO<LeftWindow>("leftWindow");
 
+	//カーソルポジションをデフォルト値に設定
 	m_cursorPosition = FIRST_CURSOR_POSITION;
 
+	//削除用の画像のポジションを設定
 	m_deleteSpritePosition[0] = { -500.0f,0.0f,0.0f };
 	m_deleteSpritePosition[1] = { -415.0f,0.0f,0.0f };
 	m_deleteSpritePosition[2] = { -330.0f,0.0f,0.0f };
@@ -33,6 +35,7 @@ bool TurretManager::Start()
 	m_deleteSpritePosition[10] = { -330.0f,-200.0f,0.0f };
 	m_deleteSpritePosition[11] = { -245.0f,-200.0f,0.0f };
 
+	//削除用の画像を生成
 	for (int i = 0; i < 12; i++)
 	{
 		m_leftWindow_Delete[i] = NewGO<LeftWindow_Delete>(0, "leftWindow_Delete");

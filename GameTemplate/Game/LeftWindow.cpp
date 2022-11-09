@@ -19,8 +19,8 @@ bool LeftWindow::Start()
 	m_turretManager = FindGO<TurretManager>("turretManager");
 
 	//ÉÇÉfÉãÇÃê∂ê¨
-	m_gridMR.Init("Assets/ModelData/Stage/Grid.tkm", ShadowRecieveAndDrop);
-	m_gridMR.SetPosition(Vector3::Zero);
+	m_gridMR.Init("Assets/ModelData/Stage/Grid.tkm", Dithering);
+	m_gridMR.SetPosition({0.0f,-50,0.0f});
 	m_gridMR.SetScale(Vector3::One);
 	m_gridMR.Update();
 

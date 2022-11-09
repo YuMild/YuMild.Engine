@@ -51,6 +51,14 @@ namespace  nsK2EngineLow
 			initData.m_expandConstantBuffer = &g_sceneLight.GetLight();
 			initData.m_expandConstantBufferSize = sizeof(g_sceneLight.GetLight());
 		}
+		else if (shadow == Dithering)
+		{
+			initData.m_fxFilePath = "Assets/shader/dithering.fx";
+			initData.m_expandShaderResoruceView[0] = &g_shadowMapRender.GetRenderTarget().GetRenderTargetTexture();
+			initData.m_expandConstantBuffer = (void*)&g_shadowMapRender.GetLightCamera().GetViewProjectionMatrix();
+			initData.m_expandConstantBufferSize = sizeof(g_shadowMapRender.GetLightCamera().GetViewProjectionMatrix());
+			InitDrawShadowMapModel(filePath);
+		}
 
 		if (trans == true)
 		{

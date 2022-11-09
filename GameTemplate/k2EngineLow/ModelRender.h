@@ -7,7 +7,8 @@ namespace
 		ShadowDrop,
 		ShadowRecieve,
 		ShadowRecieveAndDrop,
-		ShadowNone
+		ShadowNone,
+		Dithering
 	};
 }
 

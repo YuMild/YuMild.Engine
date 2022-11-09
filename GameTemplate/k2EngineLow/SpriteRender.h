@@ -6,8 +6,19 @@ namespace nsK2EngineLow
 	{
 	public:
 
+		/// <summary>
+		/// ‰Šú‰»
+		/// </summary>
+		/// <param name="filePath"></param>
+		/// <param name="width"></param>
+		/// <param name="height"></param>
+		/// <param name="alphaBlendMode"></param>
 		void Init(const char* filePath, const float width, const float height, AlphaBlendMode alphaBlendMode = AlphaBlendMode_Trans);
 
+		/// <summary>
+		/// •`‰æ
+		/// </summary>
+		/// <param name="renderContext"></param>
 		void Draw(RenderContext& renderContext);
 
 		void SetLimitedX(const float x)

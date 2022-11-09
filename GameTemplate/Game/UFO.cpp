@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "UFO.h"
 
+#include "SpawnManager.h"
+
 namespace
 {
 	//‰Šú’l
@@ -31,6 +33,8 @@ UFO::~UFO()
 
 bool UFO::Start()
 {
+	m_spawnManager = FindGO<SpawnManager>("spawnManager");
+
 	m_position = FIRST_POSITION;
 	m_rotation.SetRotationDegY(FIRST_ROTATION_Y);
 
@@ -67,6 +71,7 @@ void UFO::Move()
 		}
 		else
 		{
+			m_spawnManager->EffectPlayExplosion();
 			DeleteGO(this);
 			return;
 		}

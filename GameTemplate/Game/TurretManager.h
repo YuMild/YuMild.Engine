@@ -59,14 +59,29 @@ private:
 	void MakeLaserTurret();
 	void MakeRocketTurret();
 
+	/// <summary>
+	/// タレットセット時の音声を再生
+	/// </summary>
+	void SoundPlaySetTurret()
+	{
+		m_setTurretSE = NewGO<SoundSource>(2);
+		m_setTurretSE->Init(2);
+		m_setTurretSE->SetVolume(0.3f);
+		m_setTurretSE->Play(false);
+	}
+
 	std::vector<IGameObject*>		m_turrets;
 
+	//クラス
 	LeftWindow*						m_leftWindow;
 	LeftWindow_Delete*				m_leftWindow_Delete[12];
 	
 	DualGunTurret*					m_dualGunTurret;
 	LaserTurret*					m_laserTurret;
 	RocketTurret*					m_rocketTurret;
+
+	//サウンド
+	SoundSource*					m_setTurretSE;
 
 	Vector3							m_cursorPosition;
 	Vector3							m_deleteSpritePosition[12];

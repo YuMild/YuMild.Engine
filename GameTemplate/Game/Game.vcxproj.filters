@@ -30,7 +30,6 @@
     </ClCompile>
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Stage.cpp" />
-    <ClCompile Include="SpawnManager.cpp" />
     <ClCompile Include="LeftWindow.cpp">
       <Filter>UI</Filter>
     </ClCompile>
@@ -45,6 +44,9 @@
     </ClCompile>
     <ClCompile Include="LeftWindow_Delete.cpp">
       <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="SpawnManager.cpp">
+      <Filter>Enemy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -62,7 +64,6 @@
     </ClInclude>
     <ClInclude Include="Player.h" />
     <ClInclude Include="Stage.h" />
-    <ClInclude Include="SpawnManager.h" />
     <ClInclude Include="LeftWindow.h">
       <Filter>UI</Filter>
     </ClInclude>
@@ -77,6 +78,9 @@
     </ClInclude>
     <ClInclude Include="LeftWindow_Delete.h">
       <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="SpawnManager.h">
+      <Filter>Enemy</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

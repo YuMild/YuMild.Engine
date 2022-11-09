@@ -1,5 +1,7 @@
 #pragma once
 
+class SpawnManager;
+
 /// <summary>
 /// UFO
 /// </summary>
@@ -16,6 +18,8 @@ public:
 	void Move();
 
 private:
+
+	SpawnManager*			m_spawnManager;
 
 	ModelRender				m_modelRender;
 

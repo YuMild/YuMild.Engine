@@ -3,6 +3,8 @@
 
 bool SpawnManager::Start()
 {
+	EffectEngine::GetInstance()->ResistEffect(1, u"Assets/effect/Explosion.efk");
+
 	return true;
 }
 

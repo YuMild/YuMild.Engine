@@ -43,6 +43,9 @@ bool TurretManager::Start()
 		m_leftWindow_Delete[i]->SetPosition(m_deleteSpritePosition[m_turretsSum]);
 	}
 
+	//‰¹º‚Ìì¬
+	g_soundEngine->ResistWaveFileBank(2, "Assets/sound/SetTurret.wav");
+
 	return true;
 }
 
@@ -145,6 +148,7 @@ void TurretManager::StateManager()
 		{
 			DeleteGO(m_dualGunTurret);
 			MakeDualGunTurret();
+			SoundPlaySetTurret();
 			m_leftWindow->SetOperationState(enOperationState_Normal_LeftWindow);
 		}
 
@@ -231,6 +235,7 @@ void TurretManager::StateManager()
 		{
 			DeleteGO(m_laserTurret);
 			MakeLaserTurret();
+			SoundPlaySetTurret();
 			m_leftWindow->SetOperationState(enOperationState_Normal_LeftWindow);
 		}
 
@@ -317,6 +322,7 @@ void TurretManager::StateManager()
 		{
 			DeleteGO(m_rocketTurret);
 			MakeRocketTurret();
+			SoundPlaySetTurret();
 			m_leftWindow->SetOperationState(enOperationState_Normal_LeftWindow);
 		}
 

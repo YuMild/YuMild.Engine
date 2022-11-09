@@ -33,6 +33,13 @@ bool TurretManager::Start()
 	m_deleteSpritePosition[10] = { -330.0f,-200.0f,0.0f };
 	m_deleteSpritePosition[11] = { -245.0f,-200.0f,0.0f };
 
+	for (int i = 0; i < 12; i++)
+	{
+		m_leftWindow_Delete[i] = NewGO<LeftWindow_Delete>(0, "leftWindow_Delete");
+		m_leftWindow_Delete[i]->Init(enInitDeleteTurretSprite_Null); 
+		m_leftWindow_Delete[i]->SetPosition(m_deleteSpritePosition[m_turretsSum]);
+	}
+
 	return true;
 }
 
@@ -324,12 +331,10 @@ void TurretManager::MakeDualGunTurret()
 	turret->SetModelPosition(m_cursorPosition);
 	turret->SetModelRotation(m_rotation);
 	m_turrets.push_back(turret);
+	m_leftWindow_Delete[m_turretsSum]->Init(enInitDeleteTurretSprite_DualGunTurret);
+	m_leftWindow_Delete[m_turretsSum]->SetPosition(m_deleteSpritePosition[m_turretsSum]);
 	m_turretsSum++;
 	m_isModelNewGO = false;
-	m_leftWindow_Delete[m_leftWindow_Delete_Number] = NewGO<LeftWindow_Delete>(0, "leftWindow_Delete");
-	m_leftWindow_Delete[m_leftWindow_Delete_Number]->Init(enInitDeleteTurretSprite_DualGunTurret);
-	m_leftWindow_Delete[m_leftWindow_Delete_Number]->SetPosition(m_deleteSpritePosition[m_leftWindow_Delete_Number]);
-	m_leftWindow_Delete_Number += 1;
 }
 
 void TurretManager::MakeLaserTurret()
@@ -338,12 +343,10 @@ void TurretManager::MakeLaserTurret()
 	turret->SetModelPosition(m_cursorPosition);
 	turret->SetModelRotation(m_rotation);
 	m_turrets.push_back(turret);
+	m_leftWindow_Delete[m_turretsSum]->Init(enInitDeleteTurretSprite_LaserTurret);
+	m_leftWindow_Delete[m_turretsSum]->SetPosition(m_deleteSpritePosition[m_turretsSum]);
 	m_turretsSum++;
 	m_isModelNewGO = false;
-	m_leftWindow_Delete[m_leftWindow_Delete_Number] = NewGO<LeftWindow_Delete>(0, "leftWindow_Delete");
-	m_leftWindow_Delete[m_leftWindow_Delete_Number]->Init(enInitDeleteTurretSprite_LaserTurret);
-	m_leftWindow_Delete[m_leftWindow_Delete_Number]->SetPosition(m_deleteSpritePosition[m_leftWindow_Delete_Number]);
-	m_leftWindow_Delete_Number += 1;
 }
 
 void TurretManager::MakeRocketTurret()
@@ -352,12 +355,10 @@ void TurretManager::MakeRocketTurret()
 	turret->SetModelPosition(m_cursorPosition);
 	turret->SetModelRotation(m_rotation);
 	m_turrets.push_back(turret);
+	m_leftWindow_Delete[m_turretsSum]->Init(enInitDeleteTurretSprite_RocketTurret);
+	m_leftWindow_Delete[m_turretsSum]->SetPosition(m_deleteSpritePosition[m_turretsSum]);
 	m_turretsSum++;
 	m_isModelNewGO = false;
-	m_leftWindow_Delete[m_leftWindow_Delete_Number] = NewGO<LeftWindow_Delete>(0, "leftWindow_Delete");
-	m_leftWindow_Delete[m_leftWindow_Delete_Number]->Init(enInitDeleteTurretSprite_RocketTurret);
-	m_leftWindow_Delete[m_leftWindow_Delete_Number]->SetPosition(m_deleteSpritePosition[m_leftWindow_Delete_Number]);
-	m_leftWindow_Delete_Number += 1;
 }
 
 void TurretManager::Update()
@@ -377,6 +378,11 @@ void TurretManager::Update()
 			//íœ‚·‚é
 			DeleteGO(m_turrets[m_leftWindow->GetSelectTurretNumber()]);
 			m_turrets.erase(it);
+			for (int i = m_leftWindow->GetSelectTurretNumber(); i < m_turretsSum - 1; i++)
+			{
+				m_leftWindow_Delete[i]->Init(m_leftWindow_Delete[i + 1]->GetTurretType());
+			}
+			m_leftWindow_Delete[m_turretsSum - 1]->SetDraw(false);
 			m_turretsSum--;
 		}
 	}

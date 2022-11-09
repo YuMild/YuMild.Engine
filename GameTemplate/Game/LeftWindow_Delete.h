@@ -1,5 +1,6 @@
 #pragma once
 
+class LeftWindow;
 class TurretManager;
 
 enum InitDeleteTurretSprite
@@ -7,6 +8,7 @@ enum InitDeleteTurretSprite
 	enInitDeleteTurretSprite_DualGunTurret,
 	enInitDeleteTurretSprite_LaserTurret,
 	enInitDeleteTurretSprite_RocketTurret,
+	enInitDeleteTurretSprite_Null
 };
 
 class LeftWindow_Delete:public IGameObject
@@ -24,6 +26,21 @@ public:
 	void Init(InitDeleteTurretSprite initDeleteTurretSprite);
 
 	/// <summary>
+	/// 削除用の画像を作成
+	/// </summary>
+	/// <param name="number"></param>
+	void Init(int number);
+
+	/// <summary>
+	/// タレットの種類を取得
+	/// </summary>
+	/// <returns></returns>
+	int GetTurretType() const
+	{
+		return m_initDeleteSpriteNumber;
+	}
+
+	/// <summary>
 	/// 削除用の画像のポジションを設定
 	/// </summary>
 	/// <param name="number"></param>
@@ -33,8 +50,27 @@ public:
 		m_position = position;
 	}
 
+	/// <summary>
+	/// 削除用の画像のポジションを取得
+	/// </summary>
+	/// <returns></returns>
+	Vector3 GetPosition() const
+	{
+		return m_position;
+	}
+
+	/// <summary>
+	/// ドローするか否か設定
+	/// </summary>
+	/// <param name="isDraw"></param>
+	void SetDraw(const bool isDraw)
+	{
+		m_isDraw = isDraw;
+	}
+
 private:
 
+	LeftWindow*			m_leftWindow;
 	TurretManager*		m_turretManager;
 
 	SpriteRender		m_spriteRender;

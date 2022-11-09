@@ -75,8 +75,6 @@ private:
 	bool							m_isModelNewGO = false;
 	bool							m_isGorstModelNewGO = false;
 
-	int								m_leftWindow_Delete_Number = 0;
-	int								m_deleteNumber = -1;
 	int								m_turretType = 0;
 	int								m_turretsSum = 0;
 

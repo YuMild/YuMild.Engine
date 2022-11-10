@@ -10,16 +10,24 @@
 
 namespace
 {
+	//Delete
+	float DELETE_SPRITE_SIZE_WIDTH = 1280.0f;
+	float DELETE_SPRITE_SIZE_HEIGHT = 720.0f;
+
+	//タレットの移動感覚
 	float TURRET_POSITION_MOVE_NUM = 393.0f;
-	Vector3 FIRST_CURSOR_POSITION = { 200.0f,0.0f,190.0f };
+
+	//カーソル
+	Vector3 CURSOR_POSITION = { 200.0f,0.0f,190.0f };
 }
 
 bool TurretManager::Start()
 {
+	//FindGO
 	m_leftWindow = FindGO<LeftWindow>("leftWindow");
 
 	//カーソルポジションをデフォルト値に設定
-	m_cursorPosition = FIRST_CURSOR_POSITION;
+	m_cursorPosition = CURSOR_POSITION;
 
 	//削除用の画像のポジションを設定
 	m_deleteSpritePosition[0] = { -500.0f,0.0f,0.0f };
@@ -34,6 +42,28 @@ bool TurretManager::Start()
 	m_deleteSpritePosition[9] = { -415.0f,-200.0f,0.0f };
 	m_deleteSpritePosition[10] = { -330.0f,-200.0f,0.0f };
 	m_deleteSpritePosition[11] = { -245.0f,-200.0f,0.0f };
+
+	//Deleteウィンドウ
+	m_delete_Window.Init("Assets/sprite/LeftWindow/Delete_Window.dds", DELETE_SPRITE_SIZE_WIDTH, DELETE_SPRITE_SIZE_HEIGHT);
+	m_delete_Window.SetPosition({ 0.0f,0.0f,0.0f });
+	m_delete_Window.SetScale({ 1.0f,1.0f,1.0f });
+	m_delete_Window.Update();
+	m_delete_Delete.Init("Assets/sprite/LeftWindow/Delete_Delete.dds", DELETE_SPRITE_SIZE_WIDTH, DELETE_SPRITE_SIZE_HEIGHT);
+	m_delete_Delete.SetPosition({ 0.0f,0.0f,0.0f });
+	m_delete_Delete.SetScale({ 1.0f,1.0f,1.0f });
+	m_delete_Delete.Update();
+	m_delete_DeleteChoice.Init("Assets/sprite/LeftWindow/Delete_DeleteChoice.dds", DELETE_SPRITE_SIZE_WIDTH, DELETE_SPRITE_SIZE_HEIGHT);
+	m_delete_DeleteChoice.SetPosition({ 0.0f,0.0f,0.0f });
+	m_delete_DeleteChoice.SetScale({ 1.0f,1.0f,1.0f });
+	m_delete_DeleteChoice.Update();
+	m_delete_Cancel.Init("Assets/sprite/LeftWindow/Delete_Cancel.dds", DELETE_SPRITE_SIZE_WIDTH, DELETE_SPRITE_SIZE_HEIGHT);
+	m_delete_Cancel.SetPosition({ 0.0f,0.0f,0.0f });
+	m_delete_Cancel.SetScale({ 1.0f,1.0f,1.0f });
+	m_delete_Cancel.Update();
+	m_delete_CancelChoice.Init("Assets/sprite/LeftWindow/Delete_CancelChoice.dds", DELETE_SPRITE_SIZE_WIDTH, DELETE_SPRITE_SIZE_HEIGHT);
+	m_delete_CancelChoice.SetPosition({ 0.0f,0.0f,0.0f });
+	m_delete_CancelChoice.SetScale({ 1.0f,1.0f,1.0f });
+	m_delete_CancelChoice.Update();
 
 	//削除用の画像を生成
 	for (int i = 0; i < 12; i++)
@@ -56,7 +86,7 @@ void TurretManager::Init(TurretType enturret)
 	m_isGorstModelNewGO = true;
 
 	//初期化
-	m_cursorPosition = FIRST_CURSOR_POSITION;
+	m_cursorPosition = CURSOR_POSITION;
 	m_rotation = 0.0f;
 
 	//作成するタレットの種類を決定
@@ -143,9 +173,10 @@ void TurretManager::StateManager()
 			m_rotation -= 180.0f;
 		}
 
-		//Startボタン(Enterキー)
-		if (m_leftWindow->GetOperationState() == enOperationState_SetTurret_LeftWindow && g_pad[0]->IsTrigger(enButtonSelect))
+		//Selectボタン(Spaceキー)
+		if (m_leftWindow->GetOperationState() == enOperationState_SetTurret_LeftWindow && g_pad[0]->IsTrigger(enButtonSelect) && m_leftWindow->GetButtonReady() == true)
 		{
+			m_leftWindow->SetButtonDelay();
 			DeleteGO(m_dualGunTurret);
 			MakeDualGunTurret();
 			SoundPlaySetTurret();
@@ -230,9 +261,10 @@ void TurretManager::StateManager()
 			m_rotation -= 180.0f;
 		}
 
-		//Startボタン(Enterキー)
-		if (m_leftWindow->GetOperationState() == enOperationState_SetTurret_LeftWindow && g_pad[0]->IsTrigger(enButtonSelect))
+		//Selectボタン(Spaceキー)
+		if (m_leftWindow->GetOperationState() == enOperationState_SetTurret_LeftWindow && g_pad[0]->IsTrigger(enButtonSelect) && m_leftWindow->GetButtonReady() == true)
 		{
+			m_leftWindow->SetButtonDelay();
 			DeleteGO(m_laserTurret);
 			MakeLaserTurret();
 			SoundPlaySetTurret();
@@ -317,9 +349,10 @@ void TurretManager::StateManager()
 			m_rotation -= 180.0f;
 		}
 
-		//Startボタン(Enterキー)
-		if (m_leftWindow->GetOperationState() == enOperationState_SetTurret_LeftWindow && g_pad[0]->IsTrigger(enButtonSelect))
+		//Selectボタン(Spaceキー)
+		if (m_leftWindow->GetOperationState() == enOperationState_SetTurret_LeftWindow && g_pad[0]->IsTrigger(enButtonSelect) && m_leftWindow->GetButtonReady() == true)
 		{
+			m_leftWindow->SetButtonDelay();
 			DeleteGO(m_rocketTurret);
 			MakeRocketTurret();
 			SoundPlaySetTurret();
@@ -331,6 +364,64 @@ void TurretManager::StateManager()
 	default:
 
 		break;
+	}
+}
+
+void TurretManager::DeleteTurret()
+{
+	//タレットが存在している箇所を選択している状態でSelect
+	if (m_leftWindow->GetOperationState() == enOperationState_Delete_LeftWindow && g_pad[0]->IsTrigger(enButtonSelect) && m_leftWindow->GetButtonReady() == true && m_leftWindow_Delete[m_leftWindow->GetSelectTurretNumber()]->GetIsDraw() == true)
+	{
+		m_turretDeleteState = enDeleteState_Cancel;
+		m_leftWindow->SetOperationState(enOperationState_DeleteCheck_LeftWindow);
+	}
+
+	//Delete確認ウィンドウでCancelが選択されている時に右キー
+	else if (m_turretDeleteState == enDeleteState_Cancel && g_pad[0]->IsTrigger(enButtonRight))
+	{
+		m_turretDeleteState = enDeleteState_Delete;
+	}
+
+	//Delete確認ウィンドウでCancelが選択されている時にSelect
+	else if (m_turretDeleteState == enDeleteState_Cancel && g_pad[0]->IsTrigger(enButtonSelect) && m_leftWindow->GetButtonReady() == true)
+	{
+		m_turretDeleteState = enDeleteState_Null;
+		m_leftWindow->SetOperationState(enOperationState_Delete_LeftWindow);
+	}
+
+	//Delete確認ウィンドウでDeleteが選択されている時に左キー
+	else if (m_turretDeleteState == enDeleteState_Delete && g_pad[0]->IsTrigger(enButtonLeft))
+	{
+		m_turretDeleteState = enDeleteState_Cancel;
+	}
+
+	//Delete確認ウィンドウでDeleteが選択されている時にSelect
+	else if (m_turretDeleteState == enDeleteState_Delete && g_pad[0]->IsTrigger(enButtonSelect) && m_leftWindow->GetButtonReady() == true)
+	{
+		std::vector<IGameObject*>::iterator it;
+		//要素を探す
+		it = std::find(
+			m_turrets.begin(),
+			m_turrets.end(),
+			m_turrets[m_leftWindow->GetSelectTurretNumber()]
+		);
+		//要素が見つかったら
+		if (it != m_turrets.end())
+		{
+			//削除する
+			DeleteGO(m_turrets[m_leftWindow->GetSelectTurretNumber()]);
+			m_turrets.erase(it);
+			//削除したタレット以降のタレットの画像を差し替える
+			for (int i = m_leftWindow->GetSelectTurretNumber(); i < m_turretsSum - 1; i++)
+			{
+				m_leftWindow_Delete[i]->Init(m_leftWindow_Delete[i + 1]->GetTurretType());
+			}
+			m_leftWindow_Delete[m_turretsSum - 1]->SetIsDraw(false);
+			m_turretsSum--;
+
+			m_leftWindow->SetOperationState(enOperationState_Normal_LeftWindow);
+			m_turretDeleteState = enDeleteState_Null;
+		}
 	}
 }
 
@@ -372,32 +463,29 @@ void TurretManager::MakeRocketTurret()
 
 void TurretManager::Update()
 {
-	if (m_leftWindow->GetOperationState() == enOperationState_Delete_LeftWindow && g_pad[0]->IsTrigger(enButtonSelect) && m_turretsSum != 0)
-	{
-		std::vector<IGameObject*>::iterator it;
-		//要素を探す
-		it = std::find(
-			m_turrets.begin(),
-			m_turrets.end(),
-			m_turrets[m_leftWindow->GetSelectTurretNumber()]
-		);
-		//要素が見つかったら
-		if (it != m_turrets.end())
-		{
-			//削除する
-			DeleteGO(m_turrets[m_leftWindow->GetSelectTurretNumber()]);
-			m_turrets.erase(it);
-			for (int i = m_leftWindow->GetSelectTurretNumber(); i < m_turretsSum - 1; i++)
-			{
-				m_leftWindow_Delete[i]->Init(m_leftWindow_Delete[i + 1]->GetTurretType());
-			}
-			m_leftWindow_Delete[m_turretsSum - 1]->SetDraw(false);
-			m_turretsSum--;
-		}
-	}
+	DeleteTurret();
 
 	if (m_isModelNewGO)
 	{
 		StateManager();
+	}
+}
+
+void TurretManager::Render(RenderContext& renderContext)
+{
+	if (m_turretDeleteState == enDeleteState_Cancel)
+	{
+		m_delete_Window.Draw(renderContext);
+		m_delete_Delete.Draw(renderContext);
+		m_delete_Cancel.Draw(renderContext);
+		m_delete_CancelChoice.Draw(renderContext);
+	}
+
+	if (m_turretDeleteState == enDeleteState_Delete)
+	{
+		m_delete_Window.Draw(renderContext);
+		m_delete_Delete.Draw(renderContext);
+		m_delete_DeleteChoice.Draw(renderContext);
+		m_delete_Cancel.Draw(renderContext);
 	}
 }

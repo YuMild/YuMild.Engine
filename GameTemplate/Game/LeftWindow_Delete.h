@@ -63,9 +63,18 @@ public:
 	/// ドローするか否か設定
 	/// </summary>
 	/// <param name="isDraw"></param>
-	void SetDraw(const bool isDraw)
+	void SetIsDraw(const bool isDraw)
 	{
 		m_isDraw = isDraw;
+	}
+
+	/// <summary>
+	/// ドローするか否か取得
+	/// </summary>
+	/// <returns></returns>
+	bool GetIsDraw()const
+	{
+		return m_isDraw;
 	}
 
 private:

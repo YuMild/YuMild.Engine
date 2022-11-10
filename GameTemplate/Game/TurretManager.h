@@ -23,19 +23,9 @@ enum TurretType
 	en11
 };
 
-enum SpritePosition
-{
-	enSpritePosition_DuarGunTurret,
-	enSpritePosition_LaserTurret,
-	enSpritePosition_RocketTurret
-};
-
 class TurretManager : public IGameObject
 {
 public:
-
-	bool Start();
-	void Update();
 
 	/// <summary>
 	/// タレットを作成
@@ -54,7 +44,26 @@ public:
 
 private:
 
+	enum DeleteState
+	{
+		enDeleteState_Null,
+		enDeleteState_Cancel,
+		enDeleteState_Delete
+	};
+
+	enum SpritePosition
+	{
+		enSpritePosition_DuarGunTurret,
+		enSpritePosition_LaserTurret,
+		enSpritePosition_RocketTurret
+	};
+
+	bool Start();
+	void Update();
+	void Render(RenderContext& renderContext);
+
 	void StateManager();
+	void DeleteTurret();
 	void MakeDualGunTurret();
 	void MakeLaserTurret();
 	void MakeRocketTurret();
@@ -80,18 +89,25 @@ private:
 	LaserTurret*					m_laserTurret;
 	RocketTurret*					m_rocketTurret;
 
+	//Delete
+	SpriteRender					m_delete_Window;
+	SpriteRender					m_delete_Delete;
+	SpriteRender					m_delete_DeleteChoice;
+	SpriteRender					m_delete_Cancel;
+	SpriteRender					m_delete_CancelChoice;
+
 	//サウンド
 	SoundSource*					m_setTurretSE;
 
 	Vector3							m_cursorPosition;
 	Vector3							m_deleteSpritePosition[12];
 
-
 	bool							m_isModelNewGO = false;
 	bool							m_isGorstModelNewGO = false;
-
+	
 	int								m_turretType = 0;
 	int								m_turretsSum = 0;
+	int								m_turretDeleteState = enDeleteState_Null;
 
 	float							m_rotation = 0.0f;
 };

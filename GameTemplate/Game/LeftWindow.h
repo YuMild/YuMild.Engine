@@ -8,7 +8,8 @@ enum OperationState
 	enOperationState_Normal_LeftWindow,
 	enOperationState_SelectTurret_LeftWindow,
 	enOperationState_SetTurret_LeftWindow,
-	enOperationState_Delete_LeftWindow
+	enOperationState_Delete_LeftWindow,
+	enOperationState_DeleteCheck_LeftWindow
 };
 
 class LeftWindow : public IGameObject
@@ -94,6 +95,23 @@ public:
 		return m_selectTurretNumber;
 	}
 
+	/// <summary>
+	/// ボタンのディレイを有効化する
+	/// </summary>
+	void SetButtonDelay()
+	{
+		m_buttonDelay = 0.0f;
+	}
+
+	/// <summary>
+	/// ボタンが使用可能か否か取得
+	/// </summary>
+	/// <returns></returns>
+	bool GetButtonReady()
+	{
+		return m_buttonReady;
+	}
+
 private:
 
 	/// <summary>
@@ -115,6 +133,11 @@ private:
 	/// タレット削除時
 	/// </summary>
 	void OperationDelete();
+
+	/// <summary>
+	/// タレット削除確認時
+	/// </summary>
+	void OperationDeleteCheck();
 	
 	/// <summary>
 	/// タレットを作成
@@ -148,35 +171,53 @@ private:
 		m_choiceSE->Play(false);
 	}
 
+	//クラス
 	Player*				m_player;
 	TurretManager*		m_turretManager;
 
+	//音声
 	SoundSource*		m_windowSE;
 	SoundSource*		m_choiceSE;
 
+	//グリッド
 	ModelRender			m_gridMR;
 
+	//枠
 	SpriteRender		m_frameSR;
+	//パラメーター
 	SpriteRender		m_parameter_RangeSR;
 	SpriteRender		m_parameter_DamageSR;
 	SpriteRender		m_parameter_FireRateSR;
+	//詳細
 	SpriteRender		m_dualGunTurret_DetailSR;
 	SpriteRender		m_laserTurret_DetailSR;
 	SpriteRender		m_rocketTurret_DetailSR;
+	//背景
 	SpriteRender		m_weapons_BackGroundSR;
 	SpriteRender		m_delete_BackGroundSR;
 	SpriteRender		m_turret_BackGroundSR;
 
+	//背景のポジション
 	Vector3				m_turretBackGroundPosition[12];
 
+	//ステート
 	int					m_operationState = enOperationState_Normal_LeftWindow;
+
+	//選択しているタレット
 	int					m_selectTurretNumber = 0;
 
+	//ボタンの重複が起きないようディレイをかける
+	bool				m_buttonReady = false;
+	float				m_buttonDelay = 0.0f;
+
+	//パラメーター
 	float				m_rangeNumber = 0.0f;
 	float				m_damageNumber = 0.0f;
 	float				m_fireRateNumber = 0.0f;
 	float				m_rangeSetNumber = 0.0f;
 	float				m_damageSetNumber = 0.0f;
 	float				m_fireRateSetNumber = 0.0f;
+
+	//ウィンドウのポジションに加算する数値
 	float				m_move_Number = 0.0f;
 };

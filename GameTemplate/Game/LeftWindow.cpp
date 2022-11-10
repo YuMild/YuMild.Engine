@@ -6,14 +6,17 @@
 
 namespace
 {
-	float DEFAULT_SPRITE_SIZE = 720.0f;
-	float DEFAULT_MOVE_WINDOW_X = 50.0f;
-	float LIMIT_MOVE_WINDOW_X = 400.0f;
+	//LeftWindow
+	Vector3 LEFTWINDOW_POSITION = { -950.0f,0.0f,0.0f };
+	float LEFTWINDOW_SPRITE_SIZE = 720.0f;
+	float LEFTWINDOW_MOVE_X = 50.0f;
+	float LEFTWINDOW_MOVE_X_LIMIT = 400.0f;
+
+	//パラメーター
+	Vector3 PARAMETER_RANGE_POSITION = { -971.0f,-128.5f,0.0f };
+	Vector3 PARAMETER_DAMAGE_POSITION = { -971.0f,-190.5f,0.0f };
+	Vector3 PARAMETER_FIRERATE_POSITION = { -971.0f,-252.5f,0.0f };
 	float PARAMETER_MOVE_SPEED = 0.02;
-	Vector3 DEFAULT_POSITION = { -950.0f,0.0f,0.0f };
-	Vector3 DEFAULT_PARAMETER_RANGE_POSITION = { -971.0f,-128.5f,0.0f };
-	Vector3 DEFAULT_PARAMETER_DAMAGE_POSITION = { -971.0f,-190.5f,0.0f };
-	Vector3 DEFAULT_PARAMETER_FIRERATE_POSITION = { -971.0f,-252.5f,0.0f };
 }
 
 bool LeftWindow::Start()
@@ -30,47 +33,47 @@ bool LeftWindow::Start()
 
 	//画像の生成
 	//枠
-	m_frameSR.Init("Assets/sprite/LeftWindow/LeftWindow_Frame.dds", DEFAULT_SPRITE_SIZE, DEFAULT_SPRITE_SIZE);
-	m_frameSR.SetPosition(DEFAULT_POSITION);
+	m_frameSR.Init("Assets/sprite/LeftWindow/LeftWindow_Frame.dds", LEFTWINDOW_SPRITE_SIZE, LEFTWINDOW_SPRITE_SIZE);
+	m_frameSR.SetPosition(LEFTWINDOW_POSITION);
 	m_frameSR.SetScale({ 1.0f,1.0f,1.0f });
 	m_frameSR.Update();
 	//パラメーターバー
 	m_parameter_RangeSR.Init("Assets/sprite/LeftWindow/LeftWindow_ParameterBar.dds", 280.0f, 280.0f);
-	m_parameter_RangeSR.SetPosition(DEFAULT_PARAMETER_RANGE_POSITION);
+	m_parameter_RangeSR.SetPosition(PARAMETER_RANGE_POSITION);
 	m_parameter_RangeSR.SetScale({ 1.0f,1.0f,1.0f });
 	m_parameter_RangeSR.Update();
 	m_parameter_DamageSR.Init("Assets/sprite/LeftWindow/LeftWindow_ParameterBar.dds", 280.0f, 280.0f);
-	m_parameter_DamageSR.SetPosition(DEFAULT_PARAMETER_DAMAGE_POSITION);
+	m_parameter_DamageSR.SetPosition(PARAMETER_DAMAGE_POSITION);
 	m_parameter_DamageSR.SetScale({ 1.0f,1.0f,1.0f });
 	m_parameter_DamageSR.Update();
 	m_parameter_FireRateSR.Init("Assets/sprite/LeftWindow/LeftWindow_ParameterBar.dds", 280.0f, 280.0f);
-	m_parameter_FireRateSR.SetPosition(DEFAULT_PARAMETER_FIRERATE_POSITION);
+	m_parameter_FireRateSR.SetPosition(PARAMETER_FIRERATE_POSITION);
 	m_parameter_FireRateSR.SetScale({ 1.0f,1.0f,1.0f });
 	m_parameter_FireRateSR.Update();
 	//タレット詳細
-	m_dualGunTurret_DetailSR.Init("Assets/sprite/LeftWindow/LeftWindow_DualGunTurret_Detail.dds", DEFAULT_SPRITE_SIZE, DEFAULT_SPRITE_SIZE);
-	m_dualGunTurret_DetailSR.SetPosition(DEFAULT_POSITION);
+	m_dualGunTurret_DetailSR.Init("Assets/sprite/LeftWindow/LeftWindow_DualGunTurret_Detail.dds", LEFTWINDOW_SPRITE_SIZE, LEFTWINDOW_SPRITE_SIZE);
+	m_dualGunTurret_DetailSR.SetPosition(LEFTWINDOW_POSITION);
 	m_dualGunTurret_DetailSR.SetScale({ 1.0f,1.0f,1.0f });
 	m_dualGunTurret_DetailSR.Update();
-	m_laserTurret_DetailSR.Init("Assets/sprite/LeftWindow/LeftWindow_LaserTurret_Detail.dds", DEFAULT_SPRITE_SIZE, DEFAULT_SPRITE_SIZE);
-	m_laserTurret_DetailSR.SetPosition(DEFAULT_POSITION);
+	m_laserTurret_DetailSR.Init("Assets/sprite/LeftWindow/LeftWindow_LaserTurret_Detail.dds", LEFTWINDOW_SPRITE_SIZE, LEFTWINDOW_SPRITE_SIZE);
+	m_laserTurret_DetailSR.SetPosition(LEFTWINDOW_POSITION);
 	m_laserTurret_DetailSR.SetScale({ 1.0f,1.0f,1.0f });
 	m_laserTurret_DetailSR.Update();
-	m_rocketTurret_DetailSR.Init("Assets/sprite/LeftWindow/LeftWindow_RocketTurret_Detail.dds", DEFAULT_SPRITE_SIZE, DEFAULT_SPRITE_SIZE);
-	m_rocketTurret_DetailSR.SetPosition(DEFAULT_POSITION);
+	m_rocketTurret_DetailSR.Init("Assets/sprite/LeftWindow/LeftWindow_RocketTurret_Detail.dds", LEFTWINDOW_SPRITE_SIZE, LEFTWINDOW_SPRITE_SIZE);
+	m_rocketTurret_DetailSR.SetPosition(LEFTWINDOW_POSITION);
 	m_rocketTurret_DetailSR.SetScale({ 1.0f,1.0f,1.0f });
 	m_rocketTurret_DetailSR.Update();
 	//ウィンドウ背景
-	m_weapons_BackGroundSR.Init("Assets/sprite/LeftWindow/LeftWindow_WeaponsBackGround.dds", DEFAULT_SPRITE_SIZE, DEFAULT_SPRITE_SIZE);
+	m_weapons_BackGroundSR.Init("Assets/sprite/LeftWindow/LeftWindow_WeaponsBackGround.dds", LEFTWINDOW_SPRITE_SIZE, LEFTWINDOW_SPRITE_SIZE);
 	m_weapons_BackGroundSR.SetPosition({ -500.0f,0.0f,0.0f });
 	m_weapons_BackGroundSR.SetScale({ 1.0f,1.0f,1.0f });
 	m_weapons_BackGroundSR.Update();
-	m_delete_BackGroundSR.Init("Assets/sprite/LeftWindow/LeftWindow_DeleteBackGround.dds", DEFAULT_SPRITE_SIZE, DEFAULT_SPRITE_SIZE);
+	m_delete_BackGroundSR.Init("Assets/sprite/LeftWindow/LeftWindow_DeleteBackGround.dds", LEFTWINDOW_SPRITE_SIZE, LEFTWINDOW_SPRITE_SIZE);
 	m_delete_BackGroundSR.SetPosition({ -500.0f,0.0f,0.0f });
 	m_delete_BackGroundSR.SetScale({ 1.0f,1.0f,1.0f });
 	m_delete_BackGroundSR.Update();
-	m_turret_BackGroundSR.Init("Assets/sprite/LeftWindow/LeftWindow_TurretBackGround.dds", DEFAULT_SPRITE_SIZE, DEFAULT_SPRITE_SIZE);
-	m_turret_BackGroundSR.SetPosition(DEFAULT_POSITION);
+	m_turret_BackGroundSR.Init("Assets/sprite/LeftWindow/LeftWindow_TurretBackGround.dds", LEFTWINDOW_SPRITE_SIZE, LEFTWINDOW_SPRITE_SIZE);
+	m_turret_BackGroundSR.SetPosition(LEFTWINDOW_POSITION);
 	m_turret_BackGroundSR.SetScale({ 1.0f,1.0f,1.0f });
 	m_turret_BackGroundSR.Update();
 
@@ -98,7 +101,7 @@ bool LeftWindow::Start()
 void LeftWindow::OperationNormal()
 {
 	//ウィンドウを左にスライド
-	if (m_move_Number >= DEFAULT_MOVE_WINDOW_X)
+	if (m_move_Number >= LEFTWINDOW_MOVE_X)
 	{
 		m_move_Number -= 50.0f;
 	}
@@ -115,7 +118,7 @@ void LeftWindow::OperationNormal()
 void LeftWindow::OperationSelectTurret()
 {
 	//ウィンドウを右にスライド
-	if (m_move_Number <= LIMIT_MOVE_WINDOW_X)
+	if (m_move_Number <= LEFTWINDOW_MOVE_X_LIMIT)
 	{
 		m_move_Number += 50.0f;
 	}
@@ -144,13 +147,14 @@ void LeftWindow::OperationSelectTurret()
 		TurretCursorLeft();
 	}
 	
-	//Startボタン(Enterキー)
-	if (g_pad[0]->IsTrigger(enButtonStart) && m_operationState == enOperationState_SelectTurret_LeftWindow)
+	//Selectボタン(Spaceキー)
+	if (g_pad[0]->IsTrigger(enButtonSelect) && m_operationState == enOperationState_SelectTurret_LeftWindow && GetButtonReady() == true)
 	{
+		SetButtonDelay();
 		//操作モードを変更
 		m_operationState = enOperationState_SetTurret_LeftWindow;
 		SoundPlayWindow();
-		
+
 		//タレットを作成
 		if (m_selectTurretNumber == enTurret_DualGunTurret)
 		{
@@ -181,7 +185,7 @@ void LeftWindow::OperationSelectTurret()
 void LeftWindow::OperationSetTurret()
 {
 	//ウィンドウを左にスライド
-	if (m_move_Number >= DEFAULT_MOVE_WINDOW_X)
+	if (m_move_Number >= LEFTWINDOW_MOVE_X)
 	{
 		m_move_Number -= 50.0f;
 	}
@@ -220,6 +224,11 @@ void LeftWindow::OperationDelete()
 		m_operationState = enOperationState_Normal_LeftWindow;
 		m_selectTurretNumber = 0;
 	}
+}
+
+void LeftWindow::OperationDeleteCheck()
+{
+	m_rangeNumber = 0.25f;
 }
 
 void LeftWindow::SetParameterBar()
@@ -292,31 +301,45 @@ void LeftWindow::Update()
 	{
 		OperationDelete();
 	}
+	else if (m_operationState == enOperationState_DeleteCheck_LeftWindow)
+	{
+		OperationDeleteCheck();
+	}
+
+	m_buttonDelay += g_gameTime->GetFrameDeltaTime();
+	if (m_buttonDelay >= 0.05)
+	{
+		m_buttonReady = true;
+	}
+	else
+	{
+		m_buttonReady = false;
+	}
 
 	//画像の更新
-	m_frameSR.SetPosition({ DEFAULT_POSITION.x + m_move_Number, DEFAULT_POSITION.y, DEFAULT_POSITION.z });
+	m_frameSR.SetPosition({ LEFTWINDOW_POSITION.x + m_move_Number, LEFTWINDOW_POSITION.y, LEFTWINDOW_POSITION.z });
 	m_frameSR.Update();
 	//パラメーター
-	m_parameter_RangeSR.SetPosition({ DEFAULT_PARAMETER_RANGE_POSITION.x + m_move_Number, DEFAULT_PARAMETER_RANGE_POSITION.y, DEFAULT_PARAMETER_RANGE_POSITION.z });
+	m_parameter_RangeSR.SetPosition({ PARAMETER_RANGE_POSITION.x + m_move_Number, PARAMETER_RANGE_POSITION.y, PARAMETER_RANGE_POSITION.z });
 	m_parameter_RangeSR.SetIsDisplayRestrictionRightSide(true);
 	m_parameter_RangeSR.SetLimitedX(m_rangeSetNumber);
 	m_parameter_RangeSR.Update();
-	m_parameter_DamageSR.SetPosition({ DEFAULT_PARAMETER_DAMAGE_POSITION.x + m_move_Number, DEFAULT_PARAMETER_DAMAGE_POSITION.y, DEFAULT_PARAMETER_DAMAGE_POSITION.z });
+	m_parameter_DamageSR.SetPosition({ PARAMETER_DAMAGE_POSITION.x + m_move_Number, PARAMETER_DAMAGE_POSITION.y, PARAMETER_DAMAGE_POSITION.z });
 	m_parameter_DamageSR.SetIsDisplayRestrictionRightSide(true);
 	m_parameter_DamageSR.SetLimitedX(m_damageSetNumber);
 	m_parameter_DamageSR.Update();
-	m_parameter_FireRateSR.SetPosition({ DEFAULT_PARAMETER_FIRERATE_POSITION.x + m_move_Number, DEFAULT_PARAMETER_FIRERATE_POSITION.y, DEFAULT_PARAMETER_FIRERATE_POSITION.z });
+	m_parameter_FireRateSR.SetPosition({ PARAMETER_FIRERATE_POSITION.x + m_move_Number, PARAMETER_FIRERATE_POSITION.y, PARAMETER_FIRERATE_POSITION.z });
 	m_parameter_FireRateSR.SetIsDisplayRestrictionRightSide(true);
 	m_parameter_FireRateSR.SetLimitedX(m_fireRateSetNumber);
 	m_parameter_FireRateSR.Update();
 	//タレット
 	m_turret_BackGroundSR.SetPosition({ m_turretBackGroundPosition[m_selectTurretNumber].x + m_move_Number, m_turretBackGroundPosition[m_selectTurretNumber].y, m_turretBackGroundPosition[m_selectTurretNumber].z });
 	m_turret_BackGroundSR.Update();
-	m_dualGunTurret_DetailSR.SetPosition({ DEFAULT_POSITION.x + m_move_Number, DEFAULT_POSITION.y, DEFAULT_POSITION.z });
+	m_dualGunTurret_DetailSR.SetPosition({ LEFTWINDOW_POSITION.x + m_move_Number, LEFTWINDOW_POSITION.y, LEFTWINDOW_POSITION.z });
 	m_dualGunTurret_DetailSR.Update();
-	m_laserTurret_DetailSR.SetPosition({ DEFAULT_POSITION.x + m_move_Number, DEFAULT_POSITION.y, DEFAULT_POSITION.z });
+	m_laserTurret_DetailSR.SetPosition({ LEFTWINDOW_POSITION.x + m_move_Number, LEFTWINDOW_POSITION.y, LEFTWINDOW_POSITION.z });
 	m_laserTurret_DetailSR.Update();
-	m_rocketTurret_DetailSR.SetPosition({ DEFAULT_POSITION.x + m_move_Number, DEFAULT_POSITION.y, DEFAULT_POSITION.z });
+	m_rocketTurret_DetailSR.SetPosition({ LEFTWINDOW_POSITION.x + m_move_Number, LEFTWINDOW_POSITION.y, LEFTWINDOW_POSITION.z });
 	m_rocketTurret_DetailSR.Update();
 }
 
@@ -329,7 +352,7 @@ void LeftWindow::Render(RenderContext& renderContext)
 	}
 
 	//右にスライドされている時だけ表示
-	if (m_move_Number >= LIMIT_MOVE_WINDOW_X)
+	if (m_move_Number >= LEFTWINDOW_MOVE_X_LIMIT)
 	{
 		m_turret_BackGroundSR.Draw(renderContext);
 

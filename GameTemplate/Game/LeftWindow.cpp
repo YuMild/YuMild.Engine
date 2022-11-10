@@ -7,9 +7,13 @@
 namespace
 {
 	float DEFAULT_SPRITE_SIZE = 720.0f;
-	float MOVE_X_DEFAULT = 50.0f;
-	float MOVE_X_LIMIT = 400.0f;
+	float DEFAULT_MOVE_WINDOW_X = 50.0f;
+	float LIMIT_MOVE_WINDOW_X = 400.0f;
+	float PARAMETER_MOVE_SPEED = 0.02;
 	Vector3 DEFAULT_POSITION = { -950.0f,0.0f,0.0f };
+	Vector3 DEFAULT_PARAMETER_RANGE_POSITION = { -971.0f,-128.5f,0.0f };
+	Vector3 DEFAULT_PARAMETER_DAMAGE_POSITION = { -971.0f,-190.5f,0.0f };
+	Vector3 DEFAULT_PARAMETER_FIRERATE_POSITION = { -971.0f,-252.5f,0.0f };
 }
 
 bool LeftWindow::Start()
@@ -30,6 +34,19 @@ bool LeftWindow::Start()
 	m_frameSR.SetPosition(DEFAULT_POSITION);
 	m_frameSR.SetScale({ 1.0f,1.0f,1.0f });
 	m_frameSR.Update();
+	//パラメーターバー
+	m_parameter_RangeSR.Init("Assets/sprite/LeftWindow/LeftWindow_ParameterBar.dds", 280.0f, 280.0f);
+	m_parameter_RangeSR.SetPosition(DEFAULT_PARAMETER_RANGE_POSITION);
+	m_parameter_RangeSR.SetScale({ 1.0f,1.0f,1.0f });
+	m_parameter_RangeSR.Update();
+	m_parameter_DamageSR.Init("Assets/sprite/LeftWindow/LeftWindow_ParameterBar.dds", 280.0f, 280.0f);
+	m_parameter_DamageSR.SetPosition(DEFAULT_PARAMETER_DAMAGE_POSITION);
+	m_parameter_DamageSR.SetScale({ 1.0f,1.0f,1.0f });
+	m_parameter_DamageSR.Update();
+	m_parameter_FireRateSR.Init("Assets/sprite/LeftWindow/LeftWindow_ParameterBar.dds", 280.0f, 280.0f);
+	m_parameter_FireRateSR.SetPosition(DEFAULT_PARAMETER_FIRERATE_POSITION);
+	m_parameter_FireRateSR.SetScale({ 1.0f,1.0f,1.0f });
+	m_parameter_FireRateSR.Update();
 	//タレット詳細
 	m_dualGunTurret_DetailSR.Init("Assets/sprite/LeftWindow/LeftWindow_DualGunTurret_Detail.dds", DEFAULT_SPRITE_SIZE, DEFAULT_SPRITE_SIZE);
 	m_dualGunTurret_DetailSR.SetPosition(DEFAULT_POSITION);
@@ -58,7 +75,8 @@ bool LeftWindow::Start()
 	m_turret_BackGroundSR.Update();
 
 	//音声の生成
-	g_soundEngine->ResistWaveFileBank(1, "Assets/sound/Choice.wav");
+	g_soundEngine->ResistWaveFileBank(1, "Assets/sound/Window.wav");
+	g_soundEngine->ResistWaveFileBank(2, "Assets/sound/Choice.wav");
 
 	//タレット背景の位置
 	m_turretBackGroundPosition[0] = { -950.0f,0.0f,0.0f };
@@ -80,7 +98,7 @@ bool LeftWindow::Start()
 void LeftWindow::OperationNormal()
 {
 	//ウィンドウを左にスライド
-	if (m_move_Number >= MOVE_X_DEFAULT)
+	if (m_move_Number >= DEFAULT_MOVE_WINDOW_X)
 	{
 		m_move_Number -= 50.0f;
 	}
@@ -97,7 +115,7 @@ void LeftWindow::OperationNormal()
 void LeftWindow::OperationSelectTurret()
 {
 	//ウィンドウを右にスライド
-	if (m_move_Number <= MOVE_X_LIMIT)
+	if (m_move_Number <= LIMIT_MOVE_WINDOW_X)
 	{
 		m_move_Number += 50.0f;
 	}
@@ -133,6 +151,7 @@ void LeftWindow::OperationSelectTurret()
 		m_operationState = enOperationState_SetTurret_LeftWindow;
 		SoundPlayWindow();
 		
+		//タレットを作成
 		if (m_selectTurretNumber == enTurret_DualGunTurret)
 		{
 			m_turretManager->Init(enTurret_DualGunTurret);
@@ -162,7 +181,7 @@ void LeftWindow::OperationSelectTurret()
 void LeftWindow::OperationSetTurret()
 {
 	//ウィンドウを左にスライド
-	if (m_move_Number >= MOVE_X_DEFAULT)
+	if (m_move_Number >= DEFAULT_MOVE_WINDOW_X)
 	{
 		m_move_Number -= 50.0f;
 	}
@@ -203,8 +222,60 @@ void LeftWindow::OperationDelete()
 	}
 }
 
+void LeftWindow::SetParameterBar()
+{
+	//初期化
+	switch (m_selectTurretNumber)
+	{
+	case enTurret_DualGunTurret:
+		m_rangeNumber = 0.25f;
+		m_damageNumber = 0.1f;
+		m_fireRateNumber = 0.75f;
+		break;
+	case enTurret_LaserTurret:
+		m_rangeNumber = 0.5f;
+		m_damageNumber = 0.5f;
+		m_fireRateNumber = 0.25f;
+		break;
+	case enTurret_RocketTurret:
+		m_rangeNumber = 0.75f;
+		m_damageNumber = 0.75f;
+		m_fireRateNumber = 0.1f;
+		break;
+	default:
+		break;
+	}
+
+	if (m_rangeSetNumber < m_rangeNumber)
+	{
+		m_rangeSetNumber += PARAMETER_MOVE_SPEED;
+	}
+	if (m_rangeSetNumber > m_rangeNumber)
+	{
+		m_rangeSetNumber -= PARAMETER_MOVE_SPEED;
+	}
+	if (m_damageSetNumber < m_damageNumber)
+	{
+		m_damageSetNumber += PARAMETER_MOVE_SPEED;
+	}
+	if (m_damageSetNumber > m_damageNumber)
+	{
+		m_damageSetNumber -= PARAMETER_MOVE_SPEED;
+	}
+	if (m_fireRateSetNumber < m_fireRateNumber)
+	{
+		m_fireRateSetNumber += PARAMETER_MOVE_SPEED;
+	}
+	if (m_fireRateSetNumber > m_fireRateNumber)
+	{
+		m_fireRateSetNumber -= PARAMETER_MOVE_SPEED;
+	}
+}
+
 void LeftWindow::Update()
 {
+	SetParameterBar();
+
 	if (m_operationState == enOperationState_Normal_LeftWindow)
 	{
 		OperationNormal();
@@ -225,6 +296,20 @@ void LeftWindow::Update()
 	//画像の更新
 	m_frameSR.SetPosition({ DEFAULT_POSITION.x + m_move_Number, DEFAULT_POSITION.y, DEFAULT_POSITION.z });
 	m_frameSR.Update();
+	//パラメーター
+	m_parameter_RangeSR.SetPosition({ DEFAULT_PARAMETER_RANGE_POSITION.x + m_move_Number, DEFAULT_PARAMETER_RANGE_POSITION.y, DEFAULT_PARAMETER_RANGE_POSITION.z });
+	m_parameter_RangeSR.SetIsDisplayRestrictionRightSide(true);
+	m_parameter_RangeSR.SetLimitedX(m_rangeSetNumber);
+	m_parameter_RangeSR.Update();
+	m_parameter_DamageSR.SetPosition({ DEFAULT_PARAMETER_DAMAGE_POSITION.x + m_move_Number, DEFAULT_PARAMETER_DAMAGE_POSITION.y, DEFAULT_PARAMETER_DAMAGE_POSITION.z });
+	m_parameter_DamageSR.SetIsDisplayRestrictionRightSide(true);
+	m_parameter_DamageSR.SetLimitedX(m_damageSetNumber);
+	m_parameter_DamageSR.Update();
+	m_parameter_FireRateSR.SetPosition({ DEFAULT_PARAMETER_FIRERATE_POSITION.x + m_move_Number, DEFAULT_PARAMETER_FIRERATE_POSITION.y, DEFAULT_PARAMETER_FIRERATE_POSITION.z });
+	m_parameter_FireRateSR.SetIsDisplayRestrictionRightSide(true);
+	m_parameter_FireRateSR.SetLimitedX(m_fireRateSetNumber);
+	m_parameter_FireRateSR.Update();
+	//タレット
 	m_turret_BackGroundSR.SetPosition({ m_turretBackGroundPosition[m_selectTurretNumber].x + m_move_Number, m_turretBackGroundPosition[m_selectTurretNumber].y, m_turretBackGroundPosition[m_selectTurretNumber].z });
 	m_turret_BackGroundSR.Update();
 	m_dualGunTurret_DetailSR.SetPosition({ DEFAULT_POSITION.x + m_move_Number, DEFAULT_POSITION.y, DEFAULT_POSITION.z });
@@ -244,13 +329,16 @@ void LeftWindow::Render(RenderContext& renderContext)
 	}
 
 	//右にスライドされている時だけ表示
-	if (m_move_Number >= MOVE_X_LIMIT)
+	if (m_move_Number >= LIMIT_MOVE_WINDOW_X)
 	{
 		m_turret_BackGroundSR.Draw(renderContext);
 
 		//タレット選択モード時
 		if (m_operationState == enOperationState_SelectTurret_LeftWindow)
 		{
+			m_parameter_RangeSR.Draw(renderContext);
+			m_parameter_DamageSR.Draw(renderContext);
+			m_parameter_FireRateSR.Draw(renderContext);
 			m_weapons_BackGroundSR.Draw(renderContext);
 			m_dualGunTurret_DetailSR.Draw(renderContext);
 			m_laserTurret_DetailSR.Draw(renderContext);

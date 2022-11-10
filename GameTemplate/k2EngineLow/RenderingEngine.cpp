@@ -80,5 +80,6 @@ namespace nsK2EngineLow
 	{
 		RenderToShadowMap(renderContext);
 		Draw(renderContext);
+		EffectEngine::GetInstance()->Draw();
 	}
 }

@@ -13,5 +13,7 @@ public:
 
 private:
 
-	ModelRender m_modelRender;
+	ModelRender			m_modelRender;
+
+	SoundSource*		m_bgm;
 };

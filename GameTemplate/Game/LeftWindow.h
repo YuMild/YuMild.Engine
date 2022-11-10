@@ -46,6 +46,7 @@ public:
 		{
 			m_selectTurretNumber -= 4;
 		}
+		SoundPlayChoice();
 	}
 
 	/// <summary>
@@ -57,6 +58,7 @@ public:
 		{
 			m_selectTurretNumber += 4;
 		}
+		SoundPlayChoice();
 	}
 
 	/// <summary>
@@ -68,6 +70,7 @@ public:
 		{
 			m_selectTurretNumber += 1;
 		}
+		SoundPlayChoice();
 	}
 
 	/// <summary>
@@ -79,6 +82,7 @@ public:
 		{
 			m_selectTurretNumber -= 1;
 		}
+		SoundPlayChoice();
 	}
 
 	/// <summary>
@@ -118,23 +122,44 @@ private:
 	void MakeTurret();
 
 	/// <summary>
+	/// パラメーターバーを管理
+	/// </summary>
+	void SetParameterBar();
+
+	/// <summary>
 	/// ウィンドウ切り替え時の音声を再生
 	/// </summary>
 	void SoundPlayWindow()
 	{
-		m_choiceSE = NewGO<SoundSource>(1);
-		m_choiceSE->Init(1);
+		m_windowSE = NewGO<SoundSource>(1);
+		m_windowSE->Init(1);
+		m_windowSE->SetVolume(1.0f);
+		m_windowSE->Play(false);
+	}
+
+	/// <summary>
+	/// 選択項目切り替え時の音声を再生
+	/// </summary>
+	void SoundPlayChoice()
+	{
+		m_choiceSE = NewGO<SoundSource>(2);
+		m_choiceSE->Init(2);
+		m_choiceSE->SetVolume(0.1f);
 		m_choiceSE->Play(false);
 	}
 
 	Player*				m_player;
 	TurretManager*		m_turretManager;
 
+	SoundSource*		m_windowSE;
 	SoundSource*		m_choiceSE;
 
 	ModelRender			m_gridMR;
 
 	SpriteRender		m_frameSR;
+	SpriteRender		m_parameter_RangeSR;
+	SpriteRender		m_parameter_DamageSR;
+	SpriteRender		m_parameter_FireRateSR;
 	SpriteRender		m_dualGunTurret_DetailSR;
 	SpriteRender		m_laserTurret_DetailSR;
 	SpriteRender		m_rocketTurret_DetailSR;
@@ -147,5 +172,11 @@ private:
 	int					m_operationState = enOperationState_Normal_LeftWindow;
 	int					m_selectTurretNumber = 0;
 
+	float				m_rangeNumber = 0.0f;
+	float				m_damageNumber = 0.0f;
+	float				m_fireRateNumber = 0.0f;
+	float				m_rangeSetNumber = 0.0f;
+	float				m_damageSetNumber = 0.0f;
+	float				m_fireRateSetNumber = 0.0f;
 	float				m_move_Number = 0.0f;
 };

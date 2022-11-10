@@ -7,7 +7,7 @@ class DualGunTurret;
 class LaserTurret;
 class RocketTurret;
 
-enum Turret
+enum TurretType
 {
 	enTurret_DualGunTurret,
 	enTurret_LaserTurret,
@@ -41,7 +41,7 @@ public:
 	/// タレットを作成
 	/// </summary>
 	/// <param name="enturret"></param>
-	void Init(Turret enturret);
+	void Init(TurretType enturret);
 
 	/// <summary>
 	/// タレットの合計数を取得
@@ -64,9 +64,9 @@ private:
 	/// </summary>
 	void SoundPlaySetTurret()
 	{
-		m_setTurretSE = NewGO<SoundSource>(2);
-		m_setTurretSE->Init(2);
-		m_setTurretSE->SetVolume(0.3f);
+		m_setTurretSE = NewGO<SoundSource>(3);
+		m_setTurretSE->Init(3);
+		m_setTurretSE->SetVolume(0.15f);
 		m_setTurretSE->Play(false);
 	}
 

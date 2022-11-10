@@ -14,6 +14,12 @@ bool Stage::Start()
 	m_modelRender.SetScale(STAGE_FIRST_SCALE);
 	m_modelRender.Update();
 
+	g_soundEngine->ResistWaveFileBank(4, "Assets/sound/BGM.wav");
+	m_bgm = NewGO<SoundSource>(4);
+	m_bgm->Init(4);
+	m_bgm->SetVolume(0.05f);
+	m_bgm->Play(true);
+
 	return true;
 }
 

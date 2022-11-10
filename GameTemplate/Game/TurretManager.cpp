@@ -44,12 +44,12 @@ bool TurretManager::Start()
 	}
 
 	//音声の作成
-	g_soundEngine->ResistWaveFileBank(2, "Assets/sound/SetTurret.wav");
+	g_soundEngine->ResistWaveFileBank(3, "Assets/sound/SetTurret.wav");
 
 	return true;
 }
 
-void TurretManager::Init(Turret enturret)
+void TurretManager::Init(TurretType enturret)
 {
 	//更新処理を開始
 	m_isModelNewGO = true;

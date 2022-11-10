@@ -19,7 +19,7 @@ public:
 		m_explosionEF = NewGO<EffectEmitter>(1);
 		m_explosionEF->Init(1);
 		m_explosionEF->SetPosition({ 0.0f,0.0f,0.0f });
-		m_explosionEF->SetScale(Vector3::One * 10000.0f);
+		m_explosionEF->SetScale(Vector3::One * 100.0f);
 		m_explosionEF->Play();
 	}
 

@@ -12,7 +12,7 @@ namespace nsK2EngineLow
 
 		m_light.m_directionLight.SetColor({ 1.0f,1.0f,1.0f });			//カラーを設定
 
-		SetAmbientLight({ 1.0f,1.0f,1.0f });							//環境光を設定
+		SetAmbientLight({ 0.3f,0.3f,0.3f });							//環境光を設定
 
 		m_light.m_pointLight.SetPosition({ 0.0f,50.0f,50.0 });			//ポジションを設定
 

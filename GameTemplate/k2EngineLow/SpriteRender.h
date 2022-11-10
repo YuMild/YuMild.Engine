@@ -21,13 +21,40 @@ namespace nsK2EngineLow
 		/// <param name="renderContext"></param>
 		void Draw(RenderContext& renderContext);
 
+		/// <summary>
+		/// 画像を描画する割合を設定
+		/// </summary>
+		/// <param name="x"></param>
 		void SetLimitedX(const float x)
 		{
-
+			m_sprite.SetX(x);
 		}
 		void SetLimitexY(const float y)
 		{
+			m_sprite.SetY(y);
+		}
 
+		/// <summary>
+		/// 原点を設定。原点を元として引数の分だけ画像を生成する。
+		/// Left 0.5だと左から五割だけ画像が描写される。
+		/// </summary>
+		/// <param name="isLeft">原点。</param>
+		void SetIsDisplayRestrictionLeftSide(const bool isLeft)
+		{
+			m_sprite.SetIsDisplayRestrictionLeftSide(isLeft);
+		}
+		void SetIsDisplayRestrictionRightSide(const bool isRight)
+		{
+			m_sprite.SetIsDisplayRestrictionRightSide(isRight);
+		}
+
+		void SetIsDisplayRestrictionUpSide(const bool isUp)
+		{
+			m_sprite.SetIsDisplayRestrictionUpSide(isUp);
+		}
+		void SetIsDisplayRestrictionDownSide(const bool isDown)
+		{
+			m_sprite.SetIsDisplayRestrictionDownSide(isDown);
 		}
 
 		/// <summary>

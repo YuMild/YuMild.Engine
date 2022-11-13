@@ -88,11 +88,16 @@ public:
 
 private:
 
+	//クラス
 	LeftWindow* m_leftWindow;
 
+	//モデル
 	ModelRender		m_modelRender;
+
+	//画像
 	SpriteRender	m_spriteRender;
 
+	//モデル
 	Vector3			m_modelPosition;
 	Quaternion		m_modelRotation;
 	Vector3			m_spritePosition;

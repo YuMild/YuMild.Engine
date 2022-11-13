@@ -16,10 +16,6 @@ class LeftWindow : public IGameObject
 {
 public:
 
-	bool Start();
-	void Update();
-	void Render(RenderContext& renderContext);
-
 	/// <summary>
 	/// 操作ステートを設定
 	/// </summary>
@@ -112,7 +108,33 @@ public:
 		return m_buttonReady;
 	}
 
+	/// <summary>
+	/// ウィンドウ切り替え時の音声を再生
+	/// </summary>
+	void SoundPlayWindow()
+	{
+		m_windowSE = NewGO<SoundSource>(1);
+		m_windowSE->Init(1);
+		m_windowSE->SetVolume(1.0f);
+		m_windowSE->Play(false);
+	}
+
+	/// <summary>
+	/// 選択項目切り替え時の音声を再生
+	/// </summary>
+	void SoundPlayChoice()
+	{
+		m_choiceSE = NewGO<SoundSource>(2);
+		m_choiceSE->Init(2);
+		m_choiceSE->SetVolume(0.1f);
+		m_choiceSE->Play(false);
+	}
+
 private:
+
+	bool Start();
+	void Update();
+	void Render(RenderContext& renderContext);
 
 	/// <summary>
 	/// 通常時
@@ -148,28 +170,6 @@ private:
 	/// パラメーターバーを管理
 	/// </summary>
 	void SetParameterBar();
-
-	/// <summary>
-	/// ウィンドウ切り替え時の音声を再生
-	/// </summary>
-	void SoundPlayWindow()
-	{
-		m_windowSE = NewGO<SoundSource>(1);
-		m_windowSE->Init(1);
-		m_windowSE->SetVolume(1.0f);
-		m_windowSE->Play(false);
-	}
-
-	/// <summary>
-	/// 選択項目切り替え時の音声を再生
-	/// </summary>
-	void SoundPlayChoice()
-	{
-		m_choiceSE = NewGO<SoundSource>(2);
-		m_choiceSE->Init(2);
-		m_choiceSE->SetVolume(0.1f);
-		m_choiceSE->Play(false);
-	}
 
 	//クラス
 	Player*				m_player;

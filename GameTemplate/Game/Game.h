@@ -14,11 +14,11 @@ class Game : public IGameObject
 {
 public:
 
+private:
+
 	bool Start();
 	void Update();
 	void Render(RenderContext& renderContext);
-
-private:
 
 	GameCamera*					m_gameCamera;
 	LeftWindow*					m_leftWindow;

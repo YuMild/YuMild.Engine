@@ -62,8 +62,19 @@ private:
 	void Update();
 	void Render(RenderContext& renderContext);
 
+	/// <summary>
+	/// ステートを管理
+	/// </summary>
 	void StateManager();
+
+	/// <summary>
+	/// タレットの削除
+	/// </summary>
 	void DeleteTurret();
+
+	/// <summary>
+	/// 各タレットの作成
+	/// </summary>
 	void MakeDualGunTurret();
 	void MakeLaserTurret();
 	void MakeRocketTurret();
@@ -79,35 +90,47 @@ private:
 		m_setTurretSE->Play(false);
 	}
 
+	//タレットの配列
 	std::vector<IGameObject*>		m_turrets;
 
 	//クラス
 	LeftWindow*						m_leftWindow;
-	LeftWindow_Delete*				m_leftWindow_Delete[12];
-	
+	LeftWindow_Delete*				m_leftWindowDelete[12];
 	DualGunTurret*					m_dualGunTurret;
 	LaserTurret*					m_laserTurret;
 	RocketTurret*					m_rocketTurret;
 
-	//Delete
-	SpriteRender					m_delete_Window;
-	SpriteRender					m_delete_Delete;
-	SpriteRender					m_delete_DeleteChoice;
-	SpriteRender					m_delete_Cancel;
-	SpriteRender					m_delete_CancelChoice;
+	//モデル
+	ModelRender						m_gridCursor;
+
+	//Delete画像
+	SpriteRender					m_deleteWindow;
+	SpriteRender					m_deleteDelete;
+	SpriteRender					m_deleteDeleteChoice;
+	SpriteRender					m_deleteCancel;
+	SpriteRender					m_deleteCancelChoice;
+	float							m_deleteSpriteScale = 0.0f;
 
 	//サウンド
 	SoundSource*					m_setTurretSE;
 
+	//カーソルポジション
 	Vector3							m_cursorPosition;
 	Vector3							m_deleteSpritePosition[12];
 
+	//モデルの作成
 	bool							m_isModelNewGO = false;
 	bool							m_isGorstModelNewGO = false;
 	
+	//タレットの種類
 	int								m_turretType = 0;
+
+	//タレットの合計
 	int								m_turretsSum = 0;
+
+	//タレットの削除確認用ステート
 	int								m_turretDeleteState = enDeleteState_Null;
 
+	//タレットの回転
 	float							m_rotation = 0.0f;
 };

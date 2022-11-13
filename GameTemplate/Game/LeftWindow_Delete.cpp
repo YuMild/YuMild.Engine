@@ -72,7 +72,7 @@ void LeftWindow_Delete::Update()
 
 void LeftWindow_Delete::Render(RenderContext& renderContext)
 {
-	if (m_isDraw == true && m_leftWindow->GetOperationState() == enOperationState_Delete_LeftWindow)
+	if (m_isDraw == true && (m_leftWindow->GetOperationState() == enOperationState_Delete_LeftWindow || m_leftWindow->GetOperationState() == enOperationState_DeleteCheck_LeftWindow))
 	{
 		m_spriteRender.Draw(renderContext);
 	}

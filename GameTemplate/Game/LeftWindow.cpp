@@ -169,6 +169,7 @@ void LeftWindow::OperationSelectTurret()
 			m_turretManager->Init(enTurret_RocketTurret);
 		}
 
+		//選択個所をリセット
 		m_selectTurretNumber = 0;
 	}
 
@@ -177,8 +178,9 @@ void LeftWindow::OperationSelectTurret()
 	{
 		//操作モードを変更
 		m_operationState = enOperationState_Delete_LeftWindow;
-		SoundPlayWindow();
+		//選択個所をリセット
 		m_selectTurretNumber = 0;
+		SoundPlayWindow();
 	}
 }
 
@@ -369,7 +371,7 @@ void LeftWindow::Render(RenderContext& renderContext)
 		}
 
 		//タレット削除モード時
-		if (m_operationState == enOperationState_Delete_LeftWindow)
+		if (m_operationState == enOperationState_Delete_LeftWindow || m_operationState == enOperationState_DeleteCheck_LeftWindow)
 		{
 			m_delete_BackGroundSR.Draw(renderContext);
 		}

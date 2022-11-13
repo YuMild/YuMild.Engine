@@ -41,7 +41,7 @@ bool UFO::Start()
 	m_modelRender.Init("Assets/modelData/Enemy/UFO_Blue.tkm", ShadowRecieveAndDrop);
 	m_modelRender.SetPosition(m_position);
 	m_modelRender.SetRotation(m_rotation);
-	m_modelRender.SetScale({ 1.0f,1.0f,1.0f });
+	m_modelRender.SetScale({ 3.5f,3.5f,3.5f });
 	m_modelRender.Update();
 
 	m_pointList.push_back({ POINT_1_POSITION });     //1”Ô–Ú‚Ìƒ|ƒCƒ“ƒg
@@ -72,6 +72,7 @@ void UFO::Move()
 		else
 		{
 			m_spawnManager->EffectPlayExplosion();
+			m_spawnManager->SoundPlayExplosion();
 			DeleteGO(this);
 			return;
 		}

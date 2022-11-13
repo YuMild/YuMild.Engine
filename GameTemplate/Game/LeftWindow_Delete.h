@@ -14,10 +14,6 @@ enum InitDeleteTurretSprite
 class LeftWindow_Delete:public IGameObject
 {
 public:
-
-	bool Start();
-	void Update();
-	void Render(RenderContext& renderContext);
 	
 	/// <summary>
 	/// íœ—p‚Ì‰æ‘œ‚ğì¬
@@ -78,6 +74,10 @@ public:
 	}
 
 private:
+
+	bool Start();
+	void Update();
+	void Render(RenderContext& renderContext);
 
 	LeftWindow*			m_leftWindow;
 	TurretManager*		m_turretManager;

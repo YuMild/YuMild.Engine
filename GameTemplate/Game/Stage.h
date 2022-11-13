@@ -7,13 +7,15 @@ class Stage : public IGameObject
 {
 public:
 
+private:
+
 	bool Start();
 	void Update();
 	void Render(RenderContext& renderCntext);
 
-private:
-
+	//ÉÇÉfÉã
 	ModelRender			m_modelRender;
 
+	//âπê∫
 	SoundSource*		m_bgm;
 };

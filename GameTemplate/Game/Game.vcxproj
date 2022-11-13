@@ -224,6 +224,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="DualGunTurret.cpp" />
+    <ClCompile Include="EnemyObject.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameCamera.cpp" />
     <ClCompile Include="LaserTurret.cpp" />
@@ -245,6 +246,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DualGunTurret.h" />
+    <ClInclude Include="EnemyObject.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameCamera.h" />
     <ClInclude Include="LaserTurret.h" />

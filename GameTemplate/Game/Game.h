@@ -1,6 +1,7 @@
 #pragma once
 
 #include "GameCamera.h"
+#include "GameOver.h"
 #include "LeftWindow.h"
 #include "Player.h"
 #include "SpawnManager.h"
@@ -21,6 +22,7 @@ private:
 	void Render(RenderContext& renderContext);
 
 	GameCamera*					m_gameCamera;
+	GameOver*					m_gameOver;
 	LeftWindow*					m_leftWindow;
 	Player*						m_player;
 	SpawnManager*				m_spawnMananer;

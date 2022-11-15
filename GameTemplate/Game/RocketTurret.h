@@ -89,7 +89,7 @@ public:
 private:
 
 	//ƒNƒ‰ƒX
-	LeftWindow* m_leftWindow;
+	LeftWindow*		m_leftWindow;
 
 	//ƒ‚ƒfƒ‹
 	ModelRender		m_modelRender;

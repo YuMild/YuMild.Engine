@@ -4,6 +4,8 @@
 
 class SpawnManager;
 
+class TurretManager;
+
 /// <summary>
 /// UFO
 /// </summary>
@@ -21,9 +23,17 @@ public:
 	/// ポジションを取得
 	/// </summary>
 	/// <returns></returns>
-	Vector3 GetPosition() const override
+	Vector3 GetPosition()
 	{
 		return m_position;
+	}
+
+	/// <summary>
+	/// テスト
+	/// </summary>
+	void MulScale() override
+	{
+		m_scale *= 1.2f;
 	}
 
 private:
@@ -34,17 +44,23 @@ private:
 	void Move();
 
 	//クラス
-	SpawnManager*			m_spawnManager;
+	SpawnManager*				m_spawnManager;
+
+	//タレット
+	TurretManager*				m_turretManager;
 
 	//モデル
-	ModelRender				m_modelRender;
+	ModelRender					m_modelRender;
 
 	//UFO
-	Vector3					m_position;
-	Quaternion				m_rotation;
+	Vector3						m_position;
+	Quaternion					m_rotation;
+
+	//テスト
+	Vector3						m_scale;
 
 	//パス移動
-	std::vector<Vector3>	m_pointList;
-	Vector3					m_target;
-	int						m_pointNum;
+	std::vector<Vector3>		m_pointList;
+	Vector3						m_target;
+	int							m_pointNum;
 };

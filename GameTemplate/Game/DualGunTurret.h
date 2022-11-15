@@ -1,6 +1,12 @@
 #pragma once
 
+#include <EnemyObject.h>
+
 class LeftWindow;
+
+class TurretManager;
+
+class EnemyObject;
 
 class DualGunTurret : public IGameObject
 {
@@ -9,6 +15,16 @@ public:
 	bool Start();
 	void Update();
 	void Render(RenderContext& renderContext);
+
+	/// <summary>
+	/// エネミーを設定
+	/// </summary>
+	/// <param name="enemys"></param>
+	/// <returns></returns>
+	void SetEnemys(std::vector<EnemyObject*> enemys)
+	{
+		m_enemys = enemys;
+	}
 
 	/// <summary>
 	/// モデルのポジションを設定
@@ -88,17 +104,30 @@ public:
 
 private:
 
+	/// <summary>
+	/// 攻撃処理
+	/// </summary>
+	void Attack();
+
+	TurretManager*					m_turretManager;
+
+	//攻撃処理
+	std::vector<EnemyObject*>		m_enemys;
+	Vector3							m_difference;
+	Vector3							m_lockOnPosition;
+	float							m_fireRate = 0.0f;
+	
 	//クラス
-	LeftWindow*		m_leftWindow;
+	LeftWindow*						m_leftWindow;
 
 	//モデル
-	ModelRender		m_modelRender;
+	ModelRender						m_modelRender;
 
 	//画像
-	SpriteRender	m_spriteRender;
+	SpriteRender					m_spriteRender;
 
 	//モデル
-	Vector3			m_modelPosition;
-	Quaternion		m_modelRotation;
-	Vector3			m_spritePosition;
+	Vector3							m_modelPosition;
+	Quaternion						m_modelRotation;
+	Vector3							m_spritePosition;
 };

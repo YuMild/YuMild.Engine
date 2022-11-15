@@ -1,23 +1,30 @@
 #pragma once
+
+/// <summary>
+/// 敵の基底クラス
+/// </summary>
 class EnemyObject : public IGameObject
 {
 public:
 
 	/// <summary>
+	/// デストラクタは必ずvirtualで作成する
+	/// </summary>
+	virtual ~EnemyObject();
+
+	/// <summary>
 	/// ポジションを取得
 	/// </summary>
 	/// <returns></returns>
-	virtual Vector3 GetPosition() const
-	{
-		return Vector3::Zero;
-	}
+	virtual Vector3 GetPosition() = 0;
 
 	/// <summary>
-	/// ステートを取得
+	/// サイズを上げる
 	/// </summary>
 	/// <returns></returns>
-	virtual int GetState() const
-	{
-		return 0;
-	}
+	virtual void MulScale() = 0;
+
+private:
+
+	std::vector<EnemyObject*> m_enemyOnObject;
 };

@@ -227,6 +227,7 @@
     <ClCompile Include="EnemyObject.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameCamera.cpp" />
+    <ClCompile Include="GameOver.cpp" />
     <ClCompile Include="LaserTurret.cpp" />
     <ClCompile Include="LeftWindow.cpp" />
     <ClCompile Include="LeftWindow_Delete.cpp" />
@@ -249,6 +250,7 @@
     <ClInclude Include="EnemyObject.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameCamera.h" />
+    <ClInclude Include="GameOver.h" />
     <ClInclude Include="LaserTurret.h" />
     <ClInclude Include="LeftWindow.h" />
     <ClInclude Include="LeftWindow_Delete.h" />

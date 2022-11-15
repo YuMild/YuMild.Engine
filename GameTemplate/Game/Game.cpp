@@ -4,6 +4,7 @@
 bool Game::Start()
 {
 	m_gameCamera = NewGO<GameCamera>(0, "gameCamera");
+	m_gameOver = NewGO<GameOver>(0, "gameOver");
 	m_leftWindow = NewGO<LeftWindow>(0, "leftWindow");
 	m_player = NewGO<Player>(0, "payer");
 	m_spawnMananer = NewGO<SpawnManager>(0, "spawnManager");

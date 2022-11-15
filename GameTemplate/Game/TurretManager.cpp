@@ -14,7 +14,7 @@ namespace
 	float DELETE_SPRITE_SIZE_WIDTH = 1280.0f;
 	float DELETE_SPRITE_SIZE_HEIGHT = 720.0f;
 
-	//タレットの移動感覚
+	//タレットの移動間隔
 	float TURRET_POSITION_MOVE_NUM = 393.0f;
 
 	//カーソル

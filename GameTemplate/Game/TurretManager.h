@@ -7,6 +7,8 @@ class DualGunTurret;
 class LaserTurret;
 class RocketTurret;
 
+class EnemyObject;
+
 enum TurretType
 {
 	enTurret_DualGunTurret,
@@ -44,6 +46,9 @@ public:
 
 private:
 
+	/// <summary>
+	/// タレットの削除確認用
+	/// </summary>
 	enum DeleteState
 	{
 		enDeleteState_Null,
@@ -51,6 +56,9 @@ private:
 		enDeleteState_Delete
 	};
 
+	/// <summary>
+	/// タレットの画像用
+	/// </summary>
 	enum SpritePosition
 	{
 		enSpritePosition_DuarGunTurret,
@@ -96,6 +104,7 @@ private:
 	//クラス
 	LeftWindow*						m_leftWindow;
 	LeftWindow_Delete*				m_leftWindowDelete[12];
+	//タレット
 	DualGunTurret*					m_dualGunTurret;
 	LaserTurret*					m_laserTurret;
 	RocketTurret*					m_rocketTurret;

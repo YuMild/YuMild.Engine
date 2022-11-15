@@ -3,10 +3,13 @@
 
 #include "SpawnManager.h"
 
+#include "TurretManager.h"
+
 namespace
 {
 	//初期値
 	Vector3 FIRST_POSITION = { 0.0f,0.0f,-8000.0f };
+	Vector3 FIRST_SCALE = { 2.95f,2.95f,2.95f };
 	float FIRST_ROTATION_Y = 0.0f;
 
 	//ポイントポジション
@@ -18,7 +21,9 @@ namespace
 	Vector3 POINT_6_POSITION = { 0.0f,0.0f,-2000.0f };
 	Vector3 POINT_7_POSITION = { 0.0f,0.0f,0.0f };
 
+	//動作
 	float MOVE_SPEED = 15.0f;
+	float ROTATION_SPEED = 1.5f;
 }
 
 UFO::UFO()
@@ -33,7 +38,12 @@ UFO::~UFO()
 
 bool UFO::Start()
 {
+	//テスト
+	m_scale = { 1.0f,1.0f,1.0f };
+
+	//FindGO
 	m_spawnManager = FindGO<SpawnManager>("spawnManager");
+	m_turretManager = FindGO<TurretManager>("turretManager");
 
 	m_position = FIRST_POSITION;
 	m_rotation.SetRotationDegY(FIRST_ROTATION_Y);
@@ -41,7 +51,7 @@ bool UFO::Start()
 	m_modelRender.Init("Assets/modelData/Enemy/UFO_Blue.tkm", ShadowRecieveAndDrop);
 	m_modelRender.SetPosition(m_position);
 	m_modelRender.SetRotation(m_rotation);
-	m_modelRender.SetScale({ 3.5f,3.5f,3.5f });
+	m_modelRender.SetScale(FIRST_SCALE);
 	m_modelRender.Update();
 
 	m_pointList.push_back({ POINT_1_POSITION });     //1番目のポイント
@@ -71,11 +81,18 @@ void UFO::Move()
 		}
 		else
 		{
-			m_spawnManager->EffectPlayExplosion();
-			m_spawnManager->SoundPlayExplosion();
+			m_spawnManager->EffectPlayExplosion(m_position);
+			m_spawnManager->SoundPlayExplosion(); 
 			DeleteGO(this);
 			return;
 		}
+	}
+
+	if (m_scale.x >= 5.0f)
+	{
+		m_spawnManager->EffectPlayExplosion(m_position);
+		m_spawnManager->SoundPlayExplosion();
+		DeleteGO(this);
 	}
 
 	Vector3 moveSpeed = m_target - m_position;
@@ -84,11 +101,12 @@ void UFO::Move()
 	m_position += moveSpeed;
 
 	//回転し続ける
-	m_rotation.AddRotationDegY(1.0f);
+	m_rotation.AddRotationDegY(ROTATION_SPEED);
 
 	//更新処理
 	m_modelRender.SetPosition(m_position);
 	m_modelRender.SetRotation(m_rotation);
+	m_modelRender.SetScale(m_scale);
 	m_modelRender.Update();
 }
 

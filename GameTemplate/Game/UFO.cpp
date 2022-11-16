@@ -1,8 +1,9 @@
 #include "stdafx.h"
 #include "UFO.h"
 
-#include "SpawnManager.h"
+#include "GameOver.h"
 
+#include "SpawnManager.h"
 #include "TurretManager.h"
 
 namespace
@@ -42,6 +43,7 @@ bool UFO::Start()
 	m_scale = { 1.0f,1.0f,1.0f };
 
 	//FindGO
+	m_gameOver = FindGO<GameOver>("gameOver");
 	m_spawnManager = FindGO<SpawnManager>("spawnManager");
 	m_turretManager = FindGO<TurretManager>("turretManager");
 
@@ -82,7 +84,8 @@ void UFO::Move()
 		else
 		{
 			m_spawnManager->EffectPlayExplosion(m_position);
-			m_spawnManager->SoundPlayExplosion(); 
+			m_spawnManager->SoundPlayExplosion();
+			m_gameOver->SubHP();
 			DeleteGO(this);
 			return;
 		}

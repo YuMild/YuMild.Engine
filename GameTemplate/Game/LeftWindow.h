@@ -160,11 +160,6 @@ private:
 	/// タレット削除確認時
 	/// </summary>
 	void OperationDeleteCheck();
-	
-	/// <summary>
-	/// タレットを作成
-	/// </summary>
-	void MakeTurret();
 
 	/// <summary>
 	/// パラメーターバーを管理

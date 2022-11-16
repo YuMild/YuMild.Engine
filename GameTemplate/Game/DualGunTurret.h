@@ -105,10 +105,22 @@ public:
 private:
 
 	/// <summary>
+	/// 銃声を再生
+	/// </summary>
+	void SoundPlayFire()
+	{
+		m_fireSE = NewGO<SoundSource>(0);
+		m_fireSE->Init(6);
+		m_fireSE->SetVolume(0.025f);
+		m_fireSE->Play(false);
+	}
+
+	/// <summary>
 	/// 攻撃処理
 	/// </summary>
 	void Attack();
 
+	//タレットマネージャー
 	TurretManager*					m_turretManager;
 
 	//攻撃処理
@@ -116,12 +128,14 @@ private:
 	Vector3							m_difference;
 	Vector3							m_lockOnPosition;
 	float							m_fireRate = 0.0f;
+	SoundSource*					m_fireSE;
 	
 	//クラス
 	LeftWindow*						m_leftWindow;
 
 	//モデル
-	ModelRender						m_modelRender;
+	ModelRender						m_turretModel;
+	ModelRender						m_baseModel;
 
 	//画像
 	SpriteRender					m_spriteRender;

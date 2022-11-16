@@ -12,14 +12,26 @@ namespace
 
 bool DualGunTurret::Start()
 {
+	//FindGO
 	m_leftWindow = FindGO<LeftWindow>("leftWindow");
 	m_turretManager = FindGO<TurretManager>("turretManager");
 
-	m_modelRender.Init("Assets/ModelData/Turret/DualGunTurret.tkm", ShadowRecieveAndDrop,true);
-	m_modelRender.SetPosition(m_modelPosition);
-	m_modelRender.SetRotation(m_modelRotation);
-	m_modelRender.SetScale({ 1.0f,1.0f,1.0f });
-	m_modelRender.Update();
+	//É^ÉåÉbÉg
+	m_turretModel.Init("Assets/ModelData/Turret/DualGunTurret.tkm", ShadowRecieveAndDrop,true);
+	m_turretModel.SetPosition(m_modelPosition);
+	m_turretModel.SetRotation(m_modelRotation);
+	m_turretModel.SetScale({ 1.0f,1.0f,1.0f });
+	m_turretModel.Update();
+
+	//ìyë‰
+	m_baseModel.Init("Assets/ModelData/Turret/Base.tkm", ShadowRecieveAndDrop, true);
+	m_baseModel.SetPosition(m_modelPosition);
+	m_baseModel.SetRotation(m_modelRotation);
+	m_baseModel.SetScale({ 1.0f,1.0f,1.0f });
+	m_baseModel.Update();
+
+	//âπê∫ÇÃê∂ê¨
+	g_soundEngine->ResistWaveFileBank(6, "Assets/sound/DualGunTurret.wav");
 
 	return true;
 }
@@ -44,25 +56,38 @@ void DualGunTurret::Attack()
 		{
 			//m_lockOnPosition = lockOnObject->GetPosition();
 			m_difference = difference;
+
+			//ê≥ãKâª
+			m_difference.Normalize();
+
+			//ÉÇÉfÉãÇÃâÒì]
+			Vector3 rotation = m_difference;
+			rotation.y = 0.0f;
+			rotation.Normalize();
+			Quaternion quaternion;
+			quaternion.SetRotationYFromDirectionXZ(rotation);
+			m_turretModel.SetRotation(quaternion);
+			m_turretModel.Update();
+
+			//î≠éÀÉåÅ[Ég
 			if (m_fireRate >= FIRERATE)
 			{
 				lockOnObject->MulScale();
+				SoundPlayFire();
 				m_fireRate = 0.0f;
 			}
 		}
 	}
-
-	//ê≥ãKâª
-	m_difference.Normalize();
 }
 
 void DualGunTurret::Update()
 {
 	Attack();
 
-	m_modelRender.SetPosition(m_modelPosition);
-	m_modelRender.SetRotation(m_modelRotation);
-	m_modelRender.Update();
+	m_turretModel.SetPosition(m_modelPosition);
+	m_turretModel.Update();
+	m_baseModel.SetPosition(m_modelPosition);
+	m_baseModel.Update();
 
 	m_spriteRender.SetPosition(m_spritePosition);
 	m_spriteRender.Update();
@@ -70,5 +95,6 @@ void DualGunTurret::Update()
 
 void DualGunTurret::Render(RenderContext& renderContext)
 {
-	m_modelRender.Draw(renderContext);
+	m_turretModel.Draw(renderContext);
+	m_baseModel.Draw(renderContext);
 }

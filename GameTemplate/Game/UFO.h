@@ -2,8 +2,9 @@
 
 #include "EnemyObject.h"
 
-class SpawnManager;
+class GameOver;
 
+class SpawnManager;
 class TurretManager;
 
 /// <summary>
@@ -44,9 +45,9 @@ private:
 	void Move();
 
 	//クラス
-	SpawnManager*				m_spawnManager;
+	GameOver*					m_gameOver;
 
-	//タレット
+	SpawnManager*				m_spawnManager;
 	TurretManager*				m_turretManager;
 
 	//モデル

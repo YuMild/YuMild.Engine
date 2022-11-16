@@ -12,9 +12,9 @@ class DualGunTurret : public IGameObject
 {
 public:
 
-	bool Start();
-	void Update();
-	void Render(RenderContext& renderContext);
+	bool Start()override;
+	void Update()override;
+	void Render(RenderContext& renderContext)override;
 
 	/// <summary>
 	/// エネミーを設定

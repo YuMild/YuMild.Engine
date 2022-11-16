@@ -6,8 +6,8 @@ public:
 
 private:
 
-	bool Start();
-	void Update();
-	void Render(RenderContext& renderContext);
+	bool Start()override;
+	void Update()override;
+	void Render(RenderContext& renderContext)override;
 
 };

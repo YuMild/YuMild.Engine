@@ -1,11 +1,15 @@
 #pragma once
+
+/// <summary>
+/// ゲームオーバー
+/// </summary>
 class GameOver : public IGameObject
 {
 public:
 
-	bool Start();
-	void Update();
-	void Render(RenderContext& renderContext);
+	bool Start()override;
+	void Update()override;
+	void Render(RenderContext& renderContext)override;
 
 	/// <summary>
 	/// HPを減らす
@@ -17,7 +21,9 @@ public:
 
 private:
 
+	//画像
 	SpriteRender		m_windowSR;
 
+	//HP
 	int					m_hp = 0;
 };

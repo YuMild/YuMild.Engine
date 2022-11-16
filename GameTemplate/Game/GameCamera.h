@@ -9,6 +9,6 @@ public:
 
 private:
 
-	bool Start();
-	void Update();
+	bool Start()override;
+	void Update()override;
 };

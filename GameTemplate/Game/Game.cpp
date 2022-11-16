@@ -3,6 +3,7 @@
 
 bool Game::Start()
 {
+	m_energy = NewGO<Energy>(0, "energy");
 	m_gameCamera = NewGO<GameCamera>(0, "gameCamera");
 	m_gameOver = NewGO<GameOver>(0, "gameOver");
 	m_leftWindow = NewGO<LeftWindow>(0, "leftWindow");

@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Energy.h"
 #include "GameCamera.h"
 #include "GameOver.h"
 #include "LeftWindow.h"
@@ -17,10 +18,11 @@ public:
 
 private:
 
-	bool Start();
-	void Update();
-	void Render(RenderContext& renderContext);
+	bool Start()override;
+	void Update()override;
+	void Render(RenderContext& renderContext)override;
 
+	Energy*						m_energy;
 	GameCamera*					m_gameCamera;
 	GameOver*					m_gameOver;
 	LeftWindow*					m_leftWindow;

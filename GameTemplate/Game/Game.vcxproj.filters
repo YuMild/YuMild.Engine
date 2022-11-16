@@ -10,8 +10,11 @@
     <Filter Include="Enemy">
       <UniqueIdentifier>{64433bd5-acdf-4995-965f-388b4aaa1f58}</UniqueIdentifier>
     </Filter>
-    <Filter Include="UI">
+    <Filter Include="LeftWindow">
       <UniqueIdentifier>{2466c311-7a7b-4871-b510-5d3a77fc9793}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Energy">
+      <UniqueIdentifier>{7b32a182-2da2-464e-90c2-1c9502c22030}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -31,7 +34,7 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Stage.cpp" />
     <ClCompile Include="LeftWindow.cpp">
-      <Filter>UI</Filter>
+      <Filter>LeftWindow</Filter>
     </ClCompile>
     <ClCompile Include="LaserTurret.cpp">
       <Filter>Turrets</Filter>
@@ -43,7 +46,7 @@
       <Filter>Turrets</Filter>
     </ClCompile>
     <ClCompile Include="LeftWindow_Delete.cpp">
-      <Filter>UI</Filter>
+      <Filter>LeftWindow</Filter>
     </ClCompile>
     <ClCompile Include="SpawnManager.cpp">
       <Filter>Enemy</Filter>
@@ -52,6 +55,9 @@
       <Filter>Enemy</Filter>
     </ClCompile>
     <ClCompile Include="GameOver.cpp" />
+    <ClCompile Include="Energy.cpp">
+      <Filter>Energy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -69,7 +75,7 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="Stage.h" />
     <ClInclude Include="LeftWindow.h">
-      <Filter>UI</Filter>
+      <Filter>LeftWindow</Filter>
     </ClInclude>
     <ClInclude Include="LaserTurret.h">
       <Filter>Turrets</Filter>
@@ -81,7 +87,7 @@
       <Filter>Turrets</Filter>
     </ClInclude>
     <ClInclude Include="LeftWindow_Delete.h">
-      <Filter>UI</Filter>
+      <Filter>LeftWindow</Filter>
     </ClInclude>
     <ClInclude Include="SpawnManager.h">
       <Filter>Enemy</Filter>
@@ -90,5 +96,8 @@
       <Filter>Enemy</Filter>
     </ClInclude>
     <ClInclude Include="GameOver.h" />
+    <ClInclude Include="Energy.h">
+      <Filter>Energy</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

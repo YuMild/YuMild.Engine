@@ -55,6 +55,9 @@ namespace nsK2EngineLow
 		//画像をドロー
 		SpriteDraw(renderContext);
 
+		//フォントをドロー
+		FontDraw(renderContext);
+
 		//レンダリングターゲットへの書き込み終了待ち
 		renderContext.WaitUntilFinishDrawingToRenderTargets(1, renderTargets);
 
@@ -74,6 +77,16 @@ namespace nsK2EngineLow
 		}
 
 		m_spriteRenderObject.clear();
+	}
+
+	void RenderingEngine::FontDraw(RenderContext& renderContext)
+	{
+		for (auto& font : m_fontRenderObject)
+		{
+			font->Render(renderContext);
+		}
+
+		m_fontRenderObject.clear();
 	}
 
 	void RenderingEngine::Execute(RenderContext& renderContext)

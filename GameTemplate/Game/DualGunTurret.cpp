@@ -12,6 +12,11 @@ namespace
 
 bool DualGunTurret::Start()
 {
+	//テスト
+	m_fontRender.SetScale(2.0f);
+	m_fontRender.SetPivot(1.0f, 0.5f);
+	m_fontRender.SetPosition({ 100.0f,100.0f,0.0f });
+
 	//FindGO
 	m_leftWindow = FindGO<LeftWindow>("leftWindow");
 	m_turretManager = FindGO<TurretManager>("turretManager");
@@ -84,17 +89,22 @@ void DualGunTurret::Update()
 {
 	Attack();
 
+	//テスト
+	wchar_t wcsbuf[256];
+	swprintf_s(wcsbuf, 256, L"%03d", int(10));
+	m_fontRender.SetText(wcsbuf);
+
 	m_turretModel.SetPosition(m_modelPosition);
 	m_turretModel.Update();
 	m_baseModel.SetPosition(m_modelPosition);
 	m_baseModel.Update();
-
-	m_spriteRender.SetPosition(m_spritePosition);
-	m_spriteRender.Update();
 }
 
 void DualGunTurret::Render(RenderContext& renderContext)
 {
+	//テスト
+	m_fontRender.Draw(renderContext);
+
 	m_turretModel.Draw(renderContext);
 	m_baseModel.Draw(renderContext);
 }

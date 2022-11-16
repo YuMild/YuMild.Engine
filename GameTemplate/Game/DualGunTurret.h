@@ -120,6 +120,9 @@ private:
 	/// </summary>
 	void Attack();
 
+	//テスト
+	FontRender						m_fontRender;
+
 	//タレットマネージャー
 	TurretManager*					m_turretManager;
 
@@ -136,9 +139,6 @@ private:
 	//モデル
 	ModelRender						m_turretModel;
 	ModelRender						m_baseModel;
-
-	//画像
-	SpriteRender					m_spriteRender;
 
 	//モデル
 	Vector3							m_modelPosition;

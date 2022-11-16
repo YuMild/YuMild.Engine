@@ -83,8 +83,8 @@ using namespace Microsoft::WRL;
 #include "Bloom.h"
 
 #include "ModelRender.h"
-
 #include "SpriteRender.h"
+#include "FontRender.h"
 
 #include "RenderingEngine.h"
 

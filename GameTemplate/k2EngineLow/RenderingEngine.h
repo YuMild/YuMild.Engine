@@ -42,6 +42,15 @@ namespace nsK2EngineLow
 		}
 
 		/// <summary>
+		/// フォントレンダーオブジェクトの数の追加
+		/// </summary>
+		/// <param name="spriteRenderObject"></param>
+		void AddFontRenderObject(FontRender* fontRenderObject)
+		{
+			m_fontRenderObject.push_back(fontRenderObject);
+		}
+
+		/// <summary>
 		/// 描画
 		/// </summary>
 		/// <param name="renderContext"></param>
@@ -60,6 +69,12 @@ namespace nsK2EngineLow
 		void SpriteDraw(RenderContext& renderContext);
 
 		/// <summary>
+		/// フォントの描画
+		/// </summary>
+		/// <param name="renderContext"></param>
+		void FontDraw(RenderContext& renderContext);
+
+		/// <summary>
 		/// 実行
 		/// </summary>
 		/// <param name="renderTarget"></param>
@@ -76,11 +91,12 @@ namespace nsK2EngineLow
 
 	private:
 
-		std::vector<ModelRender*> m_modelRenderObject;
-		std::vector<SpriteRender*> m_spriteRenderObject;
-		ShadowMapRender* m_shadowMapRender;
-		RenderTarget m_mainRenderTarget;
+		std::vector<ModelRender*>		m_modelRenderObject;
+		std::vector<SpriteRender*>		m_spriteRenderObject;
+		std::vector<FontRender*>		m_fontRenderObject;
+		ShadowMapRender*				m_shadowMapRender;
+		RenderTarget					m_mainRenderTarget;
 	};
 
-	extern RenderingEngine g_renderingEngine;
+	extern RenderingEngine				g_renderingEngine;
 }

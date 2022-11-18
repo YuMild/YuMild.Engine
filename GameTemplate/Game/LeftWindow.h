@@ -35,6 +35,15 @@ public:
 	}
 
 	/// <summary>
+	/// 移動距離を取得
+	/// </summary>
+	/// <returns></returns>
+	float GetMoveNumber()
+	{
+		return m_moveNumber;
+	}
+
+	/// <summary>
 	/// カーソルを一段上に
 	/// </summary>
 	void TurretCursorUp()
@@ -214,5 +223,5 @@ private:
 	float				m_fireRateSetNumber = 0.0f;
 
 	//ウィンドウのポジションに加算する数値
-	float				m_move_Number = 0.0f;
+	float				m_moveNumber = 0.0f;
 };

@@ -12,10 +12,12 @@ namespace
 	};
 }
 
-namespace  nsK2EngineLow {
+namespace  nsK2EngineLow 
+{
 	class ModelRender : public Noncopyable
 	{
 	public:
+
 		ModelRender();
 		~ModelRender();
 

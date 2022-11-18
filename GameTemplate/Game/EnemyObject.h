@@ -19,10 +19,28 @@ public:
 	virtual Vector3 GetPosition() = 0;
 
 	/// <summary>
-	/// ƒTƒCƒY‚ğã‚°‚é
+	/// HP‚ğæ“¾
 	/// </summary>
 	/// <returns></returns>
-	virtual void MulScale() = 0;
+	virtual float GetDefaultHP() = 0;
+
+	/// <summary>
+	/// HP‚ğİ’è
+	/// </summary>
+	/// <param name="setHP"></param>
+	virtual void SetDefaultHP(const float setDefaultHP) = 0;
+
+	/// <summary>
+	/// HP‚ğ‰ÁZ
+	/// </summary>
+	/// <param name="addHP"></param>
+	virtual void AddHP(const float addHP) = 0;
+
+	/// <summary>
+	/// HP‚ğœZ
+	/// </summary>
+	/// <param name="addHP"></param>
+	virtual void SubHP(const float subHP) = 0;
 
 private:
 

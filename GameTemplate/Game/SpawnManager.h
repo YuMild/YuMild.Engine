@@ -9,6 +9,15 @@ class SpawnManager : public IGameObject
 {
 public:
 
+	/// <summary>
+	/// UFOのデフォルトHPを設定
+	/// </summary>
+	/// <returns></returns>
+	float GetDefaultHP_UFO()
+	{
+		return m_defaultHP_UFO;
+	}
+
 	//爆破エフェクトを再生
 	void EffectPlayExplosion(Vector3& position)
 	{
@@ -54,10 +63,12 @@ private:
 	SoundSource*	m_explosionSE;
 
 	//レベルを管理するタイマー
-	float			m_levelTime = 0.0f;
 	float			m_levelTimer = 0.0f;
 
 	//UFOのスポーンタイマー
 	float			m_spawnTime_UFO = 0.0f;
 	float			m_spawnTimer_UFO = 0.0f;
+
+	//UFOのHP
+	float			m_defaultHP_UFO = 0.0f;
 };

@@ -2,11 +2,9 @@
 
 #include <EnemyObject.h>
 
-class LeftWindow;
-
-class TurretManager;
-
 class EnemyObject;
+class LeftWindow;
+class TurretManager;
 
 class DualGunTurret : public IGameObject
 {
@@ -15,16 +13,6 @@ public:
 	bool Start()override;
 	void Update()override;
 	void Render(RenderContext& renderContext)override;
-
-	/// <summary>
-	/// エネミーを設定
-	/// </summary>
-	/// <param name="enemys"></param>
-	/// <returns></returns>
-	void SetEnemys(std::vector<EnemyObject*> enemys)
-	{
-		m_enemys = enemys;
-	}
 
 	/// <summary>
 	/// モデルのポジションを設定
@@ -102,6 +90,15 @@ public:
 		m_modelRotation.AddRotationDegY(-180.0f);
 	}
 
+	/// <summary>
+	/// タレットの状態変更
+	/// </summary>
+	/// <param name="ready"></param>
+	void SetAttackReady(bool ready)
+	{
+		m_attackReady = ready;
+	}
+
 private:
 
 	/// <summary>
@@ -120,13 +117,11 @@ private:
 	/// </summary>
 	void Attack();
 
-	//テスト
-	FontRender						m_fontRender;
-
 	//タレットマネージャー
 	TurretManager*					m_turretManager;
 
 	//攻撃処理
+	bool							m_attackReady = false;
 	std::vector<EnemyObject*>		m_enemys;
 	Vector3							m_difference;
 	Vector3							m_lockOnPosition;

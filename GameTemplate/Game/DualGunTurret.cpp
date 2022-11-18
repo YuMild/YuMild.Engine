@@ -12,11 +12,6 @@ namespace
 
 bool DualGunTurret::Start()
 {
-	//テスト
-	m_fontRender.SetScale(2.0f);
-	m_fontRender.SetPivot(1.0f, 0.5f);
-	m_fontRender.SetPosition({ 100.0f,100.0f,0.0f });
-
 	//FindGO
 	m_leftWindow = FindGO<LeftWindow>("leftWindow");
 	m_turretManager = FindGO<TurretManager>("turretManager");
@@ -44,42 +39,47 @@ bool DualGunTurret::Start()
 void DualGunTurret::Attack()
 {
 	m_fireRate += g_gameTime->GetFrameDeltaTime();
-	//射程より長ければOK
-	m_difference = { 10000.0f,10000.0f,10000.0f };
-	//ロックオンしたか否か
-	m_enemys = FindGOs<EnemyObject>("ufo");
-	for (auto lockOnObject : m_enemys)
+	
+	//攻撃可能なら
+	if (m_attackReady == true)
 	{
-		//全ての敵との距離を測る
-		Vector3 difference = lockOnObject->GetPosition() - m_modelPosition;
-		//射程内で且つ一番近かったら
-		if (difference.Length() >= 1000.0f)
+		//射程より長ければOK
+		m_difference = { 10000.0f,10000.0f,10000.0f };
+		//ロックオンしたか否か
+		m_enemys = FindGOs<EnemyObject>("ufo");
+		for (auto lockOnObject : m_enemys)
 		{
-			continue;
-		}
-		if (difference.Length() < m_difference.Length())
-		{
-			//m_lockOnPosition = lockOnObject->GetPosition();
-			m_difference = difference;
-
-			//正規化
-			m_difference.Normalize();
-
-			//モデルの回転
-			Vector3 rotation = m_difference;
-			rotation.y = 0.0f;
-			rotation.Normalize();
-			Quaternion quaternion;
-			quaternion.SetRotationYFromDirectionXZ(rotation);
-			m_turretModel.SetRotation(quaternion);
-			m_turretModel.Update();
-
-			//発射レート
-			if (m_fireRate >= FIRERATE)
+			//全ての敵との距離を測る
+			Vector3 difference = lockOnObject->GetPosition() - m_modelPosition;
+			//射程内で且つ一番近かったら
+			if (difference.Length() >= 1000.0f)
 			{
-				lockOnObject->MulScale();
-				SoundPlayFire();
-				m_fireRate = 0.0f;
+				continue;
+			}
+			if (difference.Length() < m_difference.Length())
+			{
+				//m_lockOnPosition = lockOnObject->GetPosition();
+				m_difference = difference;
+
+				//正規化
+				m_difference.Normalize();
+
+				//モデルの回転
+				Vector3 rotation = m_difference;
+				rotation.y = 0.0f;
+				rotation.Normalize();
+				Quaternion quaternion;
+				quaternion.SetRotationYFromDirectionXZ(rotation);
+				m_turretModel.SetRotation(quaternion);
+				m_turretModel.Update();
+
+				//発射レート
+				if (m_fireRate >= FIRERATE)
+				{
+					lockOnObject->SubHP(5.0f);
+					SoundPlayFire();
+					m_fireRate = 0.0f;
+				}
 			}
 		}
 	}
@@ -89,11 +89,7 @@ void DualGunTurret::Update()
 {
 	Attack();
 
-	//テスト
-	wchar_t wcsbuf[256];
-	swprintf_s(wcsbuf, 256, L"%03d", int(10));
-	m_fontRender.SetText(wcsbuf);
-
+	//更新処理
 	m_turretModel.SetPosition(m_modelPosition);
 	m_turretModel.Update();
 	m_baseModel.SetPosition(m_modelPosition);
@@ -102,9 +98,6 @@ void DualGunTurret::Update()
 
 void DualGunTurret::Render(RenderContext& renderContext)
 {
-	//テスト
-	m_fontRender.Draw(renderContext);
-
 	m_turretModel.Draw(renderContext);
 	m_baseModel.Draw(renderContext);
 }

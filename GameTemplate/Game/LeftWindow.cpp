@@ -101,9 +101,9 @@ bool LeftWindow::Start()
 void LeftWindow::OperationNormal()
 {
 	//ウィンドウを左にスライド
-	if (m_move_Number >= LEFTWINDOW_MOVE_X)
+	if (m_moveNumber >= LEFTWINDOW_MOVE_X)
 	{
-		m_move_Number -= 50.0f;
+		m_moveNumber -= 50.0f;
 	}
 
 	//LB1ボタン(Bキー)
@@ -118,9 +118,9 @@ void LeftWindow::OperationNormal()
 void LeftWindow::OperationSelectTurret()
 {
 	//ウィンドウを右にスライド
-	if (m_move_Number <= LEFTWINDOW_MOVE_X_LIMIT)
+	if (m_moveNumber <= LEFTWINDOW_MOVE_X_LIMIT)
 	{
-		m_move_Number += 50.0f;
+		m_moveNumber += 50.0f;
 	}
 
 	//上ボタン(8キー)
@@ -187,9 +187,9 @@ void LeftWindow::OperationSelectTurret()
 void LeftWindow::OperationSetTurret()
 {
 	//ウィンドウを左にスライド
-	if (m_move_Number >= LEFTWINDOW_MOVE_X)
+	if (m_moveNumber >= LEFTWINDOW_MOVE_X)
 	{
-		m_move_Number -= 50.0f;
+		m_moveNumber -= 50.0f;
 	}
 }
 
@@ -230,7 +230,7 @@ void LeftWindow::OperationDelete()
 
 void LeftWindow::OperationDeleteCheck()
 {
-	m_rangeNumber = 0.25f;
+	
 }
 
 void LeftWindow::SetParameterBar()
@@ -257,6 +257,7 @@ void LeftWindow::SetParameterBar()
 		break;
 	}
 
+	//パラメーターバーの動作
 	if (m_rangeSetNumber < m_rangeNumber)
 	{
 		m_rangeSetNumber += PARAMETER_MOVE_SPEED;
@@ -287,27 +288,28 @@ void LeftWindow::Update()
 {
 	SetParameterBar();
 
-	if (m_operationState == enOperationState_Normal_LeftWindow)
+	switch (m_operationState)
 	{
+	case enOperationState_Normal_LeftWindow:
 		OperationNormal();
-	}
-	else if (m_operationState == enOperationState_SelectTurret_LeftWindow)
-	{
+		break;
+	case enOperationState_SelectTurret_LeftWindow:
 		OperationSelectTurret();
-	}
-	else if (m_operationState == enOperationState_SetTurret_LeftWindow)
-	{
+		break;
+	case enOperationState_SetTurret_LeftWindow:
 		OperationSetTurret();
-	}
-	else if (m_operationState == enOperationState_Delete_LeftWindow)
-	{
+		break;
+	case enOperationState_Delete_LeftWindow:
 		OperationDelete();
-	}
-	else if (m_operationState == enOperationState_DeleteCheck_LeftWindow)
-	{
+		break;
+	case enOperationState_DeleteCheck_LeftWindow:
 		OperationDeleteCheck();
+		break;
+	default:
+		break;
 	}
 
+	//ボタンが重複反応しないように
 	m_buttonDelay += g_gameTime->GetFrameDeltaTime();
 	if (m_buttonDelay >= 0.05)
 	{
@@ -319,29 +321,29 @@ void LeftWindow::Update()
 	}
 
 	//画像の更新
-	m_frameSR.SetPosition({ LEFTWINDOW_POSITION.x + m_move_Number, LEFTWINDOW_POSITION.y, LEFTWINDOW_POSITION.z });
+	m_frameSR.SetPosition({ LEFTWINDOW_POSITION.x + m_moveNumber, LEFTWINDOW_POSITION.y, LEFTWINDOW_POSITION.z });
 	m_frameSR.Update();
 	//パラメーター
-	m_parameter_RangeSR.SetPosition({ PARAMETER_RANGE_POSITION.x + m_move_Number, PARAMETER_RANGE_POSITION.y, PARAMETER_RANGE_POSITION.z });
+	m_parameter_RangeSR.SetPosition({ PARAMETER_RANGE_POSITION.x + m_moveNumber, PARAMETER_RANGE_POSITION.y, PARAMETER_RANGE_POSITION.z });
 	m_parameter_RangeSR.SetIsDisplayRestrictionRightSide(true);
 	m_parameter_RangeSR.SetLimitedX(m_rangeSetNumber);
 	m_parameter_RangeSR.Update();
-	m_parameter_DamageSR.SetPosition({ PARAMETER_DAMAGE_POSITION.x + m_move_Number, PARAMETER_DAMAGE_POSITION.y, PARAMETER_DAMAGE_POSITION.z });
+	m_parameter_DamageSR.SetPosition({ PARAMETER_DAMAGE_POSITION.x + m_moveNumber, PARAMETER_DAMAGE_POSITION.y, PARAMETER_DAMAGE_POSITION.z });
 	m_parameter_DamageSR.SetIsDisplayRestrictionRightSide(true);
 	m_parameter_DamageSR.SetLimitedX(m_damageSetNumber);
 	m_parameter_DamageSR.Update();
-	m_parameter_FireRateSR.SetPosition({ PARAMETER_FIRERATE_POSITION.x + m_move_Number, PARAMETER_FIRERATE_POSITION.y, PARAMETER_FIRERATE_POSITION.z });
+	m_parameter_FireRateSR.SetPosition({ PARAMETER_FIRERATE_POSITION.x + m_moveNumber, PARAMETER_FIRERATE_POSITION.y, PARAMETER_FIRERATE_POSITION.z });
 	m_parameter_FireRateSR.SetIsDisplayRestrictionRightSide(true);
 	m_parameter_FireRateSR.SetLimitedX(m_fireRateSetNumber);
 	m_parameter_FireRateSR.Update();
 	//タレット
-	m_turret_BackGroundSR.SetPosition({ m_turretBackGroundPosition[m_selectTurretNumber].x + m_move_Number, m_turretBackGroundPosition[m_selectTurretNumber].y, m_turretBackGroundPosition[m_selectTurretNumber].z });
+	m_turret_BackGroundSR.SetPosition({ m_turretBackGroundPosition[m_selectTurretNumber].x + m_moveNumber, m_turretBackGroundPosition[m_selectTurretNumber].y, m_turretBackGroundPosition[m_selectTurretNumber].z });
 	m_turret_BackGroundSR.Update();
-	m_dualGunTurret_DetailSR.SetPosition({ LEFTWINDOW_POSITION.x + m_move_Number, LEFTWINDOW_POSITION.y, LEFTWINDOW_POSITION.z });
+	m_dualGunTurret_DetailSR.SetPosition({ LEFTWINDOW_POSITION.x + m_moveNumber, LEFTWINDOW_POSITION.y, LEFTWINDOW_POSITION.z });
 	m_dualGunTurret_DetailSR.Update();
-	m_laserTurret_DetailSR.SetPosition({ LEFTWINDOW_POSITION.x + m_move_Number, LEFTWINDOW_POSITION.y, LEFTWINDOW_POSITION.z });
+	m_laserTurret_DetailSR.SetPosition({ LEFTWINDOW_POSITION.x + m_moveNumber, LEFTWINDOW_POSITION.y, LEFTWINDOW_POSITION.z });
 	m_laserTurret_DetailSR.Update();
-	m_rocketTurret_DetailSR.SetPosition({ LEFTWINDOW_POSITION.x + m_move_Number, LEFTWINDOW_POSITION.y, LEFTWINDOW_POSITION.z });
+	m_rocketTurret_DetailSR.SetPosition({ LEFTWINDOW_POSITION.x + m_moveNumber, LEFTWINDOW_POSITION.y, LEFTWINDOW_POSITION.z });
 	m_rocketTurret_DetailSR.Update();
 }
 
@@ -354,7 +356,7 @@ void LeftWindow::Render(RenderContext& renderContext)
 	}
 
 	//右にスライドされている時だけ表示
-	if (m_move_Number >= LEFTWINDOW_MOVE_X_LIMIT)
+	if (m_moveNumber >= LEFTWINDOW_MOVE_X_LIMIT)
 	{
 		m_turret_BackGroundSR.Draw(renderContext);
 

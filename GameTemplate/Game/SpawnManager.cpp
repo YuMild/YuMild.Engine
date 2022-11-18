@@ -1,6 +1,15 @@
 #include "stdafx.h"
 #include "SpawnManager.h"
 
+namespace
+{
+	//HP
+	float DEFAULT_HP_UFO = 100.0f;
+
+	//レベルアップ
+	float LEVELUP_TIME = 10.0f;
+}
+
 bool SpawnManager::Start()
 {
 	//エフェクトを登録
@@ -9,8 +18,8 @@ bool SpawnManager::Start()
 	//音声
 	g_soundEngine->ResistWaveFileBank(5, "Assets/sound/Explosion.wav");
 
-	//レベルアップする時間
-	m_levelTime = 5.0f;
+	//HP
+	m_defaultHP_UFO = DEFAULT_HP_UFO;
 
 	//敵の初期スポーンタイム
 	m_spawnTime_UFO = 3.0f;
@@ -22,9 +31,10 @@ void SpawnManager::LevelUp()
 {
 	m_levelTimer += g_gameTime->GetFrameDeltaTime();
 
-	if (m_levelTimer > m_levelTime && m_spawnTime_UFO > 0.5f)
+	//レベルアップ
+	if (m_levelTimer > LEVELUP_TIME && m_defaultHP_UFO < 1000.0f)
 	{
-		m_spawnTime_UFO -= 0.3f;
+		m_defaultHP_UFO *= 1.2f;
 		m_levelTimer = 0.0f;
 	}
 }

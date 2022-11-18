@@ -457,6 +457,7 @@ void TurretManager::MakeDualGunTurret()
 	auto* turret = NewGO<DualGunTurret>(0, "dualGunTurret");
 	turret->SetModelPosition(m_cursorPosition);
 	turret->SetModelRotation(m_rotation);
+	turret->SetAttackReady(true);
 	m_turrets.push_back(turret);
 	m_leftWindowDelete[m_turretsSum]->Init(enInitDeleteTurretSprite_DualGunTurret);
 	m_leftWindowDelete[m_turretsSum]->SetPosition(m_deleteSpritePosition[m_turretsSum]);

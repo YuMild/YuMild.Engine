@@ -39,6 +39,9 @@ UFO::~UFO()
 
 bool UFO::Start()
 {
+	//コリジョンのワイヤーフレーム表示
+	PhysicsWorld::GetInstance()->EnableDrawDebugWireFrame();
+
 	//FindGO
 	m_gameOver = FindGO<GameOver>("gameOver");
 	m_spawnManager = FindGO<SpawnManager>("spawnManager");
@@ -54,8 +57,12 @@ bool UFO::Start()
 	m_modelRender.SetScale(m_scale);
 	m_modelRender.Update();
 
+	//コリジョン
+	m_characterController.Init(300.0f, 1.0f, m_position);
+
 	//HP
 	m_hp = m_spawnManager->GetDefaultHP_UFO();
+	m_hpMax = m_spawnManager->GetDefaultHP_UFO();
 	m_hpBarSR.Init("Assets/Sprite/Enemy/EnemyHP.dds",30.0f,30.0f);
 	
 	//パス移動
@@ -108,7 +115,7 @@ void UFO::Move()
 	Vector3 moveSpeed = m_target - m_position;
 	moveSpeed.Normalize();
 	moveSpeed *= DEFAULT_MOVE_SPEED;
-	m_position += moveSpeed;
+	m_position = m_characterController.Execute(moveSpeed, 1.0f);
 
 	//回転し続ける
 	m_rotation.AddRotationDegY(DEFAULT_ROTATION_SPEED);
@@ -143,7 +150,7 @@ void UFO::Render(RenderContext& renderContext)
 	m_modelRender.Draw(renderContext);
 
 	//ダメージを受けていたら
-	if (m_hp <= m_spawnManager->GetDefaultHP_UFO() - 1.0f)
+	if (m_hp <= m_hpMax - 1.0f)
 	{
 		m_hpBarSR.Draw(renderContext);
 	}

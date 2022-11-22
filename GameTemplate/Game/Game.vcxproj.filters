@@ -4,9 +4,6 @@
     <Filter Include="system">
       <UniqueIdentifier>{22dd8095-74f9-46df-81a1-36675a040b1f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Turrets">
-      <UniqueIdentifier>{5166ca1d-efa3-49a6-963f-666fb4580a8d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Enemy">
       <UniqueIdentifier>{64433bd5-acdf-4995-965f-388b4aaa1f58}</UniqueIdentifier>
     </Filter>
@@ -16,34 +13,37 @@
     <Filter Include="Energy">
       <UniqueIdentifier>{7b32a182-2da2-464e-90c2-1c9502c22030}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Turret">
+      <UniqueIdentifier>{5166ca1d-efa3-49a6-963f-666fb4580a8d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game">
+      <UniqueIdentifier>{1612c0d8-60dc-4926-8e4c-31645f48db69}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Etc">
+      <UniqueIdentifier>{b6d834c7-7669-44c7-a44c-1521daab88ef}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="stdafx.cpp" />
-    <ClCompile Include="main.cpp" />
     <ClCompile Include="system\system.cpp">
       <Filter>system</Filter>
     </ClCompile>
-    <ClCompile Include="Game.cpp" />
-    <ClCompile Include="GameCamera.cpp" />
     <ClCompile Include="DualGunTurret.cpp">
-      <Filter>Turrets</Filter>
+      <Filter>Turret</Filter>
     </ClCompile>
     <ClCompile Include="UFO.cpp">
       <Filter>Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp" />
-    <ClCompile Include="Stage.cpp" />
     <ClCompile Include="LeftWindow.cpp">
       <Filter>LeftWindow</Filter>
     </ClCompile>
     <ClCompile Include="LaserTurret.cpp">
-      <Filter>Turrets</Filter>
+      <Filter>Turret</Filter>
     </ClCompile>
     <ClCompile Include="TurretManager.cpp">
-      <Filter>Turrets</Filter>
+      <Filter>Turret</Filter>
     </ClCompile>
     <ClCompile Include="RocketTurret.cpp">
-      <Filter>Turrets</Filter>
+      <Filter>Turret</Filter>
     </ClCompile>
     <ClCompile Include="LeftWindow_Delete.cpp">
       <Filter>LeftWindow</Filter>
@@ -54,37 +54,52 @@
     <ClCompile Include="EnemyObject.cpp">
       <Filter>Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="GameOver.cpp" />
     <ClCompile Include="Energy.cpp">
       <Filter>Energy</Filter>
     </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="GameCamera.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="GameOver.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Stage.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Etc</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Etc</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="stdafx.h" />
     <ClInclude Include="system\system.h">
       <Filter>system</Filter>
     </ClInclude>
-    <ClInclude Include="Game.h" />
-    <ClInclude Include="GameCamera.h" />
     <ClInclude Include="DualGunTurret.h">
-      <Filter>Turrets</Filter>
+      <Filter>Turret</Filter>
     </ClInclude>
     <ClInclude Include="UFO.h">
       <Filter>Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h" />
-    <ClInclude Include="Stage.h" />
     <ClInclude Include="LeftWindow.h">
       <Filter>LeftWindow</Filter>
     </ClInclude>
     <ClInclude Include="LaserTurret.h">
-      <Filter>Turrets</Filter>
+      <Filter>Turret</Filter>
     </ClInclude>
     <ClInclude Include="TurretManager.h">
-      <Filter>Turrets</Filter>
+      <Filter>Turret</Filter>
     </ClInclude>
     <ClInclude Include="RocketTurret.h">
-      <Filter>Turrets</Filter>
+      <Filter>Turret</Filter>
     </ClInclude>
     <ClInclude Include="LeftWindow_Delete.h">
       <Filter>LeftWindow</Filter>
@@ -95,9 +110,26 @@
     <ClInclude Include="EnemyObject.h">
       <Filter>Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="GameOver.h" />
     <ClInclude Include="Energy.h">
       <Filter>Energy</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="GameCamera.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="GameOver.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Stage.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>Etc</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

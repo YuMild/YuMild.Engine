@@ -18,7 +18,7 @@ public:
 	/// </summary>
 	/// <param name="addEnergy"></param>
 	/// <returns></returns>
-	float AddEnergy(const float addEnergy)
+	void AddEnergy(const float addEnergy)
 	{
 		m_energy += addEnergy;
 	}
@@ -28,7 +28,7 @@ public:
 	/// </summary>
 	/// <param name="subEnergy"></param>
 	/// <returns></returns>
-	float SubEnergy(const float subEnergy)
+	void SubEnergy(const float subEnergy)
 	{
 		m_energy -= subEnergy;
 	}

@@ -30,6 +30,9 @@ bool DualGunTurret::Start()
 	m_baseModel.SetScale({ 1.0f,1.0f,1.0f });
 	m_baseModel.Update();
 
+	//ƒGƒtƒFƒNƒg‚ð“o˜^
+	EffectEngine::GetInstance()->ResistEffect(2, u"Assets/effect/Hit.efk");
+
 	//‰¹º‚Ì¶¬
 	g_soundEngine->ResistWaveFileBank(6, "Assets/sound/DualGunTurret.wav");
 
@@ -58,7 +61,7 @@ void DualGunTurret::Attack()
 			}
 			if (difference.Length() < m_difference.Length())
 			{
-				//m_lockOnPosition = lockOnObject->GetPosition();
+				m_lockOnPosition = lockOnObject->GetPosition();
 				m_difference = difference;
 
 				//³‹K‰»
@@ -77,6 +80,7 @@ void DualGunTurret::Attack()
 				if (m_fireRate >= FIRERATE)
 				{
 					lockOnObject->SubHP(5.0f);
+					EffectPlayHit(m_lockOnPosition);
 					SoundPlayFire();
 					m_fireRate = 0.0f;
 				}

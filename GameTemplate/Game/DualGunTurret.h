@@ -101,6 +101,15 @@ public:
 
 private:
 
+	void EffectPlayHit(const Vector3& position)
+	{
+		m_hitEF = NewGO<EffectEmitter>(0);
+		m_hitEF->Init(2);
+		m_hitEF->SetPosition({ position.x,position.y + 200.0f,position.z + 300.0f });
+		m_hitEF->SetScale(Vector3::One * 150.0f);
+		m_hitEF->Play();
+	}
+
 	/// <summary>
 	/// èeê∫Ççƒê∂
 	/// </summary>
@@ -126,6 +135,7 @@ private:
 	Vector3							m_difference;
 	Vector3							m_lockOnPosition;
 	float							m_fireRate = 0.0f;
+	EffectEmitter*					m_hitEF;
 	SoundSource*					m_fireSE;
 	
 	//ÉNÉâÉX

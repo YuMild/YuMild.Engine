@@ -83,16 +83,20 @@ private:
 	SpawnManager*				m_spawnManager;
 	TurretManager*				m_turretManager;
 
+	//コリジョン
+	CharacterController			m_characterController;
+
 	//モデル
 	ModelRender					m_modelRender;
 
 	//HP
 	SpriteRender				m_hpBarSR;
 	float						m_hp = 0.0f;
+	float						m_hpMax = 0.0f;
 	Vector2						m_hpBarPosition;
 
 	//UFO
-	Vector3						m_position;
+	Vector3						m_position = { 0.0f,0.0f,-8000.0f };
 	Quaternion					m_rotation;
 
 	//テスト

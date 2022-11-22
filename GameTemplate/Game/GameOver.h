@@ -21,9 +21,20 @@ public:
 
 private:
 
+	/// <summary>
+	/// スコアを管理
+	/// </summary>
+	void Score();
+
 	//画像
 	SpriteRender		m_windowSR;
 
+	//フォント
+	FontRender			m_scoreFR;
+
 	//HP
 	int					m_hp = 0;
+
+	//スコア
+	float				m_score = 0.0f;
 };

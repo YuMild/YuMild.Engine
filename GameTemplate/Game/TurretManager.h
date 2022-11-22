@@ -1,5 +1,6 @@
 #pragma once
 
+class Energy;
 class LeftWindow;
 class LeftWindow_Delete;
 
@@ -102,6 +103,7 @@ private:
 	std::vector<IGameObject*>		m_turrets;
 
 	//クラス
+	Energy*							m_energy;
 	LeftWindow*						m_leftWindow;
 	LeftWindow_Delete*				m_leftWindowDelete[12];
 	//タレット

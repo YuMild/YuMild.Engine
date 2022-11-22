@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "TurretManager.h"
 
+#include "Energy.h"
 #include "LeftWindow.h"
 #include "LeftWindow_Delete.h"
 
@@ -10,6 +11,11 @@
 
 namespace
 {
+	//タレットの生産コスト
+	float COST_DUALGUNTURRET = 100.0f;
+	float COST_LASERTURRET = 200.0f;
+	float COST_ROCKETTURRET = 400.0f;
+
 	//Delete
 	float DELETE_SPRITE_SIZE_WIDTH = 1280.0f;
 	float DELETE_SPRITE_SIZE_HEIGHT = 720.0f;
@@ -24,6 +30,7 @@ namespace
 bool TurretManager::Start()
 {
 	//FindGO
+	m_energy = FindGO<Energy>("energy");
 	m_leftWindow = FindGO<LeftWindow>("leftWindow");
 
 	//カーソルポジションをデフォルト値に設定
@@ -454,6 +461,7 @@ void TurretManager::DeleteTurret()
 
 void TurretManager::MakeDualGunTurret()
 {
+	m_energy->SubEnergy(COST_DUALGUNTURRET);
 	auto* turret = NewGO<DualGunTurret>(0, "dualGunTurret");
 	turret->SetModelPosition(m_cursorPosition);
 	turret->SetModelRotation(m_rotation);
@@ -467,6 +475,7 @@ void TurretManager::MakeDualGunTurret()
 
 void TurretManager::MakeLaserTurret()
 {
+	m_energy->SubEnergy(200.0f);
 	auto* turret = NewGO<LaserTurret>(0, "laserTurret");
 	turret->SetModelPosition(m_cursorPosition);
 	turret->SetModelRotation(m_rotation);
@@ -479,6 +488,7 @@ void TurretManager::MakeLaserTurret()
 
 void TurretManager::MakeRocketTurret()
 {
+	m_energy->SubEnergy(400.0f);
 	auto* turret = NewGO<RocketTurret>(0, "rocketTurret");
 	turret->SetModelPosition(m_cursorPosition);
 	turret->SetModelRotation(m_rotation);

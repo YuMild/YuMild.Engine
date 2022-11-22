@@ -64,9 +64,9 @@ void Energy::Sprite()
 
 void Energy::Font()
 {
-    wchar_t wcsbuf[256];
-    swprintf_s(wcsbuf, 256, L"%04d", int(m_energy));
-    m_fontRender.SetText(wcsbuf);
+    wchar_t enargy[256];
+    swprintf_s(enargy, 256, L"%04d", int(m_energy));
+    m_fontRender.SetText(enargy);
 }
 
 void Energy::Update()

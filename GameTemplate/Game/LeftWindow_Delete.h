@@ -8,6 +8,7 @@ enum InitDeleteTurretSprite
 	enInitDeleteTurretSprite_DualGunTurret,
 	enInitDeleteTurretSprite_LaserTurret,
 	enInitDeleteTurretSprite_RocketTurret,
+	enInitDeleteTurretSprite_GenerationTurret,
 	enInitDeleteTurretSprite_Null
 };
 
@@ -79,14 +80,19 @@ private:
 	void Update();
 	void Render(RenderContext& renderContext);
 
+	//クラス
 	LeftWindow*			m_leftWindow;
 	TurretManager*		m_turretManager;
 
+	//画像
 	SpriteRender		m_spriteRender;
 
+	//ポジション
 	Vector3				m_position;
 
+	//ドローするか否か
 	bool				m_isDraw = false;
 
-	int					m_initDeleteSpriteNumber = enInitDeleteTurretSprite_DualGunTurret;
+	//描画するタレットの種類
+	int					m_initDeleteSpriteNumber = enInitDeleteTurretSprite_Null;
 };

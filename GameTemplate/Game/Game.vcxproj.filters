@@ -78,6 +78,9 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>Etc</Filter>
     </ClCompile>
+    <ClCompile Include="GenerationTurret.cpp">
+      <Filter>Turret</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="system\system.h">
@@ -130,6 +133,9 @@
     </ClInclude>
     <ClInclude Include="stdafx.h">
       <Filter>Etc</Filter>
+    </ClInclude>
+    <ClInclude Include="GenerationTurret.h">
+      <Filter>Turret</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

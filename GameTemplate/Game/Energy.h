@@ -33,6 +33,22 @@ public:
 		m_energy -= subEnergy;
 	}
 
+	/// <summary>
+	/// ジェネレーションタレットの数を加算
+	/// </summary>
+	void AddGenerationTurret()
+	{
+		m_generationTurret += 1;
+	}
+
+	/// <summary>
+	/// ジェネレーションタレットの数を減算
+	/// </summary>
+	void SubGenerationTurret()
+	{
+		m_generationTurret -= 1;
+	}
+
 private:
 
 	/// <summary>
@@ -82,8 +98,8 @@ private:
 	FontRender		m_fontRender;
 
 	//エネルギー
+	int				m_generationTurret = 0;
 	float			m_energy = 0.0f;
-
 	float			m_energyEfficiency = 0.0f;
 
 	//回転

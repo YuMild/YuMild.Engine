@@ -52,51 +52,12 @@ public:
 	}
 
 	/// <summary>
-	/// モデルの回転を設定
-	/// </summary>
-	/// <param name="rotation"></param>
-	/// <returns></returns>
-	void SetModelRotation(const float rotation)
-	{
-		m_modelRotation.AddRotationDegY(rotation);
-	}
-
-	/// <summary>
-	/// モデルの回転を取得
-	/// </summary>
-	/// <returns></returns>
-	Quaternion GetModelRotation()
-	{
-		return m_modelRotation;
-	}
-
-	/// <summary>
-	/// モデルを時計回りに回転
-	/// </summary>
-	/// <param name="rotation"></param>
-	/// <returns></returns>
-	void ModelRotationTurnRight()
-	{
-		m_modelRotation.AddRotationDegY(180.0f);
-	}
-
-	/// <summary>
-	/// モデルを反時計回りに回転
-	/// </summary>
-	/// <param name="rotation"></param>
-	/// <returns></returns>
-	void ModelRotationTurnLeft()
-	{
-		m_modelRotation.AddRotationDegY(-180.0f);
-	}
-
-	/// <summary>
 	/// タレットの状態変更
 	/// </summary>
 	/// <param name="ready"></param>
 	void SetAttackReady(bool ready)
 	{
-		m_attackReady = ready;
+		m_moveReady = ready;
 	}
 
 private:
@@ -124,13 +85,13 @@ private:
 	/// <summary>
 	/// 攻撃処理
 	/// </summary>
-	void Attack();
+	void Move();
 
 	//タレットマネージャー
 	TurretManager*					m_turretManager;
 
 	//攻撃処理
-	bool							m_attackReady = false;
+	bool							m_moveReady = false;
 	std::vector<EnemyObject*>		m_enemys;
 	Vector3							m_difference;
 	Vector3							m_lockOnPosition;
@@ -147,6 +108,5 @@ private:
 
 	//モデル
 	Vector3							m_modelPosition;
-	Quaternion						m_modelRotation;
 	Vector3							m_spritePosition;
 };

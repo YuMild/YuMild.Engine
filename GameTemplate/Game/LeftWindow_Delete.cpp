@@ -33,6 +33,11 @@ void LeftWindow_Delete::Init(InitDeleteTurretSprite initDeleteTurretSprite)
 		m_spriteRender.Update();
 		m_isDraw = true;
 		break;
+	case enInitDeleteTurretSprite_GenerationTurret:
+		m_spriteRender.Init("Assets/Sprite/LeftWindow/LeftWindow_GenerationTurret.dds", 720.0f, 720.0f);
+		m_spriteRender.Update();
+		m_isDraw = true;
+		break;
 	default:
 		break;
 	}
@@ -56,6 +61,11 @@ void LeftWindow_Delete::Init(int number)
 		break;
 	case enInitDeleteTurretSprite_RocketTurret:
 		m_spriteRender.Init("Assets/Sprite/LeftWindow/LeftWindow_RocketTurret.dds", 720.0f, 720.0f);
+		m_spriteRender.Update();
+		m_isDraw = true;
+		break;
+	case enInitDeleteTurretSprite_GenerationTurret:
+		m_spriteRender.Init("Assets/Sprite/LeftWindow/LeftWindow_GenerationTurret.dds", 720.0f, 720.0f);
 		m_spriteRender.Update();
 		m_isDraw = true;
 		break;

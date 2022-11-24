@@ -196,6 +196,7 @@ private:
 	SpriteRender		m_dualGunTurret_DetailSR;
 	SpriteRender		m_laserTurret_DetailSR;
 	SpriteRender		m_rocketTurret_DetailSR;
+	SpriteRender		m_generationTurret_DetailSR;
 	//îwåi
 	SpriteRender		m_weapons_BackGroundSR;
 	SpriteRender		m_delete_BackGroundSR;

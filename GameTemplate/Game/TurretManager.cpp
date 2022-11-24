@@ -8,6 +8,7 @@
 #include "DualGunTurret.h"
 #include "LaserTurret.h"
 #include "RocketTurret.h"
+#include "GenerationTurret.h"
 
 namespace
 {
@@ -15,6 +16,7 @@ namespace
 	float COST_DUALGUNTURRET = 100.0f;
 	float COST_LASERTURRET = 200.0f;
 	float COST_ROCKETTURRET = 400.0f;
+	float COST_GENERATIONTURRET = 400.0f;
 
 	//Delete
 	float DELETE_SPRITE_SIZE_WIDTH = 1280.0f;
@@ -170,20 +172,6 @@ void TurretManager::StateManager()
 			m_dualGunTurret->Update();
 		}
 
-		//Xボタン(Lボタン)
-		if (g_pad[0]->IsTrigger(enButtonX))
-		{
-			m_dualGunTurret->ModelRotationTurnRight();
-			m_rotation += 180.0f;
-		}
-
-		//Yボタン(Iボタン)
-		if (g_pad[0]->IsTrigger(enButtonY))
-		{
-			m_dualGunTurret->ModelRotationTurnLeft();
-			m_rotation -= 180.0f;
-		}
-
 		//Selectボタン(Spaceキー)
 		if (m_leftWindow->GetOperationState() == enOperationState_SetTurret_LeftWindow && g_pad[0]->IsTrigger(enButtonSelect) && m_leftWindow->GetButtonReady() == true)
 		{
@@ -256,20 +244,6 @@ void TurretManager::StateManager()
 			}
 			m_laserTurret->SetModelPosition(m_cursorPosition);
 			m_laserTurret->Update();
-		}
-
-		//Xボタン(Lボタン)
-		if (g_pad[0]->IsTrigger(enButtonX))
-		{
-			m_laserTurret->ModelRotationTurnRight();
-			m_rotation += 180.0f;
-		}
-
-		//Yボタン(Iボタン)
-		if (g_pad[0]->IsTrigger(enButtonY))
-		{
-			m_laserTurret->ModelRotationTurnLeft();
-			m_rotation -= 180.0f;
 		}
 
 		//Selectボタン(Spaceキー)
@@ -346,26 +320,86 @@ void TurretManager::StateManager()
 			m_rocketTurret->Update();
 		}
 
-		//Xボタン(Lボタン)
-		if (g_pad[0]->IsTrigger(enButtonX))
-		{
-			m_rocketTurret->ModelRotationTurnRight();
-			m_rotation += 180.0f;
-		}
-
-		//Yボタン(Iボタン)
-		if (g_pad[0]->IsTrigger(enButtonY))
-		{
-			m_rocketTurret->ModelRotationTurnLeft();
-			m_rotation -= 180.0f;
-		}
-
 		//Selectボタン(Spaceキー)
 		if (m_leftWindow->GetOperationState() == enOperationState_SetTurret_LeftWindow && g_pad[0]->IsTrigger(enButtonSelect) && m_leftWindow->GetButtonReady() == true)
 		{
 			m_leftWindow->SetButtonDelay();
 			DeleteGO(m_rocketTurret);
 			MakeRocketTurret();
+			SoundPlaySetTurret();
+			m_leftWindow->SetOperationState(enOperationState_Normal_LeftWindow);
+		}
+
+		break;
+
+	case enTurret_GenerationTurret:
+
+		if (m_isGorstModelNewGO)
+		{
+			m_generationTurret = NewGO<GenerationTurret>(0, "generationTurret");
+			m_generationTurret->SetModelPosition(m_cursorPosition);
+			m_generationTurret->Update();
+			m_isGorstModelNewGO = false;
+		}
+
+		//上ボタン(8キー)
+		if (g_pad[0]->IsTrigger(enButtonUp))
+		{
+			m_cursorPosition = m_generationTurret->GetModelPosition();
+			//稼働範囲内なら
+			if (m_cursorPosition.z >= -9600.0f)
+			{
+				m_cursorPosition.z -= TURRET_POSITION_MOVE_NUM;
+			}
+			m_generationTurret->SetModelPosition(m_cursorPosition);
+			m_generationTurret->Update();
+		}
+
+		//下ボタン(2キー)
+		if (g_pad[0]->IsTrigger(enButtonDown))
+		{
+			m_cursorPosition = m_generationTurret->GetModelPosition();
+			//稼働範囲内なら
+			if (m_cursorPosition.z <= 0.0f)
+			{
+				m_cursorPosition.z += TURRET_POSITION_MOVE_NUM;
+			}
+			m_generationTurret->SetModelPosition(m_cursorPosition);
+			m_generationTurret->Update();
+		}
+
+		//右ボタン(6キー)
+		if (g_pad[0]->IsTrigger(enButtonRight))
+		{
+			m_cursorPosition = m_generationTurret->GetModelPosition();
+			//稼働範囲内なら
+			if (m_cursorPosition.x >= -3200.0f)
+			{
+				m_cursorPosition.x -= TURRET_POSITION_MOVE_NUM;
+			}
+			m_generationTurret->SetModelPosition(m_cursorPosition);
+			m_generationTurret->Update();
+		}
+
+		//左ボタン(4キー)
+		if (g_pad[0]->IsTrigger(enButtonLeft))
+		{
+			m_cursorPosition = m_generationTurret->GetModelPosition();
+			//稼働範囲内なら
+			if (m_cursorPosition.x <= 3200.0f)
+			{
+				m_cursorPosition.x += TURRET_POSITION_MOVE_NUM;
+			}
+			m_generationTurret->SetModelPosition(m_cursorPosition);
+			m_generationTurret->Update();
+		}
+
+		//Selectボタン(Spaceキー)
+		if (m_leftWindow->GetOperationState() == enOperationState_SetTurret_LeftWindow && g_pad[0]->IsTrigger(enButtonSelect) && m_leftWindow->GetButtonReady() == true)
+		{
+			m_leftWindow->SetButtonDelay();
+			DeleteGO(m_generationTurret);
+			MakeGenerationTurret();
 			SoundPlaySetTurret();
 			m_leftWindow->SetOperationState(enOperationState_Normal_LeftWindow);
 		}
@@ -464,7 +498,6 @@ void TurretManager::MakeDualGunTurret()
 	m_energy->SubEnergy(COST_DUALGUNTURRET);
 	auto* turret = NewGO<DualGunTurret>(0, "dualGunTurret");
 	turret->SetModelPosition(m_cursorPosition);
-	turret->SetModelRotation(m_rotation);
 	turret->SetAttackReady(true);
 	m_turrets.push_back(turret);
 	m_leftWindowDelete[m_turretsSum]->Init(enInitDeleteTurretSprite_DualGunTurret);
@@ -475,10 +508,9 @@ void TurretManager::MakeDualGunTurret()
 
 void TurretManager::MakeLaserTurret()
 {
-	m_energy->SubEnergy(200.0f);
+	m_energy->SubEnergy(COST_LASERTURRET);
 	auto* turret = NewGO<LaserTurret>(0, "laserTurret");
 	turret->SetModelPosition(m_cursorPosition);
-	turret->SetModelRotation(m_rotation);
 	m_turrets.push_back(turret);
 	m_leftWindowDelete[m_turretsSum]->Init(enInitDeleteTurretSprite_LaserTurret);
 	m_leftWindowDelete[m_turretsSum]->SetPosition(m_deleteSpritePosition[m_turretsSum]);
@@ -488,12 +520,24 @@ void TurretManager::MakeLaserTurret()
 
 void TurretManager::MakeRocketTurret()
 {
-	m_energy->SubEnergy(400.0f);
+	m_energy->SubEnergy(COST_ROCKETTURRET);
 	auto* turret = NewGO<RocketTurret>(0, "rocketTurret");
 	turret->SetModelPosition(m_cursorPosition);
-	turret->SetModelRotation(m_rotation);
 	m_turrets.push_back(turret);
 	m_leftWindowDelete[m_turretsSum]->Init(enInitDeleteTurretSprite_RocketTurret);
+	m_leftWindowDelete[m_turretsSum]->SetPosition(m_deleteSpritePosition[m_turretsSum]);
+	m_turretsSum++;
+	m_isModelNewGO = false;
+}
+
+void TurretManager::MakeGenerationTurret()
+{
+	m_energy->SubEnergy(COST_GENERATIONTURRET);
+	auto* turret = NewGO<GenerationTurret>(0, "generationTurret");
+	turret->SetModelPosition(m_cursorPosition);
+	turret->SetAttackReady(true);
+	m_turrets.push_back(turret);
+	m_leftWindowDelete[m_turretsSum]->Init(enInitDeleteTurretSprite_GenerationTurret);
 	m_leftWindowDelete[m_turretsSum]->SetPosition(m_deleteSpritePosition[m_turretsSum]);
 	m_turretsSum++;
 	m_isModelNewGO = false;

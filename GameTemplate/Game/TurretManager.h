@@ -7,6 +7,7 @@ class LeftWindow_Delete;
 class DualGunTurret;
 class LaserTurret;
 class RocketTurret;
+class GenerationTurret;
 
 class EnemyObject;
 
@@ -15,7 +16,7 @@ enum TurretType
 	enTurret_DualGunTurret,
 	enTurret_LaserTurret,
 	enTurret_RocketTurret,
-	en3,
+	enTurret_GenerationTurret,
 	en4,
 	en5,
 	en6,
@@ -87,6 +88,7 @@ private:
 	void MakeDualGunTurret();
 	void MakeLaserTurret();
 	void MakeRocketTurret();
+	void MakeGenerationTurret();
 
 	/// <summary>
 	/// タレットセット時の音声を再生
@@ -106,10 +108,12 @@ private:
 	Energy*							m_energy;
 	LeftWindow*						m_leftWindow;
 	LeftWindow_Delete*				m_leftWindowDelete[12];
+
 	//タレット
 	DualGunTurret*					m_dualGunTurret;
 	LaserTurret*					m_laserTurret;
 	RocketTurret*					m_rocketTurret;
+	GenerationTurret*				m_generationTurret;
 
 	//モデル
 	ModelRender						m_gridCursor;

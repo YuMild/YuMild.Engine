@@ -2,7 +2,6 @@
 #include "DualGunTurret.h"
 
 #include "LeftWindow.h"
-
 #include "TurretManager.h"
 
 namespace
@@ -19,14 +18,12 @@ bool DualGunTurret::Start()
 	//タレット
 	m_turretModel.Init("Assets/ModelData/Turret/DualGunTurret.tkm", ShadowRecieveAndDrop,true);
 	m_turretModel.SetPosition(m_modelPosition);
-	m_turretModel.SetRotation(m_modelRotation);
 	m_turretModel.SetScale({ 1.0f,1.0f,1.0f });
 	m_turretModel.Update();
 
 	//土台
 	m_baseModel.Init("Assets/ModelData/Turret/Base.tkm", ShadowRecieveAndDrop, true);
 	m_baseModel.SetPosition(m_modelPosition);
-	m_baseModel.SetRotation(m_modelRotation);
 	m_baseModel.SetScale({ 1.0f,1.0f,1.0f });
 	m_baseModel.Update();
 
@@ -39,12 +36,12 @@ bool DualGunTurret::Start()
 	return true;
 }
 
-void DualGunTurret::Attack()
+void DualGunTurret::Move()
 {
 	m_fireRate += g_gameTime->GetFrameDeltaTime();
 	
-	//攻撃可能なら
-	if (m_attackReady == true)
+	//動作可能なら
+	if (m_moveReady == true)
 	{
 		//射程より長ければOK
 		m_difference = { 10000.0f,10000.0f,10000.0f };
@@ -91,7 +88,7 @@ void DualGunTurret::Attack()
 
 void DualGunTurret::Update()
 {
-	Attack();
+	Move();
 
 	//更新処理
 	m_turretModel.SetPosition(m_modelPosition);

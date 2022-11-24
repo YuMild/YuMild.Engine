@@ -63,6 +63,10 @@ bool LeftWindow::Start()
 	m_rocketTurret_DetailSR.SetPosition(LEFTWINDOW_POSITION);
 	m_rocketTurret_DetailSR.SetScale({ 1.0f,1.0f,1.0f });
 	m_rocketTurret_DetailSR.Update();
+	m_generationTurret_DetailSR.Init("Assets/sprite/LeftWindow/LeftWindow_GenerationTurret_Detail.dds", LEFTWINDOW_SPRITE_SIZE, LEFTWINDOW_SPRITE_SIZE);
+	m_generationTurret_DetailSR.SetPosition(LEFTWINDOW_POSITION);
+	m_generationTurret_DetailSR.SetScale({ 1.0f,1.0f,1.0f });
+	m_generationTurret_DetailSR.Update();
 	//ウィンドウ背景
 	m_weapons_BackGroundSR.Init("Assets/sprite/LeftWindow/LeftWindow_WeaponsBackGround.dds", LEFTWINDOW_SPRITE_SIZE, LEFTWINDOW_SPRITE_SIZE);
 	m_weapons_BackGroundSR.SetPosition({ -500.0f,0.0f,0.0f });
@@ -168,6 +172,10 @@ void LeftWindow::OperationSelectTurret()
 		{
 			m_turretManager->Init(enTurret_RocketTurret);
 		}
+		else if (m_selectTurretNumber == enTurret_GenerationTurret)
+		{
+			m_turretManager->Init(enTurret_GenerationTurret);
+		}
 
 		//選択個所をリセット
 		m_selectTurretNumber = 0;
@@ -252,6 +260,11 @@ void LeftWindow::SetParameterBar()
 		m_rangeNumber = 0.75f;
 		m_damageNumber = 0.75f;
 		m_fireRateNumber = 0.1f;
+		break;
+	case enTurret_GenerationTurret:
+		m_rangeNumber = 0.0f;
+		m_damageNumber = 0.0f;
+		m_fireRateNumber = 0.0f;
 		break;
 	default:
 		break;
@@ -345,6 +358,8 @@ void LeftWindow::Update()
 	m_laserTurret_DetailSR.Update();
 	m_rocketTurret_DetailSR.SetPosition({ LEFTWINDOW_POSITION.x + m_moveNumber, LEFTWINDOW_POSITION.y, LEFTWINDOW_POSITION.z });
 	m_rocketTurret_DetailSR.Update();
+	m_generationTurret_DetailSR.SetPosition({ LEFTWINDOW_POSITION.x + m_moveNumber, LEFTWINDOW_POSITION.y, LEFTWINDOW_POSITION.z });
+	m_generationTurret_DetailSR.Update();
 }
 
 void LeftWindow::Render(RenderContext& renderContext)
@@ -370,6 +385,7 @@ void LeftWindow::Render(RenderContext& renderContext)
 			m_dualGunTurret_DetailSR.Draw(renderContext);
 			m_laserTurret_DetailSR.Draw(renderContext);
 			m_rocketTurret_DetailSR.Draw(renderContext);
+			m_generationTurret_DetailSR.Draw(renderContext);
 		}
 
 		//タレット削除モード時
@@ -379,5 +395,6 @@ void LeftWindow::Render(RenderContext& renderContext)
 		}
 	}
 
+	//フレーム
 	m_frameSR.Draw(renderContext);
 }

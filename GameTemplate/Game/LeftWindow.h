@@ -1,5 +1,7 @@
 #pragma once
 
+#include "TurretObject.h"
+
 class Player;
 class TurretManager;
 
@@ -72,7 +74,7 @@ public:
 	/// </summary>
 	void TurretCursorRight()
 	{
-		if (m_selectTurretNumber != 3 && m_selectTurretNumber != 7 && m_selectTurretNumber != 11)
+		if (m_selectTurretNumber != 11)
 		{
 			m_selectTurretNumber += 1;
 		}
@@ -84,7 +86,7 @@ public:
 	/// </summary>
 	void TurretCursorLeft()
 	{
-		if (m_selectTurretNumber != 0 && m_selectTurretNumber != 4 && m_selectTurretNumber != 8)
+		if (m_selectTurretNumber != 0)
 		{
 			m_selectTurretNumber -= 1;
 		}
@@ -176,53 +178,57 @@ private:
 	void SetParameterBar();
 
 	//クラス
-	Player*				m_player;
-	TurretManager*		m_turretManager;
+	Player*						m_player;
+	TurretManager*				m_turretManager;
+	std::vector<TurretObject*>	m_turrets;
 
 	//音声
-	SoundSource*		m_windowSE;
-	SoundSource*		m_choiceSE;
+	SoundSource*				m_windowSE;
+	SoundSource*				m_choiceSE;
 
-	//グリッド
-	ModelRender			m_gridMR;
+	//モデル
+	ModelRender					m_gridMR;
+	ModelRender					m_gridCursorMR;
+	Vector3						m_gridCursorPosition;
 
+	//画像
 	//枠
-	SpriteRender		m_frameSR;
+	SpriteRender				m_frameSR;
 	//パラメーター
-	SpriteRender		m_parameter_RangeSR;
-	SpriteRender		m_parameter_DamageSR;
-	SpriteRender		m_parameter_FireRateSR;
+	SpriteRender				m_parameter_RangeSR;
+	SpriteRender				m_parameter_DamageSR;
+	SpriteRender				m_parameter_FireRateSR;
 	//詳細
-	SpriteRender		m_dualGunTurret_DetailSR;
-	SpriteRender		m_laserTurret_DetailSR;
-	SpriteRender		m_rocketTurret_DetailSR;
-	SpriteRender		m_generationTurret_DetailSR;
+	SpriteRender				m_dualGunTurret_DetailSR;
+	SpriteRender				m_laserTurret_DetailSR;
+	SpriteRender				m_rocketTurret_DetailSR;
+	SpriteRender				m_generationTurret_DetailSR;
 	//背景
-	SpriteRender		m_weapons_BackGroundSR;
-	SpriteRender		m_delete_BackGroundSR;
-	SpriteRender		m_turret_BackGroundSR;
+	SpriteRender				m_weapons_BackGroundSR;
+	SpriteRender				m_delete_BackGroundSR;
+	SpriteRender				m_turret_BackGroundSR;
 
 	//背景のポジション
-	Vector3				m_turretBackGroundPosition[12];
+	Vector3						m_turretBackGroundPosition[12];
 
 	//ステート
-	int					m_operationState = enOperationState_Normal_LeftWindow;
+	int							m_operationState = enOperationState_Normal_LeftWindow;
 
 	//選択しているタレット
-	int					m_selectTurretNumber = 0;
+	int							m_selectTurretNumber = 0;
 
 	//ボタンの重複が起きないようディレイをかける
-	bool				m_buttonReady = false;
-	float				m_buttonDelay = 0.0f;
+	bool						m_buttonReady = false;
+	float						m_buttonDelay = 0.0f;
 
 	//パラメーター
-	float				m_rangeNumber = 0.0f;
-	float				m_damageNumber = 0.0f;
-	float				m_fireRateNumber = 0.0f;
-	float				m_rangeSetNumber = 0.0f;
-	float				m_damageSetNumber = 0.0f;
-	float				m_fireRateSetNumber = 0.0f;
+	float						m_rangeNumber = 0.0f;
+	float						m_damageNumber = 0.0f;
+	float						m_fireRateNumber = 0.0f;
+	float						m_rangeSetNumber = 0.0f;
+	float						m_damageSetNumber = 0.0f;
+	float						m_fireRateSetNumber = 0.0f;
 
 	//ウィンドウのポジションに加算する数値
-	float				m_moveNumber = 0.0f;
+	float						m_moveNumber = 0.0f;
 };

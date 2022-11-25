@@ -1,12 +1,11 @@
 #pragma once
 
-#include <EnemyObject.h>
+#include "EnemyObject.h"
+#include "TurretObject.h"
 
 class EnemyObject;
-class LeftWindow;
-class TurretManager;
 
-class DualGunTurret : public IGameObject
+class DualGunTurret : public TurretObject
 {
 public:
 
@@ -87,9 +86,6 @@ private:
 	/// </summary>
 	void Move();
 
-	//タレットマネージャー
-	TurretManager*					m_turretManager;
-
 	//攻撃処理
 	bool							m_moveReady = false;
 	std::vector<EnemyObject*>		m_enemys;
@@ -98,9 +94,6 @@ private:
 	float							m_fireRate = 0.0f;
 	EffectEmitter*					m_hitEF;
 	SoundSource*					m_fireSE;
-	
-	//クラス
-	LeftWindow*						m_leftWindow;
 
 	//モデル
 	ModelRender						m_turretModel;

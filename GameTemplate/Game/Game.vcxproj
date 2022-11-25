@@ -245,6 +245,7 @@
     </ClCompile>
     <ClCompile Include="system\system.cpp" />
     <ClCompile Include="TurretManager.cpp" />
+    <ClCompile Include="TurretObject.cpp" />
     <ClCompile Include="UFO.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -265,6 +266,7 @@
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="system\system.h" />
     <ClInclude Include="TurretManager.h" />
+    <ClInclude Include="TurretObject.h" />
     <ClInclude Include="UFO.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

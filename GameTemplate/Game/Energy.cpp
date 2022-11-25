@@ -45,7 +45,7 @@ void Energy::Move()
     m_energy += g_gameTime->GetFrameDeltaTime() * m_energyEfficiency;
 
     //ジェネレーションタレットの数分効率を上げる
-    m_energyEfficiency = DEFAULT_ENERGY_EFFICIENCY + (m_generationTurret / 2) * 10;
+    m_energyEfficiency = DEFAULT_ENERGY_EFFICIENCY + (m_generationTurret / 2.0f) * 10.0f;
 }
 
 void Energy::Sprite()

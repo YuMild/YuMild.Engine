@@ -11,10 +11,6 @@ namespace
 
 bool DualGunTurret::Start()
 {
-	//FindGO
-	m_leftWindow = FindGO<LeftWindow>("leftWindow");
-	m_turretManager = FindGO<TurretManager>("turretManager");
-
 	//ƒ^ƒŒƒbƒg
 	m_turretModel.Init("Assets/ModelData/Turret/DualGunTurret.tkm", ShadowRecieveAndDrop,true);
 	m_turretModel.SetPosition(m_modelPosition);

@@ -81,6 +81,9 @@
     <ClCompile Include="GenerationTurret.cpp">
       <Filter>Turret</Filter>
     </ClCompile>
+    <ClCompile Include="TurretObject.cpp">
+      <Filter>Turret</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="system\system.h">
@@ -135,6 +138,9 @@
       <Filter>Etc</Filter>
     </ClInclude>
     <ClInclude Include="GenerationTurret.h">
+      <Filter>Turret</Filter>
+    </ClInclude>
+    <ClInclude Include="TurretObject.h">
       <Filter>Turret</Filter>
     </ClInclude>
   </ItemGroup>

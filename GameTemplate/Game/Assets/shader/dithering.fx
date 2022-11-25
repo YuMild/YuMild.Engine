@@ -14,23 +14,23 @@ cbuffer ShadowCb : register(b1)
 
 struct SVSIn
 {
-    float4 pos : POSITION; // スクリーン空間でのピクセルの座標
-    float3 normal : NORMAL; // 法線
-    float2 uv : TEXCOORD0; // uv座標
+    float4 pos : POSITION;                      //スクリーン空間でのピクセルの座標
+    float3 normal : NORMAL;                     //法線
+    float2 uv : TEXCOORD0;                      //uv座標
 };
 
 struct SPSIn
 {
-    float4 pos : SV_POSITION; // スクリーン空間でのピクセルの座標
-    float3 normal : NORMAL; // 法線
-    float2 uv : TEXCOORD0; // uv座標
+    float4 pos : SV_POSITION;                   //スクリーン空間でのピクセルの座標
+    float3 normal : NORMAL;                     //法線
+    float2 uv : TEXCOORD0;                      //uv座標
 
-    float4 posInLVP : TEXCOORD1; // ライトビュースクリーン空間でのピクセルの座標
+    float4 posInLVP : TEXCOORD1;                //ライトビュースクリーン空間でのピクセルの座標
 };
 
-Texture2D<float4> g_albedo : register(t0); // アルベドマップ
-Texture2D<float4> g_shadowMap : register(t10); // シャドウマップ
-sampler g_sampler : register(s0); // サンプラーステート
+Texture2D<float4> g_albedo : register(t0);      //アルベドマップ
+Texture2D<float4> g_shadowMap : register(t10);  //シャドウマップ
+sampler g_sampler : register(s0);               //サンプラーステート
 
 //ディザパターンを定義する
 static const int pattern[4][4] =
@@ -77,10 +77,12 @@ float4 PSMain(SPSIn psIn) : SV_Target0
     
     int x = (int) fmod(psIn.pos.x, 4.0f);
     int y = (int) fmod(psIn.pos.y, 4.0f);
-    // 上で求めたxとyを利用してこのピクセルのディザリング閾値を取得する
+    
+    //上で求めたxとyを利用してこのピクセルのディザリング閾値を取得する
     int dither = pattern[y][x];
-    // ディザリング閾値が50以下のピクセルはピクセルキルする
-    clip(dither - 50);
+    
+    //ディザリング閾値が30以下のピクセルはピクセルキルする
+    clip(dither - 30);
     
     return color;
 }

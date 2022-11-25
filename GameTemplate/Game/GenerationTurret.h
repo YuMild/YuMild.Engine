@@ -1,12 +1,12 @@
 #pragma once
 
-#include <EnemyObject.h>
+#include "TurretObject.h"
 
 class Energy;
 class LeftWindow;
 class TurretManager;
 
-class GenerationTurret : public IGameObject
+class GenerationTurret : public TurretObject
 {
 public:
 

@@ -1,8 +1,10 @@
 #pragma once
 
+#include "TurretObject.h"
+
 class LeftWindow;
 
-class LaserTurret : public IGameObject
+class LaserTurret : public TurretObject
 {
 public:
 

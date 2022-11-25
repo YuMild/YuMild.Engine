@@ -1,8 +1,10 @@
 #pragma once
 
+#include "TurretObject.h"
+
 class LeftWindow;
 
-class RocketTurret : public IGameObject
+class RocketTurret : public TurretObject
 {
 public:
 
@@ -24,7 +26,7 @@ public:
 	/// モデルのポジションを取得
 	/// </summary>
 	/// <returns></returns>
-	Vector3 GetModelPosition() const
+	Vector3 GetModelPosition() const override
 	{
 		return m_modelPosition;
 	}
@@ -45,45 +47,6 @@ public:
 	Vector3 GetSpritePosition() const
 	{
 		return m_spritePosition;
-	}
-
-	/// <summary>
-	/// モデルの回転を設定
-	/// </summary>
-	/// <param name="rotation"></param>
-	/// <returns></returns>
-	void SetModelRotation(const float rotation)
-	{
-		m_modelRotation.AddRotationDegY(rotation);
-	}
-
-	/// <summary>
-	/// モデルの回転を取得
-	/// </summary>
-	/// <returns></returns>
-	Quaternion GetModelRotation()
-	{
-		return m_modelRotation;
-	}
-
-	/// <summary>
-	/// モデルを時計回りに回転
-	/// </summary>
-	/// <param name="rotation"></param>
-	/// <returns></returns>
-	void ModelRotationTurnRight()
-	{
-		m_modelRotation.AddRotationDegY(180.0f);
-	}
-
-	/// <summary>
-	/// モデルを反時計回りに回転
-	/// </summary>
-	/// <param name="rotation"></param>
-	/// <returns></returns>
-	void ModelRotationTurnLeft()
-	{
-		m_modelRotation.AddRotationDegY(-180.0f);
 	}
 
 private:

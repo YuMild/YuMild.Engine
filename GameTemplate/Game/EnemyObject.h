@@ -41,8 +41,4 @@ public:
 	/// </summary>
 	/// <param name="addHP"></param>
 	virtual void SubHP(const float subHP) = 0;
-
-private:
-
-	std::vector<EnemyObject*> m_enemyOnObject;
 };

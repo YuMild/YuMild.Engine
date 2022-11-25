@@ -26,10 +26,16 @@ bool LeftWindow::Start()
 	m_turretManager = FindGO<TurretManager>("turretManager");
 
 	//モデルの生成
+	//グリッド
 	m_gridMR.Init("Assets/ModelData/Stage/Grid.tkm", Dithering);
 	m_gridMR.SetPosition({0.0f,-50,0.0f});
 	m_gridMR.SetScale(Vector3::One);
 	m_gridMR.Update();
+	//カーソル
+	m_gridCursorMR.Init("Assets/ModelData/Stage/GridCursor.tkm", Dithering);
+	m_gridCursorMR.SetPosition({ 0.0f,-50,0.0f });
+	m_gridCursorMR.SetScale(Vector3::One);
+	m_gridCursorMR.Update();
 
 	//画像の生成
 	//枠
@@ -234,6 +240,16 @@ void LeftWindow::OperationDelete()
 		m_operationState = enOperationState_Normal_LeftWindow;
 		m_selectTurretNumber = 0;
 	}
+
+	//削除するタレットを表示
+	m_turrets = FindGOs<TurretObject>("turret");
+
+	if (m_turrets[m_selectTurretNumber] != nullptr)
+	{
+		m_gridCursorPosition = m_turrets[m_selectTurretNumber]->GetModelPosition();
+		m_gridCursorMR.SetPosition(m_gridCursorPosition);
+		m_gridCursorMR.Update();
+	}
 }
 
 void LeftWindow::OperationDeleteCheck()
@@ -391,6 +407,7 @@ void LeftWindow::Render(RenderContext& renderContext)
 		//タレット削除モード時
 		if (m_operationState == enOperationState_Delete_LeftWindow || m_operationState == enOperationState_DeleteCheck_LeftWindow)
 		{
+			m_gridCursorMR.Draw(renderContext);
 			m_delete_BackGroundSR.Draw(renderContext);
 		}
 	}

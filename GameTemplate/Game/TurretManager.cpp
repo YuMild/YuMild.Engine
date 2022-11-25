@@ -114,7 +114,7 @@ void TurretManager::StateManager()
 
 		if (m_isGorstModelNewGO)
 		{
-			m_dualGunTurret= NewGO<DualGunTurret>(0, "dualGunTurret");
+			m_dualGunTurret= NewGO<DualGunTurret>(0, "turret");
 			m_dualGunTurret->SetModelPosition(m_cursorPosition);
 			m_dualGunTurret->Update();
 			m_isGorstModelNewGO = false;
@@ -188,7 +188,7 @@ void TurretManager::StateManager()
 
 		if (m_isGorstModelNewGO)
 		{
-			m_laserTurret = NewGO<LaserTurret>(0, "laserTurret");
+			m_laserTurret = NewGO<LaserTurret>(0, "turret");
 			m_laserTurret->SetModelPosition(m_cursorPosition);
 			m_laserTurret->Update();
 			m_isGorstModelNewGO = false;
@@ -262,7 +262,7 @@ void TurretManager::StateManager()
 
 		if (m_isGorstModelNewGO)
 		{
-			m_rocketTurret = NewGO<RocketTurret>(0, "rocketTurret");
+			m_rocketTurret = NewGO<RocketTurret>(0, "turret");
 			m_rocketTurret->SetModelPosition(m_cursorPosition);
 			m_rocketTurret->Update();
 			m_isGorstModelNewGO = false;
@@ -336,7 +336,7 @@ void TurretManager::StateManager()
 
 		if (m_isGorstModelNewGO)
 		{
-			m_generationTurret = NewGO<GenerationTurret>(0, "generationTurret");
+			m_generationTurret = NewGO<GenerationTurret>(0, "turret");
 			m_generationTurret->SetModelPosition(m_cursorPosition);
 			m_generationTurret->Update();
 			m_isGorstModelNewGO = false;
@@ -496,7 +496,7 @@ void TurretManager::DeleteTurret()
 void TurretManager::MakeDualGunTurret()
 {
 	m_energy->SubEnergy(COST_DUALGUNTURRET);
-	auto* turret = NewGO<DualGunTurret>(0, "dualGunTurret");
+	auto* turret = NewGO<DualGunTurret>(0, "turret");
 	turret->SetModelPosition(m_cursorPosition);
 	turret->SetAttackReady(true);
 	m_turrets.push_back(turret);
@@ -509,7 +509,7 @@ void TurretManager::MakeDualGunTurret()
 void TurretManager::MakeLaserTurret()
 {
 	m_energy->SubEnergy(COST_LASERTURRET);
-	auto* turret = NewGO<LaserTurret>(0, "laserTurret");
+	auto* turret = NewGO<LaserTurret>(0, "turret");
 	turret->SetModelPosition(m_cursorPosition);
 	m_turrets.push_back(turret);
 	m_leftWindowDelete[m_turretsSum]->Init(enInitDeleteTurretSprite_LaserTurret);
@@ -521,7 +521,7 @@ void TurretManager::MakeLaserTurret()
 void TurretManager::MakeRocketTurret()
 {
 	m_energy->SubEnergy(COST_ROCKETTURRET);
-	auto* turret = NewGO<RocketTurret>(0, "rocketTurret");
+	auto* turret = NewGO<RocketTurret>(0, "turret");
 	turret->SetModelPosition(m_cursorPosition);
 	m_turrets.push_back(turret);
 	m_leftWindowDelete[m_turretsSum]->Init(enInitDeleteTurretSprite_RocketTurret);
@@ -533,7 +533,7 @@ void TurretManager::MakeRocketTurret()
 void TurretManager::MakeGenerationTurret()
 {
 	m_energy->SubEnergy(COST_GENERATIONTURRET);
-	auto* turret = NewGO<GenerationTurret>(0, "generationTurret");
+	auto* turret = NewGO<GenerationTurret>(0, "turret");
 	turret->SetModelPosition(m_cursorPosition);
 	turret->SetAttackReady(true);
 	m_turrets.push_back(turret);

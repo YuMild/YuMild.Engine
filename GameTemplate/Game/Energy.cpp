@@ -5,6 +5,13 @@
 
 namespace
 {
+    //タレットの生産コスト
+    float COST_DUALGUNTURRET = 100.0f;
+    float COST_LASERTURRET = 200.0f;
+    float COST_ROCKETTURRET = 400.0f;
+    float COST_GENERATIONTURRET = 400.0f;
+
+    //デフォルトの生産効率
     float DEFAULT_ENERGY_EFFICIENCY = 10.0f;
 }
 
@@ -32,6 +39,9 @@ bool Energy::Start()
     m_gaugePosition = { 553.0,-193.0f,0.0f };
     m_gaugeSR.SetPosition(m_gaugePosition);
     m_gaugeSR.Update();
+
+    //音声
+    g_soundEngine->ResistWaveFileBank(7, "Assets/sound/NotEnoughCost.wav");
 
     //エネルギー効率
     m_energyEfficiency = DEFAULT_ENERGY_EFFICIENCY;

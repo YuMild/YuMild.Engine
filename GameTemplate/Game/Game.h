@@ -30,8 +30,4 @@ private:
 	SpawnManager*				m_spawnMananer;
 	Stage*						m_stage;
 	TurretManager*				m_turretManager;
-
-	ModelRender					m_stageModelRender;
-
-	float						m_ufoSpawnTimer = 0;
 };

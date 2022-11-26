@@ -2,6 +2,7 @@
 
 #include "TurretObject.h"
 
+class Energy;
 class Player;
 class TurretManager;
 
@@ -143,9 +144,9 @@ public:
 
 private:
 
-	bool Start();
-	void Update();
-	void Render(RenderContext& renderContext);
+	bool Start()override;
+	void Update()override;
+	void Render(RenderContext& renderContext)override;
 
 	/// <summary>
 	/// ’Êí
@@ -178,6 +179,7 @@ private:
 	void SetParameterBar();
 
 	//ƒNƒ‰ƒX
+	Energy*						m_energy;
 	Player*						m_player;
 	TurretManager*				m_turretManager;
 	std::vector<TurretObject*>	m_turrets;

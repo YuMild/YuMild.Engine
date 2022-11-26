@@ -14,6 +14,24 @@ public:
 	void Render(RenderContext& renderContext)override;
 
 	/// <summary>
+	/// エネルギーを設定
+	/// </summary>
+	/// <param name="setEnergy"></param>
+	void SetEnergy(const float setEnergy)
+	{
+		m_energy = setEnergy;
+	}
+
+	/// <summary>
+	/// エネルギーを取得
+	/// </summary>
+	/// <param name="setEnergy"></param>
+	float GetEnergy() const
+	{
+		return m_energy;
+	}
+
+	/// <summary>
 	/// エネルギーを加算
 	/// </summary>
 	/// <param name="addEnergy"></param>
@@ -47,6 +65,17 @@ public:
 	void SubGenerationTurret()
 	{
 		m_generationTurret -= 1;
+	}
+
+	/// <summary>
+	/// コスト不足時の音声を再生
+	/// </summary>
+	void SoundPlayNotEnoughCost()
+	{
+		m_notEnoughCost = NewGO<SoundSource>(0);
+		m_notEnoughCost->Init(7);
+		m_notEnoughCost->SetVolume(0.1f);
+		m_notEnoughCost->Play(false);
 	}
 
 private:
@@ -86,6 +115,9 @@ private:
 	//クラス
 	LeftWindow*		m_leftWindow;
 
+	//音楽
+	SoundSource*	m_notEnoughCost;
+
 	//画像
 	SpriteRender	m_windowSR;
 	Vector3			m_windowPosition;
@@ -99,7 +131,7 @@ private:
 
 	//エネルギー
 	int				m_generationTurret = 0;
-	float			m_energy = 0.0f;
+	float			m_energy = 500.0f;
 	float			m_energyEfficiency = 0.0f;
 
 	//回転

@@ -61,6 +61,10 @@ public:
 
 private:
 
+	/// <summary>
+	/// エフェクトを再生
+	/// </summary>
+	/// <param name="position"></param>
 	void EffectPlayHit(const Vector3& position)
 	{
 		m_hitEF = NewGO<EffectEmitter>(0);

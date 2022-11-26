@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "LeftWindow.h"
 
+#include "Energy.h"
 #include "Player.h"
 #include "TurretManager.h"
 
@@ -22,6 +23,7 @@ namespace
 bool LeftWindow::Start()
 {
 	//FindGO
+	m_energy = FindGO<Energy>("energy");
 	m_player = FindGO<Player>("player");
 	m_turretManager = FindGO<TurretManager>("turretManager");
 
@@ -161,27 +163,52 @@ void LeftWindow::OperationSelectTurret()
 	if (g_pad[0]->IsTrigger(enButtonSelect) && m_operationState == enOperationState_SelectTurret_LeftWindow && GetButtonReady() == true)
 	{
 		SetButtonDelay();
-		//操作モードを変更
-		m_operationState = enOperationState_SetTurret_LeftWindow;
-		SoundPlayWindow();
 
 		//タレットを作成
 		if (m_selectTurretNumber == enTurret_DualGunTurret)
 		{
+			if (m_energy->GetEnergy() <= 100.0f)
+			{
+				m_energy->SoundPlayNotEnoughCost();
+				return;
+			}
 			m_turretManager->Init(enTurret_DualGunTurret);
+			m_energy->SubEnergy(100.0f);
 		}
 		else if (m_selectTurretNumber == enTurret_LaserTurret)
 		{
+			if (m_energy->GetEnergy() <= 200.0f)
+			{
+				m_energy->SoundPlayNotEnoughCost();
+				return;
+			}
 			m_turretManager->Init(enTurret_LaserTurret);
+			m_energy->SubEnergy(200.0f);
 		}
 		else if (m_selectTurretNumber == enTurret_RocketTurret)
 		{
+			if (m_energy->GetEnergy() <= 400.0f)
+			{
+				m_energy->SoundPlayNotEnoughCost();
+				return;
+			}
 			m_turretManager->Init(enTurret_RocketTurret);
+			m_energy->SubEnergy(400.0f);
 		}
 		else if (m_selectTurretNumber == enTurret_GenerationTurret)
 		{
+			if (m_energy->GetEnergy() <= 400.0f)
+			{
+				m_energy->SoundPlayNotEnoughCost();
+				return;
+			}
 			m_turretManager->Init(enTurret_GenerationTurret);
+			m_energy->SubEnergy(400.0f);
 		}
+
+		//操作モードを変更
+		m_operationState = enOperationState_SetTurret_LeftWindow;
+		SoundPlayWindow();
 
 		//選択個所をリセット
 		m_selectTurretNumber = 0;

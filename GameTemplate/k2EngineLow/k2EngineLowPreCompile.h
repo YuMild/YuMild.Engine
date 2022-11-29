@@ -116,6 +116,7 @@ static const int MAX_BONE = 512;	// ƒ{[ƒ“‚ÌÅ‘å”B
 #include <x3daudio.h>
 #include <xaudio2fx.h>
 
+#include "SkyCube.h"
 #include "graphics/effect/EffectEngine.h"
 #include "sound/SoundSource.h"
 #include "graphics/effect/EffectEmitter.h"

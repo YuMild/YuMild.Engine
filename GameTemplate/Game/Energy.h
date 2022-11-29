@@ -74,7 +74,7 @@ public:
 	{
 		m_notEnoughCost = NewGO<SoundSource>(0);
 		m_notEnoughCost->Init(7);
-		m_notEnoughCost->SetVolume(0.1f);
+		m_notEnoughCost->SetVolume(0.05f);
 		m_notEnoughCost->Play(false);
 	}
 

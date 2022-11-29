@@ -86,7 +86,11 @@ bool TurretManager::Start()
 		m_leftWindowDelete[i]->SetPosition(m_deleteSpritePosition[m_turretsSum]);
 	}
 
+	//エフェクトの作成
+	EffectEngine::GetInstance()->ResistEffect(3, u"Assets/effect/CursorAfter.efk");
+
 	//音声の作成
+	g_soundEngine->ResistWaveFileBank(8, "Assets/sound/CursorAfter2.wav");
 	g_soundEngine->ResistWaveFileBank(3, "Assets/sound/SetTurret.wav");
 
 	return true;
@@ -125,8 +129,10 @@ void TurretManager::StateManager()
 		{
 			m_cursorPosition = m_dualGunTurret->GetModelPosition();
 			//稼働範囲内なら
-			if (m_cursorPosition.z >= -9600.0f)
+			if (m_cursorPosition.z >= -8000.0f)
 			{
+				EffectPlayCursorAfter(m_dualGunTurret->GetModelPosition());
+				SoundPlayCursorAfter();
 				m_cursorPosition.z -= TURRET_POSITION_MOVE_NUM;
 			}
 			m_dualGunTurret->SetModelPosition(m_cursorPosition);
@@ -140,6 +146,8 @@ void TurretManager::StateManager()
 			//稼働範囲内なら
 			if (m_cursorPosition.z <= 0.0f)
 			{
+				EffectPlayCursorAfter(m_dualGunTurret->GetModelPosition());
+				SoundPlayCursorAfter();
 				m_cursorPosition.z += TURRET_POSITION_MOVE_NUM;
 			}
 			m_dualGunTurret->SetModelPosition(m_cursorPosition);
@@ -153,6 +161,8 @@ void TurretManager::StateManager()
 			//稼働範囲内なら
 			if (m_cursorPosition.x >= -3200.0f)
 			{
+				EffectPlayCursorAfter(m_dualGunTurret->GetModelPosition());
+				SoundPlayCursorAfter();
 				m_cursorPosition.x -= TURRET_POSITION_MOVE_NUM;
 			}
 			m_dualGunTurret->SetModelPosition(m_cursorPosition);
@@ -166,6 +176,8 @@ void TurretManager::StateManager()
 			//稼働範囲内なら
 			if (m_cursorPosition.x <= 3200.0f)
 			{
+				EffectPlayCursorAfter(m_dualGunTurret->GetModelPosition());
+				SoundPlayCursorAfter();
 				m_cursorPosition.x += TURRET_POSITION_MOVE_NUM;
 			}
 			m_dualGunTurret->SetModelPosition(m_cursorPosition);
@@ -173,7 +185,7 @@ void TurretManager::StateManager()
 		}
 
 		//Selectボタン(Spaceキー)
-		if (m_leftWindow->GetOperationState() == enOperationState_SetTurret_LeftWindow && g_pad[0]->IsTrigger(enButtonSelect) && m_leftWindow->GetButtonReady() == true)
+		if (m_leftWindow->GetOperationState() == enOperationState_SetTurret_LeftWindow && g_pad[0]->IsTrigger(enButtonA) && m_leftWindow->GetButtonReady() == true)
 		{
 			m_leftWindow->SetButtonDelay();
 			DeleteGO(m_dualGunTurret);
@@ -247,7 +259,7 @@ void TurretManager::StateManager()
 		}
 
 		//Selectボタン(Spaceキー)
-		if (m_leftWindow->GetOperationState() == enOperationState_SetTurret_LeftWindow && g_pad[0]->IsTrigger(enButtonSelect) && m_leftWindow->GetButtonReady() == true)
+		if (m_leftWindow->GetOperationState() == enOperationState_SetTurret_LeftWindow && g_pad[0]->IsTrigger(enButtonA) && m_leftWindow->GetButtonReady() == true)
 		{
 			m_leftWindow->SetButtonDelay();
 			DeleteGO(m_laserTurret);
@@ -321,7 +333,7 @@ void TurretManager::StateManager()
 		}
 
 		//Selectボタン(Spaceキー)
-		if (m_leftWindow->GetOperationState() == enOperationState_SetTurret_LeftWindow && g_pad[0]->IsTrigger(enButtonSelect) && m_leftWindow->GetButtonReady() == true)
+		if (m_leftWindow->GetOperationState() == enOperationState_SetTurret_LeftWindow && g_pad[0]->IsTrigger(enButtonA) && m_leftWindow->GetButtonReady() == true)
 		{
 			m_leftWindow->SetButtonDelay();
 			DeleteGO(m_rocketTurret);
@@ -395,7 +407,7 @@ void TurretManager::StateManager()
 		}
 
 		//Selectボタン(Spaceキー)
-		if (m_leftWindow->GetOperationState() == enOperationState_SetTurret_LeftWindow && g_pad[0]->IsTrigger(enButtonSelect) && m_leftWindow->GetButtonReady() == true)
+		if (m_leftWindow->GetOperationState() == enOperationState_SetTurret_LeftWindow && g_pad[0]->IsTrigger(enButtonA) && m_leftWindow->GetButtonReady() == true)
 		{
 			m_leftWindow->SetButtonDelay();
 			DeleteGO(m_generationTurret);
@@ -428,7 +440,7 @@ void TurretManager::DeleteTurret()
 	}
 	
 	//タレットが存在している箇所を選択している状態でSelect
-	if (m_leftWindow->GetOperationState() == enOperationState_Delete_LeftWindow && g_pad[0]->IsTrigger(enButtonSelect) && m_leftWindow->GetButtonReady() == true && m_leftWindowDelete[m_leftWindow->GetSelectTurretNumber()]->GetIsDraw() == true)
+	if (m_leftWindow->GetOperationState() == enOperationState_Delete_LeftWindow && g_pad[0]->IsTrigger(enButtonA) && m_leftWindow->GetButtonReady() == true && m_leftWindowDelete[m_leftWindow->GetSelectTurretNumber()]->GetIsDraw() == true)
 	{
 		m_turretDeleteState = enDeleteState_Cancel;
 		m_leftWindow->SetOperationState(enOperationState_DeleteCheck_LeftWindow);
@@ -444,7 +456,7 @@ void TurretManager::DeleteTurret()
 	}
 
 	//Delete確認ウィンドウでCancelが選択されている時にSelect
-	else if (m_turretDeleteState == enDeleteState_Cancel && g_pad[0]->IsTrigger(enButtonSelect) && m_leftWindow->GetButtonReady() == true)
+	else if (m_turretDeleteState == enDeleteState_Cancel && g_pad[0]->IsTrigger(enButtonA) && m_leftWindow->GetButtonReady() == true)
 	{
 		m_turretDeleteState = enDeleteState_Null;
 		m_leftWindow->SetOperationState(enOperationState_Delete_LeftWindow);
@@ -460,7 +472,7 @@ void TurretManager::DeleteTurret()
 	}
 
 	//Delete確認ウィンドウでDeleteが選択されている時にSelect
-	else if (m_turretDeleteState == enDeleteState_Delete && g_pad[0]->IsTrigger(enButtonSelect) && m_leftWindow->GetButtonReady() == true)
+	else if (m_turretDeleteState == enDeleteState_Delete && g_pad[0]->IsTrigger(enButtonA) && m_leftWindow->GetButtonReady() == true)
 	{
 		std::vector<IGameObject*>::iterator it;
 		//要素を探す

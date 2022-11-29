@@ -27,7 +27,10 @@ private:
 	GameOver*					m_gameOver;
 	LeftWindow*					m_leftWindow;
 	Player*						m_player;
+	SkyCube*					m_skyCube;
 	SpawnManager*				m_spawnMananer;
 	Stage*						m_stage;
 	TurretManager*				m_turretManager;
+
+	Quaternion					m_skyCubeRotation = g_quatIdentity;
 };

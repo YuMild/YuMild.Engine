@@ -27,7 +27,7 @@ public:
 	/// モデルのポジションを取得
 	/// </summary>
 	/// <returns></returns>
-	Vector3 GetModelPosition() const
+	Vector3 GetModelPosition() const override
 	{
 		return m_modelPosition;
 	}
@@ -57,6 +57,14 @@ public:
 	void SetAttackReady(bool ready)
 	{
 		m_moveReady = ready;
+	}
+
+	/// <summary>
+	/// デバフを設定
+	/// </summary>
+	void SetDebuff()
+	{
+		m_debuffTimer = 5.0f;
 	}
 
 private:
@@ -96,6 +104,8 @@ private:
 	Vector3							m_difference;
 	Vector3							m_lockOnPosition;
 	float							m_fireRate = 0.0f;
+	bool							m_isDebuff = false;
+	float							m_debuffTimer = 0.0f;
 	EffectEmitter*					m_hitEF;
 	SoundSource*					m_fireSE;
 

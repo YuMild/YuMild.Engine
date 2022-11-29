@@ -99,6 +99,14 @@ public:
 		m_moveReady = ready;
 	}
 
+	/// <summary>
+	/// ƒfƒoƒt‚ğİ’è
+	/// </summary>
+	void SetDebuff()
+	{
+		
+	}
+
 private:
 
 	/// <summary>

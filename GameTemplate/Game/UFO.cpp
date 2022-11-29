@@ -81,6 +81,7 @@ bool UFO::Start()
 
 void UFO::Move()
 {
+	//目的地までのベクトル
 	Vector3 difference = m_target - m_position;
 
 	//目的地に着いたら

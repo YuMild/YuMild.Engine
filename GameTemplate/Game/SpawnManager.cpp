@@ -4,7 +4,12 @@
 namespace
 {
 	//HP
+	float DEFAULT_HP_DEMPA = 500.0f;
 	float DEFAULT_HP_UFO = 100.0f;
+
+	//スポーンタイマー
+	float DEFAULT_SPAWNTIME_DEMPA = 10.0f;
+	float DEFAULT_SPAWNTIME_UFO = 3.0f;
 
 	//レベルアップ
 	float LEVELUP_TIME = 10.0f;
@@ -19,10 +24,18 @@ bool SpawnManager::Start()
 	g_soundEngine->ResistWaveFileBank(5, "Assets/sound/Explosion.wav");
 
 	//HP
+	//Dempa
+	m_defaultHP_Dempa = DEFAULT_HP_DEMPA;
+
+	//UFO
 	m_defaultHP_UFO = DEFAULT_HP_UFO;
 
 	//敵の初期スポーンタイム
-	m_spawnTime_UFO = 3.0f;
+	//Dempa
+	m_spawnTime_Dempa = DEFAULT_SPAWNTIME_DEMPA;
+
+	//UFO
+	m_spawnTime_UFO = DEFAULT_SPAWNTIME_UFO;
 
 	return true;
 }
@@ -32,10 +45,29 @@ void SpawnManager::LevelUp()
 	m_levelTimer += g_gameTime->GetFrameDeltaTime();
 
 	//レベルアップ
-	if (m_levelTimer > LEVELUP_TIME && m_defaultHP_UFO < 1000.0f)
+	if (m_levelTimer > LEVELUP_TIME)
 	{
-		m_defaultHP_UFO *= 1.2f;
+		if (m_defaultHP_UFO < 1000.0f)
+		{
+			m_defaultHP_UFO *= 1.1f;
+		}
+		if (m_defaultHP_Dempa < 5000.0f)
+		{
+			m_defaultHP_Dempa *= 1.1f;
+		}
 		m_levelTimer = 0.0f;
+	}
+}
+
+void SpawnManager::SpawnDempa()
+{
+	m_spawnTimer_Dempa += g_gameTime->GetFrameDeltaTime();
+
+	//Dempaのスポーン
+	if (m_spawnTimer_Dempa >= m_spawnTime_Dempa)
+	{
+		m_dempa = NewGO<Dempa>(0, "dempa");
+		m_spawnTimer_Dempa = 0.0f;
 	}
 }
 
@@ -54,6 +86,7 @@ void SpawnManager::SpawnUFO()
 void SpawnManager::Update()
 {
 	LevelUp();
+	SpawnDempa();
 	SpawnUFO();
 }
 

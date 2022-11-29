@@ -17,4 +17,9 @@ public:
 	/// </summary>
 	/// <returns></returns>
 	virtual Vector3 GetModelPosition() const = 0;
+
+	/// <summary>
+	/// ƒfƒoƒt‚ğİ’è
+	/// </summary>
+	virtual void SetDebuff() = 0;
 };

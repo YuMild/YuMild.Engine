@@ -63,8 +63,8 @@ namespace nsK2EngineLow
 		}
 	}
 
-	void SkyCube::Render(RenderContext& rc)
+	void SkyCube::Render(RenderContext& renderContext)
 	{
-		m_modelRender.Draw(rc);
+		m_modelRender.Draw(renderContext);
 	}
 }

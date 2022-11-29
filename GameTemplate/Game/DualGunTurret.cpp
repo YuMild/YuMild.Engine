@@ -34,8 +34,18 @@ bool DualGunTurret::Start()
 
 void DualGunTurret::Move()
 {
-	m_fireRate += g_gameTime->GetFrameDeltaTime();
-	
+	//デバフに掛かっていなかったら
+	if (m_debuffTimer <= 0.0f)
+	{
+		m_fireRate += g_gameTime->GetFrameDeltaTime();
+	}
+	//掛かっていたら
+	else
+	{
+		m_debuffTimer -= g_gameTime->GetFrameDeltaTime();
+		m_fireRate += g_gameTime->GetFrameDeltaTime() / 5;
+	}
+
 	//動作可能なら
 	if (m_moveReady == true)
 	{

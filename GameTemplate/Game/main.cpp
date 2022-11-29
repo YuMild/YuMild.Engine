@@ -21,10 +21,12 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	g_sceneLight.SetEyePosition({ g_camera3D->GetPosition().x, g_camera3D->GetPosition().y, g_camera3D->GetPosition().z });
 	g_sceneLight.SetDirectionColor({ 1.0f,1.0f,1.0f });
 
+	//ポストエフェクト
 	g_renderingEngine.Init();
 	g_postEffect.Init();
 	g_bloom.Init();
 
+	//ゲームの作成
 	NewGO<Game>(0, "game");
 
 	// ここからゲームループ。

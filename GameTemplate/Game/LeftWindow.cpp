@@ -112,16 +112,26 @@ bool LeftWindow::Start()
 
 void LeftWindow::OperationNormal()
 {
-	//ウィンドウを左にスライド
+	//選択位置をデフォルトに設定
+	m_selectTurretNumber = 0;
+
+	//
+	g_camera3D->SetTarget({ 0.0f,0.0f,-1500.0f });
+	g_camera3D->SetPosition({ 0.0f, 3500.0f, 2000.0f });
+
+	/// <summary>
+	/// ウィンドウを左にスライド
+	/// </summary>
 	if (m_moveNumber >= LEFTWINDOW_MOVE_X)
 	{
 		m_moveNumber -= 50.0f;
 	}
 
-	//LB1ボタン(Bキー)
+	/// <summary>
+	/// 操作モードを変更
+	/// </summary>
 	if (g_pad[0]->IsTrigger(enButtonLB1) && m_operationState == enOperationState_Normal_LeftWindow)
 	{
-		//操作モードを変更
 		m_operationState = enOperationState_SelectTurret_LeftWindow;
 		SoundPlayWindow();
 	}
@@ -129,42 +139,41 @@ void LeftWindow::OperationNormal()
 
 void LeftWindow::OperationSelectTurret()
 {
-	//ウィンドウを右にスライド
+	/// <summary>
+	/// ウィンドウを右にスライド
+	/// </summary>
 	if (m_moveNumber <= LEFTWINDOW_MOVE_X_LIMIT)
 	{
 		m_moveNumber += 50.0f;
 	}
 
-	//上ボタン(8キー)
+	/// <summary>
+	/// カーソルの移動
+	/// </summary>
 	if (g_pad[0]->IsTrigger(enButtonUp))
 	{
 		TurretCursorUp();
 	}
-
-	//下ボタン(2キー)
 	if (g_pad[0]->IsTrigger(enButtonDown))
 	{
 		TurretCursorDown();
 	}
-
-	//右ボタン(6キー)
 	if (g_pad[0]->IsTrigger(enButtonRight))
 	{
 		TurretCursorRight();
 	}
-
-	//左ボタン(4キー)
 	if (g_pad[0]->IsTrigger(enButtonLeft))
 	{
 		TurretCursorLeft();
 	}
 	
-	//Selectボタン(Spaceキー)
-	if (g_pad[0]->IsTrigger(enButtonSelect) && m_operationState == enOperationState_SelectTurret_LeftWindow && GetButtonReady() == true)
+	/// <summary>
+	/// タレットの作成
+	/// </summary>
+	if (g_pad[0]->IsTrigger(enButtonA) && m_operationState == enOperationState_SelectTurret_LeftWindow && GetButtonReady() == true)
 	{
 		SetButtonDelay();
-
-		//タレットを作成
+		
 		if (m_selectTurretNumber == enTurret_DualGunTurret)
 		{
 			if (m_energy->GetEnergy() <= 100.0f)
@@ -206,20 +215,17 @@ void LeftWindow::OperationSelectTurret()
 			m_energy->SubEnergy(400.0f);
 		}
 
-		//操作モードを変更
 		m_operationState = enOperationState_SetTurret_LeftWindow;
-		SoundPlayWindow();
-
-		//選択個所をリセット
 		m_selectTurretNumber = 0;
+		SoundPlayWindow();
 	}
 
-	//LB1ボタン(Bキー)
+	/// <summary>
+	/// 操作モードを変更
+	/// </summary>
 	if (g_pad[0]->IsTrigger(enButtonLB1) && m_operationState == enOperationState_SelectTurret_LeftWindow)
 	{
-		//操作モードを変更
 		m_operationState = enOperationState_Delete_LeftWindow;
-		//選択個所をリセット
 		m_selectTurretNumber = 0;
 		SoundPlayWindow();
 	}
@@ -236,25 +242,21 @@ void LeftWindow::OperationSetTurret()
 
 void LeftWindow::OperationDelete()
 {
-	//上ボタン(8キー)
+	/// <summary>
+	/// カーソルの移動
+	/// </summary>
 	if (g_pad[0]->IsTrigger(enButtonUp))
 	{
 		TurretCursorUp();
 	}
-
-	//下ボタン(2キー)
 	if (g_pad[0]->IsTrigger(enButtonDown))
 	{
 		TurretCursorDown();
 	}
-
-	//右ボタン(6キー)
 	if (g_pad[0]->IsTrigger(enButtonRight))
 	{
 		TurretCursorRight();
 	}
-
-	//左ボタン(4キー)
 	if (g_pad[0]->IsTrigger(enButtonLeft))
 	{
 		TurretCursorLeft();
@@ -270,13 +272,11 @@ void LeftWindow::OperationDelete()
 
 	//削除するタレットを表示
 	m_turrets = FindGOs<TurretObject>("turret");
-
-	if (m_turrets[m_selectTurretNumber] != nullptr)
-	{
-		m_gridCursorPosition = m_turrets[m_selectTurretNumber]->GetModelPosition();
-		m_gridCursorMR.SetPosition(m_gridCursorPosition);
-		m_gridCursorMR.Update();
-	}
+	
+	g_camera3D->SetTarget(m_turrets[m_selectTurretNumber]->GetModelPosition());
+	g_camera3D->SetPosition({ m_turrets[m_selectTurretNumber]->GetModelPosition().x,m_turrets[m_selectTurretNumber]->GetModelPosition().y + 1000.0f,m_turrets[m_selectTurretNumber]->GetModelPosition().z + 2000.0f });
+	m_gridCursorMR.SetPosition(m_turrets[m_selectTurretNumber]->GetModelPosition());
+	m_gridCursorMR.Update();
 }
 
 void LeftWindow::OperationDeleteCheck()
@@ -342,8 +342,10 @@ void LeftWindow::SetParameterBar()
 
 void LeftWindow::Update()
 {
+	//パラメーターバー
 	SetParameterBar();
 
+	//ステート管理
 	switch (m_operationState)
 	{
 	case enOperationState_Normal_LeftWindow:

@@ -32,9 +32,9 @@ namespace nsK2EngineLow
 
 		SkyCube();
 		~SkyCube();
-		bool Start()override final;
-		void Update()override final;
-		void Render(RenderContext& rc)override final;
+		bool Start()override;
+		void Update()override;
+		void Render(RenderContext& renderContext)override;
 
 	public:
 
@@ -42,9 +42,9 @@ namespace nsK2EngineLow
 		/// É|ÉWÉVÉáÉìÇê›íË
 		/// </summary>
 		/// <param name="pos"></param>
-		void SetPosition(const Vector3& pos)
+		void SetPosition(const Vector3& position)
 		{
-			m_position = pos;
+			m_position = position;
 			m_isDirty = true;
 		}
 
@@ -94,8 +94,7 @@ namespace nsK2EngineLow
 
 	private:
 
-		Model		m_modelRender;
-
+		Model			m_modelRender;
 		Texture			m_texture[enSkyCubeType_Num];
 		const wchar_t*	m_textureFilePaths[enSkyCubeType_Num];
 		Vector3			m_position = g_vec3Zero;

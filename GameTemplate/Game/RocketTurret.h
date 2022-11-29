@@ -49,6 +49,14 @@ public:
 		return m_spritePosition;
 	}
 
+	/// <summary>
+	/// デバフを設定
+	/// </summary>
+	void SetDebuff()
+	{
+
+	}
+
 private:
 
 	//クラス

@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Dempa.h"
 #include "UFO.h"
 
 /// <summary>
@@ -49,11 +50,17 @@ private:
 	void LevelUp();
 
 	/// <summary>
+	/// Dempaのスポーンを管理
+	/// </summary>
+	void SpawnDempa();
+
+	/// <summary>
 	/// UFOのスポーンを管理
 	/// </summary>
 	void SpawnUFO();
 
 	//クラス
+	Dempa*			m_dempa;
 	UFO*			m_ufo;
 
 	//破壊時のエフェクト
@@ -64,6 +71,13 @@ private:
 
 	//レベルを管理するタイマー
 	float			m_levelTimer = 0.0f;
+
+	//Dempaのスポーンタイマー
+	float			m_spawnTime_Dempa = 0.0f;
+	float			m_spawnTimer_Dempa = 0.0f;
+
+	//DempaのHP
+	float			m_defaultHP_Dempa = 0.0f;
 
 	//UFOのスポーンタイマー
 	float			m_spawnTime_UFO = 0.0f;

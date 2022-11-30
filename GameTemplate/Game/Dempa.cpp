@@ -34,7 +34,8 @@ Dempa::Dempa()
 
 Dempa::~Dempa()
 {
-
+	//エフェクトを止める
+	m_dempaAttackEF->Stop();
 }
 
 bool Dempa::Start()
@@ -89,7 +90,7 @@ bool Dempa::Start()
 
 void Dempa::Attack()
 {
-	m_dempaAttackEF->SetPosition({ m_position.x,m_position.y + 100.0f,m_position.z });
+	m_dempaAttackEF->SetPosition({ m_position.x,m_position.y + 50.0f,m_position.z });
 
 	//射程内にタレットがいたらデバフを掛ける
 	m_turrets = FindGOs<TurretObject>("turret");

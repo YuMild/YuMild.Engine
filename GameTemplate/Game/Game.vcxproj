@@ -233,7 +233,7 @@
     <ClCompile Include="GenerationTurret.cpp" />
     <ClCompile Include="LaserTurret.cpp" />
     <ClCompile Include="LeftWindow.cpp" />
-    <ClCompile Include="LeftWindow_Delete.cpp" />
+    <ClCompile Include="LeftWindowDelete.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="RocketTurret.cpp" />
@@ -245,6 +245,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Preview|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="system\system.cpp" />
+    <ClCompile Include="Title.cpp" />
     <ClCompile Include="TurretManager.cpp" />
     <ClCompile Include="TurretObject.cpp" />
     <ClCompile Include="UFO.cpp" />
@@ -260,13 +261,14 @@
     <ClInclude Include="GenerationTurret.h" />
     <ClInclude Include="LaserTurret.h" />
     <ClInclude Include="LeftWindow.h" />
-    <ClInclude Include="LeftWindow_Delete.h" />
+    <ClInclude Include="LeftWindowDelete.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="RocketTurret.h" />
     <ClInclude Include="SpawnManager.h" />
     <ClInclude Include="Stage.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="system\system.h" />
+    <ClInclude Include="Title.h" />
     <ClInclude Include="TurretManager.h" />
     <ClInclude Include="TurretObject.h" />
     <ClInclude Include="UFO.h" />

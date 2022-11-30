@@ -7,11 +7,13 @@ class Stage : public IGameObject
 {
 public:
 
-private:
-
+	Stage();
+	~Stage();
 	bool Start();
 	void Update();
 	void Render(RenderContext& renderCntext);
+
+private:
 
 	//ƒ‚ƒfƒ‹
 	ModelRender			m_modelRender;

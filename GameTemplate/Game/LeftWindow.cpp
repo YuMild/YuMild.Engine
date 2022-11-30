@@ -115,7 +115,7 @@ void LeftWindow::OperationNormal()
 	//選択位置をデフォルトに設定
 	m_selectTurretNumber = 0;
 
-	//
+	//カメラの視点と注視点の初期化
 	g_camera3D->SetTarget({ 0.0f,0.0f,-1500.0f });
 	g_camera3D->SetPosition({ 0.0f, 3500.0f, 2000.0f });
 

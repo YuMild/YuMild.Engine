@@ -2,7 +2,7 @@
 
 class Energy;
 class LeftWindow;
-class LeftWindow_Delete;
+class LeftWindowDelete;
 
 class DualGunTurret;
 class LaserTurret;
@@ -27,6 +27,9 @@ enum TurretType
 	en11
 };
 
+/// <summary>
+/// タレットを管理するクラス
+/// </summary>
 class TurretManager : public IGameObject
 {
 public:
@@ -131,7 +134,7 @@ private:
 	//クラス
 	Energy*							m_energy;
 	LeftWindow*						m_leftWindow;
-	LeftWindow_Delete*				m_leftWindowDelete[12];
+	LeftWindowDelete*				m_leftWindowDelete[12];
 
 	//タレット
 	DualGunTurret*					m_dualGunTurret;

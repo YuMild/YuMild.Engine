@@ -45,7 +45,7 @@
     <ClCompile Include="RocketTurret.cpp">
       <Filter>Turret</Filter>
     </ClCompile>
-    <ClCompile Include="LeftWindow_Delete.cpp">
+    <ClCompile Include="LeftWindowDelete.cpp">
       <Filter>LeftWindow</Filter>
     </ClCompile>
     <ClCompile Include="SpawnManager.cpp">
@@ -87,6 +87,9 @@
     <ClCompile Include="Dempa.cpp">
       <Filter>Enemy</Filter>
     </ClCompile>
+    <ClCompile Include="Title.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="system\system.h">
@@ -110,7 +113,7 @@
     <ClInclude Include="RocketTurret.h">
       <Filter>Turret</Filter>
     </ClInclude>
-    <ClInclude Include="LeftWindow_Delete.h">
+    <ClInclude Include="LeftWindowDelete.h">
       <Filter>LeftWindow</Filter>
     </ClInclude>
     <ClInclude Include="SpawnManager.h">
@@ -148,6 +151,9 @@
     </ClInclude>
     <ClInclude Include="Dempa.h">
       <Filter>Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Title.h">
+      <Filter>Game</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

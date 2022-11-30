@@ -1,12 +1,24 @@
 #include "stdafx.h"
 #include "GameOver.h"
 
+#include "Game.h"
+
+namespace
+{
+	int DEFAULT_HP = 3;
+}
+
 bool GameOver::Start()
 {
+	//FindGO
+	m_game = FindGO<Game>("game");
+
+	//画像
 	m_windowSR.Init("Assets/Sprite/GameOver/GameOver.dds", 1600.0f, 900.0f);
 	m_windowSR.Update();
 
-	m_hp = 3;
+	//HPを設定
+	m_hp = DEFAULT_HP;
 
 	//フォント
 	m_scoreFR.SetColor({ 0.3f,0.9f,1.0f,1.0f });
@@ -37,8 +49,10 @@ void GameOver::Render(RenderContext& renderContext)
 	//スコア
 	m_scoreFR.Draw(renderContext);
 
+	//HPが無くなるとゲームオーバー
 	if (m_hp <= 0)
 	{
 		m_windowSR.Draw(renderContext);
+		m_game->SetGameState(enGameState_GameOver);
 	}
 }

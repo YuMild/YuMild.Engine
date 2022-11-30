@@ -6,6 +6,48 @@ namespace
 	float SKYCUBE_SCALE = 3000.0f;
 }
 
+Game::Game()
+{
+
+}
+
+Game::~Game()
+{
+	const auto& ufos = FindGOs<EnemyObject>("ufo");
+	int ufoSize = ufos.size();
+	for (int i = 0; i < ufoSize; i++)
+	{
+		DeleteGO(ufos[i]);
+	}
+	const auto& dempas = FindGOs<EnemyObject>("dempa");
+	int dempaSize = dempas.size();
+	for (int i = 0; i < dempaSize; i++)
+	{
+		DeleteGO(dempas[i]);
+	}
+	const auto& turrets = FindGOs<TurretObject>("turret");
+	int turretSize = turrets.size();
+	for (int i = 0; i < turretSize; i++)
+	{
+		DeleteGO(turrets[i]);
+	}
+	const auto& leftWindowDeletes = FindGOs<LeftWindowDelete>("leftWindowDelete");
+	int leftWindowDeleteSize = leftWindowDeletes.size();
+	for (int i = 0; i < turretSize; i++)
+	{
+		DeleteGO(leftWindowDeletes[i]);
+	}
+	DeleteGO(m_energy);
+	DeleteGO(m_gameCamera);
+	DeleteGO(m_gameOver);
+	DeleteGO(m_leftWindow);
+	DeleteGO(m_player);
+	DeleteGO(m_skyCube);
+	DeleteGO(m_spawnMananer);
+	DeleteGO(m_stage);
+	DeleteGO(m_turretManager);
+}
+
 bool Game::Start()
 {
 	m_energy = NewGO<Energy>(0, "energy");
@@ -27,7 +69,11 @@ bool Game::Start()
 
 void Game::Update()
 {
-
+	if (m_state == enGameState_GameOver&&g_pad[0]->IsTrigger(enButtonA))
+	{
+		m_title = NewGO<Title>(0, "title");
+		DeleteGO(this);
+	}
 }
 
 void Game::Render(RenderContext& renderContext)

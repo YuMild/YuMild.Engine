@@ -3,7 +3,7 @@
 
 #include "Energy.h"
 #include "LeftWindow.h"
-#include "LeftWindow_Delete.h"
+#include "LeftWindowDelete.h"
 
 #include "DualGunTurret.h"
 #include "LaserTurret.h"
@@ -81,7 +81,7 @@ bool TurretManager::Start()
 	//íœ—p‚Ì‰æ‘œ‚ğ¶¬
 	for (int i = 0; i < 12; i++)
 	{
-		m_leftWindowDelete[i] = NewGO<LeftWindow_Delete>(0, "leftWindow_Delete");
+		m_leftWindowDelete[i] = NewGO<LeftWindowDelete>(0, "leftWindowDelete");
 		m_leftWindowDelete[i]->Init(enInitDeleteTurretSprite_Null); 
 		m_leftWindowDelete[i]->SetPosition(m_deleteSpritePosition[m_turretsSum]);
 	}

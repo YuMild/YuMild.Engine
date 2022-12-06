@@ -52,10 +52,6 @@ bool TurretManager::Start()
 	m_deleteSpritePosition[10] = { -330.0f,-200.0f,0.0f };
 	m_deleteSpritePosition[11] = { -245.0f,-200.0f,0.0f };
 
-	//GridCursor
-	m_gridCursor.Init("Assets/ModelData/Turret/RocketTurret.tkm", Dithering);
-	m_gridCursor.SetScale({ 1.0f,1.0f,1.0f });
-
 	//Deleteウィンドウ
 	m_deleteWindow.Init("Assets/sprite/LeftWindow/Delete_Window.dds", DELETE_SPRITE_SIZE_WIDTH, DELETE_SPRITE_SIZE_HEIGHT);
 	m_deleteWindow.SetPosition({ 0.0f,0.0f,0.0f });
@@ -90,7 +86,7 @@ bool TurretManager::Start()
 	EffectEngine::GetInstance()->ResistEffect(3, u"Assets/effect/CursorAfter.efk");
 
 	//音声の作成
-	g_soundEngine->ResistWaveFileBank(8, "Assets/sound/CursorAfter2.wav");
+	g_soundEngine->ResistWaveFileBank(8, "Assets/sound/CursorAfter3.wav");
 	g_soundEngine->ResistWaveFileBank(3, "Assets/sound/SetTurret.wav");
 
 	return true;
@@ -120,7 +116,6 @@ void TurretManager::StateManager()
 		{
 			m_dualGunTurret= NewGO<DualGunTurret>(0, "turret");
 			m_dualGunTurret->SetModelPosition(m_cursorPosition);
-			m_dualGunTurret->Update();
 			m_isGorstModelNewGO = false;
 		}
 
@@ -136,7 +131,6 @@ void TurretManager::StateManager()
 				m_cursorPosition.z -= TURRET_POSITION_MOVE_NUM;
 			}
 			m_dualGunTurret->SetModelPosition(m_cursorPosition);
-			m_dualGunTurret->Update();
 		}
 
 		//下ボタン(2キー)
@@ -151,7 +145,6 @@ void TurretManager::StateManager()
 				m_cursorPosition.z += TURRET_POSITION_MOVE_NUM;
 			}
 			m_dualGunTurret->SetModelPosition(m_cursorPosition);
-			m_dualGunTurret->Update();
 		}
 
 		//右ボタン(6キー)
@@ -166,7 +159,6 @@ void TurretManager::StateManager()
 				m_cursorPosition.x -= TURRET_POSITION_MOVE_NUM;
 			}
 			m_dualGunTurret->SetModelPosition(m_cursorPosition);
-			m_dualGunTurret->Update();
 		}
 
 		//左ボタン(4キー)
@@ -181,7 +173,22 @@ void TurretManager::StateManager()
 				m_cursorPosition.x += TURRET_POSITION_MOVE_NUM;
 			}
 			m_dualGunTurret->SetModelPosition(m_cursorPosition);
-			m_dualGunTurret->Update();
+		}
+
+		//Rボタン(Lキー)
+		if (g_pad[0]->IsTrigger(enButtonRB3))
+		{
+			m_dualGunTurret->ModelRotationTurnRight();
+			m_rotation += 180.0f;
+			SoundPlayCursorAfter();
+		}
+
+		//Lボタン(Iキー)
+		if (g_pad[0]->IsTrigger(enButtonLB3))
+		{
+			m_dualGunTurret->ModelRotationTurnLeft();
+			m_rotation -= 180.0f;
+			SoundPlayCursorAfter();
 		}
 
 		//Selectボタン(Spaceキー)
@@ -202,7 +209,6 @@ void TurretManager::StateManager()
 		{
 			m_laserTurret = NewGO<LaserTurret>(0, "turret");
 			m_laserTurret->SetModelPosition(m_cursorPosition);
-			m_laserTurret->Update();
 			m_isGorstModelNewGO = false;
 		}
 
@@ -216,7 +222,6 @@ void TurretManager::StateManager()
 				m_cursorPosition.z -= TURRET_POSITION_MOVE_NUM;
 			}
 			m_laserTurret->SetModelPosition(m_cursorPosition);
-			m_laserTurret->Update();
 		}
 
 		//下ボタン(2キー)
@@ -229,7 +234,6 @@ void TurretManager::StateManager()
 				m_cursorPosition.z += TURRET_POSITION_MOVE_NUM;
 			}
 			m_laserTurret->SetModelPosition(m_cursorPosition);
-			m_laserTurret->Update();
 		}
 
 		//右ボタン(6キー)
@@ -242,7 +246,6 @@ void TurretManager::StateManager()
 				m_cursorPosition.x -= TURRET_POSITION_MOVE_NUM;
 			}
 			m_laserTurret->SetModelPosition(m_cursorPosition);
-			m_laserTurret->Update();
 		}
 
 		//左ボタン(4キー)
@@ -255,7 +258,22 @@ void TurretManager::StateManager()
 				m_cursorPosition.x += TURRET_POSITION_MOVE_NUM;
 			}
 			m_laserTurret->SetModelPosition(m_cursorPosition);
-			m_laserTurret->Update();
+		}
+
+		//Rボタン(Lキー)
+		if (g_pad[0]->IsTrigger(enButtonRB3))
+		{
+			m_laserTurret->ModelRotationTurnRight();
+			m_rotation += 180.0f;
+			SoundPlayCursorAfter();
+		}
+
+		//Lボタン(Iキー)
+		if (g_pad[0]->IsTrigger(enButtonLB3))
+		{
+			m_laserTurret->ModelRotationTurnLeft();
+			m_rotation -= 180.0f;
+			SoundPlayCursorAfter();
 		}
 
 		//Selectボタン(Spaceキー)
@@ -276,7 +294,6 @@ void TurretManager::StateManager()
 		{
 			m_rocketTurret = NewGO<RocketTurret>(0, "turret");
 			m_rocketTurret->SetModelPosition(m_cursorPosition);
-			m_rocketTurret->Update();
 			m_isGorstModelNewGO = false;
 		}
 
@@ -290,7 +307,6 @@ void TurretManager::StateManager()
 				m_cursorPosition.z -= TURRET_POSITION_MOVE_NUM;
 			}
 			m_rocketTurret->SetModelPosition(m_cursorPosition);
-			m_rocketTurret->Update();
 		}
 
 		//下ボタン(2キー)
@@ -303,7 +319,6 @@ void TurretManager::StateManager()
 				m_cursorPosition.z += TURRET_POSITION_MOVE_NUM;
 			}
 			m_rocketTurret->SetModelPosition(m_cursorPosition);
-			m_rocketTurret->Update();
 		}
 
 		//右ボタン(6キー)
@@ -316,7 +331,6 @@ void TurretManager::StateManager()
 				m_cursorPosition.x -= TURRET_POSITION_MOVE_NUM;
 			}
 			m_rocketTurret->SetModelPosition(m_cursorPosition);
-			m_rocketTurret->Update();
 		}
 
 		//左ボタン(4キー)
@@ -329,7 +343,6 @@ void TurretManager::StateManager()
 				m_cursorPosition.x += TURRET_POSITION_MOVE_NUM;
 			}
 			m_rocketTurret->SetModelPosition(m_cursorPosition);
-			m_rocketTurret->Update();
 		}
 
 		//Selectボタン(Spaceキー)
@@ -350,7 +363,6 @@ void TurretManager::StateManager()
 		{
 			m_generationTurret = NewGO<GenerationTurret>(0, "turret");
 			m_generationTurret->SetModelPosition(m_cursorPosition);
-			m_generationTurret->Update();
 			m_isGorstModelNewGO = false;
 		}
 
@@ -364,7 +376,6 @@ void TurretManager::StateManager()
 				m_cursorPosition.z -= TURRET_POSITION_MOVE_NUM;
 			}
 			m_generationTurret->SetModelPosition(m_cursorPosition);
-			m_generationTurret->Update();
 		}
 
 		//下ボタン(2キー)
@@ -377,7 +388,6 @@ void TurretManager::StateManager()
 				m_cursorPosition.z += TURRET_POSITION_MOVE_NUM;
 			}
 			m_generationTurret->SetModelPosition(m_cursorPosition);
-			m_generationTurret->Update();
 		}
 
 		//右ボタン(6キー)
@@ -390,7 +400,6 @@ void TurretManager::StateManager()
 				m_cursorPosition.x -= TURRET_POSITION_MOVE_NUM;
 			}
 			m_generationTurret->SetModelPosition(m_cursorPosition);
-			m_generationTurret->Update();
 		}
 
 		//左ボタン(4キー)
@@ -403,7 +412,6 @@ void TurretManager::StateManager()
 				m_cursorPosition.x += TURRET_POSITION_MOVE_NUM;
 			}
 			m_generationTurret->SetModelPosition(m_cursorPosition);
-			m_generationTurret->Update();
 		}
 
 		//Selectボタン(Spaceキー)
@@ -509,6 +517,7 @@ void TurretManager::MakeDualGunTurret()
 {
 	auto* turret = NewGO<DualGunTurret>(0, "turret");
 	turret->SetModelPosition(m_cursorPosition);
+	turret->SetModelRotation(m_rotation);
 	turret->SetAttackReady(true);
 	m_turrets.push_back(turret);
 	m_leftWindowDelete[m_turretsSum]->Init(enInitDeleteTurretSprite_DualGunTurret);
@@ -521,6 +530,8 @@ void TurretManager::MakeLaserTurret()
 {
 	auto* turret = NewGO<LaserTurret>(0, "turret");
 	turret->SetModelPosition(m_cursorPosition);
+	turret->SetModelRotation(m_rotation);
+	turret->SetAttackReady(true);
 	m_turrets.push_back(turret);
 	m_leftWindowDelete[m_turretsSum]->Init(enInitDeleteTurretSprite_LaserTurret);
 	m_leftWindowDelete[m_turretsSum]->SetPosition(m_deleteSpritePosition[m_turretsSum]);
@@ -532,6 +543,8 @@ void TurretManager::MakeRocketTurret()
 {
 	auto* turret = NewGO<RocketTurret>(0, "turret");
 	turret->SetModelPosition(m_cursorPosition);
+	turret->SetModelRotation(m_rotation);
+	turret->SetAttackReady(true);
 	m_turrets.push_back(turret);
 	m_leftWindowDelete[m_turretsSum]->Init(enInitDeleteTurretSprite_RocketTurret);
 	m_leftWindowDelete[m_turretsSum]->SetPosition(m_deleteSpritePosition[m_turretsSum]);
@@ -543,6 +556,7 @@ void TurretManager::MakeGenerationTurret()
 {
 	auto* turret = NewGO<GenerationTurret>(0, "turret");
 	turret->SetModelPosition(m_cursorPosition);
+	turret->SetModelRotation(m_rotation);
 	turret->SetAttackReady(true);
 	m_turrets.push_back(turret);
 	m_leftWindowDelete[m_turretsSum]->Init(enInitDeleteTurretSprite_GenerationTurret);

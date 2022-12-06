@@ -92,9 +92,6 @@ private:
 	EffectEmitter*				m_dempaAttackEF;
 	std::vector<TurretObject*>	m_turrets;
 
-	//ƒRƒŠƒWƒ‡ƒ“
-	CharacterController			m_characterController;
-
 	//ƒ‚ƒfƒ‹
 	ModelRender					m_modelRender;
 

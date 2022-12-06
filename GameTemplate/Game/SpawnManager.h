@@ -19,17 +19,31 @@ public:
 		return m_defaultHP_UFO;
 	}
 
-	//爆破エフェクトを再生
+	/// <summary>
+	/// DempaのデフォルトHPを設定
+	/// </summary>
+	/// <returns></returns>
+	float GetDefaultHP_Dempa()
+	{
+		return m_defaultHP_Dempa;
+	}
+
+	/// <summary>
+	/// 爆破エフェクトを再生
+	/// </summary>
+	/// <param name="position"></param>
 	void EffectPlayExplosion(Vector3& position)
 	{
 		m_explosionEF = NewGO<EffectEmitter>(0);
 		m_explosionEF->Init(1);
-		m_explosionEF->SetPosition(position);
-		m_explosionEF->SetScale(Vector3::One * 50.0f);
+		m_explosionEF->SetPosition({ position.x,position.y + 200.0f,position.z });
+		m_explosionEF->SetScale(Vector3::One * 100.0f);
 		m_explosionEF->Play();
 	}
 
-	//爆破音声を再生
+	/// <summary>
+	/// 爆破音声を再生
+	/// </summary>
 	void SoundPlayExplosion()
 	{
 		m_explosionSE = NewGO<SoundSource>(5);

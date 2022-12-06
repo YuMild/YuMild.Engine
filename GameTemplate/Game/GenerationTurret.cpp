@@ -10,26 +10,25 @@ bool GenerationTurret::Start()
 	//FindGO
 	m_energy = FindGO<Energy>("energy");
 	m_leftWindow = FindGO<LeftWindow>("leftWindow");
-	m_turretManager = FindGO<TurretManager>("turretManager");
 
 	//タレット
-	m_turretBaseModel.Init("Assets/ModelData/Turret/GenerationTurretBase.tkm", ShadowRecieveAndDrop, true);
-	m_turretBaseModel.SetPosition(m_modelPosition);
-	m_turretBaseModel.SetRotation(m_modelRotation);
-	m_turretBaseModel.SetScale({ 1.0f,1.0f,1.0f });
-	m_turretBaseModel.Update();
-	m_turretModel.Init("Assets/ModelData/Turret/GenerationTurret.tkm", ShadowRecieveAndDrop, true);
-	m_turretModel.SetPosition(m_modelPosition);
-	m_turretModel.SetRotation(m_modelRotation);
-	m_turretModel.SetScale({ 1.0f,1.0f,1.0f });
-	m_turretModel.Update();
+	m_turretBaseMR.Init("Assets/ModelData/Turret/BuffTurretBase.tkm", ShadowRecieveAndDrop, true);
+	m_turretBaseMR.SetPosition(m_modelPosition);
+	m_turretBaseMR.SetRotation(m_modelRotation);
+	m_turretBaseMR.SetScale({ 1.0f,1.0f,1.0f });
+	m_turretBaseMR.Update();
+	m_turretMR.Init("Assets/ModelData/Turret/BuffTurret.tkm", ShadowRecieveAndDrop, true);
+	m_turretMR.SetPosition(m_modelPosition);
+	m_turretMR.SetRotation(m_modelRotation);
+	m_turretMR.SetScale({ 1.0f,1.0f,1.0f });
+	m_turretMR.Update();
 
 	//土台
-	m_baseModel.Init("Assets/ModelData/Turret/Base.tkm", ShadowRecieveAndDrop, true);
-	m_baseModel.SetPosition(m_modelPosition);
-	m_baseModel.SetRotation(m_modelRotation);
-	m_baseModel.SetScale({ 1.0f,1.0f,1.0f });
-	m_baseModel.Update();
+	m_baseMR.Init("Assets/ModelData/Turret/Base.tkm", ShadowRecieveAndDrop, true);
+	m_baseMR.SetPosition(m_modelPosition);
+	m_baseMR.SetRotation(m_modelRotation);
+	m_baseMR.SetScale({ 1.0f,1.0f,1.0f });
+	m_baseMR.Update();
 
 	m_addGenerationTurret = true;
 
@@ -55,18 +54,18 @@ void GenerationTurret::Update()
 	Move();
 
 	//更新処理
-	m_turretBaseModel.SetPosition(m_modelPosition);
-	m_turretBaseModel.Update();
-	m_turretModel.SetPosition(m_modelPosition);
-	m_turretModel.SetRotation(m_modelRotation);
-	m_turretModel.Update();
-	m_baseModel.SetPosition(m_modelPosition);
-	m_baseModel.Update();
+	m_turretBaseMR.SetPosition(m_modelPosition);
+	m_turretBaseMR.Update();
+	m_turretMR.SetPosition(m_modelPosition);
+	m_turretMR.SetRotation(m_modelRotation);
+	m_turretMR.Update();
+	m_baseMR.SetPosition(m_modelPosition);
+	m_baseMR.Update();
 }
 
 void GenerationTurret::Render(RenderContext& renderContext)
 {
-	m_turretBaseModel.Draw(renderContext);
-	m_turretModel.Draw(renderContext);
-	m_baseModel.Draw(renderContext);
+	m_turretBaseMR.Draw(renderContext);
+	m_turretMR.Draw(renderContext);
+	m_baseMR.Draw(renderContext);
 }

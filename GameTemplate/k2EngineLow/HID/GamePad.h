@@ -7,7 +7,7 @@ namespace nsK2EngineLow {
 	/// 仮想ボタン定義
 	/// </summary>
 	enum EnButton {
-		enButtonUp,		//!<上。
+		enButtonUp,			//!<上。
 		enButtonDown,		//!<下。
 		enButtonLeft,		//!<左。
 		enButtonRight,		//!<右。
@@ -15,7 +15,7 @@ namespace nsK2EngineLow {
 		enButtonB,			//!<Bボタン。
 		enButtonX,			//!<Xボタン。
 		enButtonY,			//!<Yボタン。
-		enButtonSelect,	//!<セレクトボタン。
+		enButtonSelect,		//!<セレクトボタン。
 		enButtonStart,		//!<スタートボタン。
 		enButtonRB1,		//!<RB1ボタン。
 		enButtonRB2,		//!<RB2ボタン。
@@ -23,7 +23,7 @@ namespace nsK2EngineLow {
 		enButtonLB1,		//!<LB1ボタン。
 		enButtonLB2,		//!<LB2ボタン。
 		enButtonLB3,		//!<LB3ボタン。
-		enButtonNum,	//!<ボタンの数。
+		enButtonNum,		//!<ボタンの数。
 	};
 
 	/// <summary>
@@ -61,6 +61,7 @@ namespace nsK2EngineLow {
 		{
 			m_padNo = padNo;
 		}
+
 		/// <summary>
 		/// パッド情報の更新
 		/// </summary>
@@ -115,6 +116,7 @@ namespace nsK2EngineLow {
 				|| IsPress(enButtonLB2)
 				|| IsPress(enButtonLB3);
 		}
+
 		/// <summary>
 		/// 左スティックのx軸の入力量を取得
 		/// </summary>
@@ -132,7 +134,6 @@ namespace nsK2EngineLow {
 		{
 			return m_lStickY;
 		}
-		
 
 		/// <summary>
 		/// 右スティックのX軸の入力量を取得。
@@ -152,11 +153,11 @@ namespace nsK2EngineLow {
 			return m_rStickY;
 		}
 		
-		
 		/// <summary>
 		/// フレームの開始時に呼び出す必要がある関数
 		/// </summary>
 		static void BeginFrame();
+
 		/// <summary>
 		/// XInputから引っ張ってきた生データを取得。
 		/// </summary>
@@ -165,9 +166,13 @@ namespace nsK2EngineLow {
 		{
 			return m_state.state;
 		}
+
 	private:
+
 		void UpdateCore(XINPUT_STATE xInputState);
+
 	public:
+
 		/// <summary>
 		/// 最大パッド数
 		/// </summary>
@@ -181,7 +186,9 @@ namespace nsK2EngineLow {
 			Connect,	//接続されている。
 			Disconnect,	//接続されていない。
 		};
+
 	private:
+
 		PAD_STATE m_state;			// パッドステート。
 		int m_padNo = 0;			// パッド番号。
 		int m_trigger[enButtonNum];	// トリガー入力のフラグ。

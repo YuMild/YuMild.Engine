@@ -223,6 +223,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BuffTurret.cpp" />
     <ClCompile Include="Dempa.cpp" />
     <ClCompile Include="DualGunTurret.cpp" />
     <ClCompile Include="EnemyObject.cpp" />
@@ -251,6 +252,7 @@
     <ClCompile Include="UFO.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BuffTurret.h" />
     <ClInclude Include="Dempa.h" />
     <ClInclude Include="DualGunTurret.h" />
     <ClInclude Include="EnemyObject.h" />

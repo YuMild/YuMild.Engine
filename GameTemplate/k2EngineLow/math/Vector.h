@@ -466,7 +466,6 @@ namespace nsK2EngineLow {
 			dst.z = z;
 			dst.w = w;
 		}
-	
 		/// <summary>
 		/// 代入演算子。
 		/// </summary>
@@ -481,7 +480,6 @@ namespace nsK2EngineLow {
 			vec = _v.vec;
 			return *this;
 		}
-
 		/// <summary>
 		/// コンストラクタ。
 		/// </summary>
@@ -591,7 +589,6 @@ namespace nsK2EngineLow {
 			DirectX::XMVECTOR xmvr = DirectX::XMVectorSubtract(xmv0, xmv1);
 			DirectX::XMStoreFloat4(&vec, xmvr);
 		}
-
 		/// <summary>
 		/// 内積を計算。
 		/// </summary>
@@ -653,7 +650,6 @@ namespace nsK2EngineLow {
 			DirectX::XMVECTOR xmv1 = DirectX::XMLoadFloat4(&v.vec);
 			DirectX::XMStoreFloat4(&vec, DirectX::XMVectorMax(xmv0, xmv1));
 		}
-
 		/// <summary>
 		/// 最小値を設定。
 		/// </summary>
@@ -767,9 +763,6 @@ namespace nsK2EngineLow {
 		{
 			SetRotationDeg(g_vec3AxisZ, angle);
 		}
-
-	
-
 		/// <summary>
 		/// 任意の軸周りの回転クォータニオンを作成。
 		/// </summary>
@@ -971,7 +964,6 @@ namespace nsK2EngineLow {
 	/// <summary>
 	/// ベクトルとスカラーの乗算。
 	/// </summary>
-
 	static inline Vector3 operator*(const Vector3& v, float s)
 	{
 		Vector3 result;
@@ -998,7 +990,6 @@ namespace nsK2EngineLow {
 		result.Subtract(v0, v1);
 		return result;
 	}
-
 	/// <summary>
 	/// 外積を計算。
 	/// </summary>
@@ -1015,11 +1006,9 @@ namespace nsK2EngineLow {
 	{
 		return v0.Dot(v1);
 	}
-
 	/// <summary>
 	/// ベクトル同士の加算。
 	/// </summary>
-
 	static inline Vector4 operator+(const Vector4& v0, const Vector4& v1)
 	{
 		Vector4 result;
@@ -1029,7 +1018,6 @@ namespace nsK2EngineLow {
 	/// <summary>
 	/// ベクトルとスカラーの乗算。
 	/// </summary>
-
 	static inline Vector4 operator*(const Vector4& v, float s)
 	{
 		Vector4 result;
@@ -1037,7 +1025,6 @@ namespace nsK2EngineLow {
 		result.Scale(s);
 		return result;
 	}
-
 	/// <summary>
 	/// ベクトル同士の減算。
 	/// </summary>
@@ -1047,8 +1034,6 @@ namespace nsK2EngineLow {
 		result.Subtract(v0, v1);
 		return result;
 	}
-
-
 	/// <summary>
 	/// 内積を計算。
 	/// </summary>
@@ -1056,8 +1041,6 @@ namespace nsK2EngineLow {
 	{
 		return v0.Dot(v1);
 	}
-
-
 	/// <summary>
 	/// クォータニオン同士の乗算。
 	/// </summary>

@@ -83,9 +83,6 @@ private:
 	SpawnManager*				m_spawnManager;
 	TurretManager*				m_turretManager;
 
-	//ƒRƒŠƒWƒ‡ƒ“
-	CharacterController			m_characterController;
-
 	//ƒ‚ƒfƒ‹
 	ModelRender					m_modelRender;
 

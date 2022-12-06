@@ -24,17 +24,11 @@ bool SpawnManager::Start()
 	g_soundEngine->ResistWaveFileBank(5, "Assets/sound/Explosion.wav");
 
 	//HP
-	//Dempa
 	m_defaultHP_Dempa = DEFAULT_HP_DEMPA;
-
-	//UFO
 	m_defaultHP_UFO = DEFAULT_HP_UFO;
 
-	//敵の初期スポーンタイム
-	//Dempa
+	//スポーンタイム
 	m_spawnTime_Dempa = DEFAULT_SPAWNTIME_DEMPA;
-
-	//UFO
 	m_spawnTime_UFO = DEFAULT_SPAWNTIME_UFO;
 
 	return true;
@@ -66,7 +60,7 @@ void SpawnManager::SpawnDempa()
 	//Dempaのスポーン
 	if (m_spawnTimer_Dempa >= m_spawnTime_Dempa)
 	{
-		m_dempa = NewGO<Dempa>(0, "dempa");
+		m_dempa = NewGO<Dempa>(0, "normal");
 		m_spawnTimer_Dempa = 0.0f;
 	}
 }
@@ -78,7 +72,7 @@ void SpawnManager::SpawnUFO()
 	//UFOのスポーン
 	if (m_spawnTimer_UFO >= m_spawnTime_UFO)
 	{
-		m_ufo = NewGO<UFO>(0, "ufo");
+		m_ufo = NewGO<UFO>(0, "normal");
 		m_spawnTimer_UFO = 0.0f;
 	}
 }

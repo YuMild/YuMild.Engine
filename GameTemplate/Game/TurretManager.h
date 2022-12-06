@@ -71,9 +71,9 @@ private:
 		enSpritePosition_RocketTurret
 	};
 
-	bool Start()override;
-	void Update()override;
-	void Render(RenderContext& renderContext)override;
+	bool Start() override;
+	void Update() override;
+	void Render(RenderContext& renderContext) override;
 
 	/// <summary>
 	/// ステートを管理
@@ -113,7 +113,7 @@ private:
 	{
 		m_cursorAfterSE = NewGO<SoundSource>(8);
 		m_cursorAfterSE->Init(8);
-		m_cursorAfterSE->SetVolume(0.05f);
+		m_cursorAfterSE->SetVolume(0.1f);
 		m_cursorAfterSE->Play(false);
 	}
 
@@ -141,9 +141,6 @@ private:
 	LaserTurret*					m_laserTurret;
 	RocketTurret*					m_rocketTurret;
 	GenerationTurret*				m_generationTurret;
-
-	//モデル
-	ModelRender						m_gridCursor;
 
 	//Delete画像
 	SpriteRender					m_deleteWindow;

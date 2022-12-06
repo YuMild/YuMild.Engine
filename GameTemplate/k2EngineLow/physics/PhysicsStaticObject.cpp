@@ -2,7 +2,6 @@
 * @brief	静的オブジェクト。
 */
 
-
 #include "k2EngineLowPreCompile.h"
 #include "physics/PhysicsStaticObject.h"
 

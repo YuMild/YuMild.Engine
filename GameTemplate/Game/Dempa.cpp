@@ -49,7 +49,7 @@ bool Dempa::Start()
 	m_turretManager = FindGO<TurretManager>("turretManager");
 
 	//ƒ‚ƒfƒ‹
-	m_modelRender.Init("Assets/modelData/Enemy/UFO_Yellow.tkm", ShadowRecieveAndDrop);
+	m_modelRender.Init("Assets/modelData/Enemy/UFO_Green.tkm", ShadowRecieveAndDrop);
 	m_position = DEFAULT_POSITION;
 	m_modelRender.SetPosition(m_position);
 	m_rotation.SetRotationDegY(DEFAULT_ROTATION_Y);
@@ -57,9 +57,6 @@ bool Dempa::Start()
 	m_scale = DEFAULT_SCALE;
 	m_modelRender.SetScale(m_scale);
 	m_modelRender.Update();
-
-	//ƒRƒŠƒWƒ‡ƒ“
-	m_characterController.Init(300.0f, 1.0f, m_position);
 
 	//HP
 	m_hp = m_spawnManager->GetDefaultHP_UFO();
@@ -145,7 +142,7 @@ void Dempa::Move()
 	Vector3 moveSpeed = m_target - m_position;
 	moveSpeed.Normalize();
 	moveSpeed *= DEFAULT_MOVE_SPEED;
-	m_position = m_characterController.Execute(moveSpeed, 1.0f);
+	m_position += moveSpeed;
 
 	//‰ñ“]‚µ‘±‚¯‚é
 	m_rotation.AddRotationDegY(DEFAULT_ROTATION_SPEED);
@@ -165,7 +162,7 @@ void Dempa::HP()
 	g_camera3D->CalcScreenPositionFromWorldPosition(m_hpBarPosition, position);
 	m_hpBarSR.SetPosition(Vector3(m_hpBarPosition.x, m_hpBarPosition.y, 0.0f));
 	m_hpBarSR.SetIsDisplayRestrictionRightSide(true);
-	m_hpBarSR.SetLimitedX(m_hp / 100.0f);
+	m_hpBarSR.SetLimitedX(m_hp / m_spawnManager->GetDefaultHP_UFO());
 	m_hpBarSR.Update();
 }
 

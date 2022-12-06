@@ -90,6 +90,9 @@
     <ClCompile Include="Title.cpp">
       <Filter>Game</Filter>
     </ClCompile>
+    <ClCompile Include="BuffTurret.cpp">
+      <Filter>Turret</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="system\system.h">
@@ -154,6 +157,9 @@
     </ClInclude>
     <ClInclude Include="Title.h">
       <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="BuffTurret.h">
+      <Filter>Turret</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

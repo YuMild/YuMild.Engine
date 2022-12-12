@@ -29,6 +29,12 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	//ゲームの作成
 	NewGO<Title>(0, "title");
 
+	/*Texture emmisionMap;
+	emmisionMap.InitFromDDSFile(L"test.dds");
+	ModelInitData modelInitData;
+	modelInitData.m_expandShaderResoruceView[0] = &emmisionMap;
+	*/
+
 	// ここからゲームループ。
 	while (DispatchWindowMessage())
 	{

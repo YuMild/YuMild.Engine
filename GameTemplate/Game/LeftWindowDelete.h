@@ -5,10 +5,12 @@ class TurretManager;
 
 enum InitDeleteTurretSprite
 {
+	enInitDeleteTurretSprite_NormalTurret,
 	enInitDeleteTurretSprite_DualGunTurret,
 	enInitDeleteTurretSprite_LaserTurret,
 	enInitDeleteTurretSprite_RocketTurret,
 	enInitDeleteTurretSprite_GenerationTurret,
+	enInitDeleteTurretSprite_HealTurret,
 	enInitDeleteTurretSprite_Null
 };
 

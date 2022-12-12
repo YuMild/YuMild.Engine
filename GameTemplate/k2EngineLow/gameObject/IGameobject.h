@@ -35,10 +35,14 @@ namespace nsK2EngineLow {
 		virtual bool Start() { return true; }
 		/*!
 			*@brief	XV
-			*/
+		*/
 		virtual void Update() {}
 		/*!
-		 *@brief	•`‰æ
+			
+		*/
+		virtual void UpdateOnStop() {}
+		/*!
+			*@brief	•`‰æ
 		*/
 		virtual void Render(RenderContext& renderContext)
 		{

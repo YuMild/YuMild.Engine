@@ -62,7 +62,7 @@ bool Game::Start()
 
 	m_skyCube->SetScale({ SKYCUBE_SCALE, SKYCUBE_SCALE, SKYCUBE_SCALE });
 	m_skyCube->SetType(enSkyCubeType_Night);
-	m_skyCube->SetLuminance(0.75f);
+	m_skyCube->SetLuminance(0.5f);
 
 	return true;
 }

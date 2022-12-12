@@ -90,8 +90,20 @@
     <ClCompile Include="Title.cpp">
       <Filter>Game</Filter>
     </ClCompile>
-    <ClCompile Include="BuffTurret.cpp">
+    <ClCompile Include="HealTurret.cpp">
       <Filter>Turret</Filter>
+    </ClCompile>
+    <ClCompile Include="NormalTurret.cpp">
+      <Filter>Turret</Filter>
+    </ClCompile>
+    <ClCompile Include="TeslaTurret.cpp">
+      <Filter>Turret</Filter>
+    </ClCompile>
+    <ClCompile Include="SpaceShip.cpp">
+      <Filter>Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Warning.cpp">
+      <Filter>Game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -158,8 +170,20 @@
     <ClInclude Include="Title.h">
       <Filter>Game</Filter>
     </ClInclude>
-    <ClInclude Include="BuffTurret.h">
+    <ClInclude Include="HealTurret.h">
       <Filter>Turret</Filter>
+    </ClInclude>
+    <ClInclude Include="NormalTurret.h">
+      <Filter>Turret</Filter>
+    </ClInclude>
+    <ClInclude Include="TeslaTurret.h">
+      <Filter>Turret</Filter>
+    </ClInclude>
+    <ClInclude Include="SpaceShip.h">
+      <Filter>Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Warning.h">
+      <Filter>Game</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

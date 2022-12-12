@@ -7,6 +7,7 @@
 namespace
 {
 	float FIRERATE = 0.1f;
+	float ATTACKPOWER = 50.0f;
 }
 
 bool DualGunTurret::Start()
@@ -33,7 +34,7 @@ bool DualGunTurret::Start()
 	m_attackRangeMR.Update();
 
 	//エフェクトを登録
-	EffectEngine::GetInstance()->ResistEffect(2, u"Assets/effect/Hit.efk");
+	EffectEngine::GetInstance()->ResistEffect(2, u"Assets/effect/DualGunTurret.efk");
 
 	//音声の生成
 	g_soundEngine->ResistWaveFileBank(6, "Assets/sound/DualGunTurret.wav");
@@ -52,7 +53,7 @@ void DualGunTurret::Move()
 	else
 	{
 		m_debuffTimer -= g_gameTime->GetFrameDeltaTime();
-		m_fireRate += g_gameTime->GetFrameDeltaTime() / 5;
+		m_fireRate += g_gameTime->GetFrameDeltaTime() / 2;
 	}
 
 	//動作可能なら
@@ -73,7 +74,9 @@ void DualGunTurret::Move()
 			}
 			if (difference.Length() < m_difference.Length())
 			{
+				//ロックオン
 				m_lockOnPosition = enemys->GetPosition();
+
 				//正規化
 				m_difference = difference;
 				m_difference.Normalize();
@@ -89,7 +92,7 @@ void DualGunTurret::Move()
 				//発射レート
 				if (m_fireRate >= FIRERATE)
 				{
-					enemys->SubHP(5.0f);
+					enemys->SubHP(ATTACKPOWER);
 					EffectPlayHit(m_lockOnPosition);
 					SoundPlayFire();
 					m_fireRate = 0.0f;

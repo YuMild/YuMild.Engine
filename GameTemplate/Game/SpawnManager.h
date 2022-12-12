@@ -1,7 +1,8 @@
 #pragma once
 
-#include "Dempa.h"
 #include "UFO.h"
+#include "Dempa.h"
+#include "SpaceShip.h"
 
 /// <summary>
 /// 敵のスポーンを管理するクラス
@@ -26,6 +27,15 @@ public:
 	float GetDefaultHP_Dempa()
 	{
 		return m_defaultHP_Dempa;
+	}
+
+	/// <summary>
+	/// SpaceShipのデフォルトHPを設定
+	/// </summary>
+	/// <returns></returns>
+	float GetDefaultHP_SpaceShip()
+	{
+		return m_defaultHP_SpaceShip;
 	}
 
 	/// <summary>
@@ -64,18 +74,24 @@ private:
 	void LevelUp();
 
 	/// <summary>
+	/// UFOのスポーンを管理
+	/// </summary>
+	void SpawnUFO();
+
+	/// <summary>
 	/// Dempaのスポーンを管理
 	/// </summary>
 	void SpawnDempa();
 
 	/// <summary>
-	/// UFOのスポーンを管理
+	/// SpaceShipのスポーンを管理
 	/// </summary>
-	void SpawnUFO();
+	void SpawnSpaceShip();
 
 	//クラス
 	Dempa*			m_dempa;
 	UFO*			m_ufo;
+	SpaceShip*		m_spaceShip;
 
 	//破壊時のエフェクト
 	EffectEmitter*	m_explosionEF;
@@ -86,17 +102,18 @@ private:
 	//レベルを管理するタイマー
 	float			m_levelTimer = 0.0f;
 
-	//Dempaのスポーンタイマー
-	float			m_spawnTime_Dempa = 0.0f;
-	float			m_spawnTimer_Dempa = 0.0f;
-
-	//DempaのHP
-	float			m_defaultHP_Dempa = 0.0f;
-
-	//UFOのスポーンタイマー
+	//UFO
 	float			m_spawnTime_UFO = 0.0f;
 	float			m_spawnTimer_UFO = 0.0f;
-
-	//UFOのHP
 	float			m_defaultHP_UFO = 0.0f;
+
+	//Dempa
+	float			m_spawnTime_Dempa = 0.0f;
+	float			m_spawnTimer_Dempa = 0.0f;
+	float			m_defaultHP_Dempa = 0.0f;
+
+	//SpaceShip
+	float			m_spawnTime_SpaceShip = 0.0f;
+	float			m_spawnTimer_SpaceShip = 0.0f;
+	float			m_defaultHP_SpaceShip = 0.0f;
 };

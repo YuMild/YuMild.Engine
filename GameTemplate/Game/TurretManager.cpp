@@ -5,18 +5,23 @@
 #include "LeftWindow.h"
 #include "LeftWindowDelete.h"
 
+#include "NormalTurret.h"
 #include "DualGunTurret.h"
 #include "LaserTurret.h"
 #include "RocketTurret.h"
 #include "GenerationTurret.h"
+#include "HealTurret.h"
+#include "TeslaTurret.h"
 
 namespace
 {
 	//タレットの生産コスト
+	float COST_NORMALTURRET = 100.0f;
 	float COST_DUALGUNTURRET = 100.0f;
-	float COST_LASERTURRET = 200.0f;
-	float COST_ROCKETTURRET = 400.0f;
-	float COST_GENERATIONTURRET = 400.0f;
+	float COST_LASERTURRET = 100.0f;
+	float COST_ROCKETTURRET = 100.0f;
+	float COST_GENERATIONTURRET = 100.0f;
+	float COST_HEALTURRET = 100.0f;
 
 	//Delete
 	float DELETE_SPRITE_SIZE_WIDTH = 1280.0f;
@@ -108,13 +113,134 @@ void TurretManager::Init(TurretType enturret)
 
 void TurretManager::StateManager()
 {
-	switch (m_turretType)
+	/// <summary>
+	/// NormalTurret
+	/// </summary>
+	if (m_turretType == enTurret_NormalTurret)
 	{
-	case enTurret_DualGunTurret:
-
 		if (m_isGorstModelNewGO)
 		{
-			m_dualGunTurret= NewGO<DualGunTurret>(0, "turret");
+			m_normalTurret = NewGO<NormalTurret>(0, "turret");
+			m_normalTurret->SetModelPosition(m_cursorPosition);
+			m_isGorstModelNewGO = false;
+		}
+
+		//上ボタン(8キー)
+		if (g_pad[0]->IsTrigger(enButtonUp))
+		{
+			m_cursorPosition = m_normalTurret->GetModelPosition();
+			//稼働範囲内なら
+			if (m_cursorPosition.z >= -8000.0f)
+			{
+				EffectPlayCursorAfter(m_normalTurret->GetModelPosition());
+				SoundPlayCursorAfter();
+				m_cursorPosition.z -= TURRET_POSITION_MOVE_NUM;
+			}
+			else
+			{
+				m_energy->SoundPlayNotEnoughCost();
+			}
+			m_normalTurret->SetModelPosition(m_cursorPosition);
+		}
+
+		//下ボタン(2キー)
+		if (g_pad[0]->IsTrigger(enButtonDown))
+		{
+			m_cursorPosition = m_normalTurret->GetModelPosition();
+			//稼働範囲内なら
+			if (m_cursorPosition.z <= 0.0f)
+			{
+				EffectPlayCursorAfter(m_normalTurret->GetModelPosition());
+				SoundPlayCursorAfter();
+				m_cursorPosition.z += TURRET_POSITION_MOVE_NUM;
+			}
+			else
+			{
+				m_energy->SoundPlayNotEnoughCost();
+			}
+			m_normalTurret->SetModelPosition(m_cursorPosition);
+		}
+
+		//右ボタン(6キー)
+		if (g_pad[0]->IsTrigger(enButtonRight))
+		{
+			m_cursorPosition = m_normalTurret->GetModelPosition();
+			//稼働範囲内なら
+			if (m_cursorPosition.x >= -3200.0f)
+			{
+				EffectPlayCursorAfter(m_normalTurret->GetModelPosition());
+				SoundPlayCursorAfter();
+				m_cursorPosition.x -= TURRET_POSITION_MOVE_NUM;
+			}
+			else
+			{
+				m_energy->SoundPlayNotEnoughCost();
+			}
+			m_normalTurret->SetModelPosition(m_cursorPosition);
+		}
+
+		//左ボタン(4キー)
+		if (g_pad[0]->IsTrigger(enButtonLeft))
+		{
+			m_cursorPosition = m_normalTurret->GetModelPosition();
+			//稼働範囲内なら
+			if (m_cursorPosition.x <= 3200.0f)
+			{
+				EffectPlayCursorAfter(m_normalTurret->GetModelPosition());
+				SoundPlayCursorAfter();
+				m_cursorPosition.x += TURRET_POSITION_MOVE_NUM;
+			}
+			else
+			{
+				m_energy->SoundPlayNotEnoughCost();
+			}
+			m_normalTurret->SetModelPosition(m_cursorPosition);
+		}
+
+		//Rボタン(Lキー)
+		if (g_pad[0]->IsTrigger(enButtonRB3))
+		{
+			m_normalTurret->ModelRotationTurnRight();
+			m_rotation += 180.0f;
+			SoundPlayCursorAfter();
+		}
+
+		//Lボタン(Iキー)
+		if (g_pad[0]->IsTrigger(enButtonLB3))
+		{
+			m_normalTurret->ModelRotationTurnLeft();
+			m_rotation -= 180.0f;
+			SoundPlayCursorAfter();
+		}
+
+		//Aボタン(Jキー)
+		if (m_leftWindow->GetOperationState() == enOperationState_SetTurret_LeftWindow && g_pad[0]->IsTrigger(enButtonA) && m_leftWindow->GetButtonReady() == true)
+		{
+			m_leftWindow->SetButtonDelay();
+			DeleteGO(m_normalTurret);
+			MakeNormalTurret();
+			m_energy->SubEnergy(COST_DUALGUNTURRET);
+			SoundPlaySetTurret();
+			m_leftWindow->SetOperationState(enOperationState_Normal_LeftWindow);
+		}
+
+		//Bボタン(Kキー)
+		if (m_leftWindow->GetOperationState() == enOperationState_SetTurret_LeftWindow && g_pad[0]->IsTrigger(enButtonB) && m_leftWindow->GetButtonReady() == true)
+		{
+			DeleteGO(m_normalTurret);
+			m_leftWindow->SoundPlayWindow();
+			m_leftWindow->SetOperationState(enOperationState_SelectTurret_LeftWindow);
+			m_isModelNewGO = false;
+		}
+	}
+	/// <summary>
+	/// DualGunTurret
+	/// </summary>
+	if (m_turretType == enTurret_DualGunTurret)
+	{
+		if (m_isGorstModelNewGO)
+		{
+			m_dualGunTurret = NewGO<DualGunTurret>(0, "turret");
 			m_dualGunTurret->SetModelPosition(m_cursorPosition);
 			m_isGorstModelNewGO = false;
 		}
@@ -130,6 +256,10 @@ void TurretManager::StateManager()
 				SoundPlayCursorAfter();
 				m_cursorPosition.z -= TURRET_POSITION_MOVE_NUM;
 			}
+			else
+			{
+				m_energy->SoundPlayNotEnoughCost();
+			}
 			m_dualGunTurret->SetModelPosition(m_cursorPosition);
 		}
 
@@ -143,6 +273,10 @@ void TurretManager::StateManager()
 				EffectPlayCursorAfter(m_dualGunTurret->GetModelPosition());
 				SoundPlayCursorAfter();
 				m_cursorPosition.z += TURRET_POSITION_MOVE_NUM;
+			}
+			else
+			{
+				m_energy->SoundPlayNotEnoughCost();
 			}
 			m_dualGunTurret->SetModelPosition(m_cursorPosition);
 		}
@@ -158,6 +292,10 @@ void TurretManager::StateManager()
 				SoundPlayCursorAfter();
 				m_cursorPosition.x -= TURRET_POSITION_MOVE_NUM;
 			}
+			else
+			{
+				m_energy->SoundPlayNotEnoughCost();
+			}
 			m_dualGunTurret->SetModelPosition(m_cursorPosition);
 		}
 
@@ -171,6 +309,10 @@ void TurretManager::StateManager()
 				EffectPlayCursorAfter(m_dualGunTurret->GetModelPosition());
 				SoundPlayCursorAfter();
 				m_cursorPosition.x += TURRET_POSITION_MOVE_NUM;
+			}
+			else
+			{
+				m_energy->SoundPlayNotEnoughCost();
 			}
 			m_dualGunTurret->SetModelPosition(m_cursorPosition);
 		}
@@ -191,20 +333,31 @@ void TurretManager::StateManager()
 			SoundPlayCursorAfter();
 		}
 
-		//Selectボタン(Spaceキー)
+		//Aボタン(Jキー)
 		if (m_leftWindow->GetOperationState() == enOperationState_SetTurret_LeftWindow && g_pad[0]->IsTrigger(enButtonA) && m_leftWindow->GetButtonReady() == true)
 		{
 			m_leftWindow->SetButtonDelay();
 			DeleteGO(m_dualGunTurret);
 			MakeDualGunTurret();
+			m_energy->SubEnergy(COST_DUALGUNTURRET);
 			SoundPlaySetTurret();
 			m_leftWindow->SetOperationState(enOperationState_Normal_LeftWindow);
 		}
 
-		break;
-
-	case enTurret_LaserTurret:
-
+		//Bボタン(Kキー)
+		if (m_leftWindow->GetOperationState() == enOperationState_SetTurret_LeftWindow && g_pad[0]->IsTrigger(enButtonB) && m_leftWindow->GetButtonReady() == true)
+		{
+			DeleteGO(m_dualGunTurret);
+			m_leftWindow->SoundPlayWindow();
+			m_leftWindow->SetOperationState(enOperationState_SelectTurret_LeftWindow);
+			m_isModelNewGO = false;
+		}
+	}
+	/// <summary>
+	/// LaserTurret
+	/// </summary>
+	else if (m_turretType == enTurret_LaserTurret)
+	{
 		if (m_isGorstModelNewGO)
 		{
 			m_laserTurret = NewGO<LaserTurret>(0, "turret");
@@ -217,9 +370,15 @@ void TurretManager::StateManager()
 		{
 			m_cursorPosition = m_laserTurret->GetModelPosition();
 			//稼働範囲内なら
-			if (m_cursorPosition.z >= -9600.0f)
+			if (m_cursorPosition.z >= -8000.0f)
 			{
+				EffectPlayCursorAfter(m_laserTurret->GetModelPosition());
+				SoundPlayCursorAfter();
 				m_cursorPosition.z -= TURRET_POSITION_MOVE_NUM;
+			}
+			else
+			{
+				m_energy->SoundPlayNotEnoughCost();
 			}
 			m_laserTurret->SetModelPosition(m_cursorPosition);
 		}
@@ -231,7 +390,13 @@ void TurretManager::StateManager()
 			//稼働範囲内なら
 			if (m_cursorPosition.z <= 0.0f)
 			{
+				EffectPlayCursorAfter(m_laserTurret->GetModelPosition());
+				SoundPlayCursorAfter();
 				m_cursorPosition.z += TURRET_POSITION_MOVE_NUM;
+			}
+			else
+			{
+				m_energy->SoundPlayNotEnoughCost();
 			}
 			m_laserTurret->SetModelPosition(m_cursorPosition);
 		}
@@ -243,7 +408,13 @@ void TurretManager::StateManager()
 			//稼働範囲内なら
 			if (m_cursorPosition.x >= -3200.0f)
 			{
+				EffectPlayCursorAfter(m_laserTurret->GetModelPosition());
+				SoundPlayCursorAfter();
 				m_cursorPosition.x -= TURRET_POSITION_MOVE_NUM;
+			}
+			else
+			{
+				m_energy->SoundPlayNotEnoughCost();
 			}
 			m_laserTurret->SetModelPosition(m_cursorPosition);
 		}
@@ -255,7 +426,13 @@ void TurretManager::StateManager()
 			//稼働範囲内なら
 			if (m_cursorPosition.x <= 3200.0f)
 			{
+				EffectPlayCursorAfter(m_laserTurret->GetModelPosition());
+				SoundPlayCursorAfter();
 				m_cursorPosition.x += TURRET_POSITION_MOVE_NUM;
+			}
+			else
+			{
+				m_energy->SoundPlayNotEnoughCost();
 			}
 			m_laserTurret->SetModelPosition(m_cursorPosition);
 		}
@@ -276,20 +453,31 @@ void TurretManager::StateManager()
 			SoundPlayCursorAfter();
 		}
 
-		//Selectボタン(Spaceキー)
+		//Aボタン(Jキー)
 		if (m_leftWindow->GetOperationState() == enOperationState_SetTurret_LeftWindow && g_pad[0]->IsTrigger(enButtonA) && m_leftWindow->GetButtonReady() == true)
 		{
 			m_leftWindow->SetButtonDelay();
 			DeleteGO(m_laserTurret);
 			MakeLaserTurret();
+			m_energy->SubEnergy(COST_LASERTURRET);
 			SoundPlaySetTurret();
 			m_leftWindow->SetOperationState(enOperationState_Normal_LeftWindow);
 		}
 
-		break;
-
-	case enTurret_RocketTurret:
-
+		//Bボタン(Kキー)
+		if (m_leftWindow->GetOperationState() == enOperationState_SetTurret_LeftWindow && g_pad[0]->IsTrigger(enButtonB) && m_leftWindow->GetButtonReady() == true)
+		{
+			DeleteGO(m_dualGunTurret);
+			m_leftWindow->SoundPlayWindow();
+			m_leftWindow->SetOperationState(enOperationState_SelectTurret_LeftWindow);
+			m_isModelNewGO = false;
+		}
+	}
+	/// <summary>
+	/// RocketTurret
+	/// </summary>
+	else if (m_turretType == enTurret_RocketTurret)
+	{
 		if (m_isGorstModelNewGO)
 		{
 			m_rocketTurret = NewGO<RocketTurret>(0, "turret");
@@ -302,9 +490,15 @@ void TurretManager::StateManager()
 		{
 			m_cursorPosition = m_rocketTurret->GetModelPosition();
 			//稼働範囲内なら
-			if (m_cursorPosition.z >= -9600.0f)
+			if (m_cursorPosition.z >= -8000.0f)
 			{
+				EffectPlayCursorAfter(m_rocketTurret->GetModelPosition());
+				SoundPlayCursorAfter();
 				m_cursorPosition.z -= TURRET_POSITION_MOVE_NUM;
+			}
+			else
+			{
+				m_energy->SoundPlayNotEnoughCost();
 			}
 			m_rocketTurret->SetModelPosition(m_cursorPosition);
 		}
@@ -316,7 +510,13 @@ void TurretManager::StateManager()
 			//稼働範囲内なら
 			if (m_cursorPosition.z <= 0.0f)
 			{
+				EffectPlayCursorAfter(m_rocketTurret->GetModelPosition());
+				SoundPlayCursorAfter();
 				m_cursorPosition.z += TURRET_POSITION_MOVE_NUM;
+			}
+			else
+			{
+				m_energy->SoundPlayNotEnoughCost();
 			}
 			m_rocketTurret->SetModelPosition(m_cursorPosition);
 		}
@@ -328,7 +528,13 @@ void TurretManager::StateManager()
 			//稼働範囲内なら
 			if (m_cursorPosition.x >= -3200.0f)
 			{
+				EffectPlayCursorAfter(m_rocketTurret->GetModelPosition());
+				SoundPlayCursorAfter();
 				m_cursorPosition.x -= TURRET_POSITION_MOVE_NUM;
+			}
+			else
+			{
+				m_energy->SoundPlayNotEnoughCost();
 			}
 			m_rocketTurret->SetModelPosition(m_cursorPosition);
 		}
@@ -340,25 +546,58 @@ void TurretManager::StateManager()
 			//稼働範囲内なら
 			if (m_cursorPosition.x <= 3200.0f)
 			{
+				EffectPlayCursorAfter(m_rocketTurret->GetModelPosition());
+				SoundPlayCursorAfter();
 				m_cursorPosition.x += TURRET_POSITION_MOVE_NUM;
+			}
+			else
+			{
+				m_energy->SoundPlayNotEnoughCost();
 			}
 			m_rocketTurret->SetModelPosition(m_cursorPosition);
 		}
 
-		//Selectボタン(Spaceキー)
+		//Rボタン(Lキー)
+		if (g_pad[0]->IsTrigger(enButtonRB3))
+		{
+			m_rocketTurret->ModelRotationTurnRight();
+			m_rotation += 180.0f;
+			SoundPlayCursorAfter();
+		}
+
+		//Lボタン(Iキー)
+		if (g_pad[0]->IsTrigger(enButtonLB3))
+		{
+			m_rocketTurret->ModelRotationTurnLeft();
+			m_rotation -= 180.0f;
+			SoundPlayCursorAfter();
+		}
+
+		//Aボタン(Jキー)
 		if (m_leftWindow->GetOperationState() == enOperationState_SetTurret_LeftWindow && g_pad[0]->IsTrigger(enButtonA) && m_leftWindow->GetButtonReady() == true)
 		{
 			m_leftWindow->SetButtonDelay();
 			DeleteGO(m_rocketTurret);
 			MakeRocketTurret();
+			m_energy->SubEnergy(COST_ROCKETTURRET);
 			SoundPlaySetTurret();
 			m_leftWindow->SetOperationState(enOperationState_Normal_LeftWindow);
 		}
 
-		break;
-
-	case enTurret_GenerationTurret:
-
+		//Bボタン(Kキー)
+		if (m_leftWindow->GetOperationState() == enOperationState_SetTurret_LeftWindow && g_pad[0]->IsTrigger(enButtonB) && m_leftWindow->GetButtonReady() == true)
+		{
+			DeleteGO(m_dualGunTurret);
+			m_leftWindow->SoundPlayWindow();
+			m_leftWindow->SetOperationState(enOperationState_SelectTurret_LeftWindow);
+			m_isModelNewGO = false;
+		}
+	}
+	/// <summary>
+	/// GenerationTurret
+	/// </summary>
+	else if (m_turretType == enTurret_GenerationTurret)
+	{
 		if (m_isGorstModelNewGO)
 		{
 			m_generationTurret = NewGO<GenerationTurret>(0, "turret");
@@ -371,9 +610,15 @@ void TurretManager::StateManager()
 		{
 			m_cursorPosition = m_generationTurret->GetModelPosition();
 			//稼働範囲内なら
-			if (m_cursorPosition.z >= -9600.0f)
+			if (m_cursorPosition.z >= -8000.0f)
 			{
+				EffectPlayCursorAfter(m_generationTurret->GetModelPosition());
+				SoundPlayCursorAfter();
 				m_cursorPosition.z -= TURRET_POSITION_MOVE_NUM;
+			}
+			else
+			{
+				m_energy->SoundPlayNotEnoughCost();
 			}
 			m_generationTurret->SetModelPosition(m_cursorPosition);
 		}
@@ -385,7 +630,13 @@ void TurretManager::StateManager()
 			//稼働範囲内なら
 			if (m_cursorPosition.z <= 0.0f)
 			{
+				EffectPlayCursorAfter(m_generationTurret->GetModelPosition());
+				SoundPlayCursorAfter();
 				m_cursorPosition.z += TURRET_POSITION_MOVE_NUM;
+			}
+			else
+			{
+				m_energy->SoundPlayNotEnoughCost();
 			}
 			m_generationTurret->SetModelPosition(m_cursorPosition);
 		}
@@ -397,7 +648,13 @@ void TurretManager::StateManager()
 			//稼働範囲内なら
 			if (m_cursorPosition.x >= -3200.0f)
 			{
+				EffectPlayCursorAfter(m_generationTurret->GetModelPosition());
+				SoundPlayCursorAfter();
 				m_cursorPosition.x -= TURRET_POSITION_MOVE_NUM;
+			}
+			else
+			{
+				m_energy->SoundPlayNotEnoughCost();
 			}
 			m_generationTurret->SetModelPosition(m_cursorPosition);
 		}
@@ -409,26 +666,291 @@ void TurretManager::StateManager()
 			//稼働範囲内なら
 			if (m_cursorPosition.x <= 3200.0f)
 			{
+				EffectPlayCursorAfter(m_generationTurret->GetModelPosition());
+				SoundPlayCursorAfter();
 				m_cursorPosition.x += TURRET_POSITION_MOVE_NUM;
+			}
+			else
+			{
+				m_energy->SoundPlayNotEnoughCost();
 			}
 			m_generationTurret->SetModelPosition(m_cursorPosition);
 		}
 
-		//Selectボタン(Spaceキー)
+		//Rボタン(Lキー)
+		if (g_pad[0]->IsTrigger(enButtonRB3))
+		{
+			m_generationTurret->ModelRotationTurnRight();
+			m_rotation += 180.0f;
+			SoundPlayCursorAfter();
+		}
+
+		//Lボタン(Iキー)
+		if (g_pad[0]->IsTrigger(enButtonLB3))
+		{
+			m_generationTurret->ModelRotationTurnLeft();
+			m_rotation -= 180.0f;
+			SoundPlayCursorAfter();
+		}
+
+		//Aボタン(Jキー)
 		if (m_leftWindow->GetOperationState() == enOperationState_SetTurret_LeftWindow && g_pad[0]->IsTrigger(enButtonA) && m_leftWindow->GetButtonReady() == true)
 		{
 			m_leftWindow->SetButtonDelay();
 			DeleteGO(m_generationTurret);
 			MakeGenerationTurret();
+			m_energy->SubEnergy(COST_GENERATIONTURRET);
 			SoundPlaySetTurret();
 			m_leftWindow->SetOperationState(enOperationState_Normal_LeftWindow);
 		}
 
-		break;
+		//Bボタン(Kキー)
+		if (m_leftWindow->GetOperationState() == enOperationState_SetTurret_LeftWindow && g_pad[0]->IsTrigger(enButtonB) && m_leftWindow->GetButtonReady() == true)
+		{
+			DeleteGO(m_dualGunTurret);
+			m_leftWindow->SoundPlayWindow();
+			m_leftWindow->SetOperationState(enOperationState_SelectTurret_LeftWindow);
+			m_isModelNewGO = false;
+		}
+	}
+	/// <summary>
+	/// HealTurret
+	/// </summary>
+	else if (m_turretType == enTurret_HealTurret)
+	{
+		if (m_isGorstModelNewGO)
+		{
+			m_healTurret = NewGO<HealTurret>(0, "turret");
+			m_healTurret->SetModelPosition(m_cursorPosition);
+			m_isGorstModelNewGO = false;
+		}
 
-	default:
+		//上ボタン(8キー)
+		if (g_pad[0]->IsTrigger(enButtonUp))
+		{
+			m_cursorPosition = m_healTurret->GetModelPosition();
+			//稼働範囲内なら
+			if (m_cursorPosition.z >= -8000.0f)
+			{
+				EffectPlayCursorAfter(m_healTurret->GetModelPosition());
+				SoundPlayCursorAfter();
+				m_cursorPosition.z -= TURRET_POSITION_MOVE_NUM;
+			}
+			else
+			{
+				m_energy->SoundPlayNotEnoughCost();
+			}
+			m_healTurret->SetModelPosition(m_cursorPosition);
+		}
 
-		break;
+		//下ボタン(2キー)
+		if (g_pad[0]->IsTrigger(enButtonDown))
+		{
+			m_cursorPosition = m_healTurret->GetModelPosition();
+			//稼働範囲内なら
+			if (m_cursorPosition.z <= 0.0f)
+			{
+				EffectPlayCursorAfter(m_healTurret->GetModelPosition());
+				SoundPlayCursorAfter();
+				m_cursorPosition.z += TURRET_POSITION_MOVE_NUM;
+			}
+			else
+			{
+				m_energy->SoundPlayNotEnoughCost();
+			}
+			m_healTurret->SetModelPosition(m_cursorPosition);
+		}
+
+		//右ボタン(6キー)
+		if (g_pad[0]->IsTrigger(enButtonRight))
+		{
+			m_cursorPosition = m_healTurret->GetModelPosition();
+			//稼働範囲内なら
+			if (m_cursorPosition.x >= -3200.0f)
+			{
+				EffectPlayCursorAfter(m_healTurret->GetModelPosition());
+				SoundPlayCursorAfter();
+				m_cursorPosition.x -= TURRET_POSITION_MOVE_NUM;
+			}
+			else
+			{
+				m_energy->SoundPlayNotEnoughCost();
+			}
+			m_healTurret->SetModelPosition(m_cursorPosition);
+		}
+
+		//左ボタン(4キー)
+		if (g_pad[0]->IsTrigger(enButtonLeft))
+		{
+			m_cursorPosition = m_healTurret->GetModelPosition();
+			//稼働範囲内なら
+			if (m_cursorPosition.x <= 3200.0f)
+			{
+				EffectPlayCursorAfter(m_healTurret->GetModelPosition());
+				SoundPlayCursorAfter();
+				m_cursorPosition.x += TURRET_POSITION_MOVE_NUM;
+			}
+			else
+			{
+				m_energy->SoundPlayNotEnoughCost();
+			}
+			m_healTurret->SetModelPosition(m_cursorPosition);
+		}
+
+		//Rボタン(Lキー)
+		if (g_pad[0]->IsTrigger(enButtonRB3))
+		{
+			m_healTurret->ModelRotationTurnRight();
+			m_rotation += 180.0f;
+			SoundPlayCursorAfter();
+		}
+
+		//Lボタン(Iキー)
+		if (g_pad[0]->IsTrigger(enButtonLB3))
+		{
+			m_healTurret->ModelRotationTurnLeft();
+			m_rotation -= 180.0f;
+			SoundPlayCursorAfter();
+		}
+
+		//Aボタン(Jキー)
+		if (m_leftWindow->GetOperationState() == enOperationState_SetTurret_LeftWindow && g_pad[0]->IsTrigger(enButtonA) && m_leftWindow->GetButtonReady() == true)
+		{
+			m_leftWindow->SetButtonDelay();
+			DeleteGO(m_healTurret);
+			MakeHealTurret();
+			m_energy->SubEnergy(COST_HEALTURRET);
+			SoundPlaySetTurret();
+			m_leftWindow->SetOperationState(enOperationState_Normal_LeftWindow);
+		}
+
+		//Bボタン(Kキー)
+		if (m_leftWindow->GetOperationState() == enOperationState_SetTurret_LeftWindow && g_pad[0]->IsTrigger(enButtonB) && m_leftWindow->GetButtonReady() == true)
+		{
+			DeleteGO(m_healTurret);
+			m_leftWindow->SoundPlayWindow();
+			m_leftWindow->SetOperationState(enOperationState_SelectTurret_LeftWindow);
+			m_isModelNewGO = false;
+		}
+	}/// <summary>
+	/// TeslaTurret
+	/// </summary>
+	else if (m_turretType == enTurret_TeslaTurret)
+	{
+		if (m_isGorstModelNewGO)
+		{
+			m_teslaTurret = NewGO<TeslaTurret>(0, "turret");
+			m_teslaTurret->SetModelPosition(m_cursorPosition);
+			m_isGorstModelNewGO = false;
+		}
+
+		//上ボタン(8キー)
+		if (g_pad[0]->IsTrigger(enButtonUp))
+		{
+			m_cursorPosition = m_teslaTurret->GetModelPosition();
+			//稼働範囲内なら
+			if (m_cursorPosition.z >= -8000.0f)
+			{
+				EffectPlayCursorAfter(m_teslaTurret->GetModelPosition());
+				SoundPlayCursorAfter();
+				m_cursorPosition.z -= TURRET_POSITION_MOVE_NUM;
+			}
+			else
+			{
+				m_energy->SoundPlayNotEnoughCost();
+			}
+			m_teslaTurret->SetModelPosition(m_cursorPosition);
+		}
+
+		//下ボタン(2キー)
+		if (g_pad[0]->IsTrigger(enButtonDown))
+		{
+			m_cursorPosition = m_teslaTurret->GetModelPosition();
+			//稼働範囲内なら
+			if (m_cursorPosition.z <= 0.0f)
+			{
+				EffectPlayCursorAfter(m_teslaTurret->GetModelPosition());
+				SoundPlayCursorAfter();
+				m_cursorPosition.z += TURRET_POSITION_MOVE_NUM;
+			}
+			else
+			{
+				m_energy->SoundPlayNotEnoughCost();
+			}
+			m_teslaTurret->SetModelPosition(m_cursorPosition);
+		}
+
+		//右ボタン(6キー)
+		if (g_pad[0]->IsTrigger(enButtonRight))
+		{
+			m_cursorPosition = m_teslaTurret->GetModelPosition();
+			//稼働範囲内なら
+			if (m_cursorPosition.x >= -3200.0f)
+			{
+				EffectPlayCursorAfter(m_teslaTurret->GetModelPosition());
+				SoundPlayCursorAfter();
+				m_cursorPosition.x -= TURRET_POSITION_MOVE_NUM;
+			}
+			else
+			{
+				m_energy->SoundPlayNotEnoughCost();
+			}
+			m_teslaTurret->SetModelPosition(m_cursorPosition);
+		}
+
+		//左ボタン(4キー)
+		if (g_pad[0]->IsTrigger(enButtonLeft))
+		{
+			m_cursorPosition = m_teslaTurret->GetModelPosition();
+			//稼働範囲内なら
+			if (m_cursorPosition.x <= 3200.0f)
+			{
+				EffectPlayCursorAfter(m_teslaTurret->GetModelPosition());
+				SoundPlayCursorAfter();
+				m_cursorPosition.x += TURRET_POSITION_MOVE_NUM;
+			}
+			else
+			{
+				m_energy->SoundPlayNotEnoughCost();
+			}
+			m_teslaTurret->SetModelPosition(m_cursorPosition);
+		}
+
+		//Rボタン(Lキー)
+		if (g_pad[0]->IsTrigger(enButtonRB3))
+		{
+			m_teslaTurret->ModelRotationTurnRight();
+			m_rotation += 180.0f;
+			SoundPlayCursorAfter();
+		}
+
+		//Lボタン(Iキー)
+		if (g_pad[0]->IsTrigger(enButtonLB3))
+		{
+			m_teslaTurret->ModelRotationTurnLeft();
+			m_rotation -= 180.0f;
+			SoundPlayCursorAfter();
+		}
+
+		//Aボタン(Jキー)
+		if (m_leftWindow->GetOperationState() == enOperationState_SetTurret_LeftWindow && g_pad[0]->IsTrigger(enButtonA) && m_leftWindow->GetButtonReady() == true)
+		{
+			m_leftWindow->SetButtonDelay();
+			DeleteGO(m_teslaTurret);
+			MakeTeslaTurret();
+			m_energy->SubEnergy(COST_HEALTURRET);
+			SoundPlaySetTurret();
+			m_leftWindow->SetOperationState(enOperationState_Normal_LeftWindow);
+		}
+
+		//Bボタン(Kキー)
+		if (m_leftWindow->GetOperationState() == enOperationState_SetTurret_LeftWindow && g_pad[0]->IsTrigger(enButtonB) && m_leftWindow->GetButtonReady() == true)
+		{
+			DeleteGO(m_healTurret);
+			m_leftWindow->SoundPlayWindow();
+			m_leftWindow->SetOperationState(enOperationState_SelectTurret_LeftWindow);
+			m_isModelNewGO = false;
+		}
 	}
 }
 
@@ -513,6 +1035,19 @@ void TurretManager::DeleteTurret()
 	m_deleteWindow.Update();
 }
 
+void TurretManager::MakeNormalTurret()
+{
+	auto* turret = NewGO<NormalTurret>(0, "turret");
+	turret->SetModelPosition(m_cursorPosition);
+	turret->SetModelRotation(m_rotation);
+	turret->SetAttackReady(true);
+	m_turrets.push_back(turret);
+	m_leftWindowDelete[m_turretsSum]->Init(enInitDeleteTurretSprite_NormalTurret);
+	m_leftWindowDelete[m_turretsSum]->SetPosition(m_deleteSpritePosition[m_turretsSum]);
+	m_turretsSum++;
+	m_isModelNewGO = false;
+}
+
 void TurretManager::MakeDualGunTurret()
 {
 	auto* turret = NewGO<DualGunTurret>(0, "turret");
@@ -560,6 +1095,32 @@ void TurretManager::MakeGenerationTurret()
 	turret->SetAttackReady(true);
 	m_turrets.push_back(turret);
 	m_leftWindowDelete[m_turretsSum]->Init(enInitDeleteTurretSprite_GenerationTurret);
+	m_leftWindowDelete[m_turretsSum]->SetPosition(m_deleteSpritePosition[m_turretsSum]);
+	m_turretsSum++;
+	m_isModelNewGO = false;
+}
+
+void TurretManager::MakeHealTurret()
+{
+	auto* turret = NewGO<HealTurret>(0, "turret");
+	turret->SetModelPosition(m_cursorPosition);
+	turret->SetModelRotation(m_rotation);
+	turret->SetAttackReady(true);
+	m_turrets.push_back(turret);
+	m_leftWindowDelete[m_turretsSum]->Init(enTurret_HealTurret);
+	m_leftWindowDelete[m_turretsSum]->SetPosition(m_deleteSpritePosition[m_turretsSum]);
+	m_turretsSum++;
+	m_isModelNewGO = false;
+}
+
+void TurretManager::MakeTeslaTurret()
+{
+	auto* turret = NewGO<TeslaTurret>(0, "turret");
+	turret->SetModelPosition(m_cursorPosition);
+	turret->SetModelRotation(m_rotation);
+	turret->SetAttackReady(true);
+	m_turrets.push_back(turret);
+	m_leftWindowDelete[m_turretsSum]->Init(enTurret_TeslaTurret);
 	m_leftWindowDelete[m_turretsSum]->SetPosition(m_deleteSpritePosition[m_turretsSum]);
 	m_turretsSum++;
 	m_isModelNewGO = false;

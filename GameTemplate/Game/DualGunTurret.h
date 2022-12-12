@@ -95,6 +95,15 @@ public:
 	}
 
 	/// <summary>
+	/// タレットの状態を取得
+	/// </summary>
+	/// <returns></returns>
+	bool GetAttackReady()
+	{
+		return m_moveReady;
+	}
+
+	/// <summary>
 	/// デバフを設定
 	/// </summary>
 	void SetDebuff() override

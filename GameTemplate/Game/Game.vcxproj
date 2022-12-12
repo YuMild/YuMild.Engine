@@ -223,7 +223,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="BuffTurret.cpp" />
+    <ClCompile Include="HealTurret.cpp" />
     <ClCompile Include="Dempa.cpp" />
     <ClCompile Include="DualGunTurret.cpp" />
     <ClCompile Include="EnemyObject.cpp" />
@@ -236,8 +236,10 @@
     <ClCompile Include="LeftWindow.cpp" />
     <ClCompile Include="LeftWindowDelete.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="NormalTurret.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="RocketTurret.cpp" />
+    <ClCompile Include="SpaceShip.cpp" />
     <ClCompile Include="SpawnManager.cpp" />
     <ClCompile Include="Stage.cpp" />
     <ClCompile Include="stdafx.cpp">
@@ -246,13 +248,15 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Preview|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="system\system.cpp" />
+    <ClCompile Include="TeslaTurret.cpp" />
     <ClCompile Include="Title.cpp" />
     <ClCompile Include="TurretManager.cpp" />
     <ClCompile Include="TurretObject.cpp" />
     <ClCompile Include="UFO.cpp" />
+    <ClCompile Include="Warning.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BuffTurret.h" />
+    <ClInclude Include="HealTurret.h" />
     <ClInclude Include="Dempa.h" />
     <ClInclude Include="DualGunTurret.h" />
     <ClInclude Include="EnemyObject.h" />
@@ -264,16 +268,20 @@
     <ClInclude Include="LaserTurret.h" />
     <ClInclude Include="LeftWindow.h" />
     <ClInclude Include="LeftWindowDelete.h" />
+    <ClInclude Include="NormalTurret.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="RocketTurret.h" />
+    <ClInclude Include="SpaceShip.h" />
     <ClInclude Include="SpawnManager.h" />
     <ClInclude Include="Stage.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="system\system.h" />
+    <ClInclude Include="TeslaTurret.h" />
     <ClInclude Include="Title.h" />
     <ClInclude Include="TurretManager.h" />
     <ClInclude Include="TurretObject.h" />
     <ClInclude Include="UFO.h" />
+    <ClInclude Include="Warning.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

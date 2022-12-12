@@ -5,8 +5,6 @@
 /// </summary>
 class GameCamera : public IGameObject
 {
-public:
-
 private:
 
 	bool Start()override;

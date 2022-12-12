@@ -2,22 +2,28 @@
 #include "GenerationTurret.h"
 
 #include "Energy.h"
-#include "LeftWindow.h"
 #include "TurretManager.h"
+
+GenerationTurret::GenerationTurret()
+{
+
+}
+
+GenerationTurret::~GenerationTurret()
+{
+	if (m_moveReady == true)
+	{
+		m_energy->SubGenerationTurret();
+	}
+}
 
 bool GenerationTurret::Start()
 {
 	//FindGO
 	m_energy = FindGO<Energy>("energy");
-	m_leftWindow = FindGO<LeftWindow>("leftWindow");
 
 	//タレット
-	m_turretBaseMR.Init("Assets/ModelData/Turret/BuffTurretBase.tkm", ShadowRecieveAndDrop, true);
-	m_turretBaseMR.SetPosition(m_modelPosition);
-	m_turretBaseMR.SetRotation(m_modelRotation);
-	m_turretBaseMR.SetScale({ 1.0f,1.0f,1.0f });
-	m_turretBaseMR.Update();
-	m_turretMR.Init("Assets/ModelData/Turret/BuffTurret.tkm", ShadowRecieveAndDrop, true);
+	m_turretMR.Init("Assets/ModelData/Turret/GenerationTurret.tkm", ShadowRecieveAndDrop, true);
 	m_turretMR.SetPosition(m_modelPosition);
 	m_turretMR.SetRotation(m_modelRotation);
 	m_turretMR.SetScale({ 1.0f,1.0f,1.0f });
@@ -40,7 +46,6 @@ void GenerationTurret::Move()
 	//動作可能なら
 	if (m_moveReady == true)
 	{
-		m_modelRotation.AddRotationDegY(2.0f);
 		if (m_addGenerationTurret == true)
 		{
 			m_energy->AddGenerationTurret();
@@ -54,8 +59,6 @@ void GenerationTurret::Update()
 	Move();
 
 	//更新処理
-	m_turretBaseMR.SetPosition(m_modelPosition);
-	m_turretBaseMR.Update();
 	m_turretMR.SetPosition(m_modelPosition);
 	m_turretMR.SetRotation(m_modelRotation);
 	m_turretMR.Update();
@@ -65,7 +68,6 @@ void GenerationTurret::Update()
 
 void GenerationTurret::Render(RenderContext& renderContext)
 {
-	m_turretBaseMR.Draw(renderContext);
 	m_turretMR.Draw(renderContext);
 	m_baseMR.Draw(renderContext);
 }

@@ -66,6 +66,15 @@ public:
 		m_hp -= subHP;
 	}
 
+	/// <summary>
+	/// S‘©ŠÔ‚ğİ’è
+	/// </summary>
+	/// <param name="bindTime"></param>
+	virtual void SetBind(const float bindTime)
+	{
+		m_bindTimer = bindTime;
+	}
+
 private:
 
 	/// <summary>
@@ -100,6 +109,9 @@ private:
 	float						m_hp = 0.0f;
 	float						m_hpMax = 0.0f;
 	Vector2						m_hpBarPosition;
+
+	//ó‘Ô
+	float						m_bindTimer = 0.0f;
 
 	//Dempa
 	Vector3						m_position = { 0.0f,0.0f,-8000.0f };

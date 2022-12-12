@@ -163,7 +163,7 @@ namespace nsK2EngineLow
 		PointLight m_pointLight;
 		SpotLight m_spotLight;
 		Vector3 m_ambientLight;
-		float m_pad1;
+		float m_pad5;
 		Vector3 m_eyePos;
 	};
 

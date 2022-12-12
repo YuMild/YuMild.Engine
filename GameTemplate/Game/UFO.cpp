@@ -39,9 +39,6 @@ UFO::~UFO()
 
 bool UFO::Start()
 {
-	//コリジョンのワイヤーフレーム表示
-	PhysicsWorld::GetInstance()->EnableDrawDebugWireFrame();
-
 	//FindGO
 	m_gameOver = FindGO<GameOver>("gameOver");
 	m_spawnManager = FindGO<SpawnManager>("spawnManager");
@@ -110,13 +107,19 @@ void UFO::Move()
 	}
 
 	//移動
-	Vector3 moveSpeed = m_target - m_position;
-	moveSpeed.Normalize();
-	moveSpeed *= DEFAULT_MOVE_SPEED;
-	m_position += moveSpeed;
-
-	//回転し続ける
-	m_rotation.AddRotationDegY(DEFAULT_ROTATION_SPEED);
+	if (m_bindTimer <= 0.0f)
+	{
+		Vector3 moveSpeed = m_target - m_position;
+		moveSpeed.Normalize();
+		moveSpeed *= DEFAULT_MOVE_SPEED;
+		m_position += moveSpeed;
+		//回転し続ける
+		m_rotation.AddRotationDegY(DEFAULT_ROTATION_SPEED);
+	}
+	else
+	{
+		m_bindTimer -= g_gameTime->GetFrameDeltaTime();
+	}
 
 	//更新処理
 	m_modelRender.SetPosition(m_position);

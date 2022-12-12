@@ -40,9 +40,6 @@ Dempa::~Dempa()
 
 bool Dempa::Start()
 {
-	//コリジョンのワイヤーフレーム表示
-	PhysicsWorld::GetInstance()->EnableDrawDebugWireFrame();
-
 	//FindGO
 	m_gameOver = FindGO<GameOver>("gameOver");
 	m_spawnManager = FindGO<SpawnManager>("spawnManager");
@@ -59,8 +56,8 @@ bool Dempa::Start()
 	m_modelRender.Update();
 
 	//HP
-	m_hp = m_spawnManager->GetDefaultHP_UFO();
-	m_hpMax = m_spawnManager->GetDefaultHP_UFO();
+	m_hp = m_spawnManager->GetDefaultHP_Dempa();
+	m_hpMax = m_spawnManager->GetDefaultHP_Dempa();
 	m_hpBarSR.Init("Assets/Sprite/Enemy/EnemyHP.dds", 30.0f, 30.0f);
 
 	//パス移動
@@ -139,13 +136,19 @@ void Dempa::Move()
 	}
 
 	//移動
-	Vector3 moveSpeed = m_target - m_position;
-	moveSpeed.Normalize();
-	moveSpeed *= DEFAULT_MOVE_SPEED;
-	m_position += moveSpeed;
-
-	//回転し続ける
-	m_rotation.AddRotationDegY(DEFAULT_ROTATION_SPEED);
+	if (m_bindTimer <= 0.0f)
+	{
+		Vector3 moveSpeed = m_target - m_position;
+		moveSpeed.Normalize();
+		moveSpeed *= DEFAULT_MOVE_SPEED;
+		m_position += moveSpeed;
+		//回転し続ける
+		m_rotation.AddRotationDegY(DEFAULT_ROTATION_SPEED);
+	}
+	else
+	{
+		m_bindTimer -= g_gameTime->GetFrameDeltaTime();
+	}
 
 	//更新処理
 	m_modelRender.SetPosition(m_position);
@@ -162,7 +165,7 @@ void Dempa::HP()
 	g_camera3D->CalcScreenPositionFromWorldPosition(m_hpBarPosition, position);
 	m_hpBarSR.SetPosition(Vector3(m_hpBarPosition.x, m_hpBarPosition.y, 0.0f));
 	m_hpBarSR.SetIsDisplayRestrictionRightSide(true);
-	m_hpBarSR.SetLimitedX(m_hp / m_spawnManager->GetDefaultHP_UFO());
+	m_hpBarSR.SetLimitedX(m_hp / m_spawnManager->GetDefaultHP_Dempa());
 	m_hpBarSR.Update();
 }
 

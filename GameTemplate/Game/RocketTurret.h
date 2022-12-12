@@ -2,8 +2,6 @@
 
 #include "TurretObject.h"
 
-class LeftWindow;
-
 /// <summary>
 /// RocketTurret
 /// </summary>
@@ -94,6 +92,15 @@ public:
 	}
 
 	/// <summary>
+	/// タレットの状態を取得
+	/// </summary>
+	/// <returns></returns>
+	bool GetAttackReady()
+	{
+		return m_moveReady;
+	}
+
+	/// <summary>
 	/// デバフを設定
 	/// </summary>
 	void SetDebuff() override
@@ -103,15 +110,14 @@ public:
 
 private:
 
-	//クラス
-	LeftWindow*		m_leftWindow;
-
 	//攻撃処理
 	bool			m_moveReady = false;
 	float			m_debuffTimer = 0.0f;
 
 	//モデル
-	ModelRender		m_modelRender;
+	ModelRender		m_turretMR;
+	ModelRender		m_baseMR;
+	ModelRender		m_attackRangeMR;
 
 	//画像
 	SpriteRender	m_spriteRender;

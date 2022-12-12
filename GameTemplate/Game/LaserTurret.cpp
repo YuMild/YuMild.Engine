@@ -1,12 +1,23 @@
 #include "stdafx.h"
 #include "LaserTurret.h"
 
-#include "LeftWindow.h"
-
 namespace
 {
-	float FIRERATE = 3.0f;
-	float AttackPower = 15.0f;
+	float FIRERATE = 2.0f;
+	float ATTACKPOWER = 30.0f;
+}
+
+LaserTurret::LaserTurret()
+{
+
+}
+
+LaserTurret::~LaserTurret()
+{
+	if (m_moveReady == true && m_laserAliveTimer < 0.5f)
+	{
+		m_laserEF->Stop();
+	}
 }
 
 bool LaserTurret::Start()
@@ -33,10 +44,10 @@ bool LaserTurret::Start()
 	m_attackRangeMR.Update();
 
 	//エフェクト
-	EffectEngine::GetInstance()->ResistEffect(5, u"Assets/Effect/Laser.efk");
+	EffectEngine::GetInstance()->ResistEffect(5, u"Assets/Effect/LaserTurret.efk");
 
 	//音声の生成
-	g_soundEngine->ResistWaveFileBank(11, "Assets/sound/LaserTurret.wav");
+	g_soundEngine->ResistWaveFileBank(10, "Assets/sound/LaserTurret.wav");
 
 	//レーザーの射撃方向
 	m_forward = { 0.0f,0.0f,-1.0f };
@@ -57,7 +68,7 @@ void LaserTurret::Move()
 	else
 	{
 		m_debuffTimer -= g_gameTime->GetFrameDeltaTime();
-		m_fireRate += g_gameTime->GetFrameDeltaTime() / 5;
+		m_fireRate += g_gameTime->GetFrameDeltaTime() / 2;
 	}
 
 	//動作可能なら
@@ -75,7 +86,7 @@ void LaserTurret::Move()
 				Vector3 difference = enemys->GetPosition() - m_laserPosition;
 				if (difference.Length() <= 500.0f)
 				{
-					enemys->SubHP(AttackPower);
+					enemys->SubHP(ATTACKPOWER);
 				}
 			}
 			//エフェクトを再生
@@ -84,7 +95,7 @@ void LaserTurret::Move()
 				m_laserEF = NewGO<EffectEmitter>(0);
 				m_laserEF->Init(5);
 				m_laserEF->SetPosition(m_laserPosition);
-				m_laserEF->SetScale(Vector3::One * 100.0f);
+				m_laserEF->SetScale(Vector3::One * 200.0f);
 				m_laserEF->Play();
 				SoundPlayFire();
 				m_laserIsPlay = false;

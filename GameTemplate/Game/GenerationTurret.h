@@ -3,8 +3,6 @@
 #include "TurretObject.h"
 
 class Energy;
-class LeftWindow;
-class TurretManager;
 
 /// <summary>
 /// GenerationTurret
@@ -12,6 +10,9 @@ class TurretManager;
 class GenerationTurret : public TurretObject
 {
 public:
+
+	GenerationTurret();
+	~GenerationTurret();
 
 	bool Start() override;
 	void Update() override;
@@ -96,6 +97,15 @@ public:
 	}
 
 	/// <summary>
+	/// タレットの状態を取得
+	/// </summary>
+	/// <returns></returns>
+	bool GetAttackReady()
+	{
+		return m_moveReady;
+	}
+
+	/// <summary>
 	/// デバフを設定
 	/// </summary>
 	void SetDebuff() override
@@ -110,9 +120,6 @@ private:
 	/// </summary>
 	void Move();
 
-	//タレットマネージャー
-	TurretManager*					m_turretManager;
-
 	//攻撃処理
 	bool							m_moveReady = false;
 	float							m_debuffTimer = 0.0f;
@@ -120,10 +127,8 @@ private:
 
 	//クラス
 	Energy*							m_energy;
-	LeftWindow*						m_leftWindow;
 
 	//モデル
-	ModelRender						m_turretBaseMR;
 	ModelRender						m_turretMR;
 	ModelRender						m_baseMR;
 

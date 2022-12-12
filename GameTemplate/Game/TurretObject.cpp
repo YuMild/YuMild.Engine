@@ -51,6 +51,11 @@ void TurretObject::SetAttackReady(bool ready)
 
 }
 
+bool TurretObject::GetAttackReady()
+{
+	return bool();
+}
+
 void TurretObject::SetDebuff()
 {
 

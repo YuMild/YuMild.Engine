@@ -64,6 +64,12 @@ public:
 	virtual void SetAttackReady(bool ready);
 
 	/// <summary>
+	/// タレットの状態を取得
+	/// </summary>
+	/// <returns></returns>
+	virtual bool GetAttackReady();
+
+	/// <summary>
 	/// デバフを設定
 	/// </summary>
 	virtual void SetDebuff();

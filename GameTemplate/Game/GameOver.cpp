@@ -16,6 +16,8 @@ bool GameOver::Start()
 	//画像
 	m_windowSR.Init("Assets/Sprite/GameOver/GameOver.dds", 1600.0f, 900.0f);
 	m_windowSR.Update();
+	m_pressAButtonSR.Init("Assets/Sprite/GameOver/PressAButton.dds", 1600.0f, 900.0f);
+	m_pressAButtonSR.Update();
 
 	//HPを設定
 	m_hp = DEFAULT_HP;
@@ -29,7 +31,6 @@ bool GameOver::Start()
 	return true;
 }
 
-
 void GameOver::Score()
 {
 	m_score += g_gameTime->GetFrameDeltaTime() * 100.0f;
@@ -39,20 +40,42 @@ void GameOver::Score()
 	m_scoreFR.SetText(score);
 }
 
+void GameOver::Sprite()
+{
+	m_stateTimer += g_gameTime->GetFrameDeltaTime();
+
+	if (m_stateTimer >= 3.0f)
+	{
+		m_state += 1;
+		m_stateTimer = 0.0f;
+	}
+
+	m_game->SetGameState(enGameState_GameOver);
+}
+
 void GameOver::Update()
 {
 	Score();
+	if (m_hp <= 0)
+	{
+		Sprite();
+	}
 }
 
 void GameOver::Render(RenderContext& renderContext)
 {
-	//スコア
-	m_scoreFR.Draw(renderContext);
-
-	//HPが無くなるとゲームオーバー
-	if (m_hp <= 0)
+	//ウィンドウ
+	if (m_state >= 1)
 	{
 		m_windowSR.Draw(renderContext);
-		m_game->SetGameState(enGameState_GameOver);
 	}
+
+	//PressAButton>>Result
+	if (m_state >= 2)
+	{
+		m_pressAButtonSR.Draw(renderContext);
+	}
+
+	//スコア
+	m_scoreFR.Draw(renderContext);
 }

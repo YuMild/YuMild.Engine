@@ -3,8 +3,6 @@
 #include "EnemyObject.h"
 #include "TurretObject.h"
 
-class LeftWindow;
-
 /// <summary>
 /// LaserTurret
 /// </summary>
@@ -12,6 +10,8 @@ class LaserTurret : public TurretObject
 {
 public:
 
+	LaserTurret();
+	~LaserTurret();
 	bool Start() override;
 	void Update() override;
 	void Render(RenderContext& renderContext) override;
@@ -95,6 +95,15 @@ public:
 	}
 
 	/// <summary>
+	/// タレットの状態を取得
+	/// </summary>
+	/// <returns></returns>
+	bool GetAttackReady()
+	{
+		return m_moveReady;
+	}
+
+	/// <summary>
 	/// デバフを設定
 	/// </summary>
 	void SetDebuff() override
@@ -115,13 +124,10 @@ private:
 	void SoundPlayFire()
 	{
 		m_fireSE = NewGO<SoundSource>(0);
-		m_fireSE->Init(11);
+		m_fireSE->Init(10);
 		m_fireSE->SetVolume(0.025f);
 		m_fireSE->Play(false);
 	}
-
-	//クラス
-	LeftWindow*					m_leftWindow;
 
 	//攻撃処理
 	std::vector<EnemyObject*>	m_enemys;

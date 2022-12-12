@@ -43,7 +43,8 @@ bool Energy::Start()
     //音声
     g_soundEngine->ResistWaveFileBank(7, "Assets/sound/NotEnoughCost.wav");
 
-    //エネルギー効率
+    //エネルギー
+    m_energy = 5000.0f;
     m_energyEfficiency = DEFAULT_ENERGY_EFFICIENCY;
 
     return true;

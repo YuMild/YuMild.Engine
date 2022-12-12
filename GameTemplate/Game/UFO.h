@@ -65,6 +65,15 @@ public:
 		m_hp -= subHP;
 	}
 
+	/// <summary>
+	/// 拘束時間を設定
+	/// </summary>
+	/// <param name="bindTime"></param>
+	virtual void SetBind(const float bindTime)
+	{
+		m_bindTimer = bindTime;
+	}
+
 private:
 
 	/// <summary>
@@ -92,11 +101,12 @@ private:
 	float						m_hpMax = 0.0f;
 	Vector2						m_hpBarPosition;
 
+	//状態
+	float						m_bindTimer = 0.0f;
+
 	//UFO
 	Vector3						m_position = { 0.0f,0.0f,-8000.0f };
 	Quaternion					m_rotation;
-
-	//テスト
 	Vector3						m_scale;
 
 	//パス移動

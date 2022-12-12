@@ -121,6 +121,24 @@ public:
 	}
 
 	/// <summary>
+	/// スペースシップ専用のカメラポジションにするか否か設定
+	/// </summary>
+	void SetSpaceShipCameraPosition(bool value)
+	{
+		m_spaceShipCamera = value;
+		if (m_spaceShipCamera == true)
+		{
+			g_camera3D->SetTarget({ 0.0f,0.0f,-1500.0f });
+			g_camera3D->SetPosition({ 0.0f, 1500.0f, 2000.0f });
+		}
+		else
+		{
+			g_camera3D->SetTarget({ 0.0f,0.0f,-1500.0f });
+			g_camera3D->SetPosition({ 0.0f, 3500.0f, 2000.0f });
+		}
+	}
+
+	/// <summary>
 	/// ウィンドウ切り替え時の音声を再生
 	/// </summary>
 	void SoundPlayWindow()
@@ -233,4 +251,7 @@ private:
 
 	//ウィンドウのポジションに加算する数値
 	float						m_moveNumber = 0.0f;
+
+	//SpaceShip専用のカメラ位置にするか否か
+	bool						m_spaceShipCamera = false;
 };

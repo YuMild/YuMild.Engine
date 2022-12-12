@@ -116,8 +116,16 @@ void LeftWindow::OperationNormal()
 	m_selectTurretNumber = 0;
 
 	//カメラの視点と注視点の初期化
-	g_camera3D->SetTarget({ 0.0f,0.0f,-1500.0f });
-	g_camera3D->SetPosition({ 0.0f, 3500.0f, 2000.0f });
+	if (m_spaceShipCamera == true)
+	{
+		g_camera3D->SetTarget({ 0.0f,0.0f,-1500.0f });
+		g_camera3D->SetPosition({ 0.0f, 1500.0f, 2000.0f });
+	}
+	else
+	{
+		g_camera3D->SetTarget({ 0.0f,0.0f,-1500.0f });
+		g_camera3D->SetPosition({ 0.0f, 3500.0f, 2000.0f });
+	}
 
 	/// <summary>
 	/// ウィンドウを左にスライド
@@ -173,8 +181,23 @@ void LeftWindow::OperationSelectTurret()
 	if (g_pad[0]->IsTrigger(enButtonA) && m_operationState == enOperationState_SelectTurret_LeftWindow && GetButtonReady() == true)
 	{
 		SetButtonDelay();
-		
-		if (m_selectTurretNumber == enTurret_DualGunTurret)
+
+		/// <summary>
+		/// NormalTurret
+		/// </summary>
+		if (m_selectTurretNumber == enTurret_NormalTurret)
+		{
+			if (m_energy->GetEnergy() <= 100.0f)
+			{
+				m_energy->SoundPlayNotEnoughCost();
+				return;
+			}
+			m_turretManager->Init(enTurret_NormalTurret);
+		}
+		/// <summary>
+		///	DualGunTurret
+		/// </summary>
+		else if (m_selectTurretNumber == enTurret_DualGunTurret)
 		{
 			if (m_energy->GetEnergy() <= 100.0f)
 			{
@@ -182,37 +205,66 @@ void LeftWindow::OperationSelectTurret()
 				return;
 			}
 			m_turretManager->Init(enTurret_DualGunTurret);
-			m_energy->SubEnergy(100.0f);
 		}
+		/// <summary>
+		/// LaserTurret
+		/// </summary>
 		else if (m_selectTurretNumber == enTurret_LaserTurret)
 		{
-			if (m_energy->GetEnergy() <= 200.0f)
+			if (m_energy->GetEnergy() <= 100.0f)
 			{
 				m_energy->SoundPlayNotEnoughCost();
 				return;
 			}
 			m_turretManager->Init(enTurret_LaserTurret);
-			m_energy->SubEnergy(200.0f);
 		}
+		/// <summary>
+		/// RocketTurret
+		/// </summary>
 		else if (m_selectTurretNumber == enTurret_RocketTurret)
 		{
-			if (m_energy->GetEnergy() <= 400.0f)
+			if (m_energy->GetEnergy() <= 100.0f)
 			{
 				m_energy->SoundPlayNotEnoughCost();
 				return;
 			}
 			m_turretManager->Init(enTurret_RocketTurret);
-			m_energy->SubEnergy(400.0f);
 		}
+		/// <summary>
+		/// GenerationTurret
+		/// </summary>
 		else if (m_selectTurretNumber == enTurret_GenerationTurret)
 		{
-			if (m_energy->GetEnergy() <= 400.0f)
+			if (m_energy->GetEnergy() <= 100.0f)
 			{
 				m_energy->SoundPlayNotEnoughCost();
 				return;
 			}
 			m_turretManager->Init(enTurret_GenerationTurret);
-			m_energy->SubEnergy(400.0f);
+		}
+		/// <summary>
+		/// HealTurret
+		/// </summary>
+		else if (m_selectTurretNumber == enTurret_HealTurret)
+		{
+			if (m_energy->GetEnergy() <= 100.0f)
+			{
+				m_energy->SoundPlayNotEnoughCost();
+				return;
+			}
+			m_turretManager->Init(enTurret_HealTurret);
+		}
+		/// <summary>
+		/// TeslaTurret
+		/// </summary>
+		else if (m_selectTurretNumber == enTurret_TeslaTurret)
+		{
+			if (m_energy->GetEnergy() <= 100.0f)
+			{
+				m_energy->SoundPlayNotEnoughCost();
+				return;
+			}
+			m_turretManager->Init(enTurret_TeslaTurret);
 		}
 
 		m_operationState = enOperationState_SetTurret_LeftWindow;

@@ -18,6 +18,11 @@ void LeftWindowDelete::Init(InitDeleteTurretSprite initDeleteTurretSprite)
 
 	switch (m_initDeleteSpriteNumber)
 	{
+	case enInitDeleteTurretSprite_NormalTurret:
+		m_spriteRender.Init("Assets/Sprite/LeftWindow/LeftWindow_DualGunTurret.dds", 720.0f, 720.0f);
+		m_spriteRender.Update();
+		m_isDraw = true;
+		break;
 	case enInitDeleteTurretSprite_DualGunTurret:
 		m_spriteRender.Init("Assets/Sprite/LeftWindow/LeftWindow_DualGunTurret.dds", 720.0f, 720.0f);
 		m_spriteRender.Update();
@@ -35,6 +40,11 @@ void LeftWindowDelete::Init(InitDeleteTurretSprite initDeleteTurretSprite)
 		break;
 	case enInitDeleteTurretSprite_GenerationTurret:
 		m_spriteRender.Init("Assets/Sprite/LeftWindow/LeftWindow_GenerationTurret.dds", 720.0f, 720.0f);
+		m_spriteRender.Update();
+		m_isDraw = true;
+		break;
+	case enInitDeleteTurretSprite_HealTurret:
+		m_spriteRender.Init("Assets/Sprite/LeftWindow/LeftWindow_HealTurret.dds", 720.0f, 720.0f);
 		m_spriteRender.Update();
 		m_isDraw = true;
 		break;
@@ -64,8 +74,8 @@ void LeftWindowDelete::Init(int number)
 		m_spriteRender.Update();
 		m_isDraw = true;
 		break;
-	case enInitDeleteTurretSprite_GenerationTurret:
-		m_spriteRender.Init("Assets/Sprite/LeftWindow/LeftWindow_GenerationTurret.dds", 720.0f, 720.0f);
+	case enInitDeleteTurretSprite_HealTurret:
+		m_spriteRender.Init("Assets/Sprite/LeftWindow/LeftWindow_HealTurret.dds", 720.0f, 720.0f);
 		m_spriteRender.Update();
 		m_isDraw = true;
 		break;

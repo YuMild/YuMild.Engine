@@ -41,4 +41,10 @@ public:
 	/// </summary>
 	/// <param name="addHP"></param>
 	virtual void SubHP(const float subHP) = 0;
+
+	/// <summary>
+	/// S‘©ŠÔ‚ğİ’è
+	/// </summary>
+	/// <param name="bindTime"></param>
+	virtual void SetBind(const float bindTime) = 0;
 };

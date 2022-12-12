@@ -4,27 +4,30 @@ class Energy;
 class LeftWindow;
 class LeftWindowDelete;
 
+class NormalTurret;
 class DualGunTurret;
 class LaserTurret;
 class RocketTurret;
 class GenerationTurret;
+class HealTurret;
+class TeslaTurret;
 
 class EnemyObject;
 
 enum TurretType
 {
+	enTurret_NormalTurret,
 	enTurret_DualGunTurret,
 	enTurret_LaserTurret,
 	enTurret_RocketTurret,
 	enTurret_GenerationTurret,
-	en4,
-	en5,
+	enTurret_HealTurret,
+	enTurret_TeslaTurret,
 	en6,
 	en7,
 	en8,
 	en9,
 	en10,
-	en11
 };
 
 /// <summary>
@@ -61,16 +64,6 @@ private:
 		enDeleteState_Delete
 	};
 
-	/// <summary>
-	/// タレットの画像用
-	/// </summary>
-	enum SpritePosition
-	{
-		enSpritePosition_DuarGunTurret,
-		enSpritePosition_LaserTurret,
-		enSpritePosition_RocketTurret
-	};
-
 	bool Start() override;
 	void Update() override;
 	void Render(RenderContext& renderContext) override;
@@ -88,10 +81,13 @@ private:
 	/// <summary>
 	/// 各タレットの作成
 	/// </summary>
+	void MakeNormalTurret();
 	void MakeDualGunTurret();
 	void MakeLaserTurret();
 	void MakeRocketTurret();
 	void MakeGenerationTurret();
+	void MakeHealTurret();
+	void MakeTeslaTurret();
 
 	/// <summary>
 	///	カーソル移動時のエフェクトを再生
@@ -137,10 +133,13 @@ private:
 	LeftWindowDelete*				m_leftWindowDelete[12];
 
 	//タレット
+	NormalTurret*					m_normalTurret;
 	DualGunTurret*					m_dualGunTurret;
 	LaserTurret*					m_laserTurret;
 	RocketTurret*					m_rocketTurret;
 	GenerationTurret*				m_generationTurret;
+	HealTurret*						m_healTurret;
+	TeslaTurret*					m_teslaTurret;
 
 	//Delete画像
 	SpriteRender					m_deleteWindow;

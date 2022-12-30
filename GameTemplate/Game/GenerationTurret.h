@@ -11,9 +11,7 @@ class GenerationTurret : public TurretObject
 {
 public:
 
-	GenerationTurret();
 	~GenerationTurret();
-
 	bool Start() override;
 	void Update() override;
 	void Render(RenderContext& renderContext) override;

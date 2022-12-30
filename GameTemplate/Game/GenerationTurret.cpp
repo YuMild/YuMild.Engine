@@ -4,11 +4,6 @@
 #include "Energy.h"
 #include "TurretManager.h"
 
-GenerationTurret::GenerationTurret()
-{
-
-}
-
 GenerationTurret::~GenerationTurret()
 {
 	if (m_moveReady == true)

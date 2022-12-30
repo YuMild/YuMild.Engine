@@ -10,27 +10,13 @@
 namespace
 {
 	//モデルの初期値
-	Vector3 DEFAULT_POSITION = { 0.0f,0.0f,-8000.0f };
-	Vector3 DEFAULT_SCALE = { 2.5f,2.5f,2.5f };
+	Vector3 DEFAULT_POSITION = { 0.0f,500.0f,-8000.0f };
+	Vector3 DEFAULT_SCALE = { 2.0f,2.0f,2.0f };
 	float DEFAULT_ROTATION_Y = 0.0f;
-
-	//ポイントポジション
-	Vector3 POINT_1_POSITION = { 0.0f,0.0f,-5900.0f };
-	Vector3 POINT_2_POSITION = { -2750.0f,0.0f,-5900.0f };
-	Vector3 POINT_3_POSITION = { -2750.0f,0.0f,-3150.0f };
-	Vector3 POINT_4_POSITION = { 2750.0f,0.0f,-3150.0f };
-	Vector3 POINT_5_POSITION = { 2750.0f,0.0f,-2000.0f };
-	Vector3 POINT_6_POSITION = { 0.0f,0.0f,-2000.0f };
-	Vector3 POINT_7_POSITION = { 0.0f,0.0f,0.0f };
 
 	//パラメーター
 	float DEFAULT_MOVE_SPEED = 3.0f;
 	float DEFAULT_ROTATION_SPEED = 1.5f;
-}
-
-SpaceShip::SpaceShip()
-{
-
 }
 
 SpaceShip::~SpaceShip()

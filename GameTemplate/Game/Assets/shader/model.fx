@@ -164,7 +164,7 @@ SPSIn VSSkinMain(SVSIn vsIn)
 /// ピクセルシェーダーのエントリー関数。
 /// </summary>
 float4 PSMain(SPSIn psIn) : SV_Target0
-{
+{r4
     float3 normal = psIn.normal;
     //法線マップからタンジェントスペースの法線をサンプリングする
     float3 localNormal = g_normalMap.Sample(g_sampler, psIn.uv).xyz;

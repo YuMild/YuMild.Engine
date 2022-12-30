@@ -55,12 +55,21 @@ namespace nsK2EngineLow {
 		/// 更新処理を実行
 		/// </summary>
 		void ExecuteUpdate();
+
 		/// <summary>
 		/// 描画処理を実行。
 		/// </summary>
 		/// <param name="rc"></param>
 		void ExecuteRender(RenderContext& rc);
 
+		/// <summary>
+		/// Updateをストップ
+		/// </summary>
+		/// <param name="stop"></param>
+		void SetStop(const bool& stop)
+		{
+			m_stop = stop;
+		}
 
 		/*!
 		*@brief	ゲームオブジェクトのnew
@@ -180,9 +189,9 @@ namespace nsK2EngineLow {
 		typedef std::list<IGameObject*>	 GameObjectList;
 		std::array<GameObjectList, GAME_OBJECT_PRIO_MAX>	m_gameObjectListArray;							//!<ゲームオブジェクトの優先度付きリスト。
 		static GameObjectManager* m_instance;		//唯一のインスタンスのアドレスを記録する変数。
-		bool												m_isActive = true;
+		bool m_isActive = true;
+		bool m_stop = false;
 	};
-
 
 	/*!
 	*@brief	ゲームオブジェクトの検索のヘルパー関数。
@@ -209,6 +218,7 @@ namespace nsK2EngineLow {
 	{
 		return GameObjectManager::GetInstance()->FindGameObjects<T>(objectName);
 	}
+
 	/*!
 	*@brief	ゲームオブジェクトの検索のヘルパー関数。
 	*@details
@@ -221,6 +231,7 @@ namespace nsK2EngineLow {
 	{
 		return GameObjectManager::GetInstance()->QueryGameObjects<T>(objectName, func);
 	}
+
 	/*!
 		*@brief	ゲームオブジェクト生成のヘルパー関数。
 		*@param[in]	priority	プライオリティ。

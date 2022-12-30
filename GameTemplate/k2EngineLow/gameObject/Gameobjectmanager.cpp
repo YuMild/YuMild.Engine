@@ -22,6 +22,16 @@ namespace nsK2EngineLow {
 	}
 	void GameObjectManager::ExecuteUpdate()
 	{
+		//UpdateがStopされている時
+		if (m_stop == true) {
+			for (auto& goList : m_gameObjectListArray) {
+				for (auto& go : goList) {
+					go->UpdateOnStop();
+				}
+			}
+			return;
+		}
+
 		//死亡フラグがついているゲームオブジェクトを破棄する。
 		for (auto& goList : m_gameObjectListArray) {
 			goList.remove_if([&](IGameObject* go) {
@@ -38,7 +48,6 @@ namespace nsK2EngineLow {
 				go->StartWrapper();
 			}
 		}
-
 
 		for (auto& goList : m_gameObjectListArray) {
 			for (auto& go : goList) {

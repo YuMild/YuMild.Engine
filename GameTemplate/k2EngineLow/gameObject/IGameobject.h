@@ -38,7 +38,7 @@ namespace nsK2EngineLow {
 		*/
 		virtual void Update() {}
 		/*!
-			
+			*@brief ゲームオブジェクトの更新停止中に呼ばれる更新処理。
 		*/
 		virtual void UpdateOnStop() {}
 		/*!

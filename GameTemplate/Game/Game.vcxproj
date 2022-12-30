@@ -232,6 +232,7 @@
     <ClCompile Include="GameCamera.cpp" />
     <ClCompile Include="GameOver.cpp" />
     <ClCompile Include="GenerationTurret.cpp" />
+    <ClCompile Include="HolyTurret.cpp" />
     <ClCompile Include="LaserTurret.cpp" />
     <ClCompile Include="LeftWindow.cpp" />
     <ClCompile Include="LeftWindowDelete.cpp" />
@@ -253,7 +254,6 @@
     <ClCompile Include="TurretManager.cpp" />
     <ClCompile Include="TurretObject.cpp" />
     <ClCompile Include="UFO.cpp" />
-    <ClCompile Include="Warning.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="HealTurret.h" />
@@ -265,6 +265,7 @@
     <ClInclude Include="GameCamera.h" />
     <ClInclude Include="GameOver.h" />
     <ClInclude Include="GenerationTurret.h" />
+    <ClInclude Include="HolyTurret.h" />
     <ClInclude Include="LaserTurret.h" />
     <ClInclude Include="LeftWindow.h" />
     <ClInclude Include="LeftWindowDelete.h" />
@@ -281,7 +282,6 @@
     <ClInclude Include="TurretManager.h" />
     <ClInclude Include="TurretObject.h" />
     <ClInclude Include="UFO.h" />
-    <ClInclude Include="Warning.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

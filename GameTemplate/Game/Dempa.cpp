@@ -136,15 +136,27 @@ void Dempa::Move()
 	}
 
 	//ˆÚ“®
+	//S‘©‚³‚ê‚Ä‚¢‚È‚©‚Á‚½‚ç
 	if (m_bindTimer <= 0.0f)
 	{
 		Vector3 moveSpeed = m_target - m_position;
 		moveSpeed.Normalize();
 		moveSpeed *= DEFAULT_MOVE_SPEED;
-		m_position += moveSpeed;
+		//Œ¸‘¬‚³‚ê‚Ä‚¢‚È‚©‚Á‚½‚ç
+		if (m_slowTimer <= 0.0f)
+		{
+			m_position += moveSpeed;
+		}
+		//Œ¸‘¬‚³‚ê‚Ä‚¢‚½‚ç
+		else
+		{
+			m_position += moveSpeed / 2;
+			m_slowTimer -= g_gameTime->GetFrameDeltaTime();
+		}
 		//‰ñ“]‚µ‘±‚¯‚é
 		m_rotation.AddRotationDegY(DEFAULT_ROTATION_SPEED);
 	}
+	//S‘©‚³‚ê‚Ä‚¢‚½‚ç
 	else
 	{
 		m_bindTimer -= g_gameTime->GetFrameDeltaTime();

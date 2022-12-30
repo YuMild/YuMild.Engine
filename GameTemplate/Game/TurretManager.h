@@ -11,6 +11,7 @@ class RocketTurret;
 class GenerationTurret;
 class HealTurret;
 class TeslaTurret;
+class HolyTurret;
 
 class EnemyObject;
 
@@ -23,7 +24,7 @@ enum TurretType
 	enTurret_GenerationTurret,
 	enTurret_HealTurret,
 	enTurret_TeslaTurret,
-	en6,
+	enTurret_HolyTurret,
 	en7,
 	en8,
 	en9,
@@ -88,6 +89,7 @@ private:
 	void MakeGenerationTurret();
 	void MakeHealTurret();
 	void MakeTeslaTurret();
+	void MakeHolyTurret();
 
 	/// <summary>
 	///	カーソル移動時のエフェクトを再生
@@ -140,6 +142,7 @@ private:
 	GenerationTurret*				m_generationTurret;
 	HealTurret*						m_healTurret;
 	TeslaTurret*					m_teslaTurret;
+	HolyTurret*						m_holyTurret;
 
 	//Delete画像
 	SpriteRender					m_deleteWindow;

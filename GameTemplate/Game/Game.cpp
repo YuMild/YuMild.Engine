@@ -13,17 +13,11 @@ Game::Game()
 
 Game::~Game()
 {
-	const auto& ufos = FindGOs<EnemyObject>("ufo");
-	int ufoSize = ufos.size();
-	for (int i = 0; i < ufoSize; i++)
+	const auto& enemys = FindGOs<EnemyObject>("normal");
+	int enemySize = enemys.size();
+	for (int i = 0; i < enemySize; i++)
 	{
-		DeleteGO(ufos[i]);
-	}
-	const auto& dempas = FindGOs<EnemyObject>("dempa");
-	int dempaSize = dempas.size();
-	for (int i = 0; i < dempaSize; i++)
-	{
-		DeleteGO(dempas[i]);
+		DeleteGO(enemys[i]);
 	}
 	const auto& turrets = FindGOs<TurretObject>("turret");
 	int turretSize = turrets.size();

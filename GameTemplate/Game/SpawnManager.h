@@ -11,6 +11,12 @@ class SpawnManager : public IGameObject
 {
 public:
 
+	~SpawnManager();
+	bool Start()override;
+	void Update()override;
+	void UpdateOnStop()override;
+	void Render(RenderContext& renderContext)override;
+
 	/// <summary>
 	/// UFOのデフォルトHPを設定
 	/// </summary>
@@ -64,10 +70,6 @@ public:
 
 private:
 
-	bool Start()override;
-	void Update()override;
-	void Render(RenderContext& renderContext)override;
-
 	/// <summary>
 	/// レベルアップ
 	/// </summary>
@@ -88,16 +90,45 @@ private:
 	/// </summary>
 	void SpawnSpaceShip();
 
+	/// <summary>
+	/// ボス出現時の音声を再生
+	/// </summary>
+	void SoundPlayBossSpawn()
+	{
+		m_bossSpawnSE = NewGO<SoundSource>(0);
+		m_bossSpawnSE->Init(12);
+		m_bossSpawnSE->SetVolume(0.05f);
+		m_bossSpawnSE->Play(false);
+	}
+
 	//クラス
 	Dempa*			m_dempa;
 	UFO*			m_ufo;
 	SpaceShip*		m_spaceShip;
 
-	//破壊時のエフェクト
+	//エフェクト
 	EffectEmitter*	m_explosionEF;
 
-	//破壊時の音声
+	//音声
 	SoundSource*	m_explosionSE;
+	SoundSource*	m_bossSpawnSE;;
+
+	//画像
+	SpriteRender	m_warningSR;
+	SpriteRender	m_warningRightCircleSR;
+	SpriteRender	m_warningLeftCircleSR;
+
+	//アップデートを止めているか否か
+	bool			m_isStop = false;
+
+	//Warningを管理する
+	bool			m_fade = true;
+	float			m_warningTimer = 0.0f;
+	float			m_stopTimer = 0.0f;
+	Quaternion		m_warningRightCircle_Rotation;
+	Quaternion		m_warningLeftCircle_Rotation;
+	float			m_warningRightCircle_RotationNumber = 0.0f;
+	float			m_warningLeftCircle_RotationNumber = 0.0f;
 
 	//レベルを管理するタイマー
 	float			m_levelTimer = 0.0f;

@@ -102,8 +102,8 @@
     <ClCompile Include="SpaceShip.cpp">
       <Filter>Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="Warning.cpp">
-      <Filter>Game</Filter>
+    <ClCompile Include="HolyTurret.cpp">
+      <Filter>Turret</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -182,8 +182,8 @@
     <ClInclude Include="SpaceShip.h">
       <Filter>Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="Warning.h">
-      <Filter>Game</Filter>
+    <ClInclude Include="HolyTurret.h">
+      <Filter>Turret</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

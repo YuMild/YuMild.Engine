@@ -129,7 +129,7 @@ public:
 		if (m_spaceShipCamera == true)
 		{
 			g_camera3D->SetTarget({ 0.0f,0.0f,-1500.0f });
-			g_camera3D->SetPosition({ 0.0f, 1500.0f, 2000.0f });
+			g_camera3D->SetPosition({ 0.0f, 2000.0f, 2000.0f });
 		}
 		else
 		{

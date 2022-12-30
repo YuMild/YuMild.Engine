@@ -145,7 +145,6 @@ private:
 	//UŒ‚ˆ—
 	std::vector<EnemyObject*>		m_enemys;
 	bool							m_moveReady = false;
-	bool							m_isDebuff = false;
 	float							m_debuffTimer = 0.0f;
 	float							m_fireRate = 0.0f;
 	Vector3							m_difference;

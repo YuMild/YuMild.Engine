@@ -9,12 +9,20 @@ namespace
 	float DEFAULT_HP_SPACESHIP = 5000.0f;
 
 	//スポーンタイマー
-	float DEFAULT_SPAWNTIME_UFO = 300.0f;
-	float DEFAULT_SPAWNTIME_DEMPA = 100.0f;
-	float DEFAULT_SPAWNTIME_SPACESHIP = 60.0f;
+	float DEFAULT_SPAWNTIME_UFO = 3.0f;
+	float DEFAULT_SPAWNTIME_DEMPA = 10.0f;
+	float DEFAULT_SPAWNTIME_SPACESHIP = 120.0f;
 
 	//レベルアップ
 	float LEVELUP_TIME = 10.0f;
+
+	//WARNING
+	float CIRCLE_ROTATION_NUMBER = 75.0f;
+}
+
+SpawnManager::~SpawnManager()
+{
+	
 }
 
 bool SpawnManager::Start()
@@ -22,8 +30,22 @@ bool SpawnManager::Start()
 	//エフェクトを登録
 	EffectEngine::GetInstance()->ResistEffect(1, u"Assets/effect/Explosion.efk");
 
+	//画像を作成
+	m_warningSR.Init("Assets/sprite/Warning/WARNING.dds", 1600.0f, 900.0f);
+	m_warningSR.SetMulColor({ 1.0f,1.0f,1.0f,0.0f });
+	m_warningSR.Update();
+	m_warningRightCircleSR.Init("Assets/sprite/Warning/WARNING_CIRCLE.dds", 900.0f, 900.0f);
+	m_warningRightCircleSR.SetPosition({ 612.0f,0.0f,0.0f });
+	m_warningRightCircleSR.SetMulColor({ 1.0f,1.0f,1.0f,0.0f });
+	m_warningRightCircleSR.Update();
+	m_warningLeftCircleSR.Init("Assets/sprite/Warning/WARNING_CIRCLE.dds", 900.0f, 900.0f);
+	m_warningLeftCircleSR.SetPosition({ -612.0f,0.0f,0.0f });
+	m_warningLeftCircleSR.SetMulColor({ 1.0f,1.0f,1.0f,0.0f });
+	m_warningLeftCircleSR.Update();
+
 	//音声
 	g_soundEngine->ResistWaveFileBank(5, "Assets/sound/Explosion.wav");
+	g_soundEngine->ResistWaveFileBank(12, "Assets/sound/Alarm.wav");
 
 	//HP
 	m_defaultHP_UFO = DEFAULT_HP_UFO;
@@ -34,8 +56,6 @@ bool SpawnManager::Start()
 	m_spawnTime_UFO = DEFAULT_SPAWNTIME_UFO;
 	m_spawnTime_Dempa = DEFAULT_SPAWNTIME_DEMPA;
 	m_spawnTime_SpaceShip = DEFAULT_SPAWNTIME_SPACESHIP;
-
-	m_spawnTimer_SpaceShip = 55.0f;
 
 	return true;
 }
@@ -87,11 +107,14 @@ void SpawnManager::SpawnSpaceShip()
 {
 	m_spawnTimer_SpaceShip += g_gameTime->GetFrameDeltaTime();
 
-	//Dempaのスポーン
+	//SpaceShipのスポーン
 	if (m_spawnTimer_SpaceShip >= m_spawnTime_SpaceShip)
 	{
+		SoundPlayBossSpawn();
 		m_spaceShip = NewGO<SpaceShip>(0, "normal");
 		m_spawnTimer_SpaceShip = 0.0f;
+		GameObjectManager::GetInstance()->SetStop(true);
+		m_isStop = true;
 	}
 }
 
@@ -103,7 +126,57 @@ void SpawnManager::Update()
 	SpawnSpaceShip();
 }
 
+void SpawnManager::UpdateOnStop()
+{
+	m_stopTimer += g_gameTime->GetFrameDeltaTime();
+	if (m_stopTimer >= 3.75f && m_warningTimer <= 0.01f)
+	{
+		GameObjectManager::GetInstance()->SetStop(false);
+		m_isStop = false;
+
+		//リセット
+		m_warningTimer = 0.0f;
+		m_stopTimer = 0.0f;
+	}
+
+	//フェード
+	if (m_fade == true)
+	{
+		m_warningTimer += g_gameTime->GetFrameDeltaTime() * 1.5f;
+		if (m_warningTimer >= 1.1f)
+		{
+			m_fade = false;
+		}
+	}
+	else
+	{
+		m_warningTimer -= g_gameTime->GetFrameDeltaTime() * 1.5f;
+		if (m_warningTimer <= 0.01f)
+		{
+			m_fade = true;
+		}
+	}
+
+	m_warningRightCircle_RotationNumber += g_gameTime->GetFrameDeltaTime() * CIRCLE_ROTATION_NUMBER;
+	m_warningRightCircle_Rotation.SetRotationDegZ(m_warningRightCircle_RotationNumber);
+	m_warningRightCircleSR.SetRotation(m_warningRightCircle_Rotation);
+	m_warningRightCircleSR.SetMulColor({ 1.0f, 1.0f, 1.0f, m_warningTimer });
+	m_warningRightCircleSR.Update();
+	m_warningLeftCircle_RotationNumber -= g_gameTime->GetFrameDeltaTime() * CIRCLE_ROTATION_NUMBER;
+	m_warningLeftCircle_Rotation.SetRotationDegZ(m_warningLeftCircle_RotationNumber);
+	m_warningLeftCircleSR.SetRotation(m_warningLeftCircle_Rotation);
+	m_warningLeftCircleSR.SetMulColor({ 1.0f, 1.0f, 1.0f, m_warningTimer });
+	m_warningLeftCircleSR.Update();
+	m_warningSR.SetMulColor({ 1.0f, 1.0f, 1.0f, m_warningTimer});
+	m_warningSR.Update();
+}
+
 void SpawnManager::Render(RenderContext& renderContext)
 {
-
+	if (m_isStop == true)
+	{
+		m_warningRightCircleSR.Draw(renderContext);
+		m_warningLeftCircleSR.Draw(renderContext);
+		m_warningSR.Draw(renderContext);
+	}
 }

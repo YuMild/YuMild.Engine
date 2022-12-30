@@ -67,10 +67,19 @@ public:
 	}
 
 	/// <summary>
+	/// Œ¸‘¬ŠÔ‚ğİ’è
+	/// </summary>
+	/// <param name="slowTime"></param>
+	virtual void SetSlow(const float slowTime)override
+	{
+		m_slowTimer = slowTime;
+	}
+
+	/// <summary>
 	/// S‘©ŠÔ‚ğİ’è
 	/// </summary>
 	/// <param name="bindTime"></param>
-	virtual void SetBind(const float bindTime)
+	virtual void SetBind(const float bindTime)override
 	{
 		m_bindTimer = bindTime;
 	}
@@ -111,6 +120,7 @@ private:
 	Vector2						m_hpBarPosition;
 
 	//ó‘Ô
+	float						m_slowTimer = 0.0f;
 	float						m_bindTimer = 0.0f;
 
 	//Dempa

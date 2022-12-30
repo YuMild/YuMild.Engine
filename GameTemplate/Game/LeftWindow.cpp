@@ -119,7 +119,7 @@ void LeftWindow::OperationNormal()
 	if (m_spaceShipCamera == true)
 	{
 		g_camera3D->SetTarget({ 0.0f,0.0f,-1500.0f });
-		g_camera3D->SetPosition({ 0.0f, 1500.0f, 2000.0f });
+		g_camera3D->SetPosition({ 0.0f, 2000.0f, 2000.0f });
 	}
 	else
 	{
@@ -265,6 +265,18 @@ void LeftWindow::OperationSelectTurret()
 				return;
 			}
 			m_turretManager->Init(enTurret_TeslaTurret);
+		}
+		/// <summary>
+		/// HolyTurret
+		/// </summary>
+		else if (m_selectTurretNumber == enTurret_HolyTurret)
+		{
+			if (m_energy->GetEnergy() <= 100.0f)
+			{
+				m_energy->SoundPlayNotEnoughCost();
+				return;
+			}
+			m_turretManager->Init(enTurret_HolyTurret);
 		}
 
 		m_operationState = enOperationState_SetTurret_LeftWindow;

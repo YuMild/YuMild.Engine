@@ -11,6 +11,7 @@ enum InitDeleteTurretSprite
 	enInitDeleteTurretSprite_RocketTurret,
 	enInitDeleteTurretSprite_GenerationTurret,
 	enInitDeleteTurretSprite_HealTurret,
+	enInitDeleteTurretSprite_HolyTurret,
 	enInitDeleteTurretSprite_Null
 };
 

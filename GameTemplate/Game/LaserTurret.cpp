@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "LaserTurret.h"
 
+#include "Game.h"
+
 namespace
 {
 	float FIRERATE = 2.0f;
@@ -23,7 +25,7 @@ LaserTurret::~LaserTurret()
 bool LaserTurret::Start()
 {
 	//タレット
-	m_turretMR.Init("Assets/ModelData/Turret/LaserTurret.tkm", ShadowRecieveAndDrop, true);
+	m_turretMR.Init("Assets/ModelData/Turret/LaserTurret.tkm", ShadowNone, true);
 	m_turretMR.SetPosition(m_modelPosition);
 	m_turretMR.SetRotation(m_modelRotation);
 	m_turretMR.SetScale({ 1.0f,1.0f,1.0f });
@@ -47,7 +49,7 @@ bool LaserTurret::Start()
 	EffectEngine::GetInstance()->ResistEffect(5, u"Assets/Effect/LaserTurret.efk");
 
 	//音声の生成
-	g_soundEngine->ResistWaveFileBank(10, "Assets/sound/LaserTurret.wav");
+	g_soundEngine->ResistWaveFileBank(enSoundNumber_LaserTurret, "Assets/sound/LaserTurret.wav");
 
 	//レーザーの射撃方向
 	m_forward = { 0.0f,0.0f,-1.0f };
@@ -92,11 +94,7 @@ void LaserTurret::Move()
 			//エフェクトを再生
 			if (m_laserIsPlay == true)
 			{
-				m_laserEF = NewGO<EffectEmitter>(0);
-				m_laserEF->Init(5);
-				m_laserEF->SetPosition(m_laserPosition);
-				m_laserEF->SetScale(Vector3::One * 200.0f);
-				m_laserEF->Play();
+				EffectPlayLaser();
 				SoundPlayFire();
 				m_laserIsPlay = false;
 			}
@@ -138,4 +136,21 @@ void LaserTurret::Render(RenderContext& renderContext)
 	{
 		m_attackRangeMR.Draw(renderContext);
 	}
+}
+
+void LaserTurret::EffectPlayLaser()
+{
+	m_laserEF = NewGO<EffectEmitter>(0);
+	m_laserEF->Init(5);
+	m_laserEF->SetPosition(m_laserPosition);
+	m_laserEF->SetScale(Vector3::One * 200.0f);
+	m_laserEF->Play();
+}
+
+void LaserTurret::SoundPlayFire()
+{
+	m_fireSE = NewGO<SoundSource>(0);
+	m_fireSE->Init(11);
+	m_fireSE->SetVolume(0.025f);
+	m_fireSE->Play(false);
 }

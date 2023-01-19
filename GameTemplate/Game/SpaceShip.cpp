@@ -33,7 +33,7 @@ bool SpaceShip::Start()
 	m_turretManager = FindGO<TurretManager>("turretManager");
 
 	//ƒ‚ƒfƒ‹
-	m_modelRender.Init("Assets/modelData/Enemy/SpaceShip.tkm", ShadowRecieveAndDrop);
+	m_modelRender.Init("Assets/modelData/Enemy/SpaceShip.tkm", ShadowNone);
 	m_position = DEFAULT_POSITION;
 	m_modelRender.SetPosition(m_position);
 	m_rotation.SetRotationDegY(DEFAULT_ROTATION_Y);
@@ -62,8 +62,6 @@ void SpaceShip::Move()
 	{
 		m_spawnManager->EffectPlayExplosion(m_position);
 		m_spawnManager->SoundPlayExplosion();
-		m_gameOver->SubHP();
-		m_gameOver->SubHP();
 		m_gameOver->SubHP();
 		DeleteGO(this);
 	}

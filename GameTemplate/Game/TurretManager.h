@@ -1,6 +1,7 @@
 #pragma once
 
 class Energy;
+class Game;
 class LeftWindow;
 class LeftWindowDelete;
 
@@ -110,7 +111,7 @@ private:
 	void SoundPlayCursorAfter()
 	{
 		m_cursorAfterSE = NewGO<SoundSource>(8);
-		m_cursorAfterSE->Init(8);
+		m_cursorAfterSE->Init(5);
 		m_cursorAfterSE->SetVolume(0.1f);
 		m_cursorAfterSE->Play(false);
 	}
@@ -121,7 +122,7 @@ private:
 	void SoundPlaySetTurret()
 	{
 		m_setTurretSE = NewGO<SoundSource>(3);
-		m_setTurretSE->Init(3);
+		m_setTurretSE->Init(8);
 		m_setTurretSE->SetVolume(0.15f);
 		m_setTurretSE->Play(false);
 	}

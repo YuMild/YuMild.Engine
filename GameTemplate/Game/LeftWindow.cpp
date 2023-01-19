@@ -2,6 +2,7 @@
 #include "LeftWindow.h"
 
 #include "Energy.h"
+#include "Game.h"
 #include "Player.h"
 #include "TurretManager.h"
 
@@ -59,22 +60,38 @@ bool LeftWindow::Start()
 	m_parameter_FireRateSR.SetScale({ 1.0f,1.0f,1.0f });
 	m_parameter_FireRateSR.Update();
 	//タレット詳細
-	m_dualGunTurret_DetailSR.Init("Assets/sprite/LeftWindow/LeftWindow_DualGunTurret_Detail.dds", LEFTWINDOW_SPRITE_SIZE, LEFTWINDOW_SPRITE_SIZE);
-	m_dualGunTurret_DetailSR.SetPosition(LEFTWINDOW_POSITION);
-	m_dualGunTurret_DetailSR.SetScale({ 1.0f,1.0f,1.0f });
-	m_dualGunTurret_DetailSR.Update();
-	m_laserTurret_DetailSR.Init("Assets/sprite/LeftWindow/LeftWindow_LaserTurret_Detail.dds", LEFTWINDOW_SPRITE_SIZE, LEFTWINDOW_SPRITE_SIZE);
-	m_laserTurret_DetailSR.SetPosition(LEFTWINDOW_POSITION);
-	m_laserTurret_DetailSR.SetScale({ 1.0f,1.0f,1.0f });
-	m_laserTurret_DetailSR.Update();
-	m_rocketTurret_DetailSR.Init("Assets/sprite/LeftWindow/LeftWindow_RocketTurret_Detail.dds", LEFTWINDOW_SPRITE_SIZE, LEFTWINDOW_SPRITE_SIZE);
-	m_rocketTurret_DetailSR.SetPosition(LEFTWINDOW_POSITION);
-	m_rocketTurret_DetailSR.SetScale({ 1.0f,1.0f,1.0f });
-	m_rocketTurret_DetailSR.Update();
-	m_generationTurret_DetailSR.Init("Assets/sprite/LeftWindow/LeftWindow_GenerationTurret_Detail.dds", LEFTWINDOW_SPRITE_SIZE, LEFTWINDOW_SPRITE_SIZE);
-	m_generationTurret_DetailSR.SetPosition(LEFTWINDOW_POSITION);
-	m_generationTurret_DetailSR.SetScale({ 1.0f,1.0f,1.0f });
-	m_generationTurret_DetailSR.Update();
+	m_detail_NormalTurretSR.Init("Assets/sprite/LeftWindow/LeftWindow_NormalTurret_Detail.dds", LEFTWINDOW_SPRITE_SIZE, LEFTWINDOW_SPRITE_SIZE);
+	m_detail_NormalTurretSR.SetPosition(LEFTWINDOW_POSITION);
+	m_detail_NormalTurretSR.SetScale({ 1.0f,1.0f,1.0f });
+	m_detail_NormalTurretSR.Update();
+	m_detail_DualGunTurretSR.Init("Assets/sprite/LeftWindow/LeftWindow_DualGunTurret_Detail.dds", LEFTWINDOW_SPRITE_SIZE, LEFTWINDOW_SPRITE_SIZE);
+	m_detail_DualGunTurretSR.SetPosition(LEFTWINDOW_POSITION);
+	m_detail_DualGunTurretSR.SetScale({ 1.0f,1.0f,1.0f });
+	m_detail_DualGunTurretSR.Update();
+	m_detail_LaserTurretSR.Init("Assets/sprite/LeftWindow/LeftWindow_LaserTurret_Detail.dds", LEFTWINDOW_SPRITE_SIZE, LEFTWINDOW_SPRITE_SIZE);
+	m_detail_LaserTurretSR.SetPosition(LEFTWINDOW_POSITION);
+	m_detail_LaserTurretSR.SetScale({ 1.0f,1.0f,1.0f });
+	m_detail_LaserTurretSR.Update();
+	m_detail_RocketTurretSR.Init("Assets/sprite/LeftWindow/LeftWindow_RocketTurret_Detail.dds", LEFTWINDOW_SPRITE_SIZE, LEFTWINDOW_SPRITE_SIZE);
+	m_detail_RocketTurretSR.SetPosition(LEFTWINDOW_POSITION);
+	m_detail_RocketTurretSR.SetScale({ 1.0f,1.0f,1.0f });
+	m_detail_RocketTurretSR.Update();
+	m_detail_GenerationTurretSR.Init("Assets/sprite/LeftWindow/LeftWindow_GenerationTurret_Detail.dds", LEFTWINDOW_SPRITE_SIZE, LEFTWINDOW_SPRITE_SIZE);
+	m_detail_GenerationTurretSR.SetPosition(LEFTWINDOW_POSITION);
+	m_detail_GenerationTurretSR.SetScale({ 1.0f,1.0f,1.0f });
+	m_detail_GenerationTurretSR.Update();
+	m_detail_HealTurretSR.Init("Assets/sprite/LeftWindow/LeftWindow_HealTurret_Detail.dds", LEFTWINDOW_SPRITE_SIZE, LEFTWINDOW_SPRITE_SIZE);
+	m_detail_HealTurretSR.SetPosition(LEFTWINDOW_POSITION);
+	m_detail_HealTurretSR.SetScale({ 1.0f,1.0f,1.0f });
+	m_detail_HealTurretSR.Update();
+	m_detail_TeslaTurretSR.Init("Assets/sprite/LeftWindow/LeftWindow_TeslaTurret_Detail.dds", LEFTWINDOW_SPRITE_SIZE, LEFTWINDOW_SPRITE_SIZE);
+	m_detail_TeslaTurretSR.SetPosition(LEFTWINDOW_POSITION);
+	m_detail_TeslaTurretSR.SetScale({ 1.0f,1.0f,1.0f });
+	m_detail_TeslaTurretSR.Update();
+	m_detail_HolyTurretSR.Init("Assets/sprite/LeftWindow/LeftWindow_HolyTurret_Detail.dds", LEFTWINDOW_SPRITE_SIZE, LEFTWINDOW_SPRITE_SIZE);
+	m_detail_HolyTurretSR.SetPosition(LEFTWINDOW_POSITION);
+	m_detail_HolyTurretSR.SetScale({ 1.0f,1.0f,1.0f });
+	m_detail_HolyTurretSR.Update();
 	//ウィンドウ背景
 	m_weapons_BackGroundSR.Init("Assets/sprite/LeftWindow/LeftWindow_WeaponsBackGround.dds", LEFTWINDOW_SPRITE_SIZE, LEFTWINDOW_SPRITE_SIZE);
 	m_weapons_BackGroundSR.SetPosition({ -500.0f,0.0f,0.0f });
@@ -90,8 +107,8 @@ bool LeftWindow::Start()
 	m_turret_BackGroundSR.Update();
 
 	//音声の生成
-	g_soundEngine->ResistWaveFileBank(1, "Assets/sound/Window.wav");
-	g_soundEngine->ResistWaveFileBank(2, "Assets/sound/Choice.wav");
+	g_soundEngine->ResistWaveFileBank(enSoundNumber_Window, "Assets/sound/Window.wav");
+	g_soundEngine->ResistWaveFileBank(enSoundNumber_Choice, "Assets/sound/Choice.wav");
 
 	//タレット背景の位置
 	m_turretBackGroundPosition[0] = { -950.0f,0.0f,0.0f };
@@ -187,7 +204,7 @@ void LeftWindow::OperationSelectTurret()
 		/// </summary>
 		if (m_selectTurretNumber == enTurret_NormalTurret)
 		{
-			if (m_energy->GetEnergy() <= 100.0f)
+			if (m_energy->GetEnergy() <= m_energy->COST_NORMALTURRET)
 			{
 				m_energy->SoundPlayNotEnoughCost();
 				return;
@@ -199,7 +216,7 @@ void LeftWindow::OperationSelectTurret()
 		/// </summary>
 		else if (m_selectTurretNumber == enTurret_DualGunTurret)
 		{
-			if (m_energy->GetEnergy() <= 100.0f)
+			if (m_energy->GetEnergy() <= m_energy->COST_DUALGUNTURRET)
 			{
 				m_energy->SoundPlayNotEnoughCost();
 				return;
@@ -211,7 +228,7 @@ void LeftWindow::OperationSelectTurret()
 		/// </summary>
 		else if (m_selectTurretNumber == enTurret_LaserTurret)
 		{
-			if (m_energy->GetEnergy() <= 100.0f)
+			if (m_energy->GetEnergy() <= m_energy->COST_LASERTURRET)
 			{
 				m_energy->SoundPlayNotEnoughCost();
 				return;
@@ -223,7 +240,7 @@ void LeftWindow::OperationSelectTurret()
 		/// </summary>
 		else if (m_selectTurretNumber == enTurret_RocketTurret)
 		{
-			if (m_energy->GetEnergy() <= 100.0f)
+			if (m_energy->GetEnergy() <= m_energy->COST_ROCKETTURRET)
 			{
 				m_energy->SoundPlayNotEnoughCost();
 				return;
@@ -235,7 +252,7 @@ void LeftWindow::OperationSelectTurret()
 		/// </summary>
 		else if (m_selectTurretNumber == enTurret_GenerationTurret)
 		{
-			if (m_energy->GetEnergy() <= 100.0f)
+			if (m_energy->GetEnergy() <= m_energy->COST_GENERATIONTURRET)
 			{
 				m_energy->SoundPlayNotEnoughCost();
 				return;
@@ -247,7 +264,7 @@ void LeftWindow::OperationSelectTurret()
 		/// </summary>
 		else if (m_selectTurretNumber == enTurret_HealTurret)
 		{
-			if (m_energy->GetEnergy() <= 100.0f)
+			if (m_energy->GetEnergy() <= m_energy->COST_HEALTURRET)
 			{
 				m_energy->SoundPlayNotEnoughCost();
 				return;
@@ -259,7 +276,7 @@ void LeftWindow::OperationSelectTurret()
 		/// </summary>
 		else if (m_selectTurretNumber == enTurret_TeslaTurret)
 		{
-			if (m_energy->GetEnergy() <= 100.0f)
+			if (m_energy->GetEnergy() <= m_energy->COST_TESLATURRET)
 			{
 				m_energy->SoundPlayNotEnoughCost();
 				return;
@@ -271,7 +288,7 @@ void LeftWindow::OperationSelectTurret()
 		/// </summary>
 		else if (m_selectTurretNumber == enTurret_HolyTurret)
 		{
-			if (m_energy->GetEnergy() <= 100.0f)
+			if (m_energy->GetEnergy() <= m_energy->COST_HOLYTURRET)
 			{
 				m_energy->SoundPlayNotEnoughCost();
 				return;
@@ -353,10 +370,15 @@ void LeftWindow::SetParameterBar()
 	//初期化
 	switch (m_selectTurretNumber)
 	{
+	case enTurret_NormalTurret:
+		m_rangeNumber = 0.25f;
+		m_damageNumber = 0.2f;
+		m_fireRateNumber = 0.25f;
+		break;
 	case enTurret_DualGunTurret:
 		m_rangeNumber = 0.25f;
 		m_damageNumber = 0.1f;
-		m_fireRateNumber = 0.75f;
+		m_fireRateNumber = 1.0f;
 		break;
 	case enTurret_LaserTurret:
 		m_rangeNumber = 0.5f;
@@ -372,6 +394,16 @@ void LeftWindow::SetParameterBar()
 		m_rangeNumber = 0.0f;
 		m_damageNumber = 0.0f;
 		m_fireRateNumber = 0.0f;
+		break;
+	case enTurret_HealTurret:
+		m_rangeNumber = 0.0f;
+		m_damageNumber = 0.0f;
+		m_fireRateNumber = 0.0f;
+		break;
+	case enTurret_TeslaTurret:
+		m_rangeNumber = 0.75f;
+		m_damageNumber = 0.75f;
+		m_fireRateNumber = 0.1f;
 		break;
 	default:
 		break;
@@ -461,14 +493,22 @@ void LeftWindow::Update()
 	//タレット
 	m_turret_BackGroundSR.SetPosition({ m_turretBackGroundPosition[m_selectTurretNumber].x + m_moveNumber, m_turretBackGroundPosition[m_selectTurretNumber].y, m_turretBackGroundPosition[m_selectTurretNumber].z });
 	m_turret_BackGroundSR.Update();
-	m_dualGunTurret_DetailSR.SetPosition({ LEFTWINDOW_POSITION.x + m_moveNumber, LEFTWINDOW_POSITION.y, LEFTWINDOW_POSITION.z });
-	m_dualGunTurret_DetailSR.Update();
-	m_laserTurret_DetailSR.SetPosition({ LEFTWINDOW_POSITION.x + m_moveNumber, LEFTWINDOW_POSITION.y, LEFTWINDOW_POSITION.z });
-	m_laserTurret_DetailSR.Update();
-	m_rocketTurret_DetailSR.SetPosition({ LEFTWINDOW_POSITION.x + m_moveNumber, LEFTWINDOW_POSITION.y, LEFTWINDOW_POSITION.z });
-	m_rocketTurret_DetailSR.Update();
-	m_generationTurret_DetailSR.SetPosition({ LEFTWINDOW_POSITION.x + m_moveNumber, LEFTWINDOW_POSITION.y, LEFTWINDOW_POSITION.z });
-	m_generationTurret_DetailSR.Update();
+	m_detail_NormalTurretSR.SetPosition({ LEFTWINDOW_POSITION.x + m_moveNumber, LEFTWINDOW_POSITION.y, LEFTWINDOW_POSITION.z });
+	m_detail_NormalTurretSR.Update();
+	m_detail_DualGunTurretSR.SetPosition({ LEFTWINDOW_POSITION.x + m_moveNumber, LEFTWINDOW_POSITION.y, LEFTWINDOW_POSITION.z });
+	m_detail_DualGunTurretSR.Update();
+	m_detail_LaserTurretSR.SetPosition({ LEFTWINDOW_POSITION.x + m_moveNumber, LEFTWINDOW_POSITION.y, LEFTWINDOW_POSITION.z });
+	m_detail_LaserTurretSR.Update();
+	m_detail_RocketTurretSR.SetPosition({ LEFTWINDOW_POSITION.x + m_moveNumber, LEFTWINDOW_POSITION.y, LEFTWINDOW_POSITION.z });
+	m_detail_RocketTurretSR.Update();
+	m_detail_GenerationTurretSR.SetPosition({ LEFTWINDOW_POSITION.x + m_moveNumber, LEFTWINDOW_POSITION.y, LEFTWINDOW_POSITION.z });
+	m_detail_GenerationTurretSR.Update();
+	m_detail_HealTurretSR.SetPosition({ LEFTWINDOW_POSITION.x + m_moveNumber, LEFTWINDOW_POSITION.y, LEFTWINDOW_POSITION.z });
+	m_detail_HealTurretSR.Update();
+	m_detail_TeslaTurretSR.SetPosition({ LEFTWINDOW_POSITION.x + m_moveNumber, LEFTWINDOW_POSITION.y, LEFTWINDOW_POSITION.z });
+	m_detail_TeslaTurretSR.Update();
+	m_detail_HolyTurretSR.SetPosition({ LEFTWINDOW_POSITION.x + m_moveNumber, LEFTWINDOW_POSITION.y, LEFTWINDOW_POSITION.z });
+	m_detail_HolyTurretSR.Update();
 }
 
 void LeftWindow::Render(RenderContext& renderContext)
@@ -487,14 +527,20 @@ void LeftWindow::Render(RenderContext& renderContext)
 		//タレット選択モード時
 		if (m_operationState == enOperationState_SelectTurret_LeftWindow)
 		{
+			//パラメーター
 			m_parameter_RangeSR.Draw(renderContext);
 			m_parameter_DamageSR.Draw(renderContext);
 			m_parameter_FireRateSR.Draw(renderContext);
+			//タレット
 			m_weapons_BackGroundSR.Draw(renderContext);
-			m_dualGunTurret_DetailSR.Draw(renderContext);
-			m_laserTurret_DetailSR.Draw(renderContext);
-			m_rocketTurret_DetailSR.Draw(renderContext);
-			m_generationTurret_DetailSR.Draw(renderContext);
+			m_detail_NormalTurretSR.Draw(renderContext);
+			m_detail_DualGunTurretSR.Draw(renderContext);
+			m_detail_LaserTurretSR.Draw(renderContext);
+			m_detail_RocketTurretSR.Draw(renderContext);
+			m_detail_GenerationTurretSR.Draw(renderContext);
+			m_detail_HealTurretSR.Draw(renderContext);
+			m_detail_TeslaTurretSR.Draw(renderContext);
+			m_detail_HolyTurretSR.Draw(renderContext);
 		}
 
 		//タレット削除モード時

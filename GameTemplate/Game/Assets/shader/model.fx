@@ -1,5 +1,12 @@
 // YuMild.Engine
 
+
+////////////////////////////////////////////////
+// 定数
+////////////////////////////////////////////////
+
+static const float PI = 3.1415926f; //円周率
+
 // ディレクションライト
 struct DirectionLight
 {
@@ -53,47 +60,145 @@ cbuffer LightCb : register(b1)
 // スキニング用の頂点データをひとまとめ。
 struct SSkinVSIn
 {
-    int4 Indices    : BLENDINDICES0;
-    float4 Weights  : BLENDWEIGHT0;
+    int4 Indices        : BLENDINDICES0;
+    float4 Weights      : BLENDWEIGHT0;
 };
 
 // 頂点シェーダーへの入力。
 struct SVSIn
 {
-    float4 pos      : POSITION;         //モデルの頂点座標
-    float3 normal   : NORMAL;           //法線
-    float2 uv       : TEXCOORD0;        //UV座標
+    float4 pos          : POSITION;         //モデルの頂点座標
+    float3 normal       : NORMAL;           //法線
+    float2 uv           : TEXCOORD0;        //UV座標
     
-    float3 tangent  : TANGENT;          //接ベクトル
-    float3 biNormal : BINORMAL;         //従ベクトル
+    float3 tangent      : TANGENT;          //接ベクトル
+    float3 biNormal     : BINORMAL;         //従ベクトル
     
-    SSkinVSIn skinVert;                 //スキン用のデータ
+    SSkinVSIn skinVert;                     //スキン用のデータ
 };
 
 // ピクセルシェーダーへの入力。
 struct SPSIn
 {
-    float4 pos      : SV_POSITION;      //スクリーン空間でのピクセルの座標
-    float3 normal   : NORMAL;           //法線
-    float2 uv       : TEXCOORD0;        //uv座標
-    float3 worldPos : TEXCOORD1;        //ワールド座標
+    float4 pos          : SV_POSITION;      //スクリーン空間でのピクセルの座標
+    float3 normal       : NORMAL;           //法線
+    float2 uv           : TEXCOORD0;        //uv座標
+    float3 worldPos     : TEXCOORD1;        //ワールド座標
     
-    float3 tangent  : TANGENT;          //接ベクトル
-    float3 biNormal : BINORMAL;         //従ベクトル
+    float3 tangent      : TANGENT;          //接ベクトル
+    float3 biNormal     : BINORMAL;         //従ベクトル
 };
 
 ////////////////////////////////////////////////
 // グローバル変数。
 ////////////////////////////////////////////////
-Texture2D<float4> g_texture : register(t0);             //アルベドマップ
+
+Texture2D<float4> g_albedo : register(t0);              //アルベドマップ
 Texture2D<float4> g_normalMap : register(t1);           //法線マップ
-Texture2D<float4> g_specularMap : register(t2);         //スペキュラマップ
+Texture2D<float4> g_metallicSmoothMap : register(t2);   //スペキュラマップ
 StructuredBuffer<float4x4> g_boneMatrix : register(t3); //ボーン行列
 sampler g_sampler : register(s0);                       //サンプラステート
 
 ////////////////////////////////////////////////
 // 関数定義。
 ////////////////////////////////////////////////
+
+// 法線を取得
+float3 GetNormal(float3 normal, float3 tangent, float3 biNormal, float2 uv)
+{
+    float3 binSpaceNormal = g_normalMap.SampleLevel(g_sampler, uv, 0.0f).xyz;
+    binSpaceNormal = (binSpaceNormal * 2.0f) - 1.0f;
+
+    float3 newNormal = tangent * binSpaceNormal.x + biNormal * binSpaceNormal.y + normal * binSpaceNormal.z;
+
+    return newNormal;
+}
+
+// ベックマン分布を計算する
+float Beckmann(float m, float t)
+{
+    float t2 = t * t;
+    float t4 = t * t * t * t;
+    float m2 = m * m;
+    float D = 1.0f / (4.0f * m2 * t4);
+    D *= exp((-1.0f / m2) * (1.0f - t2) / t2);
+    return D;
+}
+
+// フレネルを計算。Schlick近似を使用
+float SpcFresnel(float f0, float u)
+{
+    // from Schlick
+    return f0 + (1 - f0) * pow(1 - u, 5);
+}
+
+/// <summary>
+/// Cook-Torranceモデルの鏡面反射を計算
+/// </summary>
+/// <param name="L">光源に向かうベクトル</param>
+/// <param name="V">視点に向かうベクトル</param>
+/// <param name="N">法線ベクトル</param>
+/// <param name="metallic">金属度</param>
+float CookTorranceSpecular(float3 L, float3 V, float3 N, float metallic)
+{
+    float microfacet = 0.76f;
+
+    // 金属度を垂直入射の時のフレネル反射率として扱う
+    // 金属度が高いほどフレネル反射は大きくなる
+    float f0 = metallic;
+
+    // ライトに向かうベクトルと視線に向かうベクトルのハーフベクトルを求める
+    float3 H = normalize(L + V);
+
+    // 各種ベクトルがどれくらい似ているかを内積を利用して求める
+    float NdotH = saturate(dot(N, H));
+    float VdotH = saturate(dot(V, H));
+    float NdotL = saturate(dot(N, L));
+    float NdotV = saturate(dot(N, V));
+
+    // D項をベックマン分布を用いて計算する
+    float D = Beckmann(microfacet, NdotH);
+
+    // F項をSchlick近似を用いて計算する
+    float F = SpcFresnel(f0, VdotH);
+
+    // G項を求める
+    float G = min(1.0f, min(2 * NdotH * NdotV / VdotH, 2 * NdotH * NdotL / VdotH));
+
+    // m項を求める
+    float m = PI * NdotV * NdotH;
+
+    // ここまで求めた、値を利用して、Cook-Torranceモデルの鏡面反射を求める
+    return max(F * D * G / m, 0.0);
+}
+
+/// <summary>
+/// フレネル反射を考慮した拡散反射を計算
+/// </summary>
+/// <remark>
+/// この関数はフレネル反射を考慮した拡散反射率を計算します
+/// フレネル反射は、光が物体の表面で反射する現象のとこで、鏡面反射の強さになります
+/// 一方拡散反射は、光が物体の内部に入って、内部錯乱を起こして、拡散して反射してきた光のことです
+/// つまりフレネル反射が弱いときには、拡散反射が大きくなり、フレネル反射が強いときは、拡散反射が小さくなります
+///
+/// </remark>
+/// <param name="N">法線</param>
+/// <param name="L">光源に向かうベクトル。光の方向と逆向きのベクトル。</param>
+/// <param name="V">視線に向かうベクトル。</param>
+float CalcDiffuseFromFresnel(float3 N, float3 L, float3 V)
+{
+    // step-4 フレネル反射を考慮した拡散反射光を求める
+
+    // 法線と光源に向かうベクトルがどれだけ似ているかを内積で求める
+    float dotNL = saturate(dot(N, L));
+
+    // 法線と視線に向かうベクトルがどれだけ似ているかを内積で求める
+    float dotNV = saturate(dot(N, V));
+
+    // 法線と光源への方向に依存する拡散反射率と、法線と視点ベクトルに依存する拡散反射率を
+    // 乗算して最終的な拡散反射率を求めている。PIで除算しているのは正規化を行うため
+    return (dotNL * dotNV);
+}
 
 /// <summary>
 // スキン行列を計算する
@@ -164,7 +269,7 @@ SPSIn VSSkinMain(SVSIn vsIn)
 /// ピクセルシェーダーのエントリー関数。
 /// </summary>
 float4 PSMain(SPSIn psIn) : SV_Target0
-{r4
+{ 
     float3 normal = psIn.normal;
     //法線マップからタンジェントスペースの法線をサンプリングする
     float3 localNormal = g_normalMap.Sample(g_sampler, psIn.uv).xyz;
@@ -267,7 +372,7 @@ float4 PSMain(SPSIn psIn) : SV_Target0
     
     
     //スペキュラマップ
-    float specularPower = g_specularMap.Sample(g_sampler, psIn.uv).r;
+    float specularPower = g_metallicSmoothMap.Sample(g_sampler, psIn.uv).r;
     specularFinalLight *= specularPower * 10.0f;
     
 
@@ -281,7 +386,41 @@ float4 PSMain(SPSIn psIn) : SV_Target0
     
     
     
-    float4 finalColor = g_texture.Sample(g_sampler, psIn.uv);
+    ////PBR
+    //float3 normal2 = GetNormal(psIn.normal, psIn.tangent, psIn.biNormal, psIn.uv);
+    //float4 albedoColor = g_albedo.Sample(g_sampler, psIn.uv);
+    //float3 specColor = albedoColor;
+    //float metallic = g_metallicSmoothMap.Sample(g_sampler, psIn.uv).r;
+    //float smooth = g_metallicSmoothMap.Sample(g_sampler, psIn.uv).a;
+    //float3 toEye = normalize(eyePos - psIn.worldPos);
+    
+    ////フレネル反射を考慮した拡散反射を計算
+    //float diffuseFromFresnel = CalcDiffuseFromFresnel(
+    //        normal2, -directionLight.direction, toEye);
+
+    ////正規化Lambert拡散反射を求める
+    //float NdotL = saturate(dot(normal2, -directionLight.direction));
+    //float3 lambertDiffuse = directionLight.color * NdotL / PI;
+
+    ////最終的な拡散反射光を計算する
+    //float3 diffuse = albedoColor * diffuseFromFresnel * lambertDiffuse;
+
+    ////Cook-Torranceモデルの鏡面反射率を計算する
+    //float3 spec = CookTorranceSpecular(
+    //        -directionLight.direction, toEye, normal2, smooth)
+    //        * directionLight.color;
+
+    ////金属度が高ければ、鏡面反射はスペキュラカラー、低ければ白
+    ////スペキュラカラーの強さを鏡面反射率として扱う
+    //spec *= lerp(float3(1.0f, 1.0f, 1.0f), specColor, metallic);
+
+    ////滑らかさを使って、拡散反射光と鏡面反射光を合成する
+    ////滑らかさが高ければ、拡散反射は弱くなる
+    //finalLight += diffuse * (1.0f - smooth) + spec;
+    
+    
+    
+    float4 finalColor = g_albedo.Sample(g_sampler, psIn.uv);
 	
     finalColor.xyz *= finalLight;
     

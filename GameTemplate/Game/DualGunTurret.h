@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Game.h"
+
 #include "EnemyObject.h"
 #include "TurretObject.h"
 
@@ -120,25 +122,12 @@ private:
 	/// エフェクトを再生
 	/// </summary>
 	/// <param name="position"></param>
-	void EffectPlayHit(const Vector3& position)
-	{
-		m_hitEF = NewGO<EffectEmitter>(0);
-		m_hitEF->Init(2);
-		m_hitEF->SetPosition({ position.x,position.y + 200.0f,position.z + 300.0f });
-		m_hitEF->SetScale(Vector3::One * 150.0f);
-		m_hitEF->Play();
-	}
+	void EffectPlayHit(const Vector3& position);
 
 	/// <summary>
 	/// 銃声を再生
 	/// </summary>
-	void SoundPlayFire()
-	{
-		m_fireSE = NewGO<SoundSource>(0);
-		m_fireSE->Init(6);
-		m_fireSE->SetVolume(0.025f);
-		m_fireSE->Play(false);
-	}
+	void SoundPlayFire();
 
 	//攻撃処理
 	std::vector<EnemyObject*>		m_enemys;

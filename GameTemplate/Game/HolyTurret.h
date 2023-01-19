@@ -121,26 +121,12 @@ private:
 	/// エフェクトを再生
 	/// </summary>
 	/// <param name="position"></param>
-	void EffectPlayHoly(const Vector3& position)
-	{
-		m_holyEF = NewGO<EffectEmitter>(0);
-		m_holyEF->Init(8);
-		m_holyEF->SetPosition({ position.x,position.y - 10.0f,position.z + 300.0f });
-		m_holyEF->SetRotation(m_effectRotation);
-		m_holyEF->SetScale(Vector3::One * 100.0f);
-		m_holyEF->Play();
-	}
+	void EffectPlayHoly(const Vector3& position);
 
 	/// <summary>
 	/// 銃声を再生
 	/// </summary>
-	void SoundPlayHoly()
-	{
-		m_holySE = NewGO<SoundSource>(0);
-		m_holySE->Init(14);
-		m_holySE->SetVolume(0.05f);
-		m_holySE->Play(false);
-	}
+	void SoundPlayHoly();
 
 	//攻撃処理
 	std::vector<EnemyObject*>		m_enemys;

@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "DualGunTurret.h"
 
+#include "Game.h"
 #include "LeftWindow.h"
 #include "TurretManager.h"
 
@@ -13,7 +14,7 @@ namespace
 bool DualGunTurret::Start()
 {
 	//ƒ^ƒŒƒbƒg
-	m_turretMR.Init("Assets/ModelData/Turret/DualGunTurret.tkm", ShadowRecieveAndDrop,true);
+	m_turretMR.Init("Assets/ModelData/Turret/DualGunTurret.tkm", ShadowNone,true);
 	m_turretMR.SetPosition(m_modelPosition);
 	m_turretMR.SetRotation(m_modelRotation);
 	m_turretMR.SetScale({ 1.0f,1.0f,1.0f });
@@ -37,7 +38,7 @@ bool DualGunTurret::Start()
 	EffectEngine::GetInstance()->ResistEffect(2, u"Assets/effect/DualGunTurret.efk");
 
 	//‰¹º‚Ì¶¬
-	g_soundEngine->ResistWaveFileBank(6, "Assets/sound/DualGunTurret.wav");
+	g_soundEngine->ResistWaveFileBank(enSoundNumber_DualGunTurret, "Assets/sound/DualGunTurret.wav");
 
 	return true;
 }
@@ -124,4 +125,21 @@ void DualGunTurret::Render(RenderContext& renderContext)
 	{
 		m_attackRangeMR.Draw(renderContext);
 	}
+}
+
+void DualGunTurret::EffectPlayHit(const Vector3& position)
+{
+	m_hitEF = NewGO<EffectEmitter>(0);
+	m_hitEF->Init(2);
+	m_hitEF->SetPosition({ position.x,position.y + 200.0f,position.z + 300.0f });
+	m_hitEF->SetScale(Vector3::One * 150.0f);
+	m_hitEF->Play();
+}
+
+void DualGunTurret::SoundPlayFire()
+{
+	m_fireSE = NewGO<SoundSource>(0);
+	m_fireSE->Init(enSoundNumber_DualGunTurret);
+	m_fireSE->SetVolume(0.025f);
+	m_fireSE->Play(false);
 }

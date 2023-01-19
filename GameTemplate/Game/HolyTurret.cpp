@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "HolyTurret.h"
 
+#include "Game.h"
 #include "TurretManager.h"
 
 namespace
@@ -30,7 +31,7 @@ bool HolyTurret::Start()
 	m_turret_HourHandMR.Update();
 
 	//’·j
-	m_turret_MiniteHandMR.Init("Assets/ModelData/Turret/HolyTurret_MiniteHand.tkm", ShadowRecieveAndDrop, true);
+	m_turret_MiniteHandMR.Init("Assets/ModelData/Turret/HolyTurret_MiniteHand.tkm", ShadowNone, true);
 	m_turret_MiniteHandMR.SetPosition(m_modelPosition);
 	m_turret_MiniteHandMR.SetRotation(m_modelRotation);
 	m_turret_MiniteHandMR.SetScale({ 1.0f,1.0f,1.0f });
@@ -50,7 +51,7 @@ bool HolyTurret::Start()
 	EffectEngine::GetInstance()->ResistEffect(8, u"Assets/effect/HolyTurret.efk");
 
 	//‰¹º‚Ì¶¬
-	g_soundEngine->ResistWaveFileBank(14, "Assets/sound/HolyTurret.wav");
+	g_soundEngine->ResistWaveFileBank(enSoundNumber_HolyTurret, "Assets/sound/HolyTurret.wav");
 
 	return true;
 }
@@ -112,4 +113,22 @@ void HolyTurret::Render(RenderContext& renderContext)
 	m_turret_HourHandMR.Draw(renderContext);
 	m_turret_MiniteHandMR.Draw(renderContext);
 	m_baseMR.Draw(renderContext);
+}
+
+void HolyTurret::EffectPlayHoly(const Vector3& position)
+{
+	m_holyEF = NewGO<EffectEmitter>(0);
+	m_holyEF->Init(8);
+	m_holyEF->SetPosition({ position.x,position.y - 10.0f,position.z + 300.0f });
+	m_holyEF->SetRotation(m_effectRotation);
+	m_holyEF->SetScale(Vector3::One * 100.0f);
+	m_holyEF->Play();
+}
+
+void HolyTurret::SoundPlayHoly()
+{
+	m_holySE = NewGO<SoundSource>(0);
+	m_holySE->Init(13);
+	m_holySE->SetVolume(0.05f);
+	m_holySE->Play(false);
 }

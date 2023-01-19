@@ -46,7 +46,7 @@ bool Dempa::Start()
 	m_turretManager = FindGO<TurretManager>("turretManager");
 
 	//ƒ‚ƒfƒ‹
-	m_modelRender.Init("Assets/modelData/Enemy/UFO_Green.tkm", ShadowRecieveAndDrop);
+	m_modelRender.Init("Assets/modelData/Enemy/UFO_Green.tkm", ShadowNone);
 	m_position = DEFAULT_POSITION;
 	m_modelRender.SetPosition(m_position);
 	m_rotation.SetRotationDegY(DEFAULT_ROTATION_Y);

@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "TeslaTurret.h"
 
+#include "Game.h"
 #include "LeftWindow.h"
 #include "TurretManager.h"
 
@@ -14,7 +15,7 @@ namespace
 bool TeslaTurret::Start()
 {
 	//ƒ^ƒŒƒbƒg
-	m_turretMR.Init("Assets/ModelData/Turret/TeslaTurret.tkm", ShadowRecieveAndDrop, true);
+	m_turretMR.Init("Assets/ModelData/Turret/TeslaTurret.tkm", ShadowNone, true);
 	m_turretMR.SetPosition(m_modelPosition);
 	m_turretMR.SetRotation(m_modelRotation);
 	m_turretMR.SetScale({ 1.0f,1.0f,1.0f });
@@ -38,7 +39,7 @@ bool TeslaTurret::Start()
 	EffectEngine::GetInstance()->ResistEffect(7, u"Assets/effect/TeslaTurret.efk");
 
 	//‰¹º‚Ì¶¬
-	g_soundEngine->ResistWaveFileBank(11, "Assets/sound/TeslaTurret.wav");
+	g_soundEngine->ResistWaveFileBank(enSoundNumber_TeslaTurret, "Assets/sound/TeslaTurret.wav");
 
 	return true;
 }

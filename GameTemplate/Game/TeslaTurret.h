@@ -137,7 +137,7 @@ private:
 	void SoundPlayFire()
 	{
 		m_fireSE = NewGO<SoundSource>(0);
-		m_fireSE->Init(11);
+		m_fireSE->Init(12);
 		m_fireSE->SetVolume(0.025f);
 		m_fireSE->Play(false);
 	}

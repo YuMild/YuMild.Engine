@@ -2,6 +2,7 @@
 #include "TurretManager.h"
 
 #include "Energy.h"
+#include "Game.h"
 #include "LeftWindow.h"
 #include "LeftWindowDelete.h"
 
@@ -16,16 +17,6 @@
 
 namespace
 {
-	//タレットの生産コスト
-	float COST_NORMALTURRET = 100.0f;
-	float COST_DUALGUNTURRET = 100.0f;
-	float COST_LASERTURRET = 300.0f;
-	float COST_ROCKETTURRET = 500.0f;
-	float COST_GENERATIONTURRET = 500.0f;
-	float COST_HEALTURRET = 500.0f;
-	float COST_TESLATURRET = 500.0f;
-	float COST_HOLYTURRET = 1000.0f;
-
 	//Delete
 	float DELETE_SPRITE_SIZE_WIDTH = 1280.0f;
 	float DELETE_SPRITE_SIZE_HEIGHT = 720.0f;
@@ -94,8 +85,8 @@ bool TurretManager::Start()
 	EffectEngine::GetInstance()->ResistEffect(3, u"Assets/effect/CursorAfter.efk");
 
 	//音声の作成
-	g_soundEngine->ResistWaveFileBank(8, "Assets/sound/CursorAfter3.wav");
-	g_soundEngine->ResistWaveFileBank(3, "Assets/sound/SetTurret.wav");
+	g_soundEngine->ResistWaveFileBank(enSoundNumber_CursorAfter, "Assets/sound/CursorAfter.wav");
+	g_soundEngine->ResistWaveFileBank(enSoundNumber_SetTurret, "Assets/sound/SetTurret.wav");
 
 	return true;
 }
@@ -222,7 +213,7 @@ void TurretManager::StateManager()
 			m_leftWindow->SetButtonDelay();
 			DeleteGO(m_normalTurret);
 			MakeNormalTurret();
-			m_energy->SubEnergy(COST_NORMALTURRET);
+			m_energy->SubEnergy(m_energy->COST_NORMALTURRET);
 			SoundPlaySetTurret();
 			m_leftWindow->SetOperationState(enOperationState_Normal_LeftWindow);
 		}
@@ -239,7 +230,7 @@ void TurretManager::StateManager()
 	/// <summary>
 	/// DualGunTurret
 	/// </summary>
-	if (m_turretType == enTurret_DualGunTurret)
+	else if (m_turretType == enTurret_DualGunTurret)
 	{
 		if (m_isGorstModelNewGO)
 		{
@@ -342,7 +333,7 @@ void TurretManager::StateManager()
 			m_leftWindow->SetButtonDelay();
 			DeleteGO(m_dualGunTurret);
 			MakeDualGunTurret();
-			m_energy->SubEnergy(COST_DUALGUNTURRET);
+			m_energy->SubEnergy(m_energy->COST_DUALGUNTURRET);
 			SoundPlaySetTurret();
 			m_leftWindow->SetOperationState(enOperationState_Normal_LeftWindow);
 		}
@@ -462,7 +453,7 @@ void TurretManager::StateManager()
 			m_leftWindow->SetButtonDelay();
 			DeleteGO(m_laserTurret);
 			MakeLaserTurret();
-			m_energy->SubEnergy(COST_LASERTURRET);
+			m_energy->SubEnergy(m_energy->COST_LASERTURRET);
 			SoundPlaySetTurret();
 			m_leftWindow->SetOperationState(enOperationState_Normal_LeftWindow);
 		}
@@ -582,7 +573,7 @@ void TurretManager::StateManager()
 			m_leftWindow->SetButtonDelay();
 			DeleteGO(m_rocketTurret);
 			MakeRocketTurret();
-			m_energy->SubEnergy(COST_ROCKETTURRET);
+			m_energy->SubEnergy(m_energy->COST_ROCKETTURRET);
 			SoundPlaySetTurret();
 			m_leftWindow->SetOperationState(enOperationState_Normal_LeftWindow);
 		}
@@ -702,7 +693,7 @@ void TurretManager::StateManager()
 			m_leftWindow->SetButtonDelay();
 			DeleteGO(m_generationTurret);
 			MakeGenerationTurret();
-			m_energy->SubEnergy(COST_GENERATIONTURRET);
+			m_energy->SubEnergy(m_energy->COST_GENERATIONTURRET);
 			SoundPlaySetTurret();
 			m_leftWindow->SetOperationState(enOperationState_Normal_LeftWindow);
 		}
@@ -822,7 +813,7 @@ void TurretManager::StateManager()
 			m_leftWindow->SetButtonDelay();
 			DeleteGO(m_healTurret);
 			MakeHealTurret();
-			m_energy->SubEnergy(COST_HEALTURRET);
+			m_energy->SubEnergy(m_energy->COST_HEALTURRET);
 			SoundPlaySetTurret();
 			m_leftWindow->SetOperationState(enOperationState_Normal_LeftWindow);
 		}
@@ -942,7 +933,7 @@ void TurretManager::StateManager()
 			m_leftWindow->SetButtonDelay();
 			DeleteGO(m_teslaTurret);
 			MakeTeslaTurret();
-			m_energy->SubEnergy(COST_HOLYTURRET);
+			m_energy->SubEnergy(m_energy->COST_TESLATURRET);
 			SoundPlaySetTurret();
 			m_leftWindow->SetOperationState(enOperationState_Normal_LeftWindow);
 		}
@@ -1062,7 +1053,7 @@ void TurretManager::StateManager()
 			m_leftWindow->SetButtonDelay();
 			DeleteGO(m_holyTurret);
 			MakeHolyTurret();
-			m_energy->SubEnergy(COST_HEALTURRET);
+			m_energy->SubEnergy(m_energy->COST_HOLYTURRET);
 			SoundPlaySetTurret();
 			m_leftWindow->SetOperationState(enOperationState_Normal_LeftWindow);
 		}
@@ -1262,7 +1253,6 @@ void TurretManager::MakeHolyTurret()
 	m_turretsSum++;
 	m_isModelNewGO = false;
 }
-
 
 void TurretManager::Update()
 {

@@ -3,6 +3,7 @@
 #include "TurretObject.h"
 
 class Energy;
+class Game;
 class Player;
 class TurretManager;
 
@@ -143,9 +144,9 @@ public:
 	/// </summary>
 	void SoundPlayWindow()
 	{
-		m_windowSE = NewGO<SoundSource>(1);
-		m_windowSE->Init(1);
-		m_windowSE->SetVolume(1.0f);
+		m_windowSE = NewGO<SoundSource>(0);
+		m_windowSE->Init(3);
+		m_windowSE->SetVolume(0.3f);
 		m_windowSE->Play(false);
 	}
 
@@ -154,8 +155,8 @@ public:
 	/// </summary>
 	void SoundPlayChoice()
 	{
-		m_choiceSE = NewGO<SoundSource>(2);
-		m_choiceSE->Init(2);
+		m_choiceSE = NewGO<SoundSource>(0);
+		m_choiceSE->Init(4);
 		m_choiceSE->SetVolume(0.1f);
 		m_choiceSE->Play(false);
 	}
@@ -219,10 +220,15 @@ private:
 	SpriteRender				m_parameter_DamageSR;
 	SpriteRender				m_parameter_FireRateSR;
 	//è⁄ç◊
-	SpriteRender				m_dualGunTurret_DetailSR;
-	SpriteRender				m_laserTurret_DetailSR;
-	SpriteRender				m_rocketTurret_DetailSR;
-	SpriteRender				m_generationTurret_DetailSR;
+	SpriteRender				m_detail_NormalTurretSR;
+	SpriteRender				m_detail_DualGunTurretSR;
+	SpriteRender				m_detail_LaserTurretSR;
+	SpriteRender				m_detail_RocketTurretSR;
+	SpriteRender				m_detail_GenerationTurretSR;
+	SpriteRender				m_detail_HealTurretSR;
+	SpriteRender				m_detail_TeslaTurretSR;
+	SpriteRender				m_detail_HolyTurretSR;
+
 	//îwåi
 	SpriteRender				m_weapons_BackGroundSR;
 	SpriteRender				m_delete_BackGroundSR;

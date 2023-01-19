@@ -5,13 +5,19 @@
 // K2EngineLowのグローバルアクセスポイント。
 K2EngineLow* g_k2EngineLow = nullptr;
 
+namespace
+{
+	const float DIRECTIONLIGHT_COLOR = 1.0f;
+	const float AMBIENTLIGHT_COLOR = 0.8f;
+}
+
 /// <summary>
 /// メイン関数
 /// </summary>
 int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLine, int nCmdShow)
 {
 	// ゲームの初期化。
-	InitGame(hInstance, hPrevInstance, lpCmdLine, nCmdShow, TEXT("Game"));
+	InitGame(hInstance, hPrevInstance, lpCmdLine, nCmdShow, TEXT("PlanetBreaker"));
 
 	// k2EngineLowの初期化。
 	g_k2EngineLow = new K2EngineLow();
@@ -19,7 +25,8 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	
 	//ライト
 	g_sceneLight.SetEyePosition({ g_camera3D->GetPosition().x, g_camera3D->GetPosition().y, g_camera3D->GetPosition().z });
-	g_sceneLight.SetDirectionColor({ 1.0f,1.0f,1.0f });
+	g_sceneLight.SetDirectionColor({ DIRECTIONLIGHT_COLOR,DIRECTIONLIGHT_COLOR,DIRECTIONLIGHT_COLOR });
+	g_sceneLight.SetAmbientLight({ AMBIENTLIGHT_COLOR,AMBIENTLIGHT_COLOR,AMBIENTLIGHT_COLOR });
 
 	//ポストエフェクト
 	g_renderingEngine.Init();
@@ -28,12 +35,6 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 
 	//ゲームの作成
 	NewGO<Title>(0, "title");
-
-	/*Texture emmisionMap;
-	emmisionMap.InitFromDDSFile(L"test.dds");
-	ModelInitData modelInitData;
-	modelInitData.m_expandShaderResoruceView[0] = &emmisionMap;
-	*/
 
 	// ここからゲームループ。
 	while (DispatchWindowMessage())

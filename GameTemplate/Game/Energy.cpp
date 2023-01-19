@@ -1,18 +1,16 @@
 #include "stdafx.h"
 #include "Energy.h"
 
+#include "Game.h"
 #include "LeftWindow.h"
 
 namespace
 {
-    //タレットの生産コスト
-    float COST_DUALGUNTURRET = 100.0f;
-    float COST_LASERTURRET = 200.0f;
-    float COST_ROCKETTURRET = 400.0f;
-    float COST_GENERATIONTURRET = 400.0f;
+    //ゲームスタート時の初期エネルギー量
+    const float FIRST_ENERGY = 5000.0f;
 
     //デフォルトの生産効率
-    float DEFAULT_ENERGY_EFFICIENCY = 10.0f;
+    const float DEFAULT_ENERGY_EFFICIENCY = 10.0f;
 }
 
 bool Energy::Start()
@@ -41,10 +39,10 @@ bool Energy::Start()
     m_gaugeSR.Update();
 
     //音声
-    g_soundEngine->ResistWaveFileBank(7, "Assets/sound/NotEnoughCost.wav");
+    g_soundEngine->ResistWaveFileBank(enSoundNumber_NotEnoughCost, "Assets/sound/NotEnoughCost.wav");
 
     //エネルギー
-    m_energy = 100.0f;
+    m_energy = FIRST_ENERGY;
     m_energyEfficiency = DEFAULT_ENERGY_EFFICIENCY;
 
     return true;

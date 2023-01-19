@@ -20,6 +20,24 @@ enum enGameState
 	enGameState_GameOver
 };
 
+enum enSoundNumber
+{
+	enSoundNumber_BGM,
+	enSoundNumber_Alarm,
+	enSoundNumber_BossBGM,
+	enSoundNumber_Window,
+	enSoundNumber_Choice,
+	enSoundNumber_CursorAfter,
+	enSoundNumber_Explosion,
+	enSoundNumber_NotEnoughCost,
+	enSoundNumber_SetTurret,
+	enSoundNumber_NormalTurret,
+	enSoundNumber_DualGunTurret,
+	enSoundNumber_LaserTurret,
+	enSoundNumber_TeslaTurret,
+	enSoundNumber_HolyTurret
+};
+
 /// <summary>
 /// クラスの生成削除を行うクラス
 /// </summary>

@@ -119,15 +119,14 @@ private:
 	void Move();
 
 	/// <summary>
+	/// エフェクトを再生
+	/// </summary>
+	void EffectPlayLaser();
+
+	/// <summary>
 	/// 銃声を再生
 	/// </summary>
-	void SoundPlayFire()
-	{
-		m_fireSE = NewGO<SoundSource>(0);
-		m_fireSE->Init(10);
-		m_fireSE->SetVolume(0.025f);
-		m_fireSE->Play(false);
-	}
+	void SoundPlayFire();
 
 	//攻撃処理
 	std::vector<EnemyObject*>	m_enemys;

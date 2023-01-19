@@ -77,5 +77,5 @@ void GameOver::Render(RenderContext& renderContext)
 	}
 
 	//ÉXÉRÉA
-	m_scoreFR.Draw(renderContext);
+	//m_scoreFR.Draw(renderContext);
 }

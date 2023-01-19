@@ -18,7 +18,7 @@ bool GenerationTurret::Start()
 	m_energy = FindGO<Energy>("energy");
 
 	//ƒ^ƒŒƒbƒg
-	m_turretMR.Init("Assets/ModelData/Turret/GenerationTurret.tkm", ShadowRecieveAndDrop, true);
+	m_turretMR.Init("Assets/ModelData/Turret/GenerationTurret.tkm", ShadowNone, true);
 	m_turretMR.SetPosition(m_modelPosition);
 	m_turretMR.SetRotation(m_modelRotation);
 	m_turretMR.SetScale({ 1.0f,1.0f,1.0f });

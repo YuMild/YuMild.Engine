@@ -8,12 +8,12 @@
 bool HealTurret::Start()
 {
 	//ƒ^ƒŒƒbƒg
-	m_turretBaseMR.Init("Assets/ModelData/Turret/HealTurretBase.tkm", ShadowRecieveAndDrop, true);
+	m_turretBaseMR.Init("Assets/ModelData/Turret/HealTurretBase.tkm", ShadowNone, true);
 	m_turretBaseMR.SetPosition(m_modelPosition);
 	m_turretBaseMR.SetRotation(m_modelRotation);
 	m_turretBaseMR.SetScale({ 1.0f,1.0f,1.0f });
 	m_turretBaseMR.Update();
-	m_turretMR.Init("Assets/ModelData/Turret/HealTurret.tkm", ShadowRecieveAndDrop, true);
+	m_turretMR.Init("Assets/ModelData/Turret/HealTurret.tkm", ShadowNone, true);
 	m_turretMR.SetPosition(m_modelPosition);
 	m_turretMR.SetRotation(m_modelRotation);
 	m_turretMR.SetScale({ 1.0f,1.0f,1.0f });

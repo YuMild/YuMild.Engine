@@ -174,7 +174,7 @@ namespace nsK2EngineLow {
 		void Update() override;
 	private:
 		std::shared_ptr<WaveFile>		m_waveFile;						//波形データ。
-		IXAudio2SourceVoice* m_sourceVoice = nullptr;		//ソースボイス。
+		IXAudio2SourceVoice*			m_sourceVoice = nullptr;		//ソースボイス。
 		bool							m_isLoop = false;				//ループフラグ。
 		bool							m_isPlaying = false;			//再生中フラグ。
 		unsigned int					m_currentBufferingSize = 0;		//現在のバッファリングのサイズ。

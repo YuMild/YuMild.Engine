@@ -1,5 +1,7 @@
 #pragma once
 
+class Game;
+
 #include "UFO.h"
 #include "Dempa.h"
 #include "SpaceShip.h"
@@ -62,8 +64,8 @@ public:
 	/// </summary>
 	void SoundPlayExplosion()
 	{
-		m_explosionSE = NewGO<SoundSource>(5);
-		m_explosionSE->Init(5);
+		m_explosionSE = NewGO<SoundSource>(0);
+		m_explosionSE->Init(6);
 		m_explosionSE->SetVolume(0.05f);
 		m_explosionSE->Play(false);
 	}
@@ -96,7 +98,7 @@ private:
 	void SoundPlayBossSpawn()
 	{
 		m_bossSpawnSE = NewGO<SoundSource>(0);
-		m_bossSpawnSE->Init(12);
+		m_bossSpawnSE->Init(1);
 		m_bossSpawnSE->SetVolume(0.05f);
 		m_bossSpawnSE->Play(false);
 	}

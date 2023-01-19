@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "SpawnManager.h"
 
+#include "Game.h"
+
 namespace
 {
 	//HP
@@ -44,8 +46,8 @@ bool SpawnManager::Start()
 	m_warningLeftCircleSR.Update();
 
 	//‰¹º
-	g_soundEngine->ResistWaveFileBank(5, "Assets/sound/Explosion.wav");
-	g_soundEngine->ResistWaveFileBank(12, "Assets/sound/Alarm.wav");
+	g_soundEngine->ResistWaveFileBank(enSoundNumber_Explosion, "Assets/sound/Explosion.wav");
+	g_soundEngine->ResistWaveFileBank(enSoundNumber_Alarm, "Assets/sound/Alarm.wav");
 
 	//HP
 	m_defaultHP_UFO = DEFAULT_HP_UFO;

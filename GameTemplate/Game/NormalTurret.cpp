@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "NormalTurret.h"
 
+#include "Game.h"
 #include "LeftWindow.h"
 #include "TurretManager.h"
 
@@ -13,7 +14,7 @@ namespace
 bool NormalTurret::Start()
 {
 	//ƒ^ƒŒƒbƒg
-	m_turretMR.Init("Assets/ModelData/Turret/NormalTurret.tkm", ShadowRecieveAndDrop, true);
+	m_turretMR.Init("Assets/ModelData/Turret/NormalTurret.tkm", ShadowNone, true);
 	m_turretMR.SetPosition(m_modelPosition);
 	m_turretMR.SetRotation(m_modelRotation);
 	m_turretMR.SetScale({ 1.0f,1.0f,1.0f });
@@ -37,7 +38,7 @@ bool NormalTurret::Start()
 	EffectEngine::GetInstance()->ResistEffect(6, u"Assets/effect/NormalTurret.efk");
 
 	//‰¹º‚Ì¶¬
-	g_soundEngine->ResistWaveFileBank(9, "Assets/sound/NormalTurret.wav");
+	g_soundEngine->ResistWaveFileBank(enSoundNumber_NormalTurret, "Assets/sound/NormalTurret.wav");
 
 	return true;
 }

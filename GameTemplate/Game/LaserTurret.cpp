@@ -118,12 +118,8 @@ void LaserTurret::Move()
 			m_laserEF->SetRotation(m_modelRotation);
 		}
 	}
-}
 
-void LaserTurret::Update()
-{
-	Move();
-
+	//çXêVèàóù
 	m_turretMR.SetPosition(m_modelPosition);
 	m_turretMR.SetRotation(m_modelRotation);
 	m_turretMR.Update();
@@ -132,6 +128,11 @@ void LaserTurret::Update()
 	m_attackRangeMR.SetPosition(m_modelPosition);
 	m_attackRangeMR.SetRotation(m_modelRotation);
 	m_attackRangeMR.Update();
+}
+
+void LaserTurret::Update()
+{
+	Move();
 }
 
 void LaserTurret::Render(RenderContext& renderContext)

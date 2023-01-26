@@ -22,6 +22,13 @@ bool NormalTurret::Start()
 	m_turretMR.SetScale({ 1.0f,1.0f,1.0f });
 	m_turretMR.Update();
 
+	//タレット土台
+	m_turretBaseMR.Init("Assets/ModelData/Turret/TurretBase.tkm", ShadowNone, true);
+	m_turretBaseMR.SetPosition(m_modelPosition);
+	m_turretBaseMR.SetRotation(m_modelRotation);
+	m_turretBaseMR.SetScale({ 1.0f,1.0f,1.0f });
+	m_turretBaseMR.Update();
+
 	//土台
 	m_baseMR.Init("Assets/ModelData/Turret/Base.tkm", ShadowRecieveAndDrop, true);
 	m_baseMR.SetPosition(m_modelPosition);
@@ -41,6 +48,9 @@ bool NormalTurret::Start()
 
 	//音声の生成
 	g_soundEngine->ResistWaveFileBank(enSoundNumber_NormalTurret, "Assets/sound/NormalTurret.wav");
+
+	//初期化
+	m_recoilPosition = m_modelPosition;
 
 	//HPを設定
 	m_maxHp = MAX_HP;
@@ -111,30 +121,48 @@ void NormalTurret::Move()
 					enemys->SubHP(ATTACKPOWER);
 					EffectPlayHit(m_lockOnPosition);
 					SoundPlayFire();
+					//リコイル
+					m_recoilMoveSpeed = m_difference;
+					m_recoilPosition = m_modelPosition;
+					m_recoilPosition -= m_recoilMoveSpeed * 50.0f;
 					m_fireRate = 0.0f;
 				}
 			}
 		}
+		//リコイル制御
+		Vector3 recoilDifference = m_recoilPosition - m_modelPosition;
+		if (recoilDifference.Length() >= 10.0f)
+		{
+			m_recoilPosition += m_recoilMoveSpeed * 10.0f;	
+		}
+		m_turretMR.SetPosition(m_recoilPosition);
 	}
-}
-
-void NormalTurret::Update()
-{
-	Move();
+	//動作可能でないなら
+	else
+	{
+		m_turretMR.SetPosition(m_modelPosition);
+	}
 
 	//更新処理
-	m_turretMR.SetPosition(m_modelPosition);
 	m_turretMR.SetRotation(m_modelRotation);
 	m_turretMR.Update();
+	m_turretBaseMR.SetPosition(m_modelPosition);
+	m_turretBaseMR.Update();
 	m_baseMR.SetPosition(m_modelPosition);
 	m_baseMR.Update();
 	m_attackRangeMR.SetPosition(m_modelPosition);
 	m_attackRangeMR.Update();
 }
 
+void NormalTurret::Update()
+{
+	Move();
+}
+
 void NormalTurret::Render(RenderContext& renderContext)
 {
 	m_turretMR.Draw(renderContext);
+	m_turretBaseMR.Draw(renderContext);
 	m_baseMR.Draw(renderContext);
 	if (m_moveReady == false)
 	{

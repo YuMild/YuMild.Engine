@@ -166,6 +166,9 @@ private:
 	float						m_fireRate			= 0.0f;
 	Vector3						m_difference		= Vector3::Zero;
 	Vector3						m_lockOnPosition	= Vector3::Zero;
+	//リコイル
+	Vector3						m_recoilPosition	= Vector3::Zero;
+	Vector3						m_recoilDifference	= Vector3::Zero;
 	
 	//エフェクト
 	EffectEmitter*				m_hitEF				= nullptr;
@@ -175,6 +178,7 @@ private:
 
 	//モデル
 	ModelRender					m_turretMR;
+	ModelRender					m_turretBaseMR;
 	ModelRender					m_baseMR;
 	ModelRender					m_attackRangeMR;
 

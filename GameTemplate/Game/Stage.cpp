@@ -5,8 +5,8 @@
 
 namespace
 {
-	Vector3 STAGE_FIRST_POSITION = { 0.0f,0.0f,0.0f };
-	Vector3 STAGE_FIRST_SCALE = { 1.0f,1.0f,1.0f };
+	Vector3 STAGE_FIRST_POSITION	= { 0.0f,0.0f,0.0f };
+	Vector3 STAGE_FIRST_SCALE		= { 1.0f,1.0f,1.0f };
 }
 
 Stage::Stage()

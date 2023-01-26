@@ -158,28 +158,32 @@ private:
 	void SoundPlayFire();
 
 	//動作処理
-	std::vector<EnemyObject*>		m_enemys;
-	int								m_hp				= 0;
-	int								m_maxHp				= 0;
-	bool							m_moveReady			= false;
-	float							m_debuffTimer		= 0.0f;
-	float							m_fireRate			= 0.0f;
-	Vector3							m_difference		= Vector3::Zero;
-	Vector3							m_lockOnPosition	= Vector3::Zero;
+	std::vector<EnemyObject*>	m_enemys;
+	int							m_hp				= 0;
+	int							m_maxHp				= 0;
+	bool						m_moveReady			= false;
+	float						m_debuffTimer		= 0.0f;
+	float						m_fireRate			= 0.0f;
+	Vector3						m_difference		= Vector3::Zero;
+	Vector3						m_lockOnPosition	= Vector3::Zero;
+	//リコイル
+	Vector3						m_recoilPosition	= Vector3::Zero;
+	Vector3						m_recoilMoveSpeed	= Vector3::Zero;
 
 	//エフェクト
-	EffectEmitter*					m_hitEF				= nullptr;
+	EffectEmitter*				m_hitEF				= nullptr;
 
 	//サウンド
-	SoundSource*					m_fireSE			= nullptr;
+	SoundSource*				m_fireSE			= nullptr;
 
 	//モデル
-	ModelRender						m_turretMR;
-	ModelRender						m_baseMR;
-	ModelRender						m_attackRangeMR;
+	ModelRender					m_turretMR;
+	ModelRender					m_turretBaseMR;
+	ModelRender					m_baseMR;
+	ModelRender					m_attackRangeMR;
 
 	//モデル
-	Vector3							m_modelPosition		= Vector3::Zero;
-	Quaternion						m_modelRotation		= Quaternion::Identity;
-	Vector3							m_spritePosition	= Vector3::Zero;
+	Vector3						m_modelPosition		= Vector3::Zero;
+	Quaternion					m_modelRotation		= Quaternion::Identity;
+	Vector3						m_spritePosition	= Vector3::Zero;
 };

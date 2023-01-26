@@ -7,8 +7,10 @@ K2EngineLow* g_k2EngineLow = nullptr;
 
 namespace
 {
-	const float DIRECTIONLIGHT_COLOR = 1.0f;
-	const float AMBIENTLIGHT_COLOR = 0.8f;
+	Vector3 DIRECTIONLIGHT_DIRECTION = { 1.0f,-0.5f,-1.0f };
+	//Vector3 DIRECTIONLIGHT_DIRECTION = { 0.5f,-1.0f,0.0f };
+	const float DIRECTIONLIGHT_COLOR = 2.0f;
+	const float AMBIENTLIGHT_COLOR = 0.7f;
 }
 
 /// <summary>
@@ -22,9 +24,10 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	// k2EngineLow‚Ì‰Šú‰»B
 	g_k2EngineLow = new K2EngineLow();
 	g_k2EngineLow->Init(g_hWnd, FRAME_BUFFER_W, FRAME_BUFFER_H);
-	
+
 	//ƒ‰ƒCƒg
 	g_sceneLight.SetEyePosition({ g_camera3D->GetPosition().x, g_camera3D->GetPosition().y, g_camera3D->GetPosition().z });
+	g_sceneLight.SetDirectionLightDirection(DIRECTIONLIGHT_DIRECTION);
 	g_sceneLight.SetDirectionColor({ DIRECTIONLIGHT_COLOR,DIRECTIONLIGHT_COLOR,DIRECTIONLIGHT_COLOR });
 	g_sceneLight.SetAmbientLight({ AMBIENTLIGHT_COLOR,AMBIENTLIGHT_COLOR,AMBIENTLIGHT_COLOR });
 

@@ -43,9 +43,10 @@ bool UFO::Start()
 	m_gameOver = FindGO<GameOver>("gameOver");
 	m_spawnManager = FindGO<SpawnManager>("spawnManager");
 	m_turretManager = FindGO<TurretManager>("turretManager");
-
+	
 	//ƒ‚ƒfƒ‹
-	m_modelRender.Init("Assets/modelData/Enemy/UFO_Blue.tkm", ShadowNone);
+	m_emissionMap.InitFromDDSFile(L"Assets/modelData/Enemy/UFO_Blue_Emission.DDS");
+	m_modelRender.Init("Assets/modelData/Enemy/UFO_Blue.tkm", ShadowNone, false, nullptr, 0, enModelUpAxisZ, &m_emissionMap);
 	m_position = DEFAULT_POSITION;
 	m_modelRender.SetPosition(m_position);
 	m_rotation.SetRotationDegY(DEFAULT_ROTATION_Y);

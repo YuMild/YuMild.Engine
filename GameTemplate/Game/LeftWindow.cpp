@@ -3,22 +3,27 @@
 
 #include "Energy.h"
 #include "Game.h"
+#include "LeftWindowDelete.h"
 #include "Player.h"
 #include "TurretManager.h"
 
 namespace
 {
 	//LeftWindow
-	Vector3 LEFTWINDOW_POSITION = { -950.0f,0.0f,0.0f };
-	float LEFTWINDOW_SPRITE_SIZE = 720.0f;
-	float LEFTWINDOW_MOVE_X = 50.0f;
-	float LEFTWINDOW_MOVE_X_LIMIT = 400.0f;
+	Vector3		LEFTWINDOW_POSITION				= { -950.0f,0.0f,0.0f };
+	float		LEFTWINDOW_SPRITE_SIZE			= 720.0f;
+	float		LEFTWINDOW_MOVE_X				= 50.0f;
+	float		LEFTWINDOW_MOVE_X_LIMIT			= 400.0f;
 
 	//パラメーター
-	Vector3 PARAMETER_RANGE_POSITION = { -971.0f,-128.5f,0.0f };
-	Vector3 PARAMETER_DAMAGE_POSITION = { -971.0f,-190.5f,0.0f };
-	Vector3 PARAMETER_FIRERATE_POSITION = { -971.0f,-252.5f,0.0f };
-	float PARAMETER_MOVE_SPEED = 0.02;
+	Vector3		PARAMETER_RANGE_POSITION		= { -971.0f,-128.5f,0.0f };
+	Vector3		PARAMETER_DAMAGE_POSITION		= { -971.0f,-190.5f,0.0f };
+	Vector3		PARAMETER_FIRERATE_POSITION		= { -971.0f,-252.5f,0.0f };
+	float		PARAMETER_MOVE_SPEED			= 0.02;
+
+	//カメラポジション
+	Vector3		CAMERAPOSITION_NORMAL			= { 0.0f, 1500.0f, 1500.0f };
+	Vector3		CAMERAPOSITION_SPACESHIP		= { 0.0f, 1000.0f, 1500.0f };
 }
 
 bool LeftWindow::Start()
@@ -111,18 +116,18 @@ bool LeftWindow::Start()
 	g_soundEngine->ResistWaveFileBank(enSoundNumber_Choice, "Assets/sound/Choice.wav");
 
 	//タレット背景の位置
-	m_turretBackGroundPosition[0] = { -950.0f,0.0f,0.0f };
-	m_turretBackGroundPosition[1] = { -865.0f,0.0f,0.0f };
-	m_turretBackGroundPosition[2] = { -780.0f,0.0f,0.0f };
-	m_turretBackGroundPosition[3] = { -695.0f,0.0f,0.0f };
-	m_turretBackGroundPosition[4] = { -950.0f,-100.0f,0.0f };
-	m_turretBackGroundPosition[5] = { -865.0f,-100.0f,0.0f };
-	m_turretBackGroundPosition[6] = { -780.0f,-100.0f,0.0f };
-	m_turretBackGroundPosition[7] = { -695.0f,-100.0f,0.0f };
-	m_turretBackGroundPosition[8] = { -950.0f,-200.0f,0.0f };
-	m_turretBackGroundPosition[9] = { -865.0f,-200.0f,0.0f };
-	m_turretBackGroundPosition[10] = { -780.0f,-200.0f,0.0f };
-	m_turretBackGroundPosition[11] = { -695.0f,-200.0f,0.0f };
+	m_turretBackGroundPosition[0]	= { -950.0f,0.0f,0.0f };
+	m_turretBackGroundPosition[1]	= { -865.0f,0.0f,0.0f };
+	m_turretBackGroundPosition[2]	= { -780.0f,0.0f,0.0f };
+	m_turretBackGroundPosition[3]	= { -695.0f,0.0f,0.0f };
+	m_turretBackGroundPosition[4]	= { -950.0f,-100.0f,0.0f };
+	m_turretBackGroundPosition[5]	= { -865.0f,-100.0f,0.0f };
+	m_turretBackGroundPosition[6]	= { -780.0f,-100.0f,0.0f };
+	m_turretBackGroundPosition[7]	= { -695.0f,-100.0f,0.0f };
+	m_turretBackGroundPosition[8]	= { -950.0f,-200.0f,0.0f };
+	m_turretBackGroundPosition[9]	= { -865.0f,-200.0f,0.0f };
+	m_turretBackGroundPosition[10]	= { -780.0f,-200.0f,0.0f };
+	m_turretBackGroundPosition[11]	= { -695.0f,-200.0f,0.0f };
 
 	return true;
 }
@@ -135,13 +140,13 @@ void LeftWindow::OperationNormal()
 	//カメラの視点と注視点の初期化
 	if (m_spaceShipCamera == true)
 	{
-		g_camera3D->SetTarget({ 0.0f,0.0f,-1500.0f });
-		g_camera3D->SetPosition({ 0.0f, 2000.0f, 2000.0f });
+		g_camera3D->SetTarget({ 0.0f,0.0f,-1000.0f });
+		g_camera3D->SetPosition({ 0.0f, 1000.0f, 1500.0f });
 	}
 	else
 	{
-		g_camera3D->SetTarget({ 0.0f,0.0f,-1500.0f });
-		g_camera3D->SetPosition({ 0.0f, 3500.0f, 2000.0f });
+		g_camera3D->SetTarget({ 0.0f,0.0f,-1000.0f });
+		g_camera3D->SetPosition({ 0.0f, 1500.0f, 1500.0f });
 	}
 
 	/// <summary>
@@ -314,6 +319,8 @@ void LeftWindow::OperationSelectTurret()
 
 void LeftWindow::OperationSetTurret()
 {
+	g_camera3D->SetTarget({ 0.0f,0.0f,-2500.0f });
+	g_camera3D->SetPosition({ 0.0f, 5500.0f, 1000.0f });
 	//ウィンドウを左にスライド
 	if (m_moveNumber >= LEFTWINDOW_MOVE_X)
 	{
@@ -353,11 +360,13 @@ void LeftWindow::OperationDelete()
 
 	//削除するタレットを表示
 	m_turrets = FindGOs<TurretObject>("turret");
-	
-	g_camera3D->SetTarget(m_turrets[m_selectTurretNumber]->GetModelPosition());
-	g_camera3D->SetPosition({ m_turrets[m_selectTurretNumber]->GetModelPosition().x,m_turrets[m_selectTurretNumber]->GetModelPosition().y + 1000.0f,m_turrets[m_selectTurretNumber]->GetModelPosition().z + 2000.0f });
-	m_gridCursorMR.SetPosition(m_turrets[m_selectTurretNumber]->GetModelPosition());
-	m_gridCursorMR.Update();
+	if (m_turrets.size() != 0 && m_turrets.size() > m_selectTurretNumber)
+	{
+		g_camera3D->SetTarget(m_turrets[m_selectTurretNumber]->GetModelPosition());
+		g_camera3D->SetPosition({ m_turrets[m_selectTurretNumber]->GetModelPosition().x,m_turrets[m_selectTurretNumber]->GetModelPosition().y + 1000.0f,m_turrets[m_selectTurretNumber]->GetModelPosition().z + 2000.0f });
+		m_gridCursorMR.SetPosition(m_turrets[m_selectTurretNumber]->GetModelPosition());
+		m_gridCursorMR.Update();
+	}
 }
 
 void LeftWindow::OperationDeleteCheck()

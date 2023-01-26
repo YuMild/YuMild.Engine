@@ -5,6 +5,11 @@
 #include "LeftWindow.h"
 #include "TurretManager.h"
 
+namespace
+{
+	const int	MAX_HP = 200;
+}
+
 bool HealTurret::Start()
 {
 	//タレット
@@ -26,13 +31,21 @@ bool HealTurret::Start()
 	m_baseMR.SetScale({ 1.0f,1.0f,1.0f });
 	m_baseMR.Update();
 
-	m_addGenerationTurret = true;
+	//HPを設定
+	m_maxHp = MAX_HP;
+	m_hp = m_maxHp;
 
 	return true;
 }
 
 void HealTurret::Move()
 {
+	//体力が無くなったら
+	if (m_hp <= 0)
+	{
+		DeleteGO(this);
+	}
+
 	//動作可能なら
 	if (m_moveReady == true)
 	{
@@ -44,7 +57,7 @@ void HealTurret::Move()
 			//射程内なら
 			if (difference.Length() <= 1000.0f && turrets->GetAttackReady() == true)
 			{
-				turrets->ModelRotationTurnRight();
+				turrets->SetModelRotationTurnRight();
 			}
 		}
 		m_modelRotation.AddRotationDegY(2.0f);

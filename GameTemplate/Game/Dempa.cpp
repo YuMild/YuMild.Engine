@@ -9,22 +9,13 @@
 namespace
 {
 	//モデルの初期値
-	Vector3 DEFAULT_POSITION = { 0.0f,0.0f,-8000.0f };
-	Vector3 DEFAULT_SCALE = { 2.95f,2.95f,2.95f };
-	float DEFAULT_ROTATION_Y = 0.0f;
-
-	//ポイントポジション
-	Vector3 POINT_1_POSITION = { 0.0f,0.0f,-5900.0f };
-	Vector3 POINT_2_POSITION = { -2750.0f,0.0f,-5900.0f };
-	Vector3 POINT_3_POSITION = { -2750.0f,0.0f,-3150.0f };
-	Vector3 POINT_4_POSITION = { 2750.0f,0.0f,-3150.0f };
-	Vector3 POINT_5_POSITION = { 2750.0f,0.0f,-2000.0f };
-	Vector3 POINT_6_POSITION = { 0.0f,0.0f,-2000.0f };
-	Vector3 POINT_7_POSITION = { 0.0f,0.0f,0.0f };
+	Vector3		DEFAULT_POSITION		= { 0.0f,300.0f,-8000.0f };
+	Vector3		DEFAULT_SCALE			= { 0.7f,0.7f,0.7f };
+	float		DEFAULT_ROTATION_Y		= 0.0f;
 
 	//パラメーター
-	float DEFAULT_MOVE_SPEED = 15.0f;
-	float DEFAULT_ROTATION_SPEED = 1.5f;
+	float		DEFAULT_MOVE_SPEED		= 15.0f;
+	float		DEFAULT_ROTATION_SPEED	= 1.5f;
 }
 
 Dempa::Dempa()
@@ -35,7 +26,7 @@ Dempa::Dempa()
 Dempa::~Dempa()
 {
 	//エフェクトを止める
-	m_dempaAttackEF->Stop();
+	//m_dempaAttackEF->Stop();
 }
 
 bool Dempa::Start()
@@ -46,7 +37,7 @@ bool Dempa::Start()
 	m_turretManager = FindGO<TurretManager>("turretManager");
 
 	//モデル
-	m_modelRender.Init("Assets/modelData/Enemy/UFO_Green.tkm", ShadowNone);
+	m_modelRender.Init("Assets/modelData/Enemy/Missile.tkm", ShadowNone);
 	m_position = DEFAULT_POSITION;
 	m_modelRender.SetPosition(m_position);
 	m_rotation.SetRotationDegY(DEFAULT_ROTATION_Y);
@@ -60,72 +51,24 @@ bool Dempa::Start()
 	m_hpMax = m_spawnManager->GetDefaultHP_Dempa();
 	m_hpBarSR.Init("Assets/Sprite/Enemy/EnemyHP.dds", 30.0f, 30.0f);
 
-	//パス移動
-	m_pointList.push_back({ POINT_1_POSITION });     //1番目のポイント
-	m_pointList.push_back({ POINT_2_POSITION });     //2番目のポイント
-	m_pointList.push_back({ POINT_3_POSITION });     //3番目のポイント
-	m_pointList.push_back({ POINT_4_POSITION });     //4番目のポイント
-	m_pointList.push_back({ POINT_5_POSITION });     //5番目のポイント
-	m_pointList.push_back({ POINT_6_POSITION });     //6番目のポイント
-	m_pointList.push_back({ POINT_7_POSITION });     //7番目のポイント
-	m_pointNum = 0;
-	m_target = m_pointList[m_pointNum];
-
 	//エフェクトを生成
-	EffectEngine::GetInstance()->ResistEffect(4, u"Assets/effect/DempaAttack.efk");
+	/*EffectEngine::GetInstance()->ResistEffect(4, u"Assets/effect/DempaAttack.efk");
 	m_dempaAttackEF = NewGO<EffectEmitter>(0);
 	m_dempaAttackEF->Init(4);
 	m_dempaAttackEF->SetPosition({ m_position.x,m_position.y + 100.0f,m_position.z });
 	m_dempaAttackEF->SetScale(Vector3::One * 500.0f);
-	m_dempaAttackEF->Play();
+	m_dempaAttackEF->Play();*/
 
 	return true;
 }
 
-void Dempa::Attack()
-{
-	m_dempaAttackEF->SetPosition({ m_position.x,m_position.y + 50.0f,m_position.z });
-
-	//射程内にタレットがいたらデバフを掛ける
-	m_turrets = FindGOs<TurretObject>("turret");
-	{
-		for (auto lockOnObject : m_turrets)
-		{
-			Vector3 difference = lockOnObject->GetModelPosition() - m_position;
-			//攻撃範囲内なら
-			if (difference.Length() < 1000.0f)
-			{
-				lockOnObject->SetDebuff();
-			}
-		}
-	}
-}
-
 void Dempa::Move()
 {
-	//目的地までのベクトル
-	Vector3 difference = m_target - m_position;
-
-	//目的地に着いたら
-	if (difference.Length() <= 10.0f)
+	//エフェクトが存在していたら
+	/*if (m_dempaAttackEF->IsPlay() == true)
 	{
-		//目的地を変える
-		if (m_pointNum < 6)
-		{
-			m_pointNum += 1;
-			m_target = m_pointList[m_pointNum];
-		}
-		//拠点に辿り着いたら
-		else
-		{
-			m_spawnManager->EffectPlayExplosion(m_position);
-			m_spawnManager->SoundPlayExplosion();
-			m_gameOver->SubHP();
-			m_dempaAttackEF->Stop();
-			DeleteGO(this);
-			return;
-		}
-	}
+		m_dempaAttackEF->SetPosition({ m_position.x,m_position.y + 50.0f,m_position.z });
+	}*/
 
 	//HPが0になったら
 	if (m_hp <= 0.0f)
@@ -139,22 +82,53 @@ void Dempa::Move()
 	//拘束されていなかったら
 	if (m_bindTimer <= 0.0f)
 	{
-		Vector3 moveSpeed = m_target - m_position;
-		moveSpeed.Normalize();
-		moveSpeed *= DEFAULT_MOVE_SPEED;
+		//射程より長ければOK
+		m_difference = { 1000000.0f,1000000.0f,1000000.0f };
+		//一番近いタレットに向かう
+		m_turrets = FindGOs<TurretObject>("turret");
+		{
+			//見つかったタレット分for文を回す
+			for (auto lockOnObject : m_turrets)
+			{
+				//配置されているタレットじゃなかったら戻る
+				if (lockOnObject->GetAttackReady() == false)
+				{
+					continue;
+				}
+				//全ての敵との距離を測る
+				Vector3 turretPosition = { lockOnObject->GetModelPosition().x,0.0f,lockOnObject->GetModelPosition().z };
+				Vector3 modelPosition = { m_position.x,0.0f,m_position.z };
+				Vector3 difference = turretPosition - modelPosition;
+				//全てのタレットの位置を比べて一番近いタレットへ向かう
+				if (difference.Length() < m_difference.Length())
+				{
+					m_difference = difference;
+					m_moveSpeed = difference;
+					m_moveSpeed.Normalize();
+				}
+				//攻撃範囲内なら
+				if (m_difference.Length() < 200.0f)
+				{
+					lockOnObject->SubTurretHP(50);
+					m_spawnManager->EffectPlayExplosion(m_position);
+					m_spawnManager->SoundPlayExplosion();
+					DeleteGO(this);
+				}
+			}
+		}
 		//減速されていなかったら
 		if (m_slowTimer <= 0.0f)
 		{
-			m_position += moveSpeed;
+			m_position += m_moveSpeed * 10.0f;
 		}
 		//減速されていたら
 		else
 		{
-			m_position += moveSpeed / 2;
+			m_position += m_moveSpeed* 5.0f;
 			m_slowTimer -= g_gameTime->GetFrameDeltaTime();
 		}
-		//回転し続ける
-		m_rotation.AddRotationDegY(DEFAULT_ROTATION_SPEED);
+		//回転
+		m_rotation.SetRotationYFromDirectionXZ(m_moveSpeed);
 	}
 	//拘束されていたら
 	else
@@ -183,7 +157,6 @@ void Dempa::HP()
 
 void Dempa::Update()
 {
-	Attack();
 	Move();
 	HP();
 }

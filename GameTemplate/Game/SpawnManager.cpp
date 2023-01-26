@@ -6,20 +6,25 @@
 namespace
 {
 	//HP
-	float DEFAULT_HP_UFO = 100.0f;
-	float DEFAULT_HP_DEMPA = 200.0f;
-	float DEFAULT_HP_SPACESHIP = 5000.0f;
+	const float DEFAULT_HP_UFO					= 100.0f;
+	const float DEFAULT_HP_DEMPA				= 200.0f;
+	const float DEFAULT_HP_SPACESHIP			= 5000.0f;
 
 	//スポーンタイマー
-	float DEFAULT_SPAWNTIME_UFO = 3.0f;
-	float DEFAULT_SPAWNTIME_DEMPA = 10.0f;
-	float DEFAULT_SPAWNTIME_SPACESHIP = 120.0f;
+	const float DEFAULT_SPAWNTIME_UFO			= 3.0f;
+	const float DEFAULT_SPAWNTIME_DEMPA			= 10.0f;
+	const float DEFAULT_SPAWNTIME_SPACESHIP		= 120.0f;
+
+	//初スポーンまでの時間
+	const float DELAY_UFO						= 7.0f;
+	const float DELAY_DEMPA						= 0.0f;
+	const float DELAY_SPACESHIP					= 0.0f;
 
 	//レベルアップ
-	float LEVELUP_TIME = 10.0f;
+	const float LEVELUP_TIME					= 10.0f;
 
 	//WARNING
-	float CIRCLE_ROTATION_NUMBER = 75.0f;
+	const float CIRCLE_ROTATION_NUMBER			= 75.0f;
 }
 
 SpawnManager::~SpawnManager()
@@ -54,10 +59,10 @@ bool SpawnManager::Start()
 	m_defaultHP_Dempa = DEFAULT_HP_DEMPA;
 	m_defaultHP_SpaceShip = DEFAULT_HP_SPACESHIP;
 
-	//スポーンタイム
-	m_spawnTime_UFO = DEFAULT_SPAWNTIME_UFO;
-	m_spawnTime_Dempa = DEFAULT_SPAWNTIME_DEMPA;
-	m_spawnTime_SpaceShip = DEFAULT_SPAWNTIME_SPACESHIP;
+	//ディレイ
+	m_spawnTimer_UFO = -DELAY_UFO;
+	m_spawnTimer_Dempa = -DELAY_DEMPA;
+	m_spawnTimer_SpaceShip = -DELAY_SPACESHIP;
 
 	return true;
 }
@@ -86,7 +91,7 @@ void SpawnManager::SpawnUFO()
 	m_spawnTimer_UFO += g_gameTime->GetFrameDeltaTime();
 
 	//UFOのスポーン
-	if (m_spawnTimer_UFO >= m_spawnTime_UFO)
+	if (m_spawnTimer_UFO >= DEFAULT_SPAWNTIME_UFO)
 	{
 		m_ufo = NewGO<UFO>(0, "normal");
 		m_spawnTimer_UFO = 0.0f;
@@ -98,7 +103,7 @@ void SpawnManager::SpawnDempa()
 	m_spawnTimer_Dempa += g_gameTime->GetFrameDeltaTime();
 
 	//Dempaのスポーン
-	if (m_spawnTimer_Dempa >= m_spawnTime_Dempa)
+	if (m_spawnTimer_Dempa >= DEFAULT_SPAWNTIME_DEMPA)
 	{
 		m_dempa = NewGO<Dempa>(0, "normal");
 		m_spawnTimer_Dempa = 0.0f;
@@ -110,7 +115,7 @@ void SpawnManager::SpawnSpaceShip()
 	m_spawnTimer_SpaceShip += g_gameTime->GetFrameDeltaTime();
 
 	//SpaceShipのスポーン
-	if (m_spawnTimer_SpaceShip >= m_spawnTime_SpaceShip)
+	if (m_spawnTimer_SpaceShip >= DEFAULT_SPAWNTIME_SPACESHIP)
 	{
 		SoundPlayBossSpawn();
 		m_spaceShip = NewGO<SpaceShip>(0, "normal");

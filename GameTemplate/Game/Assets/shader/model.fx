@@ -5,31 +5,31 @@
 // 定数
 ////////////////////////////////////////////////
 
-static const float PI = 3.1415926f; //円周率
+static const float PI = 3.1415926f; // 円周率
 
 // ディレクションライト
 struct DirectionLight
 {
-    float3 direction;       //ライトの方向
-    float3 color;           //ライトのカラー
+    float3      direction;          // 方向
+    float3      color;              // カラー
 };
 
 // ポイントライト
 struct PointLight
 {
-    float3 position;        //位置
-    float3 color;           //カラー
-    float range;            //影響範囲
+    float3      position;           // 位置
+    float3      color;              // カラー
+    float       range;              // 影響範囲
 };
 
 // スポットライト
 struct SpotLight
 {
-    float3 position;        //位置
-    float3 color;           //カラー
-    float range;            //影響範囲
-    float3 direction;       //方向
-    float angle;            //角度
+    float3      position;           // 位置
+    float3      color;              // カラー
+    float       range;              // 影響範囲
+    float3      direction;          // 方向
+    float       angle;              // 角度
 };
 
 ////////////////////////////////////////////////
@@ -60,44 +60,45 @@ cbuffer LightCb : register(b1)
 // スキニング用の頂点データをひとまとめ。
 struct SSkinVSIn
 {
-    int4 Indices        : BLENDINDICES0;
-    float4 Weights      : BLENDWEIGHT0;
+    int4        Indices      : BLENDINDICES0;
+    float4      Weights      : BLENDWEIGHT0;
 };
 
 // 頂点シェーダーへの入力。
 struct SVSIn
 {
-    float4 pos          : POSITION;         //モデルの頂点座標
-    float3 normal       : NORMAL;           //法線
-    float2 uv           : TEXCOORD0;        //UV座標
+    float4      pos          : POSITION;        // モデルの頂点座標
+    float3      normal       : NORMAL;          // 法線
+    float2      uv           : TEXCOORD0;       // UV座標
     
-    float3 tangent      : TANGENT;          //接ベクトル
-    float3 biNormal     : BINORMAL;         //従ベクトル
+    float3      tangent      : TANGENT;         // 接ベクトル
+    float3      biNormal     : BINORMAL;        // 従ベクトル
     
-    SSkinVSIn skinVert;                     //スキン用のデータ
+    SSkinVSIn   skinVert;                       // スキン用のデータ
 };
 
 // ピクセルシェーダーへの入力。
 struct SPSIn
 {
-    float4 pos          : SV_POSITION;      //スクリーン空間でのピクセルの座標
-    float3 normal       : NORMAL;           //法線
-    float2 uv           : TEXCOORD0;        //uv座標
-    float3 worldPos     : TEXCOORD1;        //ワールド座標
+    float4      pos          : SV_POSITION;     // スクリーン空間でのピクセルの座標
+    float3      normal       : NORMAL;          // 法線
+    float2      uv           : TEXCOORD0;       // uv座標
+    float3      worldPos     : TEXCOORD1;       // ワールド座標
     
-    float3 tangent      : TANGENT;          //接ベクトル
-    float3 biNormal     : BINORMAL;         //従ベクトル
+    float3      tangent      : TANGENT;         // 接ベクトル
+    float3      biNormal     : BINORMAL;        // 従ベクトル
 };
 
 ////////////////////////////////////////////////
 // グローバル変数。
 ////////////////////////////////////////////////
 
-Texture2D<float4> g_albedo : register(t0);              //アルベドマップ
-Texture2D<float4> g_normalMap : register(t1);           //法線マップ
-Texture2D<float4> g_metallicSmoothMap : register(t2);   //スペキュラマップ
-StructuredBuffer<float4x4> g_boneMatrix : register(t3); //ボーン行列
-sampler g_sampler : register(s0);                       //サンプラステート
+Texture2D<float4>           g_albedo : register(t0);                // アルベドマップ
+Texture2D<float4>           g_normalMap : register(t1);             // 法線マップ
+Texture2D<float4>           g_metallicSmoothMap : register(t2);     // スペキュラマップ
+StructuredBuffer<float4x4>  g_boneMatrix : register(t3);            // ボーン行列
+sampler                     g_sampler : register(s0);               // サンプラステート
+Texture2D<float4>           g_emission : register(t11);             // エミッション
 
 ////////////////////////////////////////////////
 // 関数定義。
@@ -187,17 +188,34 @@ float CookTorranceSpecular(float3 L, float3 V, float3 N, float metallic)
 /// <param name="V">視線に向かうベクトル。</param>
 float CalcDiffuseFromFresnel(float3 N, float3 L, float3 V)
 {
-    // step-4 フレネル反射を考慮した拡散反射光を求める
+    // step-1 ディズニーベースのフレネル反射による拡散反射を真面目に実装する。
+    // 光源に向かうベクトルと視線に向かうベクトルのハーフベクトルを求める
+    float3 H = normalize(L + V);
 
-    // 法線と光源に向かうベクトルがどれだけ似ているかを内積で求める
+    // 粗さは0.5で固定。
+    float roughness = 0.5f;
+
+    float energyBias = lerp(0.0f, 0.5f, roughness);
+    float energyFactor = lerp(1.0, 1.0 / 1.51, roughness);
+
+    // 光源に向かうベクトルとハーフベクトルがどれだけ似ているかを内積で求める
+    float dotLH = saturate(dot(L, H));
+
+    // 光源に向かうベクトルとハーフベクトル、
+    // 光が平行に入射したときの拡散反射量を求めている
+    float Fd90 = energyBias + 2.0 * dotLH * dotLH * roughness;
+
+    // 法線と光源に向かうベクトルwを利用して拡散反射率を求める
     float dotNL = saturate(dot(N, L));
+    float FL = (1 + (Fd90 - 1) * pow(1 - dotNL, 5));
 
-    // 法線と視線に向かうベクトルがどれだけ似ているかを内積で求める
+    // 法線と視点に向かうベクトルを利用して拡散反射率を求める
     float dotNV = saturate(dot(N, V));
+    float FV = (1 + (Fd90 - 1) * pow(1 - dotNV, 5));
 
     // 法線と光源への方向に依存する拡散反射率と、法線と視点ベクトルに依存する拡散反射率を
     // 乗算して最終的な拡散反射率を求めている。PIで除算しているのは正規化を行うため
-    return (dotNL * dotNV);
+    return (FL * FV * energyFactor);
 }
 
 /// <summary>
@@ -235,14 +253,14 @@ SPSIn VSMainCore(SVSIn vsIn, uniform bool hasSkin)
         m = mWorld;
     }
     psIn.pos = mul(m, vsIn.pos);
-    psIn.worldPos = vsIn.pos;
+    psIn.worldPos = psIn.pos;
     psIn.pos = mul(mView, psIn.pos);
     psIn.pos = mul(mProj, psIn.pos);
-    psIn.normal = normalize(mul(mWorld, vsIn.normal));
+    psIn.normal = normalize(mul(m, vsIn.normal));
 	
     //接ベクトルと従ベクトルをワールド行列に変換する
-    psIn.tangent = normalize(mul(mWorld, vsIn.tangent));
-    psIn.biNormal = normalize(mul(mWorld, vsIn.biNormal));
+    psIn.tangent = normalize(mul(m, vsIn.tangent));
+    psIn.biNormal = normalize(mul(m, vsIn.biNormal));
     
     psIn.uv = vsIn.uv;
 
@@ -270,159 +288,59 @@ SPSIn VSSkinMain(SVSIn vsIn)
 /// </summary>
 float4 PSMain(SPSIn psIn) : SV_Target0
 { 
-    float3 normal = psIn.normal;
-    //法線マップからタンジェントスペースの法線をサンプリングする
-    float3 localNormal = g_normalMap.Sample(g_sampler, psIn.uv).xyz;
-    //タンジェントスペースの法線を0~1の範囲から-1~1の範囲に復元する
-    localNormal = (localNormal - 0.5f) * 2.0f;
-    //タンジェントスペースの法線をワールドスペースに変換する
-    normal = psIn.tangent * localNormal.x 
-    + psIn.biNormal * localNormal.y 
-    + normal * localNormal.z;
+    // PBR
+    // 法線を計算
+    float3 normal = GetNormal(psIn.normal, psIn.tangent, psIn.biNormal, psIn.uv);
     
+    // アルベドカラー（拡散反射光）
+    float4 albedoColor = g_albedo.Sample(g_sampler, psIn.uv);
     
+    // スペキュラカラーはアルベドカラーと同じにする
+    float3 specColor = albedoColor;
     
-    //ディレクションライトのLambert拡散反射光とPhong鏡面反射光を計算
-    //ディレクションライトのLambert拡散反射光を計算
-    //ピクセルの法線とライトの方向の内積を計算して-1を乗算
-    float t = dot(normal, directionLight.direction) * -1.0f;
-	//内積の結果が0以下なら0にする
-    if (t < 0.0f)
-    {
-        t = 0.0f;
-    }
-	//拡散反射光を計算
-    float3 diffuseDirectionLight = directionLight.color * t;
-    
-    
-    
-	//ディレクションライトのPhong鏡面反射光を計算
-    //反射ベクトルを計算
-    float3 reflectionVectorDirectionLight = reflect(directionLight.direction, normal);
-    //光が当たったサーフェイスから視点に伸びるベクトルを計算
-    float3 toEyeDirectionLight = eyePos - psIn.worldPos;
-    toEyeDirectionLight = normalize(toEyeDirectionLight);
-	//鏡面反射の強さを求める
-    t = dot(reflectionVectorDirectionLight, toEyeDirectionLight);
-    //内積の結果が0以下なら0にする
-    if (t < 0.0f)
-    {
-        t = 0.0f;
-    }
-	//鏡面反射の強さを絞る
-    t = pow(t, 5.0f);
-	//鏡面反射光を計算
-    float3 specularDirectionLight = directionLight.color * t;
-	
-    
-    
-    //ポイントライトのLambert拡散反射光とPhong鏡面反射光を計算
-    //ポイントライトのLambert拡散反射光を計算
-    //サーフェイスに入射するポイントライトの光の向きを計算
-    float3 pointLightDirection = psIn.worldPos - pointLight.position;
-    pointLightDirection = normalize(pointLightDirection);
-    //ポイントライトのLambert拡散反射光を計算
-    //ピクセルの法線とライトの方向の内積を計算して-1を乗算
-    t = dot(normal, pointLightDirection) * -1.0f;
-    //内積の結果が0以下なら0にする
-    if (t < 0.0f)
-    {
-        t = 0.0f;
-    }
-    //拡散反射光を計算
-    float3 diffusePointLight = pointLight.color * t;
-    
-    
-    
-    //ポイントライトのPhong鏡面反射光を計算
-    //反射ベクトルを計算
-    float3 reflectionVectorPointLight = reflect(pointLightDirection, normal);
-    //光が当たったサーフェイスから視点に伸びるベクトルを計算
-    float3 toEyePointLight = eyePos - psIn.worldPos;
-    toEyePointLight = normalize(toEyePointLight);
-    //鏡面反射の強さを求める
-    t = dot(reflectionVectorPointLight, toEyePointLight);
-    //内積の結果が0以下なら0にする
-    if (t < 0.0f)
-    {
-        t = 0.0f;
-    }
-    //鏡面反射の強さを絞る
-    t = pow(t, 5.0f);
-    //鏡面反射光を計算
-    float3 specularPointLight = pointLight.color * t;
-    //距離による影響率を計算する
-    float3 distance = length(psIn.worldPos - pointLight.position);
-    //影響率は距離に比例して小さくなっていく
-    float affect = 1.0f - 1.0f / pointLight.range * distance;
-    //影響力がマイナスにならないように補正をかける
-    if (affect < 0.0f)
-    {
-        affect = 0.0f;
-    }
-    //影響の仕方を指数関数的にする
-    affect = pow(affect, 3.0f);
-    //拡散反射光と鏡面反射光に影響率を乗算して影響を弱める
-    diffusePointLight *= affect;
-    specularPointLight *= affect;
-    //2つの反射光を合算して最終的な反射光を求める
-    float3 diffseFinalLight = diffuseDirectionLight + diffusePointLight;
-    float3 specularFinalLight = specularDirectionLight + specularPointLight;
-    
-    
-    
-    //スペキュラマップ
-    float specularPower = g_metallicSmoothMap.Sample(g_sampler, psIn.uv).r;
-    specularFinalLight *= specularPower * 10.0f;
-    
+    // 金属度
+    float metallic = g_metallicSmoothMap.Sample(g_sampler, psIn.uv).r;
+   
+    // 滑らかさ
+    float smooth = g_metallicSmoothMap.Sample(g_sampler, psIn.uv).a;
 
+    // エミッション
+    float3 emission = g_emission.Sample(g_sampler, psIn.uv);
     
-	//拡散反射と鏡面反射を足して最終的な光を求める
-    float3 finalLight = diffseFinalLight + specularFinalLight + ambientLight;
-	//ライトの効果を一律で上げる
-    finalLight.x += 0.2f;
-    finalLight.y += 0.2f;
-    finalLight.z += 0.2f;
+    // 視線に向かって伸びるベクトルを計算する
+    float3 toEye = normalize(eyePos - psIn.worldPos);
     
+    // フレネル反射を考慮した拡散反射を計算
+    float diffuseFromFresnel = CalcDiffuseFromFresnel(
+            normal, -directionLight.direction, toEye);
     
+    // 正規化Lambert拡散反射を求める
+    float NdotL = saturate(dot(normal, -directionLight.direction));
+    float3 lambertDiffuse = directionLight.color * NdotL / PI;
     
-    ////PBR
-    //float3 normal2 = GetNormal(psIn.normal, psIn.tangent, psIn.biNormal, psIn.uv);
-    //float4 albedoColor = g_albedo.Sample(g_sampler, psIn.uv);
-    //float3 specColor = albedoColor;
-    //float metallic = g_metallicSmoothMap.Sample(g_sampler, psIn.uv).r;
-    //float smooth = g_metallicSmoothMap.Sample(g_sampler, psIn.uv).a;
-    //float3 toEye = normalize(eyePos - psIn.worldPos);
-    
-    ////フレネル反射を考慮した拡散反射を計算
-    //float diffuseFromFresnel = CalcDiffuseFromFresnel(
-    //        normal2, -directionLight.direction, toEye);
+    // 最終的な拡散反射光を計算する
+    float3 diffuse = albedoColor * diffuseFromFresnel * lambertDiffuse;
 
-    ////正規化Lambert拡散反射を求める
-    //float NdotL = saturate(dot(normal2, -directionLight.direction));
-    //float3 lambertDiffuse = directionLight.color * NdotL / PI;
+    // Cook-Torranceモデルの鏡面反射率を計算する
+    float3 specular = CookTorranceSpecular(
+            -directionLight.direction, toEye, normal, smooth)
+            * directionLight.color;
 
-    ////最終的な拡散反射光を計算する
-    //float3 diffuse = albedoColor * diffuseFromFresnel * lambertDiffuse;
+    // 金属度が高ければ、鏡面反射はスペキュラカラー、低ければ白
+    // スペキュラカラーの強さを鏡面反射率として扱う
+    specular *= lerp(float3(1.0f, 1.0f, 1.0f), specColor, metallic);
 
-    ////Cook-Torranceモデルの鏡面反射率を計算する
-    //float3 spec = CookTorranceSpecular(
-    //        -directionLight.direction, toEye, normal2, smooth)
-    //        * directionLight.color;
-
-    ////金属度が高ければ、鏡面反射はスペキュラカラー、低ければ白
-    ////スペキュラカラーの強さを鏡面反射率として扱う
-    //spec *= lerp(float3(1.0f, 1.0f, 1.0f), specColor, metallic);
-
-    ////滑らかさを使って、拡散反射光と鏡面反射光を合成する
-    ////滑らかさが高ければ、拡散反射は弱くなる
-    //finalLight += diffuse * (1.0f - smooth) + spec;
+    // 滑らかさを使って、拡散反射光と鏡面反射光を合成する
+    // 滑らかさが高ければ、拡散反射は弱くなる
+    float3 finalLight = diffuse * (1.0f - smooth) + specular;
     
-    
-    
-    float4 finalColor = g_albedo.Sample(g_sampler, psIn.uv);
-	
+    // 環境光を加算する
+    finalLight += ambientLight * albedoColor;
+
+    // 最終カラーを求める
+    float4 finalColor = 1.0f;
     finalColor.xyz *= finalLight;
+    finalColor.xyz += emission * 0.5f;
     
     return finalColor;
 }

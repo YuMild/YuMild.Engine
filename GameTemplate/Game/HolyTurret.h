@@ -64,7 +64,7 @@ public:
 	/// モデルの回転を取得
 	/// </summary>
 	/// <returns></returns>
-	Quaternion GetModelRotation() override
+	Quaternion GetModelRotation() const override
 	{
 		return m_modelRotation;
 	}
@@ -72,7 +72,7 @@ public:
 	/// <summary>
 	/// モデルを時計回りに回転
 	/// </summary>
-	void ModelRotationTurnRight() override
+	void SetModelRotationTurnRight() override
 	{
 		m_modelRotation.AddRotationDegY(180.0f);
 	}
@@ -80,7 +80,7 @@ public:
 	/// <summary>
 	/// モデルを反時計回りに回転
 	/// </summary>
-	void ModelRotationTurnLeft() override
+	void SetModelRotationTurnLeft() override
 	{
 		m_modelRotation.AddRotationDegY(-180.0f);
 	}
@@ -97,9 +97,37 @@ public:
 	/// タレットの状態を取得
 	/// </summary>
 	/// <returns></returns>
-	bool GetAttackReady()
+	bool GetAttackReady() const override
 	{
 		return m_moveReady;
+	}
+
+	/// <summary>
+	/// タレットのHPを加算する
+	/// </summary>
+	/// <param name="value"></param>
+	void AddTurretHP(bool value) override
+	{
+		m_hp += value;
+		//上限より増えない様に
+		if (m_hp >= m_maxHp)
+		{
+			m_hp = m_maxHp;
+		}
+	}
+
+	/// <summary>
+	/// タレットのHPを減算する
+	/// </summary>
+	/// <param name="value"></param>
+	void SubTurretHP(bool value) override
+	{
+		m_hp -= value;
+		//上限より増えない様に
+		if (m_hp >= m_maxHp)
+		{
+			m_hp = m_maxHp;
+		}
 	}
 
 	/// <summary>
@@ -128,29 +156,31 @@ private:
 	/// </summary>
 	void SoundPlayHoly();
 
-	//攻撃処理
-	std::vector<EnemyObject*>		m_enemys;
-	bool							m_moveReady = false;
-	float							m_debuffTimer = 0.0f;
-	float							m_fireRate = 0.0f;
+	//動作処理
+	std::vector<EnemyObject*>	m_enemys;
+	int							m_hp						= 0;
+	int							m_maxHp						= 0;
+	bool						m_moveReady					= false;
+	float						m_debuffTimer				= 0.0f;
+	float						m_fireRate					= 0.0f;
 
 	//エフェクト
-	EffectEmitter*					m_holyEF;
-	Quaternion						m_effectRotation;
+	EffectEmitter*				m_holyEF					= nullptr;
+	Quaternion					m_effectRotation			= Quaternion::Identity;
 
 	//サウンド
-	SoundSource*					m_holySE;
+	SoundSource*				m_holySE					= nullptr;
 
 	//モデル
-	ModelRender						m_turret_BaseMR;
-	ModelRender						m_turret_HourHandMR;
-	ModelRender						m_turret_MiniteHandMR;
-	ModelRender						m_baseMR;
+	ModelRender					m_turret_BaseMR;
+	ModelRender					m_turret_HourHandMR;
+	ModelRender					m_turret_MiniteHandMR;
+	ModelRender					m_baseMR;
 
 	//モデル
-	Vector3							m_modelPosition;
-	Quaternion						m_modelRotation;
-	Quaternion						m_model_HourHandRotation;
-	Quaternion						m_model_MiniteHandRotation;
-	Vector3							m_spritePosition;
+	Vector3						m_modelPosition				= Vector3::Zero;
+	Quaternion					m_modelRotation				= Quaternion::Identity;
+	Quaternion					m_model_HourHandRotation	= Quaternion::Identity;
+	Quaternion					m_model_MiniteHandRotation	= Quaternion::Identity;
+	Vector3						m_spritePosition			= Vector3::Zero;
 };

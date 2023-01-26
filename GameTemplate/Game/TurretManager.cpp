@@ -18,14 +18,14 @@
 namespace
 {
 	//Delete
-	float DELETE_SPRITE_SIZE_WIDTH = 1280.0f;
-	float DELETE_SPRITE_SIZE_HEIGHT = 720.0f;
+	float	DELETE_SPRITE_SIZE_WIDTH	= 1280.0f;
+	float	DELETE_SPRITE_SIZE_HEIGHT	= 720.0f;
 
 	//タレットの移動間隔
-	float TURRET_POSITION_MOVE_NUM = 393.0f;
+	float	TURRET_POSITION_MOVE_NUM	= 393.0f;
 
 	//カーソル
-	Vector3 CURSOR_POSITION = { 200.0f,0.0f,190.0f };
+	Vector3 CURSOR_POSITION				= { 200.0f,0.0f,190.0f };
 }
 
 bool TurretManager::Start()
@@ -38,18 +38,18 @@ bool TurretManager::Start()
 	m_cursorPosition = CURSOR_POSITION;
 
 	//削除用の画像のポジションを設定
-	m_deleteSpritePosition[0] = { -500.0f,0.0f,0.0f };
-	m_deleteSpritePosition[1] = { -415.0f,0.0f,0.0f };
-	m_deleteSpritePosition[2] = { -330.0f,0.0f,0.0f };
-	m_deleteSpritePosition[3] = { -245.0f,0.0f,0.0f };
-	m_deleteSpritePosition[4] = { -500.0f,-100.0f,0.0f };
-	m_deleteSpritePosition[5] = { -415.0f,-100.0f,0.0f };
-	m_deleteSpritePosition[6] = { -330.0f,-100.0f,0.0f };
-	m_deleteSpritePosition[7] = { -245.0f,-100.0f,0.0f };
-	m_deleteSpritePosition[8] = { -500.0f,-200.0f,0.0f };
-	m_deleteSpritePosition[9] = { -415.0f,-200.0f,0.0f };
-	m_deleteSpritePosition[10] = { -330.0f,-200.0f,0.0f };
-	m_deleteSpritePosition[11] = { -245.0f,-200.0f,0.0f };
+	m_deleteSpritePosition[0]	= { -500.0f,0.0f,0.0f };
+	m_deleteSpritePosition[1]	= { -415.0f,0.0f,0.0f };
+	m_deleteSpritePosition[2]	= { -330.0f,0.0f,0.0f };
+	m_deleteSpritePosition[3]	= { -245.0f,0.0f,0.0f };
+	m_deleteSpritePosition[4]	= { -500.0f,-100.0f,0.0f };
+	m_deleteSpritePosition[5]	= { -415.0f,-100.0f,0.0f };
+	m_deleteSpritePosition[6]	= { -330.0f,-100.0f,0.0f };
+	m_deleteSpritePosition[7]	= { -245.0f,-100.0f,0.0f };
+	m_deleteSpritePosition[8]	= { -500.0f,-200.0f,0.0f };
+	m_deleteSpritePosition[9]	= { -415.0f,-200.0f,0.0f };
+	m_deleteSpritePosition[10]	= { -330.0f,-200.0f,0.0f };
+	m_deleteSpritePosition[11]	= { -245.0f,-200.0f,0.0f };
 
 	//Deleteウィンドウ
 	m_deleteWindow.Init("Assets/sprite/LeftWindow/Delete_Window.dds", DELETE_SPRITE_SIZE_WIDTH, DELETE_SPRITE_SIZE_HEIGHT);
@@ -194,7 +194,7 @@ void TurretManager::StateManager()
 		//Rボタン(Lキー)
 		if (g_pad[0]->IsTrigger(enButtonRB3))
 		{
-			m_normalTurret->ModelRotationTurnRight();
+			m_normalTurret->SetModelRotationTurnRight();
 			m_rotation += 180.0f;
 			SoundPlayCursorAfter();
 		}
@@ -202,7 +202,7 @@ void TurretManager::StateManager()
 		//Lボタン(Iキー)
 		if (g_pad[0]->IsTrigger(enButtonLB3))
 		{
-			m_normalTurret->ModelRotationTurnLeft();
+			m_normalTurret->SetModelRotationTurnLeft();
 			m_rotation -= 180.0f;
 			SoundPlayCursorAfter();
 		}
@@ -314,7 +314,7 @@ void TurretManager::StateManager()
 		//Rボタン(Lキー)
 		if (g_pad[0]->IsTrigger(enButtonRB3))
 		{
-			m_dualGunTurret->ModelRotationTurnRight();
+			m_dualGunTurret->SetModelRotationTurnRight();
 			m_rotation += 180.0f;
 			SoundPlayCursorAfter();
 		}
@@ -322,7 +322,7 @@ void TurretManager::StateManager()
 		//Lボタン(Iキー)
 		if (g_pad[0]->IsTrigger(enButtonLB3))
 		{
-			m_dualGunTurret->ModelRotationTurnLeft();
+			m_dualGunTurret->SetModelRotationTurnLeft();
 			m_rotation -= 180.0f;
 			SoundPlayCursorAfter();
 		}
@@ -434,7 +434,7 @@ void TurretManager::StateManager()
 		//Rボタン(Lキー)
 		if (g_pad[0]->IsTrigger(enButtonRB3))
 		{
-			m_laserTurret->ModelRotationTurnRight();
+			m_laserTurret->SetModelRotationTurnRight();
 			m_rotation += 180.0f;
 			SoundPlayCursorAfter();
 		}
@@ -442,7 +442,7 @@ void TurretManager::StateManager()
 		//Lボタン(Iキー)
 		if (g_pad[0]->IsTrigger(enButtonLB3))
 		{
-			m_laserTurret->ModelRotationTurnLeft();
+			m_laserTurret->SetModelRotationTurnLeft();
 			m_rotation -= 180.0f;
 			SoundPlayCursorAfter();
 		}
@@ -554,7 +554,7 @@ void TurretManager::StateManager()
 		//Rボタン(Lキー)
 		if (g_pad[0]->IsTrigger(enButtonRB3))
 		{
-			m_rocketTurret->ModelRotationTurnRight();
+			m_rocketTurret->SetModelRotationTurnRight();
 			m_rotation += 180.0f;
 			SoundPlayCursorAfter();
 		}
@@ -562,7 +562,7 @@ void TurretManager::StateManager()
 		//Lボタン(Iキー)
 		if (g_pad[0]->IsTrigger(enButtonLB3))
 		{
-			m_rocketTurret->ModelRotationTurnLeft();
+			m_rocketTurret->SetModelRotationTurnLeft();
 			m_rotation -= 180.0f;
 			SoundPlayCursorAfter();
 		}
@@ -674,7 +674,7 @@ void TurretManager::StateManager()
 		//Rボタン(Lキー)
 		if (g_pad[0]->IsTrigger(enButtonRB3))
 		{
-			m_generationTurret->ModelRotationTurnRight();
+			m_generationTurret->SetModelRotationTurnRight();
 			m_rotation += 180.0f;
 			SoundPlayCursorAfter();
 		}
@@ -682,7 +682,7 @@ void TurretManager::StateManager()
 		//Lボタン(Iキー)
 		if (g_pad[0]->IsTrigger(enButtonLB3))
 		{
-			m_generationTurret->ModelRotationTurnLeft();
+			m_generationTurret->SetModelRotationTurnLeft();
 			m_rotation -= 180.0f;
 			SoundPlayCursorAfter();
 		}
@@ -794,7 +794,7 @@ void TurretManager::StateManager()
 		//Rボタン(Lキー)
 		if (g_pad[0]->IsTrigger(enButtonRB3))
 		{
-			m_healTurret->ModelRotationTurnRight();
+			m_healTurret->SetModelRotationTurnRight();
 			m_rotation += 180.0f;
 			SoundPlayCursorAfter();
 		}
@@ -802,7 +802,7 @@ void TurretManager::StateManager()
 		//Lボタン(Iキー)
 		if (g_pad[0]->IsTrigger(enButtonLB3))
 		{
-			m_healTurret->ModelRotationTurnLeft();
+			m_healTurret->SetModelRotationTurnLeft();
 			m_rotation -= 180.0f;
 			SoundPlayCursorAfter();
 		}
@@ -914,7 +914,7 @@ void TurretManager::StateManager()
 		//Rボタン(Lキー)
 		if (g_pad[0]->IsTrigger(enButtonRB3))
 		{
-			m_teslaTurret->ModelRotationTurnRight();
+			m_teslaTurret->SetModelRotationTurnRight();
 			m_rotation += 180.0f;
 			SoundPlayCursorAfter();
 		}
@@ -922,7 +922,7 @@ void TurretManager::StateManager()
 		//Lボタン(Iキー)
 		if (g_pad[0]->IsTrigger(enButtonLB3))
 		{
-			m_teslaTurret->ModelRotationTurnLeft();
+			m_teslaTurret->SetModelRotationTurnLeft();
 			m_rotation -= 180.0f;
 			SoundPlayCursorAfter();
 		}
@@ -1034,7 +1034,7 @@ void TurretManager::StateManager()
 		//Rボタン(Lキー)
 		if (g_pad[0]->IsTrigger(enButtonRB3))
 		{
-			m_holyTurret->ModelRotationTurnRight();
+			m_holyTurret->SetModelRotationTurnRight();
 			m_rotation += 180.0f;
 			SoundPlayCursorAfter();
 		}
@@ -1042,7 +1042,7 @@ void TurretManager::StateManager()
 		//Lボタン(Iキー)
 		if (g_pad[0]->IsTrigger(enButtonLB3))
 		{
-			m_holyTurret->ModelRotationTurnLeft();
+			m_holyTurret->SetModelRotationTurnLeft();
 			m_rotation -= 180.0f;
 			SoundPlayCursorAfter();
 		}

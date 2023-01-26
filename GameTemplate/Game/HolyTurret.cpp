@@ -6,7 +6,8 @@
 
 namespace
 {
-	float FIRERATE = 10.0f;
+	const int	MAX_HP		= 200;
+	const float FIRERATE	= 12.0f;
 }
 
 HolyTurret::~HolyTurret()
@@ -53,11 +54,21 @@ bool HolyTurret::Start()
 	//âπê∫ÇÃê∂ê¨
 	g_soundEngine->ResistWaveFileBank(enSoundNumber_HolyTurret, "Assets/sound/HolyTurret.wav");
 
+	//HPÇê›íË
+	m_maxHp = MAX_HP;
+	m_hp = m_maxHp;
+
 	return true;
 }
 
 void HolyTurret::Move()
 {
+	//ëÃóÕÇ™ñ≥Ç≠Ç»Ç¡ÇΩÇÁ
+	if (m_hp <= 0)
+	{
+		DeleteGO(this);
+	}
+
 	//ÉfÉoÉtÇ…ä|Ç©Ç¡ÇƒÇ¢Ç»Ç©Ç¡ÇΩÇÁ
 	if (m_debuffTimer <= 0.0f)
 	{
@@ -84,8 +95,8 @@ void HolyTurret::Move()
 			SoundPlayHoly();
 			m_fireRate = 0.0f;
 		}
-		m_model_HourHandRotation.AddRotationDegY(g_gameTime->GetFrameDeltaTime() * 0.4f);
-		m_model_MiniteHandRotation.AddRotationDegY(g_gameTime->GetFrameDeltaTime() * 30.0f);
+		m_model_HourHandRotation.AddRotationDegY(g_gameTime->GetFrameDeltaTime() * 5.0f);
+		m_model_MiniteHandRotation.AddRotationDegY(g_gameTime->GetFrameDeltaTime() * 60.0f);
 	}
 }
 
@@ -98,10 +109,10 @@ void HolyTurret::Update()
 	m_turret_BaseMR.SetRotation(m_modelRotation);
 	m_turret_BaseMR.Update();
 	m_turret_HourHandMR.SetPosition(m_modelPosition);
-	m_turret_HourHandMR.SetRotation(m_modelRotation);
+	m_turret_HourHandMR.SetRotation(m_model_HourHandRotation);
 	m_turret_HourHandMR.Update();
 	m_turret_MiniteHandMR.SetPosition(m_modelPosition);
-	m_turret_MiniteHandMR.SetRotation(m_modelRotation);
+	m_turret_MiniteHandMR.SetRotation(m_model_MiniteHandRotation);
 	m_turret_MiniteHandMR.Update();
 	m_baseMR.SetPosition(m_modelPosition);
 	m_baseMR.Update();

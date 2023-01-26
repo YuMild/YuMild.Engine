@@ -23,7 +23,8 @@ Stage::~Stage()
 bool Stage::Start()
 {
 	//ƒ‚ƒfƒ‹
-	m_modelRender.Init("Assets/ModelData/Stage/Stage.tkm", ShadowRecieve);
+	m_emissionMap.InitFromDDSFile(L"Assets/modelData/Stage/Stage_Emission.DDS");
+	m_modelRender.Init("Assets/ModelData/Stage/Stage.tkm", ShadowNone);
 	m_modelRender.SetPosition(STAGE_FIRST_POSITION);
 	m_modelRender.SetScale(STAGE_FIRST_SCALE);
 	m_modelRender.Update();

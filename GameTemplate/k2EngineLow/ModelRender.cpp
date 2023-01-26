@@ -18,10 +18,16 @@ namespace  nsK2EngineLow
 		bool trans,
 		AnimationClip* animationClips,
 		int numAnimationClips,
-		EnModelUpAxis enModelUpAxis)
+		EnModelUpAxis enModelUpAxis,
+		Texture* emission)
 	{
 		ModelInitData initData;
 		initData.m_tkmFilePath = filePath;
+
+		if (emission != nullptr)
+		{
+			initData.m_expandShaderResoruceView[1] = emission;
+		}
 
 		if (shadow == ShadowDrop)
 		{

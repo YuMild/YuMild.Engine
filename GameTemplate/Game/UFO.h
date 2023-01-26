@@ -94,7 +94,7 @@ private:
 	/// HP‚ğŠÇ—
 	/// </summary>
 	void HP();
-
+	
 	//ƒNƒ‰ƒX
 	GameOver*					m_gameOver;
 
@@ -102,6 +102,7 @@ private:
 	TurretManager*				m_turretManager;
 
 	//ƒ‚ƒfƒ‹
+	Texture						m_emissionMap;
 	ModelRender					m_modelRender;
 
 	//HP

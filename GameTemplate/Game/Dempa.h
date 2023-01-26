@@ -87,11 +87,6 @@ public:
 private:
 
 	/// <summary>
-	/// 攻撃を管理
-	/// </summary>
-	void Attack();
-
-	/// <summary>
 	/// 動作を管理
 	/// </summary>
 	void Move();
@@ -102,34 +97,31 @@ private:
 	void HP();
 
 	//クラス
-	GameOver*					m_gameOver;
-	SpawnManager*				m_spawnManager;
-	TurretManager*				m_turretManager;
+	GameOver*					m_gameOver			= nullptr;
+	SpawnManager*				m_spawnManager		= nullptr;
+	TurretManager*				m_turretManager		= nullptr;
 
 	//攻撃処理
-	EffectEmitter*				m_dempaAttackEF;
+	//EffectEmitter*				m_dempaAttackEF;
 	std::vector<TurretObject*>	m_turrets;
+	Vector3						m_difference		= Vector3::Zero;;
+	Vector3						m_moveSpeed			= Vector3::Zero;
 
 	//モデル
 	ModelRender					m_modelRender;
 
 	//HP
 	SpriteRender				m_hpBarSR;
-	float						m_hp = 0.0f;
-	float						m_hpMax = 0.0f;
-	Vector2						m_hpBarPosition;
+	float						m_hp				= 0.0f;
+	float						m_hpMax				= 0.0f;
+	Vector2						m_hpBarPosition		= Vector2::Zero;
 
 	//状態
-	float						m_slowTimer = 0.0f;
-	float						m_bindTimer = 0.0f;
+	float						m_slowTimer			= 0.0f;
+	float						m_bindTimer			= 0.0f;
 
 	//Dempa
-	Vector3						m_position = { 0.0f,0.0f,-8000.0f };
-	Vector3						m_scale;
-	Quaternion					m_rotation;
-
-	//パス移動
-	std::vector<Vector3>		m_pointList;
-	Vector3						m_target;
-	int							m_pointNum = 0;
+	Vector3						m_position			= { 0.0f,0.0f,-8000.0f };
+	Vector3						m_scale				= Vector3::Zero;
+	Quaternion					m_rotation			= Quaternion::Identity;
 };

@@ -7,8 +7,10 @@
 
 namespace
 {
-	float FIRERATE = 0.5f;
-	float AttackPower = 50.0f;
+	const int	MAX_HP		= 100;
+	const float FIRERATE	= 0.5f;
+	const float ATTACKPOWER	= 50.0f;
+	const float ATTACKRANGE	= 1000.0f;
 }
 
 bool NormalTurret::Start()
@@ -40,11 +42,21 @@ bool NormalTurret::Start()
 	//音声の生成
 	g_soundEngine->ResistWaveFileBank(enSoundNumber_NormalTurret, "Assets/sound/NormalTurret.wav");
 
+	//HPを設定
+	m_maxHp = MAX_HP;
+	m_hp = m_maxHp;
+
 	return true;
 }
 
 void NormalTurret::Move()
 {
+	//体力が無くなったら
+	if (m_hp <= 0)
+	{
+		DeleteGO(this);
+	}
+
 	//デバフに掛かっていなかったら
 	if (m_debuffTimer <= 0.0f)
 	{
@@ -67,12 +79,15 @@ void NormalTurret::Move()
 		for (auto enemys : m_enemys)
 		{
 			//全ての敵との距離を測る
-			Vector3 difference = enemys->GetPosition() - m_modelPosition;
-			//射程内で且つ一番近かったら
-			if (difference.Length() >= 1000.0f)
+			Vector3 enemysPosition = { enemys->GetPosition().x,0.0f,enemys->GetPosition().z };
+			Vector3 modelPosition = { m_modelPosition.x,0.0f,m_modelPosition.z };
+			Vector3 difference = enemysPosition - modelPosition;
+			//射程外なら戻る
+			if (difference.Length() >= ATTACKRANGE)
 			{
 				continue;
 			}
+			//射程内なら続行
 			if (difference.Length() < m_difference.Length())
 			{
 				//ロックオン
@@ -93,7 +108,7 @@ void NormalTurret::Move()
 				//発射レート
 				if (m_fireRate >= FIRERATE)
 				{
-					enemys->SubHP(AttackPower);
+					enemys->SubHP(ATTACKPOWER);
 					EffectPlayHit(m_lockOnPosition);
 					SoundPlayFire();
 					m_fireRate = 0.0f;
@@ -125,4 +140,21 @@ void NormalTurret::Render(RenderContext& renderContext)
 	{
 		m_attackRangeMR.Draw(renderContext);
 	}
+}
+
+void NormalTurret::EffectPlayHit(const Vector3& position)
+{
+	m_hitEF = NewGO<EffectEmitter>(0);
+	m_hitEF->Init(6);
+	m_hitEF->SetPosition({ position.x,position.y + 200.0f,position.z + 300.0f });
+	m_hitEF->SetScale(Vector3::One * 150.0f);
+	m_hitEF->Play();
+}
+
+void NormalTurret::SoundPlayFire()
+{
+	m_fireSE = NewGO<SoundSource>(0);
+	m_fireSE->Init(enSoundNumber_NormalTurret);
+	m_fireSE->SetVolume(0.025f);
+	m_fireSE->Play(false);
 }

@@ -46,17 +46,17 @@ public:
 	/// モデルの回転を取得
 	/// </summary>
 	/// <returns></returns>
-	virtual Quaternion GetModelRotation();
+	virtual Quaternion GetModelRotation() const;
 
 	/// <summary>
 	/// モデルを時計回りに回転
 	/// </summary>
-	virtual void ModelRotationTurnRight();
+	virtual void SetModelRotationTurnRight();
 
 	/// <summary>
 	/// モデルを反時計回りに回転
 	/// </summary>
-	virtual void ModelRotationTurnLeft();
+	virtual void SetModelRotationTurnLeft();
 
 	/// <summary>
 	/// タレットの状態を設定
@@ -67,7 +67,19 @@ public:
 	/// タレットの状態を取得
 	/// </summary>
 	/// <returns></returns>
-	virtual bool GetAttackReady();
+	virtual bool GetAttackReady() const;
+
+	/// <summary>
+	/// タレットのHPを加算する
+	/// </summary>
+	/// <param name="value"></param>
+	virtual void AddTurretHP(bool value);
+
+	/// <summary>
+	/// タレットのHPを減算する
+	/// </summary>
+	/// <param name="value"></param>
+	virtual void SubTurretHP(bool value);
 
 	/// <summary>
 	/// デバフを設定

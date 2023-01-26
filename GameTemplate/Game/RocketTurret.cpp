@@ -3,6 +3,11 @@
 
 #include "LeftWindow.h"
 
+namespace
+{
+	const int	MAX_HP = 200;
+}
+
 bool RocketTurret::Start()
 {
 	//タレット
@@ -26,11 +31,26 @@ bool RocketTurret::Start()
 	m_attackRangeMR.SetScale({ 0.25f,1.0f,0.25f });
 	m_attackRangeMR.Update();
 
+	//HPを設定
+	m_maxHp = MAX_HP;
+	m_hp = m_maxHp;
+
 	return true;
+}
+
+void RocketTurret::Move()
+{
+	//体力が無くなったら
+	if (m_hp <= 0)
+	{
+		DeleteGO(this);
+	}
 }
 
 void RocketTurret::Update()
 {
+	Move();
+
 	//更新処理
 	m_turretMR.SetPosition(m_modelPosition);
 	m_turretMR.SetRotation(m_modelRotation);

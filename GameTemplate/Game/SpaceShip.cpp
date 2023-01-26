@@ -10,8 +10,8 @@
 namespace
 {
 	//モデルの初期値
-	Vector3 DEFAULT_POSITION = { 0.0f,500.0f,-8000.0f };
-	Vector3 DEFAULT_SCALE = { 2.0f,2.0f,2.0f };
+	Vector3 DEFAULT_POSITION = { 0.0f,1500.0f,-8000.0f };
+	Vector3 DEFAULT_SCALE = { 3.0f,3.0f,3.0f };
 	float DEFAULT_ROTATION_Y = 0.0f;
 
 	//パラメーター

@@ -65,7 +65,7 @@ public:
 	/// モデルの回転を取得
 	/// </summary>
 	/// <returns></returns>
-	Quaternion GetModelRotation() override
+	Quaternion GetModelRotation() const override
 	{
 		return m_modelRotation;
 	}
@@ -73,7 +73,7 @@ public:
 	/// <summary>
 	/// モデルを時計回りに回転
 	/// </summary>
-	void ModelRotationTurnRight() override
+	void SetModelRotationTurnRight() override
 	{
 		m_modelRotation.AddRotationDegY(180.0f);
 	}
@@ -81,7 +81,7 @@ public:
 	/// <summary>
 	/// モデルを反時計回りに回転
 	/// </summary>
-	void ModelRotationTurnLeft() override
+	void SetModelRotationTurnLeft() override
 	{
 		m_modelRotation.AddRotationDegY(-180.0f);
 	}
@@ -98,9 +98,37 @@ public:
 	/// タレットの状態を取得
 	/// </summary>
 	/// <returns></returns>
-	bool GetAttackReady()
+	bool GetAttackReady() const override
 	{
 		return m_moveReady;
+	}
+
+	/// <summary>
+	/// タレットのHPを加算する
+	/// </summary>
+	/// <param name="value"></param>
+	void AddTurretHP(bool value) override
+	{
+		m_hp += value;
+		//上限より増えない様に
+		if (m_hp >= m_maxHp)
+		{
+			m_hp = m_maxHp;
+		}
+	}
+
+	/// <summary>
+	/// タレットのHPを減算する
+	/// </summary>
+	/// <param name="value"></param>
+	void SubTurretHP(bool value) override
+	{
+		m_hp -= value;
+		//上限より増えない様に
+		if (m_hp >= m_maxHp)
+		{
+			m_hp = m_maxHp;
+		}
 	}
 
 	/// <summary>
@@ -118,20 +146,22 @@ private:
 	/// </summary>
 	void Move();
 
-	//攻撃処理
-	bool							m_moveReady = false;
-	float							m_debuffTimer = 0.0f;
-	bool							m_addGenerationTurret = false;
+	//動作処理
+	int							m_hp					= 0;
+	int							m_maxHp					= 0;
+	bool						m_moveReady				= false;
+	bool						m_addGenerationTurret	= false;
+	float						m_debuffTimer			= 0.0f;
 
 	//クラス
-	Energy*							m_energy;
+	Energy*						m_energy				= nullptr;
 
 	//モデル
-	ModelRender						m_turretMR;
-	ModelRender						m_baseMR;
+	ModelRender					m_turretMR;
+	ModelRender					m_baseMR;
 
 	//モデル
-	Vector3							m_modelPosition;
-	Quaternion						m_modelRotation;
-	Vector3							m_spritePosition;
+	Vector3						m_modelPosition			= Vector3::Zero;
+	Quaternion					m_modelRotation			= Quaternion::Identity;
+	Vector3						m_spritePosition		= Vector3::Zero;
 };

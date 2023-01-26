@@ -5,13 +5,9 @@
 
 namespace
 {
-	float FIRERATE = 2.0f;
-	float ATTACKPOWER = 30.0f;
-}
-
-LaserTurret::LaserTurret()
-{
-
+	const int	MAX_HP		= 200;
+	const float FIRERATE	= 1.0f;
+	const float ATTACKPOWER	= 20.0f;
 }
 
 LaserTurret::~LaserTurret()
@@ -51,6 +47,10 @@ bool LaserTurret::Start()
 	//音声の生成
 	g_soundEngine->ResistWaveFileBank(enSoundNumber_LaserTurret, "Assets/sound/LaserTurret.wav");
 
+	//HPを設定
+	m_maxHp = MAX_HP;
+	m_hp = m_maxHp;
+
 	//レーザーの射撃方向
 	m_forward = { 0.0f,0.0f,-1.0f };
 	m_laserPosition = { m_modelPosition.x,m_modelPosition.y + 150.0f,m_modelPosition.z };
@@ -61,6 +61,12 @@ bool LaserTurret::Start()
 
 void LaserTurret::Move()
 {
+	//体力が無くなったら
+	if (m_hp <= 0)
+	{
+		DeleteGO(this);
+	}
+
 	//デバフに掛かっていなかったら
 	if (m_debuffTimer <= 0.0f)
 	{

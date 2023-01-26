@@ -7,9 +7,11 @@
 
 namespace
 {
-	float FIRERATE = 2.0f;
-	float ATTACKPOWER = 300.0f;
-	float BINDTIME = 0.5f;
+	const int	MAX_HP		= 200;
+	const float FIRERATE	= 2.0f;
+	const float ATTACKPOWER	= 300.0f;
+	const float ATTACKRANGE	= 2000.0f;
+	const float BINDTIME	= 0.5f;
 }
 
 bool TeslaTurret::Start()
@@ -41,11 +43,21 @@ bool TeslaTurret::Start()
 	//音声の生成
 	g_soundEngine->ResistWaveFileBank(enSoundNumber_TeslaTurret, "Assets/sound/TeslaTurret.wav");
 
+	//HPを設定
+	m_maxHp = MAX_HP;
+	m_hp = m_maxHp;
+
 	return true;
 }
 
 void TeslaTurret::Move()
 {
+	//体力が無くなったら
+	if (m_hp <= 0)
+	{
+		DeleteGO(this);
+	}
+
 	//デバフに掛かっていなかったら
 	if (m_debuffTimer <= 0.0f)
 	{
@@ -68,12 +80,15 @@ void TeslaTurret::Move()
 		for (auto enemys : m_enemys)
 		{
 			//全ての敵との距離を測る
-			Vector3 difference = enemys->GetPosition() - m_modelPosition;
-			//射程内で且つ一番近かったら
-			if (difference.Length() >= 2000.0f)
+			Vector3 enemysPosition = { enemys->GetPosition().x,0.0f,enemys->GetPosition().z };
+			Vector3 modelPosition = { m_modelPosition.x,0.0f,m_modelPosition.z };
+			Vector3 difference = enemysPosition - modelPosition;
+			//射程外なら戻る
+			if (difference.Length() >= ATTACKRANGE)
 			{
 				continue;
 			}
+			//射程内なら続行
 			if (difference.Length() < m_difference.Length())
 			{
 				//ロックオン

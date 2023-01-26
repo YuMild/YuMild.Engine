@@ -4,6 +4,11 @@
 #include "Energy.h"
 #include "TurretManager.h"
 
+namespace
+{
+	const int	MAX_HP = 200;
+}
+
 GenerationTurret::~GenerationTurret()
 {
 	if (m_moveReady == true)
@@ -31,13 +36,24 @@ bool GenerationTurret::Start()
 	m_baseMR.SetScale({ 1.0f,1.0f,1.0f });
 	m_baseMR.Update();
 
+	//ˆê“x‚¾‚¯Às
 	m_addGenerationTurret = true;
+
+	//HP‚ğİ’è
+	m_maxHp = MAX_HP;
+	m_hp = m_maxHp;
 
 	return true;
 }
 
 void GenerationTurret::Move()
 {
+	//‘Ì—Í‚ª–³‚­‚È‚Á‚½‚ç
+	if (m_hp <= 0)
+	{
+		DeleteGO(this);
+	}
+
 	//“®ì‰Â”\‚È‚ç
 	if (m_moveReady == true)
 	{

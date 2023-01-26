@@ -31,17 +31,17 @@ void TurretObject::SetModelRotation(const float rotation)
 
 }
 
-Quaternion TurretObject::GetModelRotation()
+Quaternion TurretObject::GetModelRotation() const
 {
 	return Quaternion();
 }
 
-void TurretObject::ModelRotationTurnRight()
+void TurretObject::SetModelRotationTurnRight()
 {
 
 }
 
-void TurretObject::ModelRotationTurnLeft()
+void TurretObject::SetModelRotationTurnLeft()
 {
 
 }
@@ -51,9 +51,19 @@ void TurretObject::SetAttackReady(bool ready)
 
 }
 
-bool TurretObject::GetAttackReady()
+bool TurretObject::GetAttackReady() const
 {
 	return bool();
+}
+
+void TurretObject::AddTurretHP(bool value)
+{
+
+}
+
+void TurretObject::SubTurretHP(bool value)
+{
+
 }
 
 void TurretObject::SetDebuff()

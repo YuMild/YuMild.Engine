@@ -46,6 +46,7 @@ public:
 private:
 
 	//ƒ‚ƒfƒ‹
+	Texture				m_emissionMap;
 	ModelRender			m_modelRender;
 
 	//‰¹º

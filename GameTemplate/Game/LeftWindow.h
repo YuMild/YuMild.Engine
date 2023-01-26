@@ -4,6 +4,7 @@
 
 class Energy;
 class Game;
+class LeftWindowDelete;
 class Player;
 class TurretManager;
 
@@ -199,6 +200,7 @@ private:
 
 	//ƒNƒ‰ƒX
 	Energy*						m_energy;
+	LeftWindowDelete*			m_leftWindowDelete;
 	Player*						m_player;
 	TurretManager*				m_turretManager;
 	std::vector<TurretObject*>	m_turrets;

@@ -204,6 +204,15 @@ namespace nsK2EngineLow
 			m_light.m_directionLight.SetColor(color);
 		}
 		/// <summary>
+		/// ディレクションライトの方向を設定する
+		/// </summary>
+		/// <param name="direction"></param>
+		/// <returns></returns>
+		void SetDirectionLightDirection(Vector3& direction)
+		{
+			m_light.m_directionLight.SetDirection(direction);
+		}
+		/// <summary>
 		/// ディレクションライトの方向を取得
 		/// </summary>
 		/// <returns></returns>

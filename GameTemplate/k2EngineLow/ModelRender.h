@@ -37,7 +37,8 @@ namespace  nsK2EngineLow
 			bool trans = false,
 			AnimationClip* animationClips = nullptr,
 			int numAnimationClips = 0,
-			EnModelUpAxis enModelUpAxis = enModelUpAxisZ);
+			EnModelUpAxis enModelUpAxis = enModelUpAxisZ,
+			Texture* emission = nullptr);
 
 		/// <summary>
 		/// シャドウマップを落とすモデルを作成

@@ -117,30 +117,31 @@ private:
 	void HP();
 
 	//ÉNÉâÉX
-	GameOver*					m_gameOver;
-	LeftWindow*					m_leftWindow;
+	GameOver*					m_gameOver			= nullptr;
+	LeftWindow*					m_leftWindow		= nullptr;
 
 	SpawnManager*				m_spawnManager;
 	TurretManager*				m_turretManager;
 
 	//ÉÇÉfÉã
+	Texture						m_emissionMap;
 	ModelRender					m_modelRender;
 
 	//HP
 	SpriteRender				m_hpBarSR;
-	float						m_hp = 0.0f;
-	float						m_maxHp = 0.0f;
-	Vector2						m_hpBarPosition;
+	float						m_hp				= 0.0f;
+	float						m_maxHp				= 0.0f;
+	Vector2						m_hpBarPosition		= Vector2::Zero;
 
 	//èÛë‘
-	float						m_slowTimer = 0.0f;
-	float						m_bindTimer = 0.0f;
+	float						m_slowTimer			= 0.0f;
+	float						m_bindTimer			= 0.0f;
 
 	//SpaceShip
-	Vector3						m_position = { 0.0f,0.0f,-8000.0f };
-	Quaternion					m_rotation;
-	Vector3						m_scale;
+	Vector3						m_position			= Vector3::Zero;
+	Quaternion					m_rotation			= Quaternion::Identity;
+	Vector3						m_scale				= Vector3::Zero;
 
 	//à⁄ìÆ
-	Vector3						m_target;
+	Vector3						m_target			= Vector3::Zero;
 };

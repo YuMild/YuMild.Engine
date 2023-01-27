@@ -13,11 +13,11 @@ namespace
 	//スポーンタイマー
 	const float DEFAULT_SPAWNTIME_UFO			= 3.0f;
 	const float DEFAULT_SPAWNTIME_DEMPA			= 10.0f;
-	const float DEFAULT_SPAWNTIME_SPACESHIP		= 120.0f;
+	const float DEFAULT_SPAWNTIME_SPACESHIP		= 30.0f;
 
 	//初スポーンまでの時間
-	const float DELAY_UFO						= 7.0f;
-	const float DELAY_DEMPA						= 0.0f;
+	const float DELAY_UFO						= 67.0f;
+	const float DELAY_DEMPA						= 60.0f;
 	const float DELAY_SPACESHIP					= 0.0f;
 
 	//レベルアップ

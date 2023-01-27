@@ -128,6 +128,7 @@ private:
 	Vector3						m_moveSpeed			= Vector3::Zero;
 
 	//ƒ‚ƒfƒ‹
+	Texture						m_emissionMap;
 	ModelRender					m_modelRender;
 
 	//HP

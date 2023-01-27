@@ -10,9 +10,9 @@
 namespace
 {
 	//モデルの初期値
-	Vector3 DEFAULT_POSITION = { 0.0f,1500.0f,-8000.0f };
+	Vector3 DEFAULT_POSITION = { 0.0f,1000.0f,-8000.0f };
 	Vector3 DEFAULT_SCALE = { 3.0f,3.0f,3.0f };
-	float DEFAULT_ROTATION_Y = 0.0f;
+	Vector3 DEFAULT_TARGET = { 0.0f,1000.0f,-0.0f };
 
 	//パラメーター
 	float DEFAULT_MOVE_SPEED = 3.0f;
@@ -32,13 +32,14 @@ bool SpaceShip::Start()
 	m_spawnManager = FindGO<SpawnManager>("spawnManager");
 	m_turretManager = FindGO<TurretManager>("turretManager");
 
-	//モデル
-	m_modelRender.Init("Assets/modelData/Enemy/SpaceShip.tkm", ShadowNone);
 	m_position = DEFAULT_POSITION;
-	m_modelRender.SetPosition(m_position);
-	m_rotation.SetRotationDegY(DEFAULT_ROTATION_Y);
-	m_modelRender.SetRotation(m_rotation);
 	m_scale = DEFAULT_SCALE;
+
+	//モデル
+	m_emissionMap.InitFromDDSFile(L"Assets/modelData/Enemy/SpaceShip_Emission.DDS");
+	m_modelRender.Init("Assets/modelData/Enemy/SpaceShip.tkm", ShadowNone, false, nullptr, 0, enModelUpAxisZ, &m_emissionMap);
+	m_modelRender.SetPosition(m_position);
+	m_modelRender.SetRotation(m_rotation);
 	m_modelRender.SetScale(m_scale);
 	m_modelRender.Update();
 
@@ -55,7 +56,7 @@ bool SpaceShip::Start()
 void SpaceShip::Move()
 {
 	//目的地までのベクトル
-	Vector3 difference = m_target - m_position;
+	Vector3 difference = DEFAULT_TARGET - m_position;
 
 	//目的地に着いたら
 	if (difference.Length() <= 10.0f)
@@ -75,7 +76,7 @@ void SpaceShip::Move()
 	}
 
 	//移動
-	Vector3 moveSpeed = m_target - m_position;
+	Vector3 moveSpeed = difference;
 	moveSpeed.Normalize();
 	moveSpeed *= DEFAULT_MOVE_SPEED;
 	m_position += moveSpeed;

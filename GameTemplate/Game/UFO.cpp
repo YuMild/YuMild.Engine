@@ -11,7 +11,6 @@ namespace
 	//モデルの初期値
 	Vector3 DEFAULT_POSITION = { 0.0f,0.0f,-8000.0f };
 	Vector3 DEFAULT_SCALE = { 2.95f,2.95f,2.95f };
-	float DEFAULT_ROTATION_Y = 0.0f;
 
 	//ポイントポジション
 	Vector3 POINT_1_POSITION = { 0.0f,0.0f,-5900.0f };
@@ -44,15 +43,14 @@ bool UFO::Start()
 	m_spawnManager = FindGO<SpawnManager>("spawnManager");
 	m_turretManager = FindGO<TurretManager>("turretManager");
 	
+	m_position = DEFAULT_POSITION;
+	m_scale = DEFAULT_SCALE;
+
 	//モデル
 	m_emissionMap.InitFromDDSFile(L"Assets/modelData/Enemy/UFO_Blue_Emission.DDS");
 	m_modelRender.Init("Assets/modelData/Enemy/UFO_Blue.tkm", ShadowNone, false, nullptr, 0, enModelUpAxisZ, &m_emissionMap);
-	m_position = DEFAULT_POSITION;
 	m_modelRender.SetPosition(m_position);
-	m_rotation.SetRotationDegY(DEFAULT_ROTATION_Y);
 	m_modelRender.SetRotation(m_rotation);
-	m_scale = DEFAULT_SCALE;
-	m_modelRender.SetScale(m_scale);
 	m_modelRender.Update();
 
 	//HP

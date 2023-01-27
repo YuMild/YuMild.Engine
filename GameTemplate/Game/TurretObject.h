@@ -73,13 +73,13 @@ public:
 	/// タレットのHPを加算する
 	/// </summary>
 	/// <param name="value"></param>
-	virtual void AddTurretHP(bool value);
+	virtual void AddTurretHP(int value);
 
 	/// <summary>
 	/// タレットのHPを減算する
 	/// </summary>
 	/// <param name="value"></param>
-	virtual void SubTurretHP(bool value);
+	virtual void SubTurretHP(int value);
 
 	/// <summary>
 	/// デバフを設定

@@ -28,19 +28,19 @@ public:
 	/// HP‚ğİ’è
 	/// </summary>
 	/// <param name="setHP"></param>
-	virtual void SetDefaultHP(const float setDefaultHP) = 0;
+	virtual void SetDefaultHP(const int setDefaultHP) = 0;
 
 	/// <summary>
 	/// HP‚ğ‰ÁZ
 	/// </summary>
 	/// <param name="addHP"></param>
-	virtual void AddHP(const float addHP) = 0;
+	virtual void AddEnemyHP(const int value) = 0;
 
 	/// <summary>
 	/// HP‚ğœZ
 	/// </summary>
 	/// <param name="addHP"></param>
-	virtual void SubHP(const float subHP) = 0;
+	virtual void SubEnemyHP(const int value) = 0;
 
 	/// <summary>
 	/// Œ¸‘¬ŠÔ‚ğİ’è

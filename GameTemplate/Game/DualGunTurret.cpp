@@ -9,7 +9,7 @@ namespace
 {
 	const int	MAX_HP		= 200;
 	const float FIRERATE	= 0.1f;
-	const float ATTACKPOWER	= 20.0f;
+	const float ATTACKPOWER	= 50.0f;
 	const float ATTACKRANGE	= 1000.0f;
 }
 
@@ -30,11 +30,17 @@ bool DualGunTurret::Start()
 	m_turretBaseMR.Update();
 
 	//土台
-	m_baseMR.Init("Assets/ModelData/Turret/Base.tkm", ShadowRecieveAndDrop, true);
+	m_baseMR.Init("Assets/ModelData/Turret/Base.tkm", ShadowNone, true);
 	m_baseMR.SetPosition(m_modelPosition);
 	m_baseMR.SetRotation(m_modelRotation);
 	m_baseMR.SetScale({ 1.0f,1.0f,1.0f });
 	m_baseMR.Update();
+	m_emissionMap.InitFromDDSFile(L"Assets/modelData/Turret/Base2_Emission.DDS");
+	m_base2MR.Init("Assets/ModelData/Turret/Base2.tkm", ShadowNone, false, nullptr, 0, enModelUpAxisZ, &m_emissionMap);
+	m_base2MR.SetPosition(m_modelPosition);
+	m_base2MR.SetRotation(m_modelRotation);
+	m_base2MR.SetScale({ 1.0f,1.0f,1.0f });
+	m_base2MR.Update();
 
 	//射程範囲
 	m_attackRangeMR.Init("Assets/ModelData/Turret/AttackRange_Circle.tkm", Dithering,true);
@@ -55,20 +61,15 @@ bool DualGunTurret::Start()
 	//HPを設定
 	m_maxHp	= MAX_HP;
 	m_hp = m_maxHp;
+	m_hpBarSR.Init("Assets/Sprite/Turret/TurretHP.dds", 30.0f, 30.0f);
 
 	return true;
 }
 
 void DualGunTurret::Move()
 {
-	//体力が無くなったら
-	if (m_hp <= 0)
-	{
-		DeleteGO(this);
-	}
-
 	//デバフに掛かっていなかったら
-	if (m_debuffTimer <= 0.0f)
+	if (m_debuffTimer <= 0.0f && m_hp > 0)
 	{
 		m_fireRate += g_gameTime->GetFrameDeltaTime();
 	}
@@ -118,7 +119,7 @@ void DualGunTurret::Move()
 				//発射レート
 				if (m_fireRate >= FIRERATE)
 				{
-					enemys->SubHP(ATTACKPOWER);
+					enemys->SubEnemyHP(ATTACKPOWER);
 					EffectPlayHit(m_lockOnPosition);
 					SoundPlayFire();
 					//リコイル
@@ -150,13 +151,28 @@ void DualGunTurret::Move()
 	m_turretBaseMR.Update();
 	m_baseMR.SetPosition(m_modelPosition);
 	m_baseMR.Update();
+	m_base2MR.SetPosition(m_modelPosition);
+	m_base2MR.Update();
 	m_attackRangeMR.SetPosition(m_modelPosition);
 	m_attackRangeMR.Update();
+}
+
+void DualGunTurret::HP()
+{
+	//HPバー
+	Vector3 position = m_modelPosition;
+	position.y += 300.0f;
+	g_camera3D->CalcScreenPositionFromWorldPosition(m_hpBarPosition, position);
+	m_hpBarSR.SetPosition(Vector3(m_hpBarPosition.x, m_hpBarPosition.y, 0.0f));
+	m_hpBarSR.SetIsDisplayRestrictionRightSide(true);
+	m_hpBarSR.SetLimitedX(m_hp / m_maxHp);
+	m_hpBarSR.Update();
 }
 
 void DualGunTurret::Update()
 {
 	Move();
+	HP();
 }
 
 void DualGunTurret::Render(RenderContext& renderContext)
@@ -164,9 +180,17 @@ void DualGunTurret::Render(RenderContext& renderContext)
 	m_turretMR.Draw(renderContext);
 	m_turretBaseMR.Draw(renderContext);
 	m_baseMR.Draw(renderContext);
+	m_base2MR.Draw(renderContext);
+
 	if (m_moveReady == false)
 	{
 		m_attackRangeMR.Draw(renderContext);
+	}
+
+	//ダメージを受けていたら
+	if (m_hp < m_maxHp)
+	{
+		m_hpBarSR.Draw(renderContext);
 	}
 }
 

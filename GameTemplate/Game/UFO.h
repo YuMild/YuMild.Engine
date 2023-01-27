@@ -42,27 +42,47 @@ public:
 	/// HPを設定
 	/// </summary>
 	/// <param name="setHP"></param>
-	void SetDefaultHP(const float setDefaultHP)override
+	void SetDefaultHP(const int setDefaultHP)override
 	{
 		m_hp = setDefaultHP;
 	}
 
 	/// <summary>
-	/// HPを加算
+	/// エネミーのHPを加算する
 	/// </summary>
 	/// <param name="addHP"></param>
-	void AddHP(const float addHP)override
+	void AddEnemyHP(const int value)override
 	{
-		m_hp += addHP;
+		m_hp += value;
+		//上限より増えない様に
+		if (m_hp >= m_maxHp)
+		{
+			m_hp = m_maxHp;
+		}
+		//0より減らない様に
+		else if (m_hp <= 0)
+		{
+			m_hp = 0;
+		}
 	}
 
 	/// <summary>
-	/// HPを除算
+	/// エネミーのHPを除算する
 	/// </summary>
 	/// <param name="addHP"></param>
-	void SubHP(const float subHP)override
+	void SubEnemyHP(const int value)override
 	{
-		m_hp -= subHP;
+		m_hp -= value;
+		//上限より増えない様に
+		if (m_hp >= m_maxHp)
+		{
+			m_hp = m_maxHp;
+		}
+		//0より減らない様に
+		else if (m_hp <= 0)
+		{
+			m_hp = 0;
+		}
 	}
 
 	/// <summary>
@@ -108,7 +128,7 @@ private:
 	//HP
 	SpriteRender				m_hpBarSR;
 	float						m_hp = 0.0f;
-	float						m_hpMax = 0.0f;
+	float						m_maxHp = 0.0f;
 	Vector2						m_hpBarPosition;
 
 	//状態

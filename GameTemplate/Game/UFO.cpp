@@ -57,7 +57,7 @@ bool UFO::Start()
 
 	//HP
 	m_hp = m_spawnManager->GetDefaultHP_UFO();
-	m_hpMax = m_spawnManager->GetDefaultHP_UFO();
+	m_maxHp = m_spawnManager->GetDefaultHP_UFO();
 	m_hpBarSR.Init("Assets/Sprite/Enemy/EnemyHP.dds",30.0f,30.0f);
 	
 	//パス移動
@@ -155,8 +155,8 @@ void UFO::HP()
 
 void UFO::Update()
 {
-	HP();
 	Move();
+	HP();
 }
 
 void UFO::Render(RenderContext& renderContext)
@@ -164,7 +164,7 @@ void UFO::Render(RenderContext& renderContext)
 	m_modelRender.Draw(renderContext);
 
 	//ダメージを受けていたら
-	if (m_hp <= m_hpMax - 1.0f)
+	if (m_hp < m_maxHp)
 	{
 		m_hpBarSR.Draw(renderContext);
 	}

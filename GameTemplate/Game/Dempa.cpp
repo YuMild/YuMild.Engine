@@ -48,7 +48,7 @@ bool Dempa::Start()
 
 	//HP
 	m_hp = m_spawnManager->GetDefaultHP_Dempa();
-	m_hpMax = m_spawnManager->GetDefaultHP_Dempa();
+	m_maxHp = m_spawnManager->GetDefaultHP_Dempa();
 	m_hpBarSR.Init("Assets/Sprite/Enemy/EnemyHP.dds", 30.0f, 30.0f);
 
 	//エフェクトを生成
@@ -166,7 +166,7 @@ void Dempa::Render(RenderContext& renderContext)
 	m_modelRender.Draw(renderContext);
 
 	//ダメージを受けていたら
-	if (m_hp <= m_hpMax - 1.0f)
+	if (m_hp < m_maxHp)
 	{
 		m_hpBarSR.Draw(renderContext);
 	}

@@ -44,6 +44,12 @@ bool HolyTurret::Start()
 	m_baseMR.SetRotation(m_modelRotation);
 	m_baseMR.SetScale({ 1.0f,1.0f,1.0f });
 	m_baseMR.Update();
+	m_emissionMap.InitFromDDSFile(L"Assets/modelData/Turret/Base2_Emission.DDS");
+	m_base2MR.Init("Assets/ModelData/Turret/Base2.tkm", ShadowNone, false, nullptr, 0, enModelUpAxisZ, &m_emissionMap);
+	m_base2MR.SetPosition(m_modelPosition);
+	m_base2MR.SetRotation(m_modelRotation);
+	m_base2MR.SetScale({ 1.0f,1.0f,1.0f });
+	m_base2MR.Update();
 
 	//エフェクトの回転
 	m_effectRotation.SetRotationDegX(90.0f);
@@ -57,20 +63,15 @@ bool HolyTurret::Start()
 	//HPを設定
 	m_maxHp = MAX_HP;
 	m_hp = m_maxHp;
+	m_hpBarSR.Init("Assets/Sprite/Turret/TurretHP.dds", 30.0f, 30.0f);
 
 	return true;
 }
 
 void HolyTurret::Move()
 {
-	//体力が無くなったら
-	if (m_hp <= 0)
-	{
-		DeleteGO(this);
-	}
-
 	//デバフに掛かっていなかったら
-	if (m_debuffTimer <= 0.0f)
+	if (m_debuffTimer <= 0.0f && m_hp > 0)
 	{
 		m_fireRate += g_gameTime->GetFrameDeltaTime();
 	}
@@ -98,11 +99,6 @@ void HolyTurret::Move()
 		m_model_HourHandRotation.AddRotationDegY(g_gameTime->GetFrameDeltaTime() * 5.0f);
 		m_model_MiniteHandRotation.AddRotationDegY(g_gameTime->GetFrameDeltaTime() * 60.0f);
 	}
-}
-
-void HolyTurret::Update()
-{
-	Move();
 
 	//更新処理
 	m_turret_BaseMR.SetPosition(m_modelPosition);
@@ -116,6 +112,26 @@ void HolyTurret::Update()
 	m_turret_MiniteHandMR.Update();
 	m_baseMR.SetPosition(m_modelPosition);
 	m_baseMR.Update();
+	m_base2MR.SetPosition(m_modelPosition);
+	m_base2MR.Update();
+}
+
+void HolyTurret::HP()
+{
+	//HPバー
+	Vector3 position = m_modelPosition;
+	position.y += 300.0f;
+	g_camera3D->CalcScreenPositionFromWorldPosition(m_hpBarPosition, position);
+	m_hpBarSR.SetPosition(Vector3(m_hpBarPosition.x, m_hpBarPosition.y, 0.0f));
+	m_hpBarSR.SetIsDisplayRestrictionRightSide(true);
+	m_hpBarSR.SetLimitedX(m_hp / m_maxHp);
+	m_hpBarSR.Update();
+}
+
+void HolyTurret::Update()
+{
+	Move();
+	HP();
 }
 
 void HolyTurret::Render(RenderContext& renderContext)
@@ -124,6 +140,13 @@ void HolyTurret::Render(RenderContext& renderContext)
 	m_turret_HourHandMR.Draw(renderContext);
 	m_turret_MiniteHandMR.Draw(renderContext);
 	m_baseMR.Draw(renderContext);
+	m_base2MR.Draw(renderContext);
+
+	//ダメージを受けていたら
+	if (m_hp < m_maxHp)
+	{
+		m_hpBarSR.Draw(renderContext);
+	}
 }
 
 void HolyTurret::EffectPlayHoly(const Vector3& position)

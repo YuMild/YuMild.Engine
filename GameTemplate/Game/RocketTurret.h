@@ -104,7 +104,7 @@ public:
 	/// タレットのHPを加算する
 	/// </summary>
 	/// <param name="value"></param>
-	void AddTurretHP(bool value) override
+	void AddTurretHP(int value) override
 	{
 		m_hp += value;
 		//上限より増えない様に
@@ -112,19 +112,29 @@ public:
 		{
 			m_hp = m_maxHp;
 		}
+		//0より減らない様に
+		else if (m_hp <= 0)
+		{
+			m_hp = 0;
+		}
 	}
 
 	/// <summary>
 	/// タレットのHPを減算する
 	/// </summary>
 	/// <param name="value"></param>
-	void SubTurretHP(bool value) override
+	void SubTurretHP(int value) override
 	{
 		m_hp -= value;
 		//上限より増えない様に
 		if (m_hp >= m_maxHp)
 		{
 			m_hp = m_maxHp;
+		}
+		//0より減らない様に
+		else if (m_hp <= 0)
+		{
+			m_hp = 0;
 		}
 	}
 
@@ -143,19 +153,27 @@ private:
 	/// </summary>
 	void Move();
 
+	/// <summary>
+	/// HPを管理
+	/// </summary>
+	void HP();
+
 	//動作処理
-	int							m_hp				= 0;
-	int							m_maxHp				= 0;
 	bool						m_moveReady			= false;
 	float						m_debuffTimer		= 0.0f;
 
 	//モデル
 	ModelRender					m_turretMR;
 	ModelRender					m_baseMR;
+	ModelRender					m_base2MR;
+	Texture						m_emissionMap;
 	ModelRender					m_attackRangeMR;
 
-	//画像
-	SpriteRender				m_spriteRender;
+	//HP
+	SpriteRender				m_hpBarSR;
+	int							m_hp				= 0;
+	int							m_maxHp				= 0;
+	Vector2						m_hpBarPosition		= Vector2::Zero;
 
 	//モデル
 	Vector3						m_modelPosition		= Vector3::Zero;

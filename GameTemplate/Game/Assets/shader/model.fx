@@ -340,7 +340,7 @@ float4 PSMain(SPSIn psIn) : SV_Target0
     // 最終カラーを求める
     float4 finalColor = 1.0f;
     finalColor.xyz *= finalLight;
-    finalColor.xyz += emission * 0.5f;
+    finalColor.xyz += emission * 2.5f;
     
     return finalColor;
 }

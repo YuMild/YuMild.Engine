@@ -56,12 +56,12 @@ bool TurretObject::GetAttackReady() const
 	return bool();
 }
 
-void TurretObject::AddTurretHP(bool value)
+void TurretObject::AddTurretHP(int value)
 {
 
 }
 
-void TurretObject::SubTurretHP(bool value)
+void TurretObject::SubTurretHP(int value)
 {
 
 }

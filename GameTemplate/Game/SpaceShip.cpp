@@ -44,7 +44,7 @@ bool SpaceShip::Start()
 
 	//HP
 	m_hp = m_spawnManager->GetDefaultHP_SpaceShip();
-	m_hpMax = m_spawnManager->GetDefaultHP_SpaceShip();
+	m_maxHp = m_spawnManager->GetDefaultHP_SpaceShip();
 	m_hpBarSR.Init("Assets/Sprite/Enemy/EnemyHP.dds", 30.0f, 30.0f);
 
 	m_leftWindow->SetSpaceShipCameraPosition(true);
@@ -101,8 +101,8 @@ void SpaceShip::HP()
 
 void SpaceShip::Update()
 {
-	HP();
 	Move();
+	HP();
 }
 
 void SpaceShip::Render(RenderContext& renderContext)
@@ -110,7 +110,7 @@ void SpaceShip::Render(RenderContext& renderContext)
 	m_modelRender.Draw(renderContext);
 
 	//ƒ_ƒ[ƒW‚ğó‚¯‚Ä‚¢‚½‚ç
-	if (m_hp <= m_hpMax - 1.0f)
+	if (m_hp < m_maxHp)
 	{
 		m_hpBarSR.Draw(renderContext);
 	}

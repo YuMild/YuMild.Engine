@@ -143,24 +143,12 @@ public:
 	/// <summary>
 	/// ウィンドウ切り替え時の音声を再生
 	/// </summary>
-	void SoundPlayWindow()
-	{
-		m_windowSE = NewGO<SoundSource>(0);
-		m_windowSE->Init(3);
-		m_windowSE->SetVolume(0.3f);
-		m_windowSE->Play(false);
-	}
+	void SoundPlayWindow();
 
 	/// <summary>
 	/// 選択項目切り替え時の音声を再生
 	/// </summary>
-	void SoundPlayChoice()
-	{
-		m_choiceSE = NewGO<SoundSource>(0);
-		m_choiceSE->Init(4);
-		m_choiceSE->SetVolume(0.1f);
-		m_choiceSE->Play(false);
-	}
+	void SoundPlayChoice();
 
 private:
 

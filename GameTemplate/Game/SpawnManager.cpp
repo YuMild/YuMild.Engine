@@ -13,11 +13,11 @@ namespace
 	//スポーンタイマー
 	const float DEFAULT_SPAWNTIME_UFO			= 3.0f;
 	const float DEFAULT_SPAWNTIME_DEMPA			= 10.0f;
-	const float DEFAULT_SPAWNTIME_SPACESHIP		= 30.0f;
+	const float DEFAULT_SPAWNTIME_SPACESHIP		= 120.0f;
 
 	//初スポーンまでの時間
-	const float DELAY_UFO						= 67.0f;
-	const float DELAY_DEMPA						= 60.0f;
+	const float DELAY_UFO						= 7.0f;
+	const float DELAY_DEMPA						= 0.0f;
 	const float DELAY_SPACESHIP					= 0.0f;
 
 	//レベルアップ
@@ -35,7 +35,7 @@ SpawnManager::~SpawnManager()
 bool SpawnManager::Start()
 {
 	//エフェクトを登録
-	EffectEngine::GetInstance()->ResistEffect(1, u"Assets/effect/Explosion.efk");
+	EffectEngine::GetInstance()->ResistEffect(enEffectNumber_Explosion, u"Assets/effect/Explosion.efk");
 
 	//画像を作成
 	m_warningSR.Init("Assets/sprite/Warning/WARNING.dds", 1600.0f, 900.0f);
@@ -186,4 +186,21 @@ void SpawnManager::Render(RenderContext& renderContext)
 		m_warningLeftCircleSR.Draw(renderContext);
 		m_warningSR.Draw(renderContext);
 	}
+}
+
+void SpawnManager::EffectPlayExplosion(Vector3& position)
+{
+	m_explosionEF = NewGO<EffectEmitter>(0);
+	m_explosionEF->Init(enEffectNumber_Explosion);
+	m_explosionEF->SetPosition({ position.x,position.y + 200.0f,position.z });
+	m_explosionEF->SetScale(Vector3::One * 100.0f);
+	m_explosionEF->Play();
+}
+
+void SpawnManager::SoundPlayExplosion()
+{
+	m_explosionSE = NewGO<SoundSource>(0);
+	m_explosionSE->Init(enSoundNumber_Explosion);
+	m_explosionSE->SetVolume(0.05f);
+	m_explosionSE->Play(false);
 }

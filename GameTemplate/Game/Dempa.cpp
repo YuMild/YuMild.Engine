@@ -91,7 +91,7 @@ void Dempa::Move()
 			for (auto lockOnObject : m_turrets)
 			{
 				//配置されているタレットじゃなかったら戻る
-				if (lockOnObject->GetAttackReady() == false)
+				if (lockOnObject->GetAttackReady() == false || lockOnObject->GetAlive() == false)
 				{
 					continue;
 				}
@@ -109,10 +109,11 @@ void Dempa::Move()
 				//攻撃範囲内なら
 				if (m_difference.Length() < 200.0f)
 				{
-					lockOnObject->SubTurretHP(50);
+					lockOnObject->SubTurretHP(50.0f);
 					m_spawnManager->EffectPlayExplosion(m_position);
 					m_spawnManager->SoundPlayExplosion();
 					DeleteGO(this);
+					break;
 				}
 			}
 		}

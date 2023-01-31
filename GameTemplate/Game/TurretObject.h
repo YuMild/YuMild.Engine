@@ -59,27 +59,33 @@ public:
 	virtual void SetModelRotationTurnLeft();
 
 	/// <summary>
-	/// タレットの状態を設定
+	/// タレットの攻撃態勢を設定
 	/// </summary>
 	virtual void SetAttackReady(bool ready);
 
 	/// <summary>
-	/// タレットの状態を取得
+	/// タレットの攻撃態勢を取得
 	/// </summary>
 	/// <returns></returns>
 	virtual bool GetAttackReady() const;
 
 	/// <summary>
+	/// タレットの状態を取得
+	/// </summary>
+	/// <returns></returns>
+	virtual bool GetAlive() const;
+
+	/// <summary>
 	/// タレットのHPを加算する
 	/// </summary>
 	/// <param name="value"></param>
-	virtual void AddTurretHP(int value);
+	virtual void AddTurretHP(float value);
 
 	/// <summary>
 	/// タレットのHPを減算する
 	/// </summary>
 	/// <param name="value"></param>
-	virtual void SubTurretHP(int value);
+	virtual void SubTurretHP(float value);
 
 	/// <summary>
 	/// デバフを設定

@@ -18,14 +18,14 @@ HolyTurret::~HolyTurret()
 bool HolyTurret::Start()
 {
 	//時計土台
-	m_turret_BaseMR.Init("Assets/ModelData/Turret/HolyTurret_Base.tkm", ShadowRecieveAndDrop, true);
+	m_turret_BaseMR.Init("Assets/ModelData/Turret/HolyTurret_Base.tkm", ShadowNone, true);
 	m_turret_BaseMR.SetPosition(m_modelPosition);
 	m_turret_BaseMR.SetRotation(m_modelRotation);
 	m_turret_BaseMR.SetScale({ 1.0f,1.0f,1.0f });
 	m_turret_BaseMR.Update();
 
 	//短針
-	m_turret_HourHandMR.Init("Assets/ModelData/Turret/HolyTurret_HourHand.tkm", ShadowRecieveAndDrop, true);
+	m_turret_HourHandMR.Init("Assets/ModelData/Turret/HolyTurret_HourHand.tkm", ShadowNone, true);
 	m_turret_HourHandMR.SetPosition(m_modelPosition);
 	m_turret_HourHandMR.SetRotation(m_modelRotation);
 	m_turret_HourHandMR.SetScale({ 1.0f,1.0f,1.0f });
@@ -39,7 +39,7 @@ bool HolyTurret::Start()
 	m_turret_MiniteHandMR.Update();
 
 	//土台
-	m_baseMR.Init("Assets/ModelData/Turret/Base.tkm", ShadowRecieveAndDrop, true);
+	m_baseMR.Init("Assets/ModelData/Turret/Base.tkm", ShadowNone, true);
 	m_baseMR.SetPosition(m_modelPosition);
 	m_baseMR.SetRotation(m_modelRotation);
 	m_baseMR.SetScale({ 1.0f,1.0f,1.0f });
@@ -55,7 +55,7 @@ bool HolyTurret::Start()
 	m_effectRotation.SetRotationDegX(90.0f);
 
 	//エフェクトを登録
-	EffectEngine::GetInstance()->ResistEffect(8, u"Assets/effect/HolyTurret.efk");
+	EffectEngine::GetInstance()->ResistEffect(enEffectNumber_HolyTurret, u"Assets/effect/HolyTurret.efk");
 
 	//音声の生成
 	g_soundEngine->ResistWaveFileBank(enSoundNumber_HolyTurret, "Assets/sound/HolyTurret.wav");
@@ -70,16 +70,23 @@ bool HolyTurret::Start()
 
 void HolyTurret::Move()
 {
-	//デバフに掛かっていなかったら
-	if (m_debuffTimer <= 0.0f && m_hp > 0)
-	{
-		m_fireRate += g_gameTime->GetFrameDeltaTime();
-	}
-	//掛かっていたら
-	else
+	//デバフに掛かっていたら
+	if (m_debuffTimer > 0.0f)
 	{
 		m_debuffTimer -= g_gameTime->GetFrameDeltaTime();
 		m_fireRate += g_gameTime->GetFrameDeltaTime() / 2;
+	}
+	//死んでいたら
+	else if (m_hp <= 0.0f)
+	{
+		m_alive = false;
+		m_fireRate += g_gameTime->GetFrameDeltaTime() / 2;
+	}
+	//生きていてデバフに掛かっていなかったら
+	else
+	{
+		m_alive = true;
+		m_fireRate += g_gameTime->GetFrameDeltaTime();
 	}
 
 	//動作可能なら
@@ -152,7 +159,7 @@ void HolyTurret::Render(RenderContext& renderContext)
 void HolyTurret::EffectPlayHoly(const Vector3& position)
 {
 	m_holyEF = NewGO<EffectEmitter>(0);
-	m_holyEF->Init(8);
+	m_holyEF->Init(enEffectNumber_HolyTurret);
 	m_holyEF->SetPosition({ position.x,position.y - 10.0f,position.z + 300.0f });
 	m_holyEF->SetRotation(m_effectRotation);
 	m_holyEF->SetScale(Vector3::One * 100.0f);
@@ -162,7 +169,7 @@ void HolyTurret::EffectPlayHoly(const Vector3& position)
 void HolyTurret::SoundPlayHoly()
 {
 	m_holySE = NewGO<SoundSource>(0);
-	m_holySE->Init(13);
+	m_holySE->Init(enSoundNumber_HolyTurret);
 	m_holySE->SetVolume(0.05f);
 	m_holySE->Play(false);
 }

@@ -9,6 +9,10 @@ class GameOver : public IGameObject
 {
 public:
 
+	bool Start()override;
+	void Update()override;
+	void Render(RenderContext& renderContext)override;
+
 	/// <summary>
 	/// HP‚ğŒ¸‚ç‚·
 	/// </summary>
@@ -50,10 +54,6 @@ private:
 	/// ‰æ‘œ‚ğŠÇ—
 	/// </summary>
 	void Sprite();
-
-	bool Start()override;
-	void Update()override;
-	void Render(RenderContext& renderContext)override;
 
 	//ƒNƒ‰ƒX
 	Game*				m_game;

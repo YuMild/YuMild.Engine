@@ -28,7 +28,7 @@ bool LaserTurret::Start()
 	m_turretMR.Update();
 
 	//土台
-	m_baseMR.Init("Assets/ModelData/Turret/Base.tkm", ShadowRecieveAndDrop, true);
+	m_baseMR.Init("Assets/ModelData/Turret/Base.tkm", ShadowNone, true);
 	m_baseMR.SetPosition(m_modelPosition);
 	m_baseMR.SetRotation(m_modelRotation);
 	m_baseMR.SetScale({ 1.0f,1.0f,1.0f });
@@ -48,7 +48,7 @@ bool LaserTurret::Start()
 	m_attackRangeMR.Update();
 
 	//エフェクト
-	EffectEngine::GetInstance()->ResistEffect(5, u"Assets/Effect/LaserTurret.efk");
+	EffectEngine::GetInstance()->ResistEffect(enEffectNumber_LaserTurret, u"Assets/Effect/LaserTurret.efk");
 
 	//音声の生成
 	g_soundEngine->ResistWaveFileBank(enSoundNumber_LaserTurret, "Assets/sound/LaserTurret.wav");
@@ -68,16 +68,23 @@ bool LaserTurret::Start()
 
 void LaserTurret::Move()
 {
-	//デバフに掛かっていなかったら
-	if (m_debuffTimer <= 0.0f && m_hp > 0)
-	{
-		m_fireRate += g_gameTime->GetFrameDeltaTime();
-	}
-	//掛かっていたら
-	else
+	//デバフに掛かっていたら
+	if (m_debuffTimer > 0.0f)
 	{
 		m_debuffTimer -= g_gameTime->GetFrameDeltaTime();
 		m_fireRate += g_gameTime->GetFrameDeltaTime() / 2;
+	}
+	//死んでいたら
+	else if (m_hp <= 0.0f)
+	{
+		m_alive = false;
+		m_fireRate += g_gameTime->GetFrameDeltaTime() / 2;
+	}
+	//生きていてデバフに掛かっていなかったら
+	else
+	{
+		m_alive = true;
+		m_fireRate += g_gameTime->GetFrameDeltaTime();
 	}
 
 	//動作可能なら
@@ -172,7 +179,7 @@ void LaserTurret::Render(RenderContext& renderContext)
 void LaserTurret::EffectPlayLaser()
 {
 	m_laserEF = NewGO<EffectEmitter>(0);
-	m_laserEF->Init(5);
+	m_laserEF->Init(enEffectNumber_LaserTurret);
 	m_laserEF->SetPosition(m_laserPosition);
 	m_laserEF->SetScale(Vector3::One * 200.0f);
 	m_laserEF->Play();
@@ -181,7 +188,7 @@ void LaserTurret::EffectPlayLaser()
 void LaserTurret::SoundPlayFire()
 {
 	m_fireSE = NewGO<SoundSource>(0);
-	m_fireSE->Init(11);
+	m_fireSE->Init(enSoundNumber_LaserTurret);
 	m_fireSE->SetVolume(0.025f);
 	m_fireSE->Play(false);
 }

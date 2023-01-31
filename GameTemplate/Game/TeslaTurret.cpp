@@ -24,7 +24,7 @@ bool TeslaTurret::Start()
 	m_turretMR.Update();
 
 	//土台
-	m_baseMR.Init("Assets/ModelData/Turret/Base.tkm", ShadowRecieveAndDrop, true);
+	m_baseMR.Init("Assets/ModelData/Turret/Base.tkm", ShadowNone, true);
 	m_baseMR.SetPosition(m_modelPosition);
 	m_baseMR.SetRotation(m_modelRotation);
 	m_baseMR.SetScale({ 1.0f,1.0f,1.0f });
@@ -44,7 +44,7 @@ bool TeslaTurret::Start()
 	m_attackRangeMR.Update();
 
 	//エフェクトを登録
-	EffectEngine::GetInstance()->ResistEffect(7, u"Assets/effect/TeslaTurret.efk");
+	EffectEngine::GetInstance()->ResistEffect(enEffectNumber_TeslaTurret, u"Assets/effect/TeslaTurret.efk");
 
 	//音声の生成
 	g_soundEngine->ResistWaveFileBank(enSoundNumber_TeslaTurret, "Assets/sound/TeslaTurret.wav");
@@ -59,16 +59,23 @@ bool TeslaTurret::Start()
 
 void TeslaTurret::Move()
 {
-	//デバフに掛かっていなかったら
-	if (m_debuffTimer <= 0.0f && m_hp > 0)
-	{
-		m_fireRate += g_gameTime->GetFrameDeltaTime();
-	}
-	//掛かっていたら
-	else
+	//デバフに掛かっていたら
+	if (m_debuffTimer > 0.0f)
 	{
 		m_debuffTimer -= g_gameTime->GetFrameDeltaTime();
 		m_fireRate += g_gameTime->GetFrameDeltaTime() / 2;
+	}
+	//死んでいたら
+	else if (m_hp <= 0.0f)
+	{
+		m_alive = false;
+		m_fireRate += g_gameTime->GetFrameDeltaTime() / 2;
+	}
+	//生きていてデバフに掛かっていなかったら
+	else
+	{
+		m_alive = true;
+		m_fireRate += g_gameTime->GetFrameDeltaTime();
 	}
 
 	//動作可能なら
@@ -154,4 +161,21 @@ void TeslaTurret::Render(RenderContext& renderContext)
 	{
 		m_hpBarSR.Draw(renderContext);
 	}
+}
+
+void TeslaTurret::EffectPlayHit(const Vector3& position)
+{
+	m_hitEF = NewGO<EffectEmitter>(0);
+	m_hitEF->Init(enEffectNumber_TeslaTurret);
+	m_hitEF->SetPosition({ position.x,position.y + 200.0f,position.z + 300.0f });
+	m_hitEF->SetScale(Vector3::One * 30.0f);
+	m_hitEF->Play();
+}
+
+void TeslaTurret::SoundPlayFire()
+{
+	m_fireSE = NewGO<SoundSource>(0);
+	m_fireSE->Init(enSoundNumber_TeslaTurret);
+	m_fireSE->SetVolume(0.025f);
+	m_fireSE->Play(false);
 }

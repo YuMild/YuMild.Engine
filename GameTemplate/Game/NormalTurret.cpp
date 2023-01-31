@@ -10,7 +10,7 @@ namespace
 	const int	MAX_HP		= 100;
 	const float FIRERATE	= 0.5f;
 	const float ATTACKPOWER	= 50.0f;
-	const float ATTACKRANGE	= 1000.0f;
+	const float ATTACKRANGE	= 2000.0f;
 }
 
 bool NormalTurret::Start()
@@ -30,7 +30,7 @@ bool NormalTurret::Start()
 	m_turretBaseMR.Update();
 
 	//土台
-	m_baseMR.Init("Assets/ModelData/Turret/Base.tkm", ShadowRecieveAndDrop, true);
+	m_baseMR.Init("Assets/ModelData/Turret/Base.tkm", ShadowNone, true);
 	m_baseMR.SetPosition(m_modelPosition);
 	m_baseMR.SetRotation(m_modelRotation);
 	m_baseMR.SetScale({ 1.0f,1.0f,1.0f });
@@ -46,11 +46,11 @@ bool NormalTurret::Start()
 	m_attackRangeMR.Init("Assets/ModelData/Turret/AttackRange_Circle.tkm", Dithering, true);
 	m_attackRangeMR.SetPosition(m_modelPosition);
 	m_attackRangeMR.SetRotation(m_modelRotation);
-	m_attackRangeMR.SetScale({ 0.25f,1.0f,0.25f });
+	m_attackRangeMR.SetScale({ 0.5f,1.0f,0.5f });
 	m_attackRangeMR.Update();
 
 	//エフェクトを登録
-	EffectEngine::GetInstance()->ResistEffect(6, u"Assets/effect/NormalTurret.efk");
+	EffectEngine::GetInstance()->ResistEffect(enEffectNumber_NormalTurret, u"Assets/effect/NormalTurret.efk");
 
 	//音声の生成
 	g_soundEngine->ResistWaveFileBank(enSoundNumber_NormalTurret, "Assets/sound/NormalTurret.wav");
@@ -68,16 +68,23 @@ bool NormalTurret::Start()
 
 void NormalTurret::Move()
 {
-	//デバフに掛かっていなかったら
-	if (m_debuffTimer <= 0.0f && m_hp > 0)
-	{
-		m_fireRate += g_gameTime->GetFrameDeltaTime();
-	}
-	//掛かっていたら
-	else
+	//デバフに掛かっていたら
+	if (m_debuffTimer > 0.0f)
 	{
 		m_debuffTimer -= g_gameTime->GetFrameDeltaTime();
 		m_fireRate += g_gameTime->GetFrameDeltaTime() / 2;
+	}
+	//死んでいたら
+	else if (m_hp <= 0.0f)
+	{
+		m_alive = false;
+		m_fireRate += g_gameTime->GetFrameDeltaTime() / 2;
+	}
+	//生きていてデバフに掛かっていなかったら
+	else
+	{
+		m_alive = true;
+		m_fireRate += g_gameTime->GetFrameDeltaTime();
 	}
 
 	//動作可能なら
@@ -197,7 +204,7 @@ void NormalTurret::Render(RenderContext& renderContext)
 void NormalTurret::EffectPlayHit(const Vector3& position)
 {
 	m_hitEF = NewGO<EffectEmitter>(0);
-	m_hitEF->Init(6);
+	m_hitEF->Init(enEffectNumber_NormalTurret);
 	m_hitEF->SetPosition({ position.x,position.y + 200.0f,position.z + 300.0f });
 	m_hitEF->SetScale(Vector3::One * 150.0f);
 	m_hitEF->Play();

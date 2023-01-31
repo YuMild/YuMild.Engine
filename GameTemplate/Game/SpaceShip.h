@@ -4,6 +4,7 @@
 
 class GameOver;
 class LeftWindow;
+class Stage;
 
 class SpawnManager;
 class TurretManager;
@@ -119,6 +120,7 @@ private:
 	//ƒNƒ‰ƒX
 	GameOver*					m_gameOver			= nullptr;
 	LeftWindow*					m_leftWindow		= nullptr;
+	Stage*						m_stage				= nullptr;
 
 	SpawnManager*				m_spawnManager;
 	TurretManager*				m_turretManager;

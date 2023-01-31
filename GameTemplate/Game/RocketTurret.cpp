@@ -18,7 +18,7 @@ bool RocketTurret::Start()
 	m_turretMR.Update();
 
 	//“y‘ä
-	m_baseMR.Init("Assets/ModelData/Turret/Base.tkm", ShadowRecieveAndDrop, true);
+	m_baseMR.Init("Assets/ModelData/Turret/Base.tkm", ShadowNone, true);
 	m_baseMR.SetPosition(m_modelPosition);
 	m_baseMR.SetRotation(m_modelRotation);
 	m_baseMR.SetScale({ 1.0f,1.0f,1.0f });

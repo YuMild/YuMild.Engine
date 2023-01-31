@@ -87,7 +87,7 @@ public:
 	}
 
 	/// <summary>
-	/// タレットの状態を設定
+	/// タレットの攻撃態勢を設定
 	/// </summary>
 	void SetAttackReady(bool ready) override
 	{
@@ -95,7 +95,7 @@ public:
 	}
 
 	/// <summary>
-	/// タレットの状態を取得
+	/// タレットの攻撃態勢を取得
 	/// </summary>
 	/// <returns></returns>
 	bool GetAttackReady() const override
@@ -104,10 +104,19 @@ public:
 	}
 
 	/// <summary>
+	/// タレットの状態を取得
+	/// </summary>
+	/// <returns></returns>
+	virtual bool GetAlive() const override
+	{
+		return m_alive;
+	}
+
+	/// <summary>
 	/// タレットのHPを加算する
 	/// </summary>
 	/// <param name="value"></param>
-	void AddTurretHP(int value) override
+	void AddTurretHP(float value) override
 	{
 		m_hp += value;
 		//上限より増えない様に
@@ -126,7 +135,7 @@ public:
 	/// タレットのHPを減算する
 	/// </summary>
 	/// <param name="value"></param>
-	void SubTurretHP(int value) override
+	void SubTurretHP(float value) override
 	{
 		m_hp -= value;
 		//上限より増えない様に
@@ -165,28 +174,16 @@ private:
 	/// エフェクトを再生
 	/// </summary>
 	/// <param name="position"></param>
-	void EffectPlayHit(const Vector3& position)
-	{
-		m_hitEF = NewGO<EffectEmitter>(0);
-		m_hitEF->Init(7);
-		m_hitEF->SetPosition({ position.x,position.y + 200.0f,position.z + 300.0f });
-		m_hitEF->SetScale(Vector3::One * 30.0f);
-		m_hitEF->Play();
-	}
+	void EffectPlayHit(const Vector3& position);
 
 	/// <summary>
 	/// 銃声を再生
 	/// </summary>
-	void SoundPlayFire()
-	{
-		m_fireSE = NewGO<SoundSource>(0);
-		m_fireSE->Init(12);
-		m_fireSE->SetVolume(0.025f);
-		m_fireSE->Play(false);
-	}
+	void SoundPlayFire();
 
 	//動作処理
 	std::vector<EnemyObject*>	m_enemys;
+	bool						m_alive				= true;
 	bool						m_moveReady			= false;
 	float						m_debuffTimer		= 0.0f;
 	float						m_fireRate			= 0.0f;
@@ -208,8 +205,8 @@ private:
 
 	//HP
 	SpriteRender				m_hpBarSR;
-	int							m_hp				= 0;
-	int							m_maxHp				= 0;
+	float						m_hp				= 0.0f;
+	float						m_maxHp				= 0.0f;
 	Vector2						m_hpBarPosition		= Vector2::Zero;
 
 	//モデル

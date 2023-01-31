@@ -22,7 +22,7 @@ enum enGameState
 
 enum enSoundNumber
 {
-	enSoundNumber_BGM,
+	enSoundNumber_NormalBGM,
 	enSoundNumber_Alarm,
 	enSoundNumber_BossBGM,
 	enSoundNumber_Window,
@@ -36,6 +36,18 @@ enum enSoundNumber
 	enSoundNumber_LaserTurret,
 	enSoundNumber_TeslaTurret,
 	enSoundNumber_HolyTurret
+};
+
+enum enEffectNumber
+{
+	enEffectNumber_Explosion,
+	enEffectNumber_CursorAfter,
+	enEffectNumber_Smoke,
+	enEffectNumber_NormalTurret,
+	enEffectNumber_DualGunTurret,
+	enEffectNumber_LaserTurret,
+	enEffectNumber_TeslaTurret,
+	enEffectNumber_HolyTurret
 };
 
 /// <summary>

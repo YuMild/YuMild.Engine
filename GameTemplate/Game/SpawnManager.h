@@ -1,10 +1,11 @@
 #pragma once
 
-class Game;
-
 #include "UFO.h"
 #include "Dempa.h"
+#include "Game.h"
 #include "SpaceShip.h"
+
+class Game;
 
 /// <summary>
 /// 敵のスポーンを管理するクラス
@@ -50,25 +51,12 @@ public:
 	/// 爆破エフェクトを再生
 	/// </summary>
 	/// <param name="position"></param>
-	void EffectPlayExplosion(Vector3& position)
-	{
-		m_explosionEF = NewGO<EffectEmitter>(0);
-		m_explosionEF->Init(1);
-		m_explosionEF->SetPosition({ position.x,position.y + 200.0f,position.z });
-		m_explosionEF->SetScale(Vector3::One * 100.0f);
-		m_explosionEF->Play();
-	}
+	void EffectPlayExplosion(Vector3& position);
 
 	/// <summary>
 	/// 爆破音声を再生
 	/// </summary>
-	void SoundPlayExplosion()
-	{
-		m_explosionSE = NewGO<SoundSource>(0);
-		m_explosionSE->Init(6);
-		m_explosionSE->SetVolume(0.05f);
-		m_explosionSE->Play(false);
-	}
+	void SoundPlayExplosion();
 
 private:
 

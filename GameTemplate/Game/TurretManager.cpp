@@ -18,14 +18,16 @@
 namespace
 {
 	//Delete
-	float	DELETE_SPRITE_SIZE_WIDTH	= 1280.0f;
-	float	DELETE_SPRITE_SIZE_HEIGHT	= 720.0f;
+	float		DELETE_SPRITE_SIZE_WIDTH	= 1280.0f;
+	float		DELETE_SPRITE_SIZE_HEIGHT	= 720.0f;
+	Vector3		DELETE_SPRITE_SIZE			= { 1.0f,1.0f,1.0f };
+	Vector3		DELETE_SPRITE_POSITION		= { 0.0f,300.0f,0.0f };
 
 	//タレットの移動間隔
-	float	TURRET_POSITION_MOVE_NUM	= 393.0f;
+	float		TURRET_POSITION_MOVE_NUM	= 393.0f;
 
 	//カーソル
-	Vector3 CURSOR_POSITION				= { 200.0f,0.0f,190.0f };
+	Vector3		CURSOR_POSITION				= { 200.0f,0.0f,190.0f };
 }
 
 bool TurretManager::Start()
@@ -53,24 +55,24 @@ bool TurretManager::Start()
 
 	//Deleteウィンドウ
 	m_deleteWindow.Init("Assets/sprite/LeftWindow/Delete_Window.dds", DELETE_SPRITE_SIZE_WIDTH, DELETE_SPRITE_SIZE_HEIGHT);
-	m_deleteWindow.SetPosition({ 0.0f,0.0f,0.0f });
-	m_deleteWindow.SetScale({ 1.0f,1.0f,1.0f });
+	m_deleteWindow.SetPosition(DELETE_SPRITE_POSITION);
+	m_deleteWindow.SetScale(DELETE_SPRITE_SIZE);
 	m_deleteWindow.Update();
 	m_deleteDelete.Init("Assets/sprite/LeftWindow/Delete_Delete.dds", DELETE_SPRITE_SIZE_WIDTH, DELETE_SPRITE_SIZE_HEIGHT);
-	m_deleteDelete.SetPosition({ 0.0f,0.0f,0.0f });
-	m_deleteDelete.SetScale({ 1.0f,1.0f,1.0f });
+	m_deleteDelete.SetPosition(DELETE_SPRITE_POSITION);
+	m_deleteDelete.SetScale(DELETE_SPRITE_SIZE);
 	m_deleteDelete.Update();
 	m_deleteDeleteChoice.Init("Assets/sprite/LeftWindow/Delete_DeleteChoice.dds", DELETE_SPRITE_SIZE_WIDTH, DELETE_SPRITE_SIZE_HEIGHT);
-	m_deleteDeleteChoice.SetPosition({ 0.0f,0.0f,0.0f });
-	m_deleteDeleteChoice.SetScale({ 1.0f,1.0f,1.0f });
+	m_deleteDeleteChoice.SetPosition(DELETE_SPRITE_POSITION);
+	m_deleteDeleteChoice.SetScale(DELETE_SPRITE_SIZE);
 	m_deleteDeleteChoice.Update();
 	m_deleteCancel.Init("Assets/sprite/LeftWindow/Delete_Cancel.dds", DELETE_SPRITE_SIZE_WIDTH, DELETE_SPRITE_SIZE_HEIGHT);
-	m_deleteCancel.SetPosition({ 0.0f,0.0f,0.0f });
-	m_deleteCancel.SetScale({ 1.0f,1.0f,1.0f });
+	m_deleteCancel.SetPosition(DELETE_SPRITE_POSITION);
+	m_deleteCancel.SetScale(DELETE_SPRITE_SIZE);
 	m_deleteCancel.Update();
 	m_deleteCancelChoice.Init("Assets/sprite/LeftWindow/Delete_CancelChoice.dds", DELETE_SPRITE_SIZE_WIDTH, DELETE_SPRITE_SIZE_HEIGHT);
-	m_deleteCancelChoice.SetPosition({ 0.0f,0.0f,0.0f });
-	m_deleteCancelChoice.SetScale({ 1.0f,1.0f,1.0f });
+	m_deleteCancelChoice.SetPosition(DELETE_SPRITE_POSITION);
+	m_deleteCancelChoice.SetScale(DELETE_SPRITE_SIZE);
 	m_deleteCancelChoice.Update();
 
 	//削除用の画像を生成
@@ -82,7 +84,7 @@ bool TurretManager::Start()
 	}
 
 	//エフェクトの作成
-	EffectEngine::GetInstance()->ResistEffect(3, u"Assets/effect/CursorAfter.efk");
+	EffectEngine::GetInstance()->ResistEffect(enEffectNumber_CursorAfter, u"Assets/effect/CursorAfter.efk");
 
 	//音声の作成
 	g_soundEngine->ResistWaveFileBank(enSoundNumber_CursorAfter, "Assets/sound/CursorAfter.wav");
@@ -1287,4 +1289,29 @@ void TurretManager::Render(RenderContext& renderContext)
 			m_deleteCancel.Draw(renderContext);
 		}
 	}
+}
+
+void TurretManager::EffectPlayCursorAfter(const Vector3& position)
+{
+	m_cursorAfterEF = NewGO<EffectEmitter>(0);
+	m_cursorAfterEF->Init(enEffectNumber_CursorAfter);
+	m_cursorAfterEF->SetPosition(position);
+	m_cursorAfterEF->SetScale(Vector3::One * 100.0f);
+	m_cursorAfterEF->Play();
+}
+
+void TurretManager::SoundPlayCursorAfter()
+{
+	m_cursorAfterSE = NewGO<SoundSource>(0);
+	m_cursorAfterSE->Init(enSoundNumber_CursorAfter);
+	m_cursorAfterSE->SetVolume(0.1f);
+	m_cursorAfterSE->Play(false);
+}
+
+void TurretManager::SoundPlaySetTurret()
+{
+	m_setTurretSE = NewGO<SoundSource>(0);
+	m_setTurretSE->Init(enSoundNumber_SetTurret);
+	m_setTurretSE->SetVolume(0.15f);
+	m_setTurretSE->Play(false);
 }

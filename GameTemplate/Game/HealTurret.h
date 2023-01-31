@@ -84,7 +84,7 @@ public:
 	}
 
 	/// <summary>
-	/// タレットの状態を設定
+	/// タレットの攻撃態勢を設定
 	/// </summary>
 	void SetAttackReady(bool ready) override
 	{
@@ -92,7 +92,7 @@ public:
 	}
 
 	/// <summary>
-	/// タレットの状態を取得
+	/// タレットの攻撃態勢を取得
 	/// </summary>
 	/// <returns></returns>
 	bool GetAttackReady() const override
@@ -101,10 +101,19 @@ public:
 	}
 
 	/// <summary>
+	/// タレットの状態を取得
+	/// </summary>
+	/// <returns></returns>
+	virtual bool GetAlive() const override
+	{
+		return m_alive;
+	}
+
+	/// <summary>
 	/// タレットのHPを加算する
 	/// </summary>
 	/// <param name="value"></param>
-	void AddTurretHP(int value) override
+	void AddTurretHP(float value) override
 	{
 		m_hp += value;
 		//上限より増えない様に
@@ -123,7 +132,7 @@ public:
 	/// タレットのHPを減算する
 	/// </summary>
 	/// <param name="value"></param>
-	void SubTurretHP(int value) override
+	void SubTurretHP(float value) override
 	{
 		m_hp -= value;
 		//上限より増えない様に
@@ -160,6 +169,7 @@ private:
 
 	//動作処理
 	std::vector<TurretObject*>	m_turrets;
+	bool						m_alive					= true;
 	bool						m_moveReady				= false;
 	float						m_debuffTimer			= 0.0f;
 
@@ -172,8 +182,8 @@ private:
 
 	//HP
 	SpriteRender				m_hpBarSR;
-	int							m_hp					= 0;
-	int							m_maxHp					= 0;
+	float						m_hp					= 0.0f;
+	float						m_maxHp					= 0.0f;
 	Vector2						m_hpBarPosition			= Vector2::Zero;
 
 	//モデル

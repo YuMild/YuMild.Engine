@@ -1,5 +1,9 @@
 #pragma once
 
+#include "Game.h"
+
+class Game;
+
 /// <summary>
 /// ステージを管理するクラス
 /// </summary>
@@ -8,34 +12,14 @@ class Stage : public IGameObject
 public:
 
 	/// <summary>
-	/// BOSS戦BGMに切り替える
+	/// 通常時のBGMに切り替える
 	/// </summary>
-	void SetNormalBGM()
-	{
-		/*if (m_bossBgm->IsPlaying() == true)
-		{
-			m_bossBgm->Stop();
-		}*/
-		m_bgm = NewGO<SoundSource>(0);
-		m_bgm->Init(0);
-		m_bgm->SetVolume(0.05f);
-		m_bgm->Play(true);
-	}
+	void SetNormalBGM();
 
 	/// <summary>
-	/// BOSS戦BGMに切り替える
+	/// BOSS戦のBGMに切り替える
 	/// </summary>
-	void SetBossBGM()
-	{
-		/*if (m_bgm->IsPlaying() == true)
-		{
-			m_bgm->Stop();
-		}*/
-		m_bossBgm = NewGO<SoundSource>(0);
-		m_bossBgm->Init(2);
-		m_bossBgm->SetVolume(0.05f);
-		m_bossBgm->Play(true);
-	}
+	void SetBossBGM();
 
 	Stage();
 	~Stage();
@@ -46,10 +30,14 @@ public:
 private:
 
 	//モデル
-	Texture				m_emissionMap;
-	ModelRender			m_modelRender;
+	Texture				m_stageEmissionMap;
+	ModelRender			m_stageMR;
+	Texture				m_campEmissionMap;
+	ModelRender			m_campMR;
 
 	//音声
-	SoundSource*		m_bgm;
-	SoundSource*		m_bossBgm;
+	SoundSource*		m_normalBGM;
+	SoundSource*		m_bossBGM;
+
+	float				m_normalBGMVolume = 0.0f;
 };

@@ -369,11 +369,6 @@ void LeftWindow::OperationDelete()
 	}
 }
 
-void LeftWindow::OperationDeleteCheck()
-{
-	
-}
-
 void LeftWindow::SetParameterBar()
 {
 	//èâä˙âª
@@ -562,4 +557,25 @@ void LeftWindow::Render(RenderContext& renderContext)
 
 	//ÉtÉåÅ[ÉÄ
 	m_frameSR.Draw(renderContext);
+}
+
+void LeftWindow::OperationDeleteCheck()
+{
+
+}
+
+void LeftWindow::SoundPlayWindow()
+{
+	m_windowSE = NewGO<SoundSource>(0);
+	m_windowSE->Init(enSoundNumber_Window);
+	m_windowSE->SetVolume(0.3f);
+	m_windowSE->Play(false);
+}
+
+void LeftWindow::SoundPlayChoice()
+{
+	m_choiceSE = NewGO<SoundSource>(0);
+	m_choiceSE->Init(enSoundNumber_Choice);
+	m_choiceSE->SetVolume(0.1f);
+	m_choiceSE->Play(false);
 }

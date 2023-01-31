@@ -96,36 +96,17 @@ private:
 	///	カーソル移動時のエフェクトを再生
 	/// </summary>
 	/// <param name="position"></param>
-	void EffectPlayCursorAfter(const Vector3& position)
-	{
-		m_cursorAfterEF = NewGO<EffectEmitter>(0);
-		m_cursorAfterEF->Init(3);
-		m_cursorAfterEF->SetPosition(position);
-		m_cursorAfterEF->SetScale(Vector3::One * 100.0f);
-		m_cursorAfterEF->Play();
-	}
+	void EffectPlayCursorAfter(const Vector3& position);
 
 	/// <summary>
 	/// カーソル移動時の音声を再生
 	/// </summary>
-	void SoundPlayCursorAfter()
-	{
-		m_cursorAfterSE = NewGO<SoundSource>(8);
-		m_cursorAfterSE->Init(5);
-		m_cursorAfterSE->SetVolume(0.1f);
-		m_cursorAfterSE->Play(false);
-	}
+	void SoundPlayCursorAfter();
 
 	/// <summary>
 	/// タレットセット時の音声を再生
 	/// </summary>
-	void SoundPlaySetTurret()
-	{
-		m_setTurretSE = NewGO<SoundSource>(3);
-		m_setTurretSE->Init(8);
-		m_setTurretSE->SetVolume(0.15f);
-		m_setTurretSE->Play(false);
-	}
+	void SoundPlaySetTurret();
 
 	//タレットの配列
 	std::vector<IGameObject*>		m_turrets;

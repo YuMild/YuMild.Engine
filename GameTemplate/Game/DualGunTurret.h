@@ -87,7 +87,7 @@ public:
 	}
 
 	/// <summary>
-	/// タレットの状態を設定
+	/// タレットの攻撃態勢を設定
 	/// </summary>
 	void SetAttackReady(bool ready) override
 	{
@@ -95,7 +95,7 @@ public:
 	}
 
 	/// <summary>
-	/// タレットの状態を取得
+	/// タレットの攻撃態勢を取得
 	/// </summary>
 	/// <returns></returns>
 	bool GetAttackReady() const override
@@ -104,29 +104,19 @@ public:
 	}
 
 	/// <summary>
-	/// タレットのHPを加算する
+	/// タレットの状態を取得
 	/// </summary>
-	/// <param name="value"></param>
-	void AddTurretHP(int value) override
+	/// <returns></returns>
+	virtual bool GetAlive() const override
 	{
-		m_hp += value;
-		//上限より増えない様に
-		if (m_hp >= m_maxHp)
-		{
-			m_hp = m_maxHp;
-		}
-		//0より減らない様に
-		else if (m_hp <= 0)
-		{
-			m_hp = 0;
-		}
+		return m_alive;
 	}
 
 	/// <summary>
 	/// タレットのHPを減算する
 	/// </summary>
 	/// <param name="value"></param>
-	void SubTurretHP(int value) override
+	void SubTurretHP(float value) override
 	{
 		m_hp -= value;
 		//上限より増えない様に
@@ -174,6 +164,7 @@ private:
 
 	//動作処理
 	std::vector<EnemyObject*>	m_enemys;
+	bool						m_alive				= true;
 	bool						m_moveReady			= false;
 	float						m_debuffTimer		= 0.0f;
 	float						m_fireRate			= 0.0f;
@@ -185,6 +176,7 @@ private:
 	
 	//エフェクト
 	EffectEmitter*				m_hitEF				= nullptr;
+	EffectEmitter*				m_smokeEF			= nullptr;
 
 	//サウンド
 	SoundSource*				m_fireSE			= nullptr;
@@ -199,8 +191,8 @@ private:
 
 	//HP
 	SpriteRender				m_hpBarSR;
-	int							m_hp				= 0;
-	int							m_maxHp				= 0;
+	float						m_hp				= 0.0f;
+	float						m_maxHp				= 0.0f;
 	Vector2						m_hpBarPosition		= Vector2::Zero;
 
 	//モデル

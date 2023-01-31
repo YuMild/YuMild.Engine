@@ -20,6 +20,18 @@ enum enGameState
 	enGameState_GameOver
 };
 
+enum enEffectNumber
+{
+	enEffectNumber_Explosion,
+	enEffectNumber_CursorAfter,
+	enEffectNumber_Smoke,
+	enEffectNumber_NormalTurret,
+	enEffectNumber_DualGunTurret,
+	enEffectNumber_LaserTurret,
+	enEffectNumber_TeslaTurret,
+	enEffectNumber_HolyTurret
+};
+
 enum enSoundNumber
 {
 	enSoundNumber_NormalBGM,
@@ -36,18 +48,6 @@ enum enSoundNumber
 	enSoundNumber_LaserTurret,
 	enSoundNumber_TeslaTurret,
 	enSoundNumber_HolyTurret
-};
-
-enum enEffectNumber
-{
-	enEffectNumber_Explosion,
-	enEffectNumber_CursorAfter,
-	enEffectNumber_Smoke,
-	enEffectNumber_NormalTurret,
-	enEffectNumber_DualGunTurret,
-	enEffectNumber_LaserTurret,
-	enEffectNumber_TeslaTurret,
-	enEffectNumber_HolyTurret
 };
 
 /// <summary>
@@ -83,21 +83,31 @@ public:
 
 private:
 
+	/// <summary>
+	/// エフェクトを登録
+	/// </summary>
+	void InitEffect();
+
+	/// <summary>
+	/// サウンドを登録
+	/// </summary>
+	void InitSound();
+
 	//クラス
-	Dempa*						m_dempa;
-	Energy*						m_energy;
-	GameCamera*					m_gameCamera;
-	GameOver*					m_gameOver;
-	LeftWindow*					m_leftWindow;
-	LeftWindowDelete*			m_leftWindow_Delete;
-	Player*						m_player;
-	SkyCube*					m_skyCube;
-	SpawnManager*				m_spawnMananer;
-	Stage*						m_stage;
-	UFO*						m_ufo;
-	Title*						m_title;
-	TurretManager*				m_turretManager;
+	Dempa*						m_dempa					= nullptr;
+	Energy*						m_energy				= nullptr;
+	GameCamera*					m_gameCamera			= nullptr;
+	GameOver*					m_gameOver				= nullptr;
+	LeftWindow*					m_leftWindow			= nullptr;
+	LeftWindowDelete*			m_leftWindow_Delete		= nullptr;
+	Player*						m_player				= nullptr;
+	SkyCube*					m_skyCube				= nullptr;
+	SpawnManager*				m_spawnMananer			= nullptr;
+	Stage*						m_stage					= nullptr;
+	UFO*						m_ufo					= nullptr;
+	Title*						m_title					= nullptr;
+	TurretManager*				m_turretManager			= nullptr;
 
 	//ステート
-	int							m_state = enGameState_Title;
+	int							m_state					= enGameState_Title;
 };

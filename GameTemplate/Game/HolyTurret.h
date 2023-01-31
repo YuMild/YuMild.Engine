@@ -173,6 +173,12 @@ private:
 	/// エフェクトを再生
 	/// </summary>
 	/// <param name="position"></param>
+	void EffectPlaySmoke(const Vector3& position);
+
+	/// <summary>
+	/// エフェクトを再生
+	/// </summary>
+	/// <param name="position"></param>
 	void EffectPlayHoly(const Vector3& position);
 
 	/// <summary>
@@ -188,6 +194,7 @@ private:
 	float						m_fireRate					= 0.0f;
 
 	//エフェクト
+	EffectEmitter*				m_smokeEF					= nullptr;
 	EffectEmitter*				m_holyEF					= nullptr;
 	Quaternion					m_effectRotation			= Quaternion::Identity;
 

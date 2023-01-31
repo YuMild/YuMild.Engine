@@ -7,7 +7,16 @@
 
 namespace
 {
-	const int	MAX_HP = 200;
+	const float	MAX_HP				= 200.0f;
+	const float EFFECTSIZE_SMOKE	= 50.0f;
+}
+
+HealTurret::~HealTurret()
+{
+	if (m_smokeEF != nullptr)
+	{
+		m_smokeEF->Stop();
+	}
 }
 
 bool HealTurret::Start()
@@ -49,6 +58,19 @@ bool HealTurret::Start()
 
 void HealTurret::Move()
 {
+	//éÄÇÒÇ≈Ç¢ÇΩÇÁ
+	if (m_hp <= 0.0f)
+	{
+		m_alive = false;
+		if (m_smokeEF == nullptr)
+		{
+			EffectPlaySmoke(m_modelPosition);
+		}
+		else if (m_smokeEF->IsPlay() == false)
+		{
+			EffectPlaySmoke(m_modelPosition);
+		}
+	}
 	//ìÆçÏâ¬î\Ç»ÇÁ
 	if (m_moveReady == true)
 	{
@@ -108,4 +130,13 @@ void HealTurret::Render(RenderContext& renderContext)
 	{
 		m_hpBarSR.Draw(renderContext);
 	}
+}
+
+void HealTurret::EffectPlaySmoke(const Vector3& position)
+{
+	m_smokeEF = NewGO<EffectEmitter>(0);
+	m_smokeEF->Init(enEffectNumber_Smoke);
+	m_smokeEF->SetPosition({ position.x,position.y + 100.0f,position.z });
+	m_smokeEF->SetScale(Vector3::One * EFFECTSIZE_SMOKE);
+	m_smokeEF->Play();
 }

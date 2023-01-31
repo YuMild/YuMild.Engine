@@ -5,7 +5,7 @@
 
 namespace
 {
-	const int	MAX_HP = 200;
+	const float	MAX_HP = 200.0f;
 }
 
 bool RocketTurret::Start()

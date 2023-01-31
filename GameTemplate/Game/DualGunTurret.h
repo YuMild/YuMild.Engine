@@ -12,6 +12,7 @@ class DualGunTurret : public TurretObject
 {
 public:
 
+	~DualGunTurret();
 	bool Start() override;
 	void Update() override;
 	void Render(RenderContext& renderContext) override;
@@ -155,6 +156,12 @@ private:
 	/// エフェクトを再生
 	/// </summary>
 	/// <param name="position"></param>
+	void EffectPlaySmoke(const Vector3& position);
+
+	/// <summary>
+	/// エフェクトを再生
+	/// </summary>
+	/// <param name="position"></param>
 	void EffectPlayHit(const Vector3& position);
 
 	/// <summary>
@@ -175,8 +182,8 @@ private:
 	Vector3						m_recoilDifference	= Vector3::Zero;
 	
 	//エフェクト
-	EffectEmitter*				m_hitEF				= nullptr;
 	EffectEmitter*				m_smokeEF			= nullptr;
+	EffectEmitter*				m_hitEF				= nullptr;
 
 	//サウンド
 	SoundSource*				m_fireSE			= nullptr;

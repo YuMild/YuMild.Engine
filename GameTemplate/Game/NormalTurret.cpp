@@ -7,10 +7,19 @@
 
 namespace
 {
-	const int	MAX_HP		= 100;
-	const float FIRERATE	= 0.5f;
-	const float ATTACKPOWER	= 50.0f;
-	const float ATTACKRANGE	= 2000.0f;
+	const float	MAX_HP				= 100.0f;
+	const float FIRERATE			= 0.5f;
+	const float ATTACKPOWER			= 50.0f;
+	const float ATTACKRANGE			= 2000.0f;
+	const float EFFECTSIZE_SMOKE	= 50.0f;
+}
+
+NormalTurret::~NormalTurret()
+{
+	if (m_smokeEF != nullptr)
+	{
+		m_smokeEF->Stop();
+	}
 }
 
 bool NormalTurret::Start()
@@ -49,12 +58,6 @@ bool NormalTurret::Start()
 	m_attackRangeMR.SetScale({ 0.5f,1.0f,0.5f });
 	m_attackRangeMR.Update();
 
-	//エフェクトを登録
-	EffectEngine::GetInstance()->ResistEffect(enEffectNumber_NormalTurret, u"Assets/effect/NormalTurret.efk");
-
-	//音声の生成
-	g_soundEngine->ResistWaveFileBank(enSoundNumber_NormalTurret, "Assets/sound/NormalTurret.wav");
-
 	//初期化
 	m_recoilPosition = m_modelPosition;
 
@@ -79,6 +82,14 @@ void NormalTurret::Move()
 	{
 		m_alive = false;
 		m_fireRate += g_gameTime->GetFrameDeltaTime() / 2;
+		if (m_smokeEF == nullptr)
+		{
+			EffectPlaySmoke(m_modelPosition);
+		}
+		else if (m_smokeEF->IsPlay() == false)
+		{
+			EffectPlaySmoke(m_modelPosition);
+		}
 	}
 	//生きていてデバフに掛かっていなかったら
 	else
@@ -199,6 +210,15 @@ void NormalTurret::Render(RenderContext& renderContext)
 	{
 		m_hpBarSR.Draw(renderContext);
 	}
+}
+
+void NormalTurret::EffectPlaySmoke(const Vector3& position)
+{
+	m_smokeEF = NewGO<EffectEmitter>(0);
+	m_smokeEF->Init(enEffectNumber_Smoke);
+	m_smokeEF->SetPosition({ position.x,position.y + 100.0f,position.z });
+	m_smokeEF->SetScale(Vector3::One * EFFECTSIZE_SMOKE);
+	m_smokeEF->Play();
 }
 
 void NormalTurret::EffectPlayHit(const Vector3& position)

@@ -111,10 +111,6 @@ bool LeftWindow::Start()
 	m_turret_BackGroundSR.SetScale({ 1.0f,1.0f,1.0f });
 	m_turret_BackGroundSR.Update();
 
-	//音声の生成
-	g_soundEngine->ResistWaveFileBank(enSoundNumber_Window, "Assets/sound/Window.wav");
-	g_soundEngine->ResistWaveFileBank(enSoundNumber_Choice, "Assets/sound/Choice.wav");
-
 	//タレット背景の位置
 	m_turretBackGroundPosition[0]	= { -950.0f,0.0f,0.0f };
 	m_turretBackGroundPosition[1]	= { -865.0f,0.0f,0.0f };

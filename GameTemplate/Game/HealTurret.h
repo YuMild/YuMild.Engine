@@ -9,6 +9,7 @@ class HealTurret : public TurretObject
 {
 public:
 
+	~HealTurret();
 	bool Start() override;
 	void Update() override;
 	void Render(RenderContext& renderContext) override;
@@ -167,11 +168,20 @@ private:
 	/// </summary>
 	void HP();
 
+	/// <summary>
+	/// エフェクトを再生
+	/// </summary>
+	/// <param name="position"></param>
+	void EffectPlaySmoke(const Vector3& position);
+
 	//動作処理
 	std::vector<TurretObject*>	m_turrets;
 	bool						m_alive					= true;
 	bool						m_moveReady				= false;
 	float						m_debuffTimer			= 0.0f;
+
+	//エフェクト
+	EffectEmitter*				m_smokeEF				= nullptr;
 
 	//モデル
 	ModelRender					m_turretBaseMR;

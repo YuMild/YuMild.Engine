@@ -6,13 +6,17 @@
 
 namespace
 {
-	const int	MAX_HP		= 200;
-	const float FIRERATE	= 12.0f;
+	const float	MAX_HP				= 200.0f;
+	const float FIRERATE			= 12.0f;
+	const float EFFECTSIZE_SMOKE	= 50.0f;
 }
 
 HolyTurret::~HolyTurret()
 {
-
+	if (m_smokeEF != nullptr)
+	{
+		m_smokeEF->Stop();
+	}
 }
 
 bool HolyTurret::Start()
@@ -54,12 +58,6 @@ bool HolyTurret::Start()
 	//エフェクトの回転
 	m_effectRotation.SetRotationDegX(90.0f);
 
-	//エフェクトを登録
-	EffectEngine::GetInstance()->ResistEffect(enEffectNumber_HolyTurret, u"Assets/effect/HolyTurret.efk");
-
-	//音声の生成
-	g_soundEngine->ResistWaveFileBank(enSoundNumber_HolyTurret, "Assets/sound/HolyTurret.wav");
-
 	//HPを設定
 	m_maxHp = MAX_HP;
 	m_hp = m_maxHp;
@@ -81,6 +79,14 @@ void HolyTurret::Move()
 	{
 		m_alive = false;
 		m_fireRate += g_gameTime->GetFrameDeltaTime() / 2;
+		if (m_smokeEF == nullptr)
+		{
+			EffectPlaySmoke(m_modelPosition);
+		}
+		else if (m_smokeEF->IsPlay() == false)
+		{
+			EffectPlaySmoke(m_modelPosition);
+		}
 	}
 	//生きていてデバフに掛かっていなかったら
 	else
@@ -154,6 +160,15 @@ void HolyTurret::Render(RenderContext& renderContext)
 	{
 		m_hpBarSR.Draw(renderContext);
 	}
+}
+
+void HolyTurret::EffectPlaySmoke(const Vector3& position)
+{
+	m_smokeEF = NewGO<EffectEmitter>(0);
+	m_smokeEF->Init(enEffectNumber_Smoke);
+	m_smokeEF->SetPosition({ position.x,position.y + 100.0f,position.z });
+	m_smokeEF->SetScale(Vector3::One * EFFECTSIZE_SMOKE);
+	m_smokeEF->Play();
 }
 
 void HolyTurret::EffectPlayHoly(const Vector3& position)

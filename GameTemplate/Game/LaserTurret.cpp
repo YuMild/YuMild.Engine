@@ -5,13 +5,20 @@
 
 namespace
 {
-	const int	MAX_HP		= 200;
-	const float FIRERATE	= 1.0f;
-	const float ATTACKPOWER	= 20.0f;
+	const float	MAX_HP				= 200.0f;
+	const float FIRERATE			= 1.0f;
+	const float ATTACKPOWER			= 20.0f;
+	const float EFFECTSIZE_SMOKE	= 50.0f;
+	const float EFFECTSIZE_LASER	= 200.0f;
+	const float SOUNDVOLUME_LASER	= 0.025f;
 }
 
 LaserTurret::~LaserTurret()
 {
+	if (m_smokeEF != nullptr)
+	{
+		m_smokeEF->Stop();
+	}
 	if (m_moveReady == true && m_laserAliveTimer < 0.5f)
 	{
 		m_laserEF->Stop();
@@ -47,12 +54,6 @@ bool LaserTurret::Start()
 	m_attackRangeMR.SetScale({ 0.25f,1.0f,0.25f });
 	m_attackRangeMR.Update();
 
-	//エフェクト
-	EffectEngine::GetInstance()->ResistEffect(enEffectNumber_LaserTurret, u"Assets/Effect/LaserTurret.efk");
-
-	//音声の生成
-	g_soundEngine->ResistWaveFileBank(enSoundNumber_LaserTurret, "Assets/sound/LaserTurret.wav");
-
 	//HPを設定
 	m_maxHp = MAX_HP;
 	m_hp = m_maxHp;
@@ -79,6 +80,14 @@ void LaserTurret::Move()
 	{
 		m_alive = false;
 		m_fireRate += g_gameTime->GetFrameDeltaTime() / 2;
+		if (m_smokeEF == nullptr)
+		{
+			EffectPlaySmoke(m_modelPosition);
+		}
+		else if (m_smokeEF->IsPlay() == false)
+		{
+			EffectPlaySmoke(m_modelPosition);
+		}
 	}
 	//生きていてデバフに掛かっていなかったら
 	else
@@ -176,12 +185,21 @@ void LaserTurret::Render(RenderContext& renderContext)
 	}
 }
 
+void LaserTurret::EffectPlaySmoke(const Vector3& position)
+{
+	m_smokeEF = NewGO<EffectEmitter>(0);
+	m_smokeEF->Init(enEffectNumber_Smoke);
+	m_smokeEF->SetPosition({ position.x,position.y + 100.0f,position.z });
+	m_smokeEF->SetScale(Vector3::One * EFFECTSIZE_SMOKE);
+	m_smokeEF->Play();
+}
+
 void LaserTurret::EffectPlayLaser()
 {
 	m_laserEF = NewGO<EffectEmitter>(0);
 	m_laserEF->Init(enEffectNumber_LaserTurret);
 	m_laserEF->SetPosition(m_laserPosition);
-	m_laserEF->SetScale(Vector3::One * 200.0f);
+	m_laserEF->SetScale(Vector3::One * EFFECTSIZE_LASER);
 	m_laserEF->Play();
 }
 
@@ -189,6 +207,6 @@ void LaserTurret::SoundPlayFire()
 {
 	m_fireSE = NewGO<SoundSource>(0);
 	m_fireSE->Init(enSoundNumber_LaserTurret);
-	m_fireSE->SetVolume(0.025f);
+	m_fireSE->SetVolume(SOUNDVOLUME_LASER);
 	m_fireSE->Play(false);
 }

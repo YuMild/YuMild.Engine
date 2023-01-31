@@ -84,10 +84,8 @@ bool TurretManager::Start()
 	}
 
 	//エフェクトの作成
-	EffectEngine::GetInstance()->ResistEffect(enEffectNumber_CursorAfter, u"Assets/effect/CursorAfter.efk");
 
 	//音声の作成
-	g_soundEngine->ResistWaveFileBank(enSoundNumber_CursorAfter, "Assets/sound/CursorAfter.wav");
 	g_soundEngine->ResistWaveFileBank(enSoundNumber_SetTurret, "Assets/sound/SetTurret.wav");
 
 	return true;

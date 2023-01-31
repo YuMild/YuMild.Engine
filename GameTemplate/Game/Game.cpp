@@ -58,6 +58,9 @@ bool Game::Start()
 	m_skyCube->SetType(enSkyCubeType_Night);
 	m_skyCube->SetLuminance(0.5f);
 
+	InitEffect();
+	InitSound();
+
 	return true;
 }
 
@@ -73,4 +76,32 @@ void Game::Update()
 void Game::Render(RenderContext& renderContext)
 {
 
+}
+
+void Game::InitEffect()
+{
+	EffectEngine::GetInstance()->ResistEffect(enEffectNumber_Explosion, u"Assets/effect/Explosion.efk");
+	EffectEngine::GetInstance()->ResistEffect(enEffectNumber_CursorAfter, u"Assets/effect/CursorAfter.efk");
+	EffectEngine::GetInstance()->ResistEffect(enEffectNumber_Smoke, u"Assets/effect/Smoke.efk");
+	EffectEngine::GetInstance()->ResistEffect(enEffectNumber_NormalTurret, u"Assets/effect/NormalTurret.efk");
+	EffectEngine::GetInstance()->ResistEffect(enEffectNumber_DualGunTurret, u"Assets/effect/DualGunTurret.efk");
+	EffectEngine::GetInstance()->ResistEffect(enEffectNumber_LaserTurret, u"Assets/Effect/LaserTurret.efk");
+	EffectEngine::GetInstance()->ResistEffect(enEffectNumber_TeslaTurret, u"Assets/effect/TeslaTurret.efk");
+	EffectEngine::GetInstance()->ResistEffect(enEffectNumber_HolyTurret, u"Assets/effect/HolyTurret.efk");
+}
+
+void Game::InitSound()
+{
+	g_soundEngine->ResistWaveFileBank(enSoundNumber_NormalBGM, "Assets/sound/NormalBGM.wav");
+	g_soundEngine->ResistWaveFileBank(enSoundNumber_Alarm, "Assets/sound/Alarm.wav");
+	g_soundEngine->ResistWaveFileBank(enSoundNumber_BossBGM, "Assets/sound/BossBGM.wav");
+	g_soundEngine->ResistWaveFileBank(enSoundNumber_Window, "Assets/sound/Window.wav");
+	g_soundEngine->ResistWaveFileBank(enSoundNumber_Choice, "Assets/sound/Choice.wav");
+	g_soundEngine->ResistWaveFileBank(enSoundNumber_CursorAfter, "Assets/sound/CursorAfter.wav");
+	g_soundEngine->ResistWaveFileBank(enSoundNumber_Explosion, "Assets/sound/Explosion.wav");
+	g_soundEngine->ResistWaveFileBank(enSoundNumber_NormalTurret, "Assets/sound/NormalTurret.wav");
+	g_soundEngine->ResistWaveFileBank(enSoundNumber_DualGunTurret, "Assets/sound/DualGunTurret.wav");
+	g_soundEngine->ResistWaveFileBank(enSoundNumber_LaserTurret, "Assets/sound/LaserTurret.wav");
+	g_soundEngine->ResistWaveFileBank(enSoundNumber_TeslaTurret, "Assets/sound/TeslaTurret.wav");
+	g_soundEngine->ResistWaveFileBank(enSoundNumber_HolyTurret, "Assets/sound/HolyTurret.wav");
 }

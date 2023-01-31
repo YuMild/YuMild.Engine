@@ -170,6 +170,12 @@ private:
 	/// </summary>
 	void HP();
 
+	/// <summary>
+	/// エフェクトを再生
+	/// </summary>
+	/// <param name="position"></param>
+	void EffectPlaySmoke(const Vector3& position);
+
 	//動作処理
 	bool						m_alive					= true;
 	bool						m_moveReady				= false;
@@ -178,6 +184,9 @@ private:
 
 	//クラス
 	Energy*						m_energy				= nullptr;
+
+	//エフェクト
+	EffectEmitter*				m_smokeEF				= nullptr;
 
 	//モデル
 	ModelRender					m_turretMR;

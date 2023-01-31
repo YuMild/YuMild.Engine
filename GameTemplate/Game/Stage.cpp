@@ -41,8 +41,6 @@ bool Stage::Start()
 	m_campMR.Update();
 
 	//BGM
-	g_soundEngine->ResistWaveFileBank(enSoundNumber_NormalBGM, "Assets/sound/NormalBGM.wav");
-	g_soundEngine->ResistWaveFileBank(enSoundNumber_BossBGM, "Assets/sound/BossBGM.wav");
 	SetNormalBGM();
 
 	return true;

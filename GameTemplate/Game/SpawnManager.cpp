@@ -35,7 +35,6 @@ SpawnManager::~SpawnManager()
 bool SpawnManager::Start()
 {
 	//エフェクトを登録
-	EffectEngine::GetInstance()->ResistEffect(enEffectNumber_Explosion, u"Assets/effect/Explosion.efk");
 
 	//画像を作成
 	m_warningSR.Init("Assets/sprite/Warning/WARNING.dds", 1600.0f, 900.0f);
@@ -49,10 +48,6 @@ bool SpawnManager::Start()
 	m_warningLeftCircleSR.SetPosition({ -612.0f,0.0f,0.0f });
 	m_warningLeftCircleSR.SetMulColor({ 1.0f,1.0f,1.0f,0.0f });
 	m_warningLeftCircleSR.Update();
-
-	//音声
-	g_soundEngine->ResistWaveFileBank(enSoundNumber_Explosion, "Assets/sound/Explosion.wav");
-	g_soundEngine->ResistWaveFileBank(enSoundNumber_Alarm, "Assets/sound/Alarm.wav");
 
 	//HP
 	m_defaultHP_UFO = DEFAULT_HP_UFO;

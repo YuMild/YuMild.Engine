@@ -7,11 +7,20 @@
 
 namespace
 {
-	const int	MAX_HP		= 200;
-	const float FIRERATE	= 2.0f;
-	const float ATTACKPOWER	= 300.0f;
-	const float ATTACKRANGE	= 2000.0f;
-	const float BINDTIME	= 0.5f;
+	const float	MAX_HP				= 200.0f;
+	const float FIRERATE			= 2.0f;
+	const float ATTACKPOWER			= 300.0f;
+	const float ATTACKRANGE			= 2000.0f;
+	const float BINDTIME			= 0.5f;
+	const float EFFECTSIZE_SMOKE	= 50.0f;
+}
+
+TeslaTurret::~TeslaTurret()
+{
+	if (m_smokeEF != nullptr)
+	{
+		m_smokeEF->Stop();
+	}
 }
 
 bool TeslaTurret::Start()
@@ -43,12 +52,6 @@ bool TeslaTurret::Start()
 	m_attackRangeMR.SetScale({ 0.5f,1.0f,0.5f });
 	m_attackRangeMR.Update();
 
-	//エフェクトを登録
-	EffectEngine::GetInstance()->ResistEffect(enEffectNumber_TeslaTurret, u"Assets/effect/TeslaTurret.efk");
-
-	//音声の生成
-	g_soundEngine->ResistWaveFileBank(enSoundNumber_TeslaTurret, "Assets/sound/TeslaTurret.wav");
-
 	//HPを設定
 	m_maxHp = MAX_HP;
 	m_hp = m_maxHp;
@@ -70,6 +73,14 @@ void TeslaTurret::Move()
 	{
 		m_alive = false;
 		m_fireRate += g_gameTime->GetFrameDeltaTime() / 2;
+		if (m_smokeEF == nullptr)
+		{
+			EffectPlaySmoke(m_modelPosition);
+		}
+		else if (m_smokeEF->IsPlay() == false)
+		{
+			EffectPlaySmoke(m_modelPosition);
+		}
 	}
 	//生きていてデバフに掛かっていなかったら
 	else
@@ -161,6 +172,15 @@ void TeslaTurret::Render(RenderContext& renderContext)
 	{
 		m_hpBarSR.Draw(renderContext);
 	}
+}
+
+void TeslaTurret::EffectPlaySmoke(const Vector3& position)
+{
+	m_smokeEF = NewGO<EffectEmitter>(0);
+	m_smokeEF->Init(enEffectNumber_Smoke);
+	m_smokeEF->SetPosition({ position.x,position.y + 100.0f,position.z });
+	m_smokeEF->SetScale(Vector3::One * EFFECTSIZE_SMOKE);
+	m_smokeEF->Play();
 }
 
 void TeslaTurret::EffectPlayHit(const Vector3& position)

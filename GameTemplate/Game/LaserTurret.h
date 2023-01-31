@@ -172,6 +172,12 @@ private:
 	/// <summary>
 	/// エフェクトを再生
 	/// </summary>
+	/// <param name="position"></param>
+	void EffectPlaySmoke(const Vector3& position);
+
+	/// <summary>
+	/// エフェクトを再生
+	/// </summary>
 	void EffectPlayLaser();
 
 	/// <summary>
@@ -191,6 +197,7 @@ private:
 	Vector3						m_forward			= Vector3::Zero;
 
 	//エフェクト
+	EffectEmitter*				m_smokeEF			= nullptr;
 	EffectEmitter*				m_laserEF			= nullptr;
 
 	//サウンド

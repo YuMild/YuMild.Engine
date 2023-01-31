@@ -7,10 +7,21 @@
 
 namespace
 {
-	const int	MAX_HP		= 200;
-	const float FIRERATE	= 0.1f;
-	const float ATTACKPOWER	= 50.0f;
-	const float ATTACKRANGE	= 1000.0f;
+	const float	MAX_HP				= 200.0f;
+	const float FIRERATE			= 0.1f;
+	const float ATTACKPOWER			= 50.0f;
+	const float ATTACKRANGE			= 1000.0f;
+	const float EFFECTSIZE_HIT		= 150.0f;
+	const float EFFECTSIZE_SMOKE	= 50.0f;
+	const float SOUNDVOLUME_HIT		= 0.25f;
+}
+
+DualGunTurret::~DualGunTurret()
+{
+	if (m_smokeEF != nullptr)
+	{
+		m_smokeEF->Stop();
+	}
 }
 
 bool DualGunTurret::Start()
@@ -49,13 +60,6 @@ bool DualGunTurret::Start()
 	m_attackRangeMR.SetScale({ 0.25f,1.0f,0.25f });
 	m_attackRangeMR.Update();
 
-	//エフェクトを登録
-	EffectEngine::GetInstance()->ResistEffect(enEffectNumber_DualGunTurret, u"Assets/effect/DualGunTurret.efk");
-	EffectEngine::GetInstance()->ResistEffect(enEffectNumber_Smoke, u"Assets/effect/Smoke.efk");
-
-	//音声の生成
-	g_soundEngine->ResistWaveFileBank(enSoundNumber_DualGunTurret, "Assets/sound/DualGunTurret.wav");
-
 	//初期化
 	m_recoilPosition = m_modelPosition;
 
@@ -80,6 +84,14 @@ void DualGunTurret::Move()
 	{
 		m_alive = false;
 		m_fireRate += g_gameTime->GetFrameDeltaTime() / 2;
+		if (m_smokeEF == nullptr)
+		{
+			EffectPlaySmoke(m_modelPosition);
+		}
+		else if(m_smokeEF->IsPlay() == false)
+		{
+			EffectPlaySmoke(m_modelPosition);
+		}
 	}
 	//生きていてデバフに掛かっていなかったら
 	else
@@ -202,12 +214,21 @@ void DualGunTurret::Render(RenderContext& renderContext)
 	}
 }
 
+void DualGunTurret::EffectPlaySmoke(const Vector3& position)
+{
+	m_smokeEF = NewGO<EffectEmitter>(0);
+	m_smokeEF->Init(enEffectNumber_Smoke);
+	m_smokeEF->SetPosition({ position.x,position.y + 100.0f,position.z });
+	m_smokeEF->SetScale(Vector3::One * EFFECTSIZE_SMOKE);
+	m_smokeEF->Play();
+}
+
 void DualGunTurret::EffectPlayHit(const Vector3& position)
 {
 	m_hitEF = NewGO<EffectEmitter>(0);
 	m_hitEF->Init(enEffectNumber_DualGunTurret);
 	m_hitEF->SetPosition({ position.x,position.y + 200.0f,position.z + 300.0f });
-	m_hitEF->SetScale(Vector3::One * 150.0f);
+	m_hitEF->SetScale(Vector3::One * EFFECTSIZE_HIT);
 	m_hitEF->Play();
 }
 
@@ -215,6 +236,6 @@ void DualGunTurret::SoundPlayFire()
 {
 	m_fireSE = NewGO<SoundSource>(0);
 	m_fireSE->Init(enSoundNumber_DualGunTurret);
-	m_fireSE->SetVolume(0.025f);
+	m_fireSE->SetVolume(SOUNDVOLUME_HIT);
 	m_fireSE->Play(false);
 }

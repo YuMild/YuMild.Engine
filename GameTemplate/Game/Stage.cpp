@@ -7,8 +7,8 @@ namespace
 {
 	const Vector3	STAGE_FIRST_POSITION		= { 0.0f,0.0f,0.0f };
 	const Vector3	STAGE_FIRST_SCALE			= { 1.0f,1.0f,1.0f };
-	const Vector3	CAMP_FIRST_POSITION			= { 0.0f,10.0f,0.0f };
-	const Vector3	CAMP_FIRST_SCALE			= { 3.0f,3.0f,3.0f };
+	const Vector3	CAMP_FIRST_POSITION			= { 0.0f,-100.0f,500.0f };
+	const Vector3	CAMP_FIRST_SCALE			= { 12.0f,12.0f,12.0f };
 	const float		DEFAULT_NORMALBGM_VOLUME	= 0.05f;
 }
 

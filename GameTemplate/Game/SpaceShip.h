@@ -3,7 +3,7 @@
 #include "EnemyObject.h"
 
 class GameOver;
-class LeftWindow;
+class GameCamera;
 class Stage;
 
 class SpawnManager;
@@ -86,7 +86,6 @@ public:
 		}
 	}
 
-
 	/// <summary>
 	/// Œ¸‘¬ŠÔ‚ğİ’è
 	/// </summary>
@@ -119,7 +118,7 @@ private:
 
 	//ƒNƒ‰ƒX
 	GameOver*					m_gameOver			= nullptr;
-	LeftWindow*					m_leftWindow		= nullptr;
+	GameCamera*					m_gameCamera		= nullptr;
 	Stage*						m_stage				= nullptr;
 
 	SpawnManager*				m_spawnManager;

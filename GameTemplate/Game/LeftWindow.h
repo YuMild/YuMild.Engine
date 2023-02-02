@@ -4,6 +4,7 @@
 
 class Energy;
 class Game;
+class GameCamera;
 class LeftWindowDelete;
 class Player;
 class TurretManager;
@@ -123,24 +124,6 @@ public:
 	}
 
 	/// <summary>
-	/// スペースシップ専用のカメラポジションにするか否か設定
-	/// </summary>
-	void SetSpaceShipCameraPosition(bool value)
-	{
-		m_spaceShipCamera = value;
-		if (m_spaceShipCamera == true)
-		{
-			g_camera3D->SetTarget({ 0.0f,0.0f,-1500.0f });
-			g_camera3D->SetPosition({ 0.0f, 2000.0f, 2000.0f });
-		}
-		else
-		{
-			g_camera3D->SetTarget({ 0.0f,0.0f,-1500.0f });
-			g_camera3D->SetPosition({ 0.0f, 3500.0f, 2000.0f });
-		}
-	}
-
-	/// <summary>
 	/// ウィンドウ切り替え時の音声を再生
 	/// </summary>
 	void SoundPlayWindow();
@@ -187,15 +170,16 @@ private:
 	void SetParameterBar();
 
 	//クラス
-	Energy*						m_energy;
-	LeftWindowDelete*			m_leftWindowDelete;
-	Player*						m_player;
-	TurretManager*				m_turretManager;
+	Energy*						m_energy						= nullptr;
+	GameCamera*					m_gameCamera					= nullptr;
+	LeftWindowDelete*			m_leftWindowDelete				= nullptr;
+	Player*						m_player						= nullptr;
+	TurretManager*				m_turretManager					= nullptr;
 	std::vector<TurretObject*>	m_turrets;
 
 	//音声
-	SoundSource*				m_windowSE;
-	SoundSource*				m_choiceSE;
+	SoundSource*				m_windowSE						= nullptr;
+	SoundSource*				m_choiceSE						= nullptr;
 
 	//モデル
 	ModelRender					m_gridMR;
@@ -228,26 +212,23 @@ private:
 	Vector3						m_turretBackGroundPosition[12];
 
 	//ステート
-	int							m_operationState = enOperationState_Normal_LeftWindow;
+	int							m_operationState				= enOperationState_Normal_LeftWindow;
 
 	//選択しているタレット
-	int							m_selectTurretNumber = 0;
+	int							m_selectTurretNumber			= 0;
 
 	//ボタンの重複が起きないようディレイをかける
-	bool						m_buttonReady = false;
-	float						m_buttonDelay = 0.0f;
+	bool						m_buttonReady					= false;
+	float						m_buttonDelay					= 0.0f;
 
 	//パラメーター
-	float						m_rangeNumber = 0.0f;
-	float						m_damageNumber = 0.0f;
-	float						m_fireRateNumber = 0.0f;
-	float						m_rangeSetNumber = 0.0f;
-	float						m_damageSetNumber = 0.0f;
-	float						m_fireRateSetNumber = 0.0f;
+	float						m_rangeNumber					= 0.0f;
+	float						m_damageNumber					= 0.0f;
+	float						m_fireRateNumber				= 0.0f;
+	float						m_rangeSetNumber				= 0.0f;
+	float						m_damageSetNumber				= 0.0f;
+	float						m_fireRateSetNumber				= 0.0f;
 
 	//ウィンドウのポジションに加算する数値
-	float						m_moveNumber = 0.0f;
-
-	//SpaceShip専用のカメラ位置にするか否か
-	bool						m_spaceShipCamera = false;
+	float						m_moveNumber					= 0.0f;
 };

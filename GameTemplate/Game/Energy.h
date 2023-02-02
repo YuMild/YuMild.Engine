@@ -12,14 +12,14 @@ class Energy : public IGameObject
 public:
 
 	//タレットの生産コスト
-	const float COST_NORMALTURRET = 100.0f;
-	const float COST_DUALGUNTURRET = 200.0f;
-	const float COST_LASERTURRET = 200.0f;
-	const float COST_ROCKETTURRET = 300.0f;
-	const float COST_GENERATIONTURRET = 500.0f;
-	const float COST_HEALTURRET = 500.0f;
-	const float COST_TESLATURRET = 700.0f;
-	const float COST_HOLYTURRET = 1000.0f;
+	const float COST_NORMALTURRET		= 100.0f;
+	const float COST_DUALGUNTURRET		= 200.0f;
+	const float COST_LASERTURRET		= 200.0f;
+	const float COST_ROCKETTURRET		= 300.0f;
+	const float COST_GENERATIONTURRET	= 500.0f;
+	const float COST_HEALTURRET			= 500.0f;
+	const float COST_TESLATURRET		= 700.0f;
+	const float COST_HOLYTURRET			= 1000.0f;
 
 	bool Start()override;
 	void Update()override;

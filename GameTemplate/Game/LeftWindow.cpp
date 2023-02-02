@@ -30,6 +30,7 @@ bool LeftWindow::Start()
 {
 	//FindGO
 	m_energy = FindGO<Energy>("energy");
+	m_gameCamera = FindGO<GameCamera>("gameCamera");
 	m_player = FindGO<Player>("player");
 	m_turretManager = FindGO<TurretManager>("turretManager");
 
@@ -133,16 +134,10 @@ void LeftWindow::OperationNormal()
 	//選択位置をデフォルトに設定
 	m_selectTurretNumber = 0;
 
-	//カメラの視点と注視点の初期化
-	if (m_spaceShipCamera == true)
+	//カメラ位置を通常時に
+	if (m_gameCamera->GetCameraState() != enCameraState_SpaceShip)
 	{
-		g_camera3D->SetTarget({ 0.0f,0.0f,-1000.0f });
-		g_camera3D->SetPosition({ 0.0f, 1000.0f, 1500.0f });
-	}
-	else
-	{
-		g_camera3D->SetTarget({ 0.0f,0.0f,-1000.0f });
-		g_camera3D->SetPosition({ 0.0f, 1500.0f, 1500.0f });
+		m_gameCamera->SetCameraState(enCameraState_Normal);
 	}
 
 	/// <summary>
@@ -315,8 +310,7 @@ void LeftWindow::OperationSelectTurret()
 
 void LeftWindow::OperationSetTurret()
 {
-	g_camera3D->SetTarget({ 0.0f,0.0f,-2500.0f });
-	g_camera3D->SetPosition({ 0.0f, 5500.0f, 1000.0f });
+	m_gameCamera->SetCameraState(enCameraState_SetTurret);
 	//ウィンドウを左にスライド
 	if (m_moveNumber >= LEFTWINDOW_MOVE_X)
 	{
@@ -564,7 +558,7 @@ void LeftWindow::SoundPlayWindow()
 {
 	m_windowSE = NewGO<SoundSource>(0);
 	m_windowSE->Init(enSoundNumber_Window);
-	m_windowSE->SetVolume(0.3f);
+	m_windowSE->SetVolume(1.0f);
 	m_windowSE->Play(false);
 }
 

@@ -2,7 +2,7 @@
 #include "SpaceShip.h"
 
 #include "GameOver.h"
-#include "LeftWindow.h"
+#include "GameCamera.h"
 #include "Stage.h"
 
 #include "SpawnManager.h"
@@ -22,7 +22,7 @@ namespace
 
 SpaceShip::~SpaceShip()
 {
-	m_leftWindow->SetSpaceShipCameraPosition(false);
+	m_gameCamera->SetCameraState(enCameraState_Normal);
 	m_stage->SetNormalBGM();
 }
 
@@ -30,7 +30,7 @@ bool SpaceShip::Start()
 {
 	//FindGO
 	m_gameOver = FindGO<GameOver>("gameOver");
-	m_leftWindow = FindGO<LeftWindow>("leftWindow");
+	m_gameCamera = FindGO<GameCamera>("gameCamera");
 	m_stage = FindGO<Stage>("stage");
 	m_spawnManager = FindGO<SpawnManager>("spawnManager");
 	m_turretManager = FindGO<TurretManager>("turretManager");
@@ -52,7 +52,7 @@ bool SpaceShip::Start()
 	m_hpBarSR.Init("Assets/Sprite/Enemy/EnemyHP.dds", 30.0f, 30.0f);
 
 	//ボス用の視点に変更
-	m_leftWindow->SetSpaceShipCameraPosition(true);
+	m_gameCamera->SetCameraState(enCameraState_SpaceShip);
 	m_stage->SetBossBGM();
 
 	return true;

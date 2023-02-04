@@ -34,8 +34,6 @@ SpawnManager::~SpawnManager()
 
 bool SpawnManager::Start()
 {
-	//エフェクトを登録
-
 	//画像を作成
 	m_warningSR.Init("Assets/sprite/Warning/WARNING.dds", 1600.0f, 900.0f);
 	m_warningSR.SetMulColor({ 1.0f,1.0f,1.0f,0.0f });
@@ -51,12 +49,12 @@ bool SpawnManager::Start()
 
 	//HP
 	m_defaultHP_UFO = DEFAULT_HP_UFO;
-	m_defaultHP_Dempa = DEFAULT_HP_DEMPA;
+	m_defaultHP_Missile = DEFAULT_HP_DEMPA;
 	m_defaultHP_SpaceShip = DEFAULT_HP_SPACESHIP;
 
 	//ディレイ
 	m_spawnTimer_UFO = -DELAY_UFO;
-	m_spawnTimer_Dempa = -DELAY_DEMPA;
+	m_spawnTimer_Missile = -DELAY_DEMPA;
 	m_spawnTimer_SpaceShip = -DELAY_SPACESHIP;
 
 	return true;
@@ -73,9 +71,9 @@ void SpawnManager::LevelUp()
 		{
 			m_defaultHP_UFO *= 1.2f;
 		}
-		if (m_defaultHP_Dempa < 5000.0f)
+		if (m_defaultHP_Missile < 5000.0f)
 		{
-			m_defaultHP_Dempa *= 1.2f;
+			m_defaultHP_Missile *= 1.2f;
 		}
 		m_levelTimer = 0.0f;
 	}
@@ -93,15 +91,15 @@ void SpawnManager::SpawnUFO()
 	}
 }
 
-void SpawnManager::SpawnDempa()
+void SpawnManager::SpawnMissile()
 {
-	m_spawnTimer_Dempa += g_gameTime->GetFrameDeltaTime();
+	m_spawnTimer_Missile += g_gameTime->GetFrameDeltaTime();
 
 	//Dempaのスポーン
-	if (m_spawnTimer_Dempa >= DEFAULT_SPAWNTIME_DEMPA)
+	if (m_spawnTimer_Missile >= DEFAULT_SPAWNTIME_DEMPA)
 	{
-		m_dempa = NewGO<Dempa>(0, "normal");
-		m_spawnTimer_Dempa = 0.0f;
+		m_missile = NewGO<Missile>(0, "normal");
+		m_spawnTimer_Missile = 0.0f;
 	}
 }
 
@@ -124,7 +122,7 @@ void SpawnManager::Update()
 {
 	LevelUp();
 	SpawnUFO();
-	SpawnDempa();
+	SpawnMissile();
 	SpawnSpaceShip();
 }
 
@@ -190,6 +188,14 @@ void SpawnManager::EffectPlayExplosion(Vector3& position)
 	m_explosionEF->SetPosition({ position.x,position.y + 200.0f,position.z });
 	m_explosionEF->SetScale(Vector3::One * 100.0f);
 	m_explosionEF->Play();
+}
+
+void SpawnManager::SoundPlayBossSpawn()
+{
+	m_bossSpawnSE = NewGO<SoundSource>(0);
+	m_bossSpawnSE->Init(enSoundNumber_Alarm);
+	m_bossSpawnSE->SetVolume(0.05f);
+	m_bossSpawnSE->Play(false);
 }
 
 void SpawnManager::SoundPlayExplosion()

@@ -1,8 +1,8 @@
 #include "stdafx.h"
 #include "SpaceShip.h"
 
-#include "GameOver.h"
 #include "GameCamera.h"
+#include "GameOver.h"
 #include "Stage.h"
 
 #include "SpawnManager.h"
@@ -60,6 +60,9 @@ bool SpaceShip::Start()
 
 void SpaceShip::Move()
 {
+	//ボス用の視点に変更
+	m_gameCamera->SetCameraState(enCameraState_SpaceShip);
+
 	//目的地までのベクトル
 	Vector3 difference = DEFAULT_TARGET - m_position;
 
@@ -69,6 +72,7 @@ void SpaceShip::Move()
 		m_spawnManager->EffectPlayExplosion(m_position);
 		m_spawnManager->SoundPlayExplosion();
 		m_gameOver->SubHP();
+		m_gameCamera->SetCameraShake();
 		DeleteGO(this);
 	}
 

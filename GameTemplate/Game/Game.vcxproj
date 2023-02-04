@@ -224,14 +224,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="HealTurret.cpp" />
-    <ClCompile Include="Dempa.cpp" />
+    <ClCompile Include="Missile.cpp" />
     <ClCompile Include="DualGunTurret.cpp" />
     <ClCompile Include="EnemyObject.cpp" />
     <ClCompile Include="Energy.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameCamera.cpp" />
     <ClCompile Include="GameOver.cpp" />
-    <ClCompile Include="GenerationTurret.cpp" />
+    <ClCompile Include="GeneratorTurret.cpp" />
     <ClCompile Include="HolyTurret.cpp" />
     <ClCompile Include="LaserTurret.cpp" />
     <ClCompile Include="LeftWindow.cpp" />
@@ -257,14 +257,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="HealTurret.h" />
-    <ClInclude Include="Dempa.h" />
+    <ClInclude Include="Missile.h" />
     <ClInclude Include="DualGunTurret.h" />
     <ClInclude Include="EnemyObject.h" />
     <ClInclude Include="Energy.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameCamera.h" />
     <ClInclude Include="GameOver.h" />
-    <ClInclude Include="GenerationTurret.h" />
+    <ClInclude Include="GeneratorTurret.h" />
     <ClInclude Include="HolyTurret.h" />
     <ClInclude Include="LaserTurret.h" />
     <ClInclude Include="LeftWindow.h" />

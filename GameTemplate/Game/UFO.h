@@ -2,6 +2,7 @@
 
 #include "EnemyObject.h"
 
+class GameCamera;
 class GameOver;
 
 class SpawnManager;
@@ -14,7 +15,6 @@ class UFO : public EnemyObject
 {
 public:
 
-	UFO();
 	~UFO();
 	bool Start()override;
 	void Update()override;
@@ -86,15 +86,6 @@ public:
 	}
 
 	/// <summary>
-	/// 減速時間を設定
-	/// </summary>
-	/// <param name="slowTime"></param>
-	virtual void SetSlow(const float slowTime)override
-	{
-		m_slowTimer = slowTime;
-	}
-
-	/// <summary>
 	/// 拘束時間を設定
 	/// </summary>
 	/// <param name="bindTime"></param>
@@ -116,10 +107,11 @@ private:
 	void HP();
 	
 	//クラス
-	GameOver*					m_gameOver;
+	GameCamera*					m_gameCamera		= nullptr;
+	GameOver*					m_gameOver			= nullptr;
 
-	SpawnManager*				m_spawnManager;
-	TurretManager*				m_turretManager;
+	SpawnManager*				m_spawnManager		= nullptr;
+	TurretManager*				m_turretManager		= nullptr;
 
 	//モデル
 	Texture						m_emissionMap;
@@ -127,21 +119,21 @@ private:
 
 	//HP
 	SpriteRender				m_hpBarSR;
-	float						m_hp = 0.0f;
-	float						m_maxHp = 0.0f;
-	Vector2						m_hpBarPosition;
+	float						m_hp				= 0.0f;
+	float						m_maxHp				= 0.0f;
+	Vector2						m_hpBarPosition		= Vector2::Zero;
 
 	//状態
-	float						m_slowTimer = 0.0f;
-	float						m_bindTimer = 0.0f;
+	float						m_slowTimer			= 0.0f;
+	float						m_bindTimer			= 0.0f;
 
 	//UFO
-	Vector3						m_position = { 0.0f,0.0f,-8000.0f };
-	Quaternion					m_rotation;
-	Vector3						m_scale;
+	Vector3						m_position			= { 0.0f,0.0f,-8000.0f };
+	Quaternion					m_rotation			= Quaternion::Identity;
+	Vector3						m_scale				= Vector3::Zero;
 
 	//パス移動
 	std::vector<Vector3>		m_pointList;
-	Vector3						m_target;
-	int							m_pointNum = 0;
+	Vector3						m_target			= Vector3::Zero;
+	int							m_pointNum			= 0;
 };

@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "UFO.h"
 
+#include "GameCamera.h"
 #include "GameOver.h"
 
 #include "SpawnManager.h"
@@ -26,11 +27,6 @@ namespace
 	float DEFAULT_ROTATION_SPEED = 1.5f;
 }
 
-UFO::UFO()
-{
-
-}
-
 UFO::~UFO()
 {
 
@@ -39,6 +35,7 @@ UFO::~UFO()
 bool UFO::Start()
 {
 	//FindGO
+	m_gameCamera = FindGO<GameCamera>("gameCamera");
 	m_gameOver = FindGO<GameOver>("gameOver");
 	m_spawnManager = FindGO<SpawnManager>("spawnManager");
 	m_turretManager = FindGO<TurretManager>("turretManager");
@@ -92,6 +89,7 @@ void UFO::Move()
 			m_spawnManager->EffectPlayExplosion(m_position);
 			m_spawnManager->SoundPlayExplosion();
 			m_gameOver->SubHP();
+			m_gameCamera->SetCameraShake();
 			DeleteGO(this);
 			return;
 		}
@@ -111,18 +109,8 @@ void UFO::Move()
 	{
 		Vector3 moveSpeed = m_target - m_position;
 		moveSpeed.Normalize();
-		moveSpeed *= DEFAULT_MOVE_SPEED;
-		//Œ¸‘¬‚³‚ê‚Ä‚¢‚È‚©‚Á‚½‚ç
-		if (m_slowTimer <= 0.0f)
-		{
-			m_position += moveSpeed;
-		}
-		//Œ¸‘¬‚³‚ê‚Ä‚¢‚½‚ç
-		else
-		{
-			m_position += moveSpeed / 2;
-			m_slowTimer -= g_gameTime->GetFrameDeltaTime();
-		}
+		//ˆÚ“®
+		m_position += moveSpeed * DEFAULT_MOVE_SPEED;
 		//‰ñ“]‚µ‘±‚¯‚é
 		m_rotation.AddRotationDegY(DEFAULT_ROTATION_SPEED);
 	}

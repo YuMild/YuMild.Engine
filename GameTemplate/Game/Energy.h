@@ -68,7 +68,7 @@ public:
 	/// </summary>
 	void AddGenerationTurret()
 	{
-		m_generationTurret += 1;
+		m_generatorTurret += 1;
 	}
 
 	/// <summary>
@@ -76,7 +76,7 @@ public:
 	/// </summary>
 	void SubGenerationTurret()
 	{
-		m_generationTurret -= 1;
+		m_generatorTurret -= 1;
 	}
 
 	/// <summary>
@@ -142,7 +142,7 @@ private:
 	FontRender		m_fontRender;
 
 	//ƒGƒlƒ‹ƒM[
-	int				m_generationTurret = 0;
+	int				m_generatorTurret = 0;
 	float			m_energy = 0.0f;
 	float			m_energyEfficiency = 0.0f;
 

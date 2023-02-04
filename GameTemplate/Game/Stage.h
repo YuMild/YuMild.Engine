@@ -29,15 +29,29 @@ public:
 
 private:
 
+	/// <summary>
+	/// “®ì‚ğŠÇ—
+	/// </summary>
+	void Move();
+
 	//ƒ‚ƒfƒ‹
 	Texture				m_stageEmissionMap;
 	ModelRender			m_stageMR;
 	Texture				m_campEmissionMap;
 	ModelRender			m_campMR;
 
+	//”wŒiƒ‚ƒfƒ‹
+	ModelRender			m_earthMR;
+	Quaternion			m_earthRotation				= Quaternion::Identity;
+	ModelRender			m_moonMR;
+	Quaternion			m_moonRotation				= Quaternion::Identity;
+	Texture				m_spaceJunkEmissionMap;
+	ModelRender			m_spaceJunkMR;
+	Quaternion			m_spaceJunkRotation			= Quaternion::Identity;
+
 	//‰¹º
 	SoundSource*		m_normalBGM;
 	SoundSource*		m_bossBGM;
 
-	float				m_normalBGMVolume = 0.0f;
+	float				m_normalBGMVolume			= 0.0f;
 };

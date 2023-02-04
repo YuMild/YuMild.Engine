@@ -244,16 +244,16 @@ void LeftWindow::OperationSelectTurret()
 			m_turretManager->Init(enTurret_RocketTurret);
 		}
 		/// <summary>
-		/// GenerationTurret
+		/// GeneratorTurret
 		/// </summary>
-		else if (m_selectTurretNumber == enTurret_GenerationTurret)
+		else if (m_selectTurretNumber == enTurret_GeneratorTurret)
 		{
 			if (m_energy->GetEnergy() <= m_energy->COST_GENERATIONTURRET)
 			{
 				m_energy->SoundPlayNotEnoughCost();
 				return;
 			}
-			m_turretManager->Init(enTurret_GenerationTurret);
+			m_turretManager->Init(enTurret_GeneratorTurret);
 		}
 		/// <summary>
 		/// HealTurret
@@ -384,7 +384,7 @@ void LeftWindow::SetParameterBar()
 		m_damageNumber = 0.75f;
 		m_fireRateNumber = 0.1f;
 		break;
-	case enTurret_GenerationTurret:
+	case enTurret_GeneratorTurret:
 		m_rangeNumber = 0.0f;
 		m_damageNumber = 0.0f;
 		m_fireRateNumber = 0.0f;

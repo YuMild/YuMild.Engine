@@ -35,9 +35,22 @@ public:
 		return m_cameraState;
 	}
 
+	/// <summary>
+	/// ƒJƒƒ‰‚ğ—h‚ç‚·
+	/// </summary>
+	void SetCameraShake()
+	{
+		m_cameraShake = true;
+		m_shakeTimer = 0.0f;
+	}
+
 private:
 
+	bool			m_cameraShake		= false;
+	float			m_shakeTimer		= 0.0f;
+
 	int				m_cameraState		= enCameraState_Normal;
+	float			m_cameraTarget_Z	= 0.0f;
 	float			m_cameraPosition_X	= 0.0f;
 	float			m_cameraPosition_Y	= 0.0f;
 	float			m_cameraPosition_Z	= 0.0f;

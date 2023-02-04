@@ -1,11 +1,11 @@
 #pragma once
 
-#include "Dempa.h"
 #include "Energy.h"
 #include "GameCamera.h"
 #include "GameOver.h"
 #include "LeftWindow.h"
 #include "LeftWindowDelete.h"
+#include "Missile.h"
 #include "Player.h"
 #include "SpawnManager.h"
 #include "Stage.h"
@@ -94,7 +94,7 @@ private:
 	void InitSound();
 
 	//ƒNƒ‰ƒX
-	Dempa*						m_dempa					= nullptr;
+	Missile*					m_missile				= nullptr;
 	Energy*						m_energy				= nullptr;
 	GameCamera*					m_gameCamera			= nullptr;
 	GameOver*					m_gameOver				= nullptr;

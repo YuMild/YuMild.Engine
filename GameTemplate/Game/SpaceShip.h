@@ -2,8 +2,8 @@
 
 #include "EnemyObject.h"
 
-class GameOver;
 class GameCamera;
+class GameOver;
 class Stage;
 
 class SpawnManager;
@@ -84,15 +84,6 @@ public:
 		{
 			m_hp = 0;
 		}
-	}
-
-	/// <summary>
-	/// Œ¸‘¬ŠÔ‚ğİ’è
-	/// </summary>
-	/// <param name="slowTime"></param>
-	virtual void SetSlow(const float slowTime)override
-	{
-		m_slowTimer = slowTime;
 	}
 
 	/// <summary>

@@ -1,13 +1,30 @@
 #include "stdafx.h"
 #include "GameCamera.h"
 
+#include "stdlib.h"
+
 namespace
 {
-	
+	//ターゲット
+	const float CAMERATARGET_NORMAL_Z		= -1000.0f;
+	const float CAMERATARGET_SETTURRET_Z	= -2500.0f;
+	const float CAMERATARGET_SPACESHIP_Z	= -1000.0f;
+	//ポジション
+	const float CAMERAPOSITION_NORMAL_X		= 0.0f;
+	const float CAMERAPOSITION_NORMAL_Y		= 1500.0f;
+	const float CAMERAPOSITION_NORMAL_Z		= 1500.0f;
+	const float CAMERAPOSITION_SETTURRET_X	= 0.0f;
+	const float CAMERAPOSITION_SETTURRET_Y	= 5500.0f;
+	const float CAMERAPOSITION_SETTURRET_Z	= 1000.0f;
+	const float CAMERAPOSITION_SPACESHIP_X	= 0.0f;
+	const float CAMERAPOSITION_SPACESHIP_Y	= 900.0f;
+	const float CAMERAPOSITION_SPACESHIP_Z	= 1500.0f;
 }
 
 bool GameCamera::Start()
 {
+	m_cameraTarget_Z = CAMERATARGET_NORMAL_Z;
+	g_camera3D->SetTarget({ 0.0f,0.0f,m_cameraTarget_Z });
 	m_cameraPosition_X = 0.0f;
 	m_cameraPosition_Y = 1500.0f;
 	m_cameraPosition_Z = 1500.0f;
@@ -41,104 +58,182 @@ bool GameCamera::Start()
 void GameCamera::Update()
 {
 	//カメラの視点と注視点の初期化
-	if (m_cameraState == enCameraState_Normal)
+	/// <summary>
+	/// Normal
+	/// </summary>
+	if (m_cameraState == enCameraState_Normal && m_cameraShake == false)
 	{
+		//Target
+		if (m_cameraTarget_Z > CAMERATARGET_NORMAL_Z)
+		{
+			m_cameraTarget_Z -= 100.0f;
+		}
+		else if (m_cameraTarget_Z < CAMERATARGET_NORMAL_Z)
+		{
+			m_cameraTarget_Z += 100.0f;
+		}
 		//X
-		if (m_cameraPosition_X < 0.0f)
+		if (m_cameraPosition_X < CAMERAPOSITION_NORMAL_X)
 		{
 			m_cameraPosition_X += 25.0f;
 		}
-		else if (m_cameraPosition_X > 0.0f)
+		else if (m_cameraPosition_X > CAMERAPOSITION_NORMAL_X)
 		{
 			m_cameraPosition_X -= 25.0f;
 		}
 		//Y
-		if (m_cameraPosition_Y < 1500.0f)
+		if (m_cameraPosition_Y < CAMERAPOSITION_NORMAL_Y)
 		{
-			m_cameraPosition_Y += 250.0f;
+			m_cameraPosition_Y += 200.0f;
 		}
-		else if (m_cameraPosition_Y > 1500.0f)
+		else if (m_cameraPosition_Y > CAMERAPOSITION_NORMAL_Y)
 		{
-			m_cameraPosition_Y -= 250.0f;
+			m_cameraPosition_Y -= 200.0f;
 		}
 		//Z
-		if (m_cameraPosition_Z < 1500.0f)
+		if (m_cameraPosition_Z < CAMERAPOSITION_NORMAL_Z)
 		{
 			m_cameraPosition_Z += 25.0f;
 		}
-		else if (m_cameraPosition_Z > 1500.0f)
+		else if (m_cameraPosition_Z > CAMERAPOSITION_NORMAL_Z)
 		{
 			m_cameraPosition_Z -= 25.0f;
 		}
 
-		g_camera3D->SetTarget({ 0.0f,0.0f,-1000.0f });
+		g_camera3D->SetTarget({ 0.0f,0.0f,m_cameraTarget_Z });
 		g_camera3D->SetPosition({ m_cameraPosition_X,m_cameraPosition_Y,m_cameraPosition_Z });
 	}
-	else if (m_cameraState == enCameraState_SetTurret)
+	/// <summary>
+	/// SetTurret
+	/// </summary>
+	if (m_cameraState == enCameraState_SetTurret && m_cameraShake == false)
 	{
+		//Target
+		if (m_cameraTarget_Z > CAMERATARGET_SETTURRET_Z)
+		{
+			m_cameraTarget_Z -= 100.0f;
+		}
+		else if (m_cameraTarget_Z < CAMERATARGET_SETTURRET_Z)
+		{
+			m_cameraTarget_Z += 100.0f;
+		}
 		//X
-		if (m_cameraPosition_X < 0.0f)
+		if (m_cameraPosition_X < CAMERAPOSITION_SETTURRET_X)
 		{
 			m_cameraPosition_X += 25.0f;
 		}
-		else if (m_cameraPosition_X > 0.0f)
+		else if (m_cameraPosition_X > CAMERAPOSITION_SETTURRET_X)
 		{
 			m_cameraPosition_X -= 25.0f;
 		}
 		//Y
-		if (m_cameraPosition_Y < 5500.0f)
+		if (m_cameraPosition_Y < CAMERAPOSITION_SETTURRET_Y)
 		{
-			m_cameraPosition_Y += 250.0f;
+			m_cameraPosition_Y += 200.0f;
 		}
-		else if (m_cameraPosition_Y > 5500.0f)
+		else if (m_cameraPosition_Y > CAMERAPOSITION_SETTURRET_Y)
 		{
-			m_cameraPosition_Y -= 250.0f;
+			m_cameraPosition_Y -= 200.0f;
 		}
 		//Z
-		if (m_cameraPosition_Z < 1000.0f)
+		if (m_cameraPosition_Z < CAMERAPOSITION_SETTURRET_Z)
 		{
 			m_cameraPosition_Z += 25.0f;
 		}
-		else if (m_cameraPosition_Z > 1000.0f)
+		else if (m_cameraPosition_Z > CAMERAPOSITION_SETTURRET_Z)
 		{
 			m_cameraPosition_Z -= 25.0f;
 		}
 
-		g_camera3D->SetTarget({ 0.0f,0.0f,-2500.0f });
+		g_camera3D->SetTarget({ 0.0f,0.0f,m_cameraTarget_Z });
 		g_camera3D->SetPosition({ m_cameraPosition_X,m_cameraPosition_Y,m_cameraPosition_Z });
 	}
-	else if (m_cameraState == enCameraState_SpaceShip)
+	/// <summary>
+	/// SpaceShip
+	/// </summary>
+	if (m_cameraState == enCameraState_SpaceShip && m_cameraShake == false)
 	{
-		//X
-		if (m_cameraPosition_X < 0.0f)
+		//Target
+		if (m_cameraTarget_Z > CAMERATARGET_SPACESHIP_Z)
 		{
-			m_cameraPosition_X += 10.0f;
+			m_cameraTarget_Z -= 100.0f;
 		}
-		else if (m_cameraPosition_X > 0.0f)
+		else if (m_cameraTarget_Z < CAMERATARGET_SPACESHIP_Z)
 		{
-			m_cameraPosition_X -= 10.0f;
+			m_cameraTarget_Z += 100.0f;
+		}
+		//X
+		if (m_cameraPosition_X < CAMERAPOSITION_SPACESHIP_X)
+		{
+			m_cameraPosition_X += 25.0f;
+		}
+		else if (m_cameraPosition_X > CAMERAPOSITION_SPACESHIP_X)
+		{
+			m_cameraPosition_X -= 25.0f;
 		}
 		//Y
-		if (m_cameraPosition_Y < 1000.0f)
+		if (m_cameraPosition_Y < CAMERAPOSITION_SPACESHIP_Y)
 		{
-			m_cameraPosition_Y += 10.0f;
+			m_cameraPosition_Y += 5.0f;
 		}
-		else if (m_cameraPosition_Y > 1000.0f)
+		else if (m_cameraPosition_Y > CAMERAPOSITION_SPACESHIP_Y)
 		{
-			m_cameraPosition_Y -= 10.0f;
+			m_cameraPosition_Y -= 5.0f;
 		}
 		//Z
-		if (m_cameraPosition_Z < 1500.0f)
+		if (m_cameraPosition_Z < CAMERAPOSITION_SPACESHIP_Z)
 		{
-			m_cameraPosition_Z += 10.0f;
+			m_cameraPosition_Z += 25.0f;
 		}
-		else if (m_cameraPosition_Z > 1500.0f)
+		else if (m_cameraPosition_Z > CAMERAPOSITION_SPACESHIP_Z)
 		{
-			m_cameraPosition_Z -= 10.0f;
+			m_cameraPosition_Z -= 25.0f;
 		}
 
-		g_camera3D->SetTarget({ 0.0f,0.0f,-1000.0f });
+		g_camera3D->SetTarget({ 0.0f,0.0f,m_cameraTarget_Z });
 		g_camera3D->SetPosition({ m_cameraPosition_X,m_cameraPosition_Y,m_cameraPosition_Z });
+	}
+	/// <summary>
+	/// カメラの揺れ
+	/// </summary>
+	if (m_cameraShake == true)
+	{
+		m_shakeTimer += g_gameTime->GetFrameDeltaTime();
+		if (m_shakeTimer > 0.0f && m_shakeTimer <= 0.05f)
+		{
+			g_camera3D->SetTarget({ 0.0f + rand() % 100 + 50,0.0f,m_cameraTarget_Z + rand() % 100 + 50 });
+			g_camera3D->SetPosition({ m_cameraPosition_X - rand() % 100 + 50,m_cameraPosition_Y - rand() % 500 + 250,m_cameraPosition_Z });
+		}
+		else if (m_shakeTimer > 0.05f && m_shakeTimer <= 0.1f)
+		{
+			g_camera3D->SetTarget({ 0.0f + rand() % 250 + 100 ,0.0f,m_cameraTarget_Z + rand() % 250 + 100 });
+			g_camera3D->SetPosition({ m_cameraPosition_X - rand() % 250 + 100,m_cameraPosition_Y - rand() % 1000 + 500,m_cameraPosition_Z });
+		}
+		else if (m_shakeTimer > 0.1f && m_shakeTimer <= 0.15f)
+		{
+			g_camera3D->SetTarget({ 0.0f - rand() % 100 + 50,0.0f,m_cameraTarget_Z - rand() % 100 + 50 });
+			g_camera3D->SetPosition({ m_cameraPosition_X + rand() % 100 + 50,m_cameraPosition_Y + rand() % 500 + 250,m_cameraPosition_Z });
+		}
+		else if (m_shakeTimer > 0.15f && m_shakeTimer <= 0.2f)
+		{
+			g_camera3D->SetTarget({ 0.0f - rand() % 250 + 100,0.0f,m_cameraTarget_Z - rand() % 250 + 100 });
+			g_camera3D->SetPosition({ m_cameraPosition_X + rand() % 250 + 100,m_cameraPosition_Y + rand() % 1000 + 500,m_cameraPosition_Z });
+		}
+		else if (m_shakeTimer > 0.2f && m_shakeTimer <= 0.25f)
+		{
+			g_camera3D->SetTarget({ 0.0f + rand() % 50 + 25,0.0f,m_cameraTarget_Z + rand() % 100 + 50 });
+			g_camera3D->SetPosition({ m_cameraPosition_X - rand() % 50 + 25,m_cameraPosition_Y - rand() % 200 + 100,m_cameraPosition_Z });
+		}
+		else if (m_shakeTimer > 0.25f && m_shakeTimer <= 0.3f)
+		{
+			g_camera3D->SetTarget({ 0.0f - rand() % 50 + 25,0.0f,m_cameraTarget_Z - rand() % 100 + 50 });
+			g_camera3D->SetPosition({ m_cameraPosition_X + rand() % 50 + 25,m_cameraPosition_Y + rand() % 200 + 100,m_cameraPosition_Z });
+		}
+		else if (m_shakeTimer > 0.3f)
+		{
+			m_shakeTimer = 0.0f;
+			m_cameraShake = false;
+		}
 	}
 
 	wchar_t G[256];

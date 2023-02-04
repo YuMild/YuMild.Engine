@@ -78,13 +78,13 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>Etc</Filter>
     </ClCompile>
-    <ClCompile Include="GenerationTurret.cpp">
+    <ClCompile Include="GeneratorTurret.cpp">
       <Filter>Turret</Filter>
     </ClCompile>
     <ClCompile Include="TurretObject.cpp">
       <Filter>Turret</Filter>
     </ClCompile>
-    <ClCompile Include="Dempa.cpp">
+    <ClCompile Include="Missile.cpp">
       <Filter>Enemy</Filter>
     </ClCompile>
     <ClCompile Include="Title.cpp">
@@ -158,13 +158,13 @@
     <ClInclude Include="stdafx.h">
       <Filter>Etc</Filter>
     </ClInclude>
-    <ClInclude Include="GenerationTurret.h">
+    <ClInclude Include="GeneratorTurret.h">
       <Filter>Turret</Filter>
     </ClInclude>
     <ClInclude Include="TurretObject.h">
       <Filter>Turret</Filter>
     </ClInclude>
-    <ClInclude Include="Dempa.h">
+    <ClInclude Include="Missile.h">
       <Filter>Enemy</Filter>
     </ClInclude>
     <ClInclude Include="Title.h">

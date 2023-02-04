@@ -43,12 +43,6 @@ public:
 	virtual void SubEnemyHP(const int value) = 0;
 
 	/// <summary>
-	/// Œ¸‘¬ŠÔ‚ğİ’è
-	/// </summary>
-	/// <param name="bindTime"></param>
-	virtual void SetSlow(const float bindTime) = 0;
-
-	/// <summary>
 	/// S‘©ŠÔ‚ğİ’è
 	/// </summary>
 	/// <param name="bindTime"></param>

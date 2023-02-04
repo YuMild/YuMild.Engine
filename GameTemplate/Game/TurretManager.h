@@ -9,7 +9,7 @@ class NormalTurret;
 class DualGunTurret;
 class LaserTurret;
 class RocketTurret;
-class GenerationTurret;
+class GeneratorTurret;
 class HealTurret;
 class TeslaTurret;
 class HolyTurret;
@@ -22,7 +22,7 @@ enum TurretType
 	enTurret_DualGunTurret,
 	enTurret_LaserTurret,
 	enTurret_RocketTurret,
-	enTurret_GenerationTurret,
+	enTurret_GeneratorTurret,
 	enTurret_HealTurret,
 	enTurret_TeslaTurret,
 	enTurret_HolyTurret,
@@ -87,7 +87,7 @@ private:
 	void MakeDualGunTurret();
 	void MakeLaserTurret();
 	void MakeRocketTurret();
-	void MakeGenerationTurret();
+	void MakeGeneratorTurret();
 	void MakeHealTurret();
 	void MakeTeslaTurret();
 	void MakeHolyTurret();
@@ -121,7 +121,7 @@ private:
 	DualGunTurret*					m_dualGunTurret;
 	LaserTurret*					m_laserTurret;
 	RocketTurret*					m_rocketTurret;
-	GenerationTurret*				m_generationTurret;
+	GeneratorTurret*				m_generatorTurret;
 	HealTurret*						m_healTurret;
 	TeslaTurret*					m_teslaTurret;
 	HolyTurret*						m_holyTurret;

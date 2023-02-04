@@ -13,7 +13,7 @@ namespace
 	const float ATTACKRANGE			= 1000.0f;
 	const float EFFECTSIZE_HIT		= 150.0f;
 	const float EFFECTSIZE_SMOKE	= 50.0f;
-	const float SOUNDVOLUME_HIT		= 0.25f;
+	const float SOUNDVOLUME_HIT		= 0.15f;
 }
 
 DualGunTurret::~DualGunTurret()

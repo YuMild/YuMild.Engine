@@ -1,7 +1,7 @@
 #pragma once
 
 #include "UFO.h"
-#include "Dempa.h"
+#include "Missile.h"
 #include "Game.h"
 #include "SpaceShip.h"
 
@@ -30,12 +30,12 @@ public:
 	}
 
 	/// <summary>
-	/// DempaのデフォルトHPを設定
+	/// MissileのデフォルトHPを設定
 	/// </summary>
 	/// <returns></returns>
-	float GetDefaultHP_Dempa()
+	float GetDefaultHP_Missile()
 	{
-		return m_defaultHP_Dempa;
+		return m_defaultHP_Missile;
 	}
 
 	/// <summary>
@@ -71,9 +71,9 @@ private:
 	void SpawnUFO();
 
 	/// <summary>
-	/// Dempaのスポーンを管理
+	/// Missileのスポーンを管理
 	/// </summary>
-	void SpawnDempa();
+	void SpawnMissile();
 
 	/// <summary>
 	/// SpaceShipのスポーンを管理
@@ -83,16 +83,10 @@ private:
 	/// <summary>
 	/// ボス出現時の音声を再生
 	/// </summary>
-	void SoundPlayBossSpawn()
-	{
-		m_bossSpawnSE = NewGO<SoundSource>(0);
-		m_bossSpawnSE->Init(1);
-		m_bossSpawnSE->SetVolume(0.05f);
-		m_bossSpawnSE->Play(false);
-	}
+	void SoundPlayBossSpawn();
 
 	//クラス
-	Dempa*			m_dempa;
+	Missile*		m_missile;
 	UFO*			m_ufo;
 	SpaceShip*		m_spaceShip;
 
@@ -128,10 +122,10 @@ private:
 	float			m_spawnTimer_UFO = 0.0f;
 	float			m_defaultHP_UFO = 0.0f;
 
-	//Dempa
-	float			m_spawnTime_Dempa = 0.0f;
-	float			m_spawnTimer_Dempa = 0.0f;
-	float			m_defaultHP_Dempa = 0.0f;
+	//Missile
+	float			m_spawnTime_Missile = 0.0f;
+	float			m_spawnTimer_Missile = 0.0f;
+	float			m_defaultHP_Missile = 0.0f;
 
 	//SpaceShip
 	float			m_spawnTime_SpaceShip = 0.0f;

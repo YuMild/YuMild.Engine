@@ -162,6 +162,12 @@ void GameCamera::Update()
 		{
 			m_cameraTarget_Z += 100.0f;
 		}
+		//ƒJƒƒ‰‚ª‚‰ß‚¬‚½‚çˆê’U’ÊíŽž‚Ü‚Å—Ž‚Æ‚·
+		if (m_cameraPosition_Y >= 1500.0f)
+		{
+			m_cameraPosition_Y = 1500.0f;
+			m_cameraTarget_Z = 1000.0f;
+		}
 		//X
 		if (m_cameraPosition_X < CAMERAPOSITION_SPACESHIP_X)
 		{
@@ -174,11 +180,11 @@ void GameCamera::Update()
 		//Y
 		if (m_cameraPosition_Y < CAMERAPOSITION_SPACESHIP_Y)
 		{
-			m_cameraPosition_Y += 5.0f;
+			m_cameraPosition_Y += 10.0f;
 		}
 		else if (m_cameraPosition_Y > CAMERAPOSITION_SPACESHIP_Y)
 		{
-			m_cameraPosition_Y -= 5.0f;
+			m_cameraPosition_Y -= 10.0f;
 		}
 		//Z
 		if (m_cameraPosition_Z < CAMERAPOSITION_SPACESHIP_Z)
@@ -252,8 +258,8 @@ void GameCamera::Update()
 
 void GameCamera::Render(RenderContext& renderContext)
 {
-	m_fontRenderCameraState.Draw(renderContext);
-	m_fontRenderX.Draw(renderContext);
-	m_fontRenderY.Draw(renderContext);
-	m_fontRenderZ.Draw(renderContext);
+	//m_fontRenderCameraState.Draw(renderContext);
+	//m_fontRenderX.Draw(renderContext);
+	//m_fontRenderY.Draw(renderContext);
+	//m_fontRenderZ.Draw(renderContext);
 }

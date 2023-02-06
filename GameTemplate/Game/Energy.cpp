@@ -7,7 +7,7 @@
 namespace
 {
     //ゲームスタート時の初期エネルギー量
-    const float FIRST_ENERGY = 5000.0f;
+    const float FIRST_ENERGY = 1000.0f;
 
     //デフォルトの生産効率
     const float DEFAULT_ENERGY_EFFICIENCY = 10.0f;
@@ -22,19 +22,19 @@ bool Energy::Start()
     m_fontRender.SetColor({ 0.3f,0.9f,1.0f,1.0f });
     m_fontRender.SetScale(1.0f);
     m_fontRender.SetPivot(1.0f, 0.5f);
-    m_fontRender.SetPosition({ 370.0,-218.0f,0.0f });
+    m_fontRender.SetPosition({ 430.0,-97.0f,0.0f });
 
     //画像
     m_windowSR.Init("Assets/Sprite/Energy/Window.dds", 404.0f, 404.0f);
-    m_windowPosition = { 489.0f,-200.0f,0.0f };
+    m_windowPosition = { 539.0f,-100.0f,0.0f };
     m_windowSR.SetPosition(m_windowPosition);
     m_windowSR.Update();
     m_circleSR.Init("Assets/Sprite/Energy/Circle.dds", 141.0f, 141.0f);
-    m_circlePosition = { 350.0f,-200.0f,0.0f };
+    m_circlePosition = { 400.0f,-100.0f,0.0f };
     m_circleSR.SetPosition(m_circlePosition);
     m_circleSR.Update();
     m_gaugeSR.Init("Assets/Sprite/Energy/Gauge.dds", 222.0f, 220.0f);
-    m_gaugePosition = { 553.0,-193.0f,0.0f };
+    m_gaugePosition = { 603.0,-93.0f,0.0f };
     m_gaugeSR.SetPosition(m_gaugePosition);
     m_gaugeSR.Update();
 

@@ -80,6 +80,7 @@ void Game::Render(RenderContext& renderContext)
 
 void Game::InitEffect()
 {
+	EffectEngine::GetInstance()->ResistEffect(enEffectNumber_Energy, u"Assets/effect/Energy.efk");
 	EffectEngine::GetInstance()->ResistEffect(enEffectNumber_Explosion, u"Assets/effect/Explosion.efk");
 	EffectEngine::GetInstance()->ResistEffect(enEffectNumber_CursorAfter, u"Assets/effect/CursorAfter.efk");
 	EffectEngine::GetInstance()->ResistEffect(enEffectNumber_Smoke, u"Assets/effect/Smoke.efk");

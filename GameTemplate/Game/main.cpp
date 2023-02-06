@@ -8,7 +8,6 @@ K2EngineLow* g_k2EngineLow = nullptr;
 namespace
 {
 	Vector3 DIRECTIONLIGHT_DIRECTION = { 1.0f,-0.5f,-1.0f };
-	//Vector3 DIRECTIONLIGHT_DIRECTION = { 0.5f,-1.0f,0.0f };
 	const float DIRECTIONLIGHT_COLOR = 2.0f;
 	const float AMBIENTLIGHT_COLOR = 0.7f;
 }

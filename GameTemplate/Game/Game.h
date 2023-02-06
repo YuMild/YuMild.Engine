@@ -22,6 +22,7 @@ enum enGameState
 
 enum enEffectNumber
 {
+	enEffectNumber_Energy,
 	enEffectNumber_Explosion,
 	enEffectNumber_CursorAfter,
 	enEffectNumber_Smoke,

@@ -9,7 +9,7 @@ namespace
 	const float DEFAULT_HP_UFO					= 100.0f;
 	const float DEFAULT_HP_DEMPA				= 100.0f;
 	const float DEFAULT_HP_SPACESHIP			= 5000.0f;
-
+	
 	//スポーンタイマー
 	const float DEFAULT_SPAWNTIME_UFO			= 3.0f;
 	const float DEFAULT_SPAWNTIME_DEMPA			= 10.0f;

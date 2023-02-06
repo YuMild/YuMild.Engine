@@ -19,6 +19,16 @@ public:
 	void Render(RenderContext& renderContext)override;
 
 	/// <summary>
+	/// ƒJƒƒ‰‚ÌˆÊ’u‚ğİ’è
+	/// </summary>
+	void SetCameraPosition(float x, float y, float z)
+	{
+		m_cameraPosition_X = x;
+		m_cameraPosition_Y = y;
+		m_cameraPosition_Z = z;
+	}
+
+	/// <summary>
 	/// ƒJƒƒ‰‚Ìó‘Ô‚ğİ’è
 	/// </summary>
 	void SetCameraState(int state)

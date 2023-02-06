@@ -60,9 +60,6 @@ bool SpaceShip::Start()
 
 void SpaceShip::Move()
 {
-	//ボス用の視点に変更
-	m_gameCamera->SetCameraState(enCameraState_SpaceShip);
-
 	//目的地までのベクトル
 	Vector3 difference = DEFAULT_TARGET - m_position;
 

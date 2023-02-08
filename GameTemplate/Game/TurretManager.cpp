@@ -27,7 +27,7 @@ namespace
 	float		TURRET_POSITION_MOVE_NUM	= 393.0f;
 
 	//カーソル
-	Vector3		CURSOR_POSITION				= { 200.0f,0.0f,190.0f };
+	Vector3		CURSOR_POSITION				= { 200.0f,0.0f,-2561.0f };
 }
 
 bool TurretManager::Start()
@@ -192,7 +192,7 @@ void TurretManager::StateManager()
 		}
 
 		//Rボタン(Lキー)
-		if (g_pad[0]->IsTrigger(enButtonRB3))
+		if (g_pad[0]->IsTrigger(enButtonRB2))
 		{
 			m_normalTurret->SetModelRotationTurnRight();
 			m_rotation += 180.0f;
@@ -200,7 +200,7 @@ void TurretManager::StateManager()
 		}
 
 		//Lボタン(Iキー)
-		if (g_pad[0]->IsTrigger(enButtonLB3))
+		if (g_pad[0]->IsTrigger(enButtonLB2))
 		{
 			m_normalTurret->SetModelRotationTurnLeft();
 			m_rotation -= 180.0f;
@@ -312,7 +312,7 @@ void TurretManager::StateManager()
 		}
 
 		//Rボタン(Lキー)
-		if (g_pad[0]->IsTrigger(enButtonRB3))
+		if (g_pad[0]->IsTrigger(enButtonRB2))
 		{
 			m_dualGunTurret->SetModelRotationTurnRight();
 			m_rotation += 180.0f;
@@ -320,7 +320,7 @@ void TurretManager::StateManager()
 		}
 
 		//Lボタン(Iキー)
-		if (g_pad[0]->IsTrigger(enButtonLB3))
+		if (g_pad[0]->IsTrigger(enButtonLB2))
 		{
 			m_dualGunTurret->SetModelRotationTurnLeft();
 			m_rotation -= 180.0f;
@@ -552,7 +552,7 @@ void TurretManager::StateManager()
 		}
 
 		//Rボタン(Lキー)
-		if (g_pad[0]->IsTrigger(enButtonRB3))
+		if (g_pad[0]->IsTrigger(enButtonRB2))
 		{
 			m_rocketTurret->SetModelRotationTurnRight();
 			m_rotation += 180.0f;
@@ -560,7 +560,7 @@ void TurretManager::StateManager()
 		}
 
 		//Lボタン(Iキー)
-		if (g_pad[0]->IsTrigger(enButtonLB3))
+		if (g_pad[0]->IsTrigger(enButtonLB2))
 		{
 			m_rocketTurret->SetModelRotationTurnLeft();
 			m_rotation -= 180.0f;
@@ -672,7 +672,7 @@ void TurretManager::StateManager()
 		}
 
 		//Rボタン(Lキー)
-		if (g_pad[0]->IsTrigger(enButtonRB3))
+		if (g_pad[0]->IsTrigger(enButtonRB2))
 		{
 			m_generatorTurret->SetModelRotationTurnRight();
 			m_rotation += 180.0f;
@@ -680,7 +680,7 @@ void TurretManager::StateManager()
 		}
 
 		//Lボタン(Iキー)
-		if (g_pad[0]->IsTrigger(enButtonLB3))
+		if (g_pad[0]->IsTrigger(enButtonLB2))
 		{
 			m_generatorTurret->SetModelRotationTurnLeft();
 			m_rotation -= 180.0f;
@@ -792,7 +792,7 @@ void TurretManager::StateManager()
 		}
 
 		//Rボタン(Lキー)
-		if (g_pad[0]->IsTrigger(enButtonRB3))
+		if (g_pad[0]->IsTrigger(enButtonRB2))
 		{
 			m_healTurret->SetModelRotationTurnRight();
 			m_rotation += 180.0f;
@@ -800,7 +800,7 @@ void TurretManager::StateManager()
 		}
 
 		//Lボタン(Iキー)
-		if (g_pad[0]->IsTrigger(enButtonLB3))
+		if (g_pad[0]->IsTrigger(enButtonLB2))
 		{
 			m_healTurret->SetModelRotationTurnLeft();
 			m_rotation -= 180.0f;
@@ -912,7 +912,7 @@ void TurretManager::StateManager()
 		}
 
 		//Rボタン(Lキー)
-		if (g_pad[0]->IsTrigger(enButtonRB3))
+		if (g_pad[0]->IsTrigger(enButtonRB2))
 		{
 			m_teslaTurret->SetModelRotationTurnRight();
 			m_rotation += 180.0f;
@@ -920,7 +920,7 @@ void TurretManager::StateManager()
 		}
 
 		//Lボタン(Iキー)
-		if (g_pad[0]->IsTrigger(enButtonLB3))
+		if (g_pad[0]->IsTrigger(enButtonLB2))
 		{
 			m_teslaTurret->SetModelRotationTurnLeft();
 			m_rotation -= 180.0f;
@@ -1032,7 +1032,7 @@ void TurretManager::StateManager()
 		}
 
 		//Rボタン(Lキー)
-		if (g_pad[0]->IsTrigger(enButtonRB3))
+		if (g_pad[0]->IsTrigger(enButtonRB2))
 		{
 			m_holyTurret->SetModelRotationTurnRight();
 			m_rotation += 180.0f;
@@ -1040,7 +1040,7 @@ void TurretManager::StateManager()
 		}
 
 		//Lボタン(Iキー)
-		if (g_pad[0]->IsTrigger(enButtonLB3))
+		if (g_pad[0]->IsTrigger(enButtonLB2))
 		{
 			m_holyTurret->SetModelRotationTurnLeft();
 			m_rotation -= 180.0f;

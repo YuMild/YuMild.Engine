@@ -7,7 +7,7 @@
 namespace
 {
     //ゲームスタート時の初期エネルギー量
-    const float FIRST_ENERGY = 1000.0f;
+    const float FIRST_ENERGY = 5000.0f;
 
     //デフォルトの生産効率
     const float DEFAULT_ENERGY_EFFICIENCY = 10.0f;

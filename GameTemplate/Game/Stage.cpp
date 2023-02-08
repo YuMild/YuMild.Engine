@@ -5,8 +5,6 @@
 
 namespace
 {
-	//エフェクト
-	const Vector3	ENERGY_FIRST_POSITION		= { 0.0f,400.0f,500.0f };
 	//モデル
 	const Vector3	STAGE_FIRST_POSITION		= { 0.0f,0.0f,0.0f };
 	const float 	STAGE_FIRST_SCALE			= 1.0f;
@@ -57,7 +55,8 @@ namespace
 	const Vector3	ASTEROID_10_SCALE			= { 3.0f,3.0f,3.0f };
 	const float		ASTEROID_10_ROTATION		= 0.0030f;
 	//エフェクト
-	const float		DEFAULT_EFFECTSIZE_ENERGY	= 300.0f;
+	const Vector3	ENERGY_FIRST_POSITION		= { 0.0f,400.0f,500.0f };
+	const float		ENERGY_EFFECTSIZE			= 300.0f;
 	//サウンド
 	const float		DEFAULT_NORMALBGM_VOLUME	= 0.05f;
 }
@@ -70,11 +69,17 @@ Stage::Stage()
 Stage::~Stage()
 {
 	//BGMを止める
-	m_normalBGM->Stop();
+	if (m_normalBGM != nullptr && m_normalBGM->IsPlaying() == true)
+	{
+		m_normalBGM->Stop();
+	}
 }
 
 bool Stage::Start()
 {
+	//FindGO
+	m_gameOver = FindGO<GameOver>("gameOver");
+
 	//初期化
 	m_normalBGMVolume = DEFAULT_NORMALBGM_VOLUME;
 
@@ -83,7 +88,7 @@ bool Stage::Start()
 
 	//モデル
 	m_stageEmissionMap.InitFromDDSFile(L"Assets/modelData/Stage/Stage_Emission.DDS");
-	m_stageMR.Init("Assets/ModelData/Stage/Stage.tkm", ShadowNone);
+	m_stageMR.Init("Assets/ModelData/Stage/Stage.tkm", ShadowNone, false, nullptr, 0, enModelUpAxisZ, &m_stageEmissionMap);
 	m_stageMR.SetPosition(STAGE_FIRST_POSITION);
 	m_stageMR.SetScale(Vector3::One * STAGE_FIRST_SCALE);
 	m_stageMR.Update();
@@ -163,11 +168,18 @@ void Stage::Move()
 		m_normalBGMVolume += 0.00001f;
 	}
 
+	//エフェクトのループ
 	if (m_energyEF != nullptr && m_energyEF->IsPlay() == false)
 	{
 		EffectPlayEnergy({ ENERGY_FIRST_POSITION });
 	}
 
+	//エフェクトのサイズ
+	if (m_energyEF != nullptr)
+	{
+		m_energyEF->SetScale(((Vector3::One * ENERGY_EFFECTSIZE) * (m_gameOver->GetHP() / 3.0f)));
+	}
+	
 	//隕石群
 	m_asteroid1Rotation.AddRotationX(ASTEROID_1_ROTATION);
 	m_asteroid1MR.SetRotation(m_asteroid1Rotation);
@@ -251,9 +263,12 @@ void Stage::SetNormalBGM()
 		m_bossBGM->Stop();
 	}
 	m_normalBGM = NewGO<SoundSource>(0);
-	m_normalBGM->Init(enSoundNumber_NormalBGM);
-	m_normalBGM->SetVolume(m_normalBGMVolume);
-	m_normalBGM->Play(true);
+	if (m_normalBGM != nullptr)
+	{
+		m_normalBGM->Init(enSoundNumber_NormalBGM);
+		m_normalBGM->SetVolume(m_normalBGMVolume);
+		m_normalBGM->Play(true);
+	}
 }
 
 void Stage::SetBossBGM()
@@ -264,9 +279,12 @@ void Stage::SetBossBGM()
 		m_normalBGM->Stop();
 	}
 	m_bossBGM = NewGO<SoundSource>(0);
-	m_bossBGM->Init(enSoundNumber_BossBGM);
-	m_bossBGM->SetVolume(0.05f);
-	m_bossBGM->Play(true);
+	if (m_bossBGM != nullptr)
+	{
+		m_bossBGM->Init(enSoundNumber_BossBGM);
+		m_bossBGM->SetVolume(0.05f);
+		m_bossBGM->Play(true);
+	}
 }
 
 void Stage::EffectPlayEnergy(const Vector3& position)
@@ -274,6 +292,6 @@ void Stage::EffectPlayEnergy(const Vector3& position)
 	m_energyEF = NewGO<EffectEmitter>(0);
 	m_energyEF->Init(enEffectNumber_Energy);
 	m_energyEF->SetPosition({ position.x,position.y + 100.0f,position.z });
-	m_energyEF->SetScale(Vector3::One * DEFAULT_EFFECTSIZE_ENERGY);
+	m_energyEF->SetScale((Vector3::One * ENERGY_EFFECTSIZE) * (m_gameOver->GetHP() / m_gameOver->GetHP()));
 	m_energyEF->Play();
 }

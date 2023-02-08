@@ -26,7 +26,8 @@ TeslaTurret::~TeslaTurret()
 bool TeslaTurret::Start()
 {
 	//ƒ^ƒŒƒbƒg
-	m_turretMR.Init("Assets/ModelData/Turret/TeslaTurret.tkm", ShadowNone, true);
+	m_turretEmissionMap.InitFromDDSFile(L"Assets/modelData/Turret/TeslaTurret_Emission.DDS");
+	m_turretMR.Init("Assets/ModelData/Turret/TeslaTurret.tkm", ShadowNone, false, nullptr, 0, enModelUpAxisZ, &m_turretEmissionMap);
 	m_turretMR.SetPosition(m_modelPosition);
 	m_turretMR.SetRotation(m_modelRotation);
 	m_turretMR.SetScale({ 1.0f,1.0f,1.0f });
@@ -38,8 +39,8 @@ bool TeslaTurret::Start()
 	m_baseMR.SetRotation(m_modelRotation);
 	m_baseMR.SetScale({ 1.0f,1.0f,1.0f });
 	m_baseMR.Update();
-	m_emissionMap.InitFromDDSFile(L"Assets/modelData/Turret/Base2_Emission.DDS");
-	m_base2MR.Init("Assets/ModelData/Turret/Base2.tkm", ShadowNone, false, nullptr, 0, enModelUpAxisZ, &m_emissionMap);
+	m_baseEmissionMap.InitFromDDSFile(L"Assets/modelData/Turret/Base2_Emission.DDS");
+	m_base2MR.Init("Assets/ModelData/Turret/Base2.tkm", ShadowNone, false, nullptr, 0, enModelUpAxisZ, &m_baseEmissionMap);
 	m_base2MR.SetPosition(m_modelPosition);
 	m_base2MR.SetRotation(m_modelRotation);
 	m_base2MR.SetScale({ 1.0f,1.0f,1.0f });

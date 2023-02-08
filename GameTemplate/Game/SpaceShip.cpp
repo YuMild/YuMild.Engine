@@ -11,13 +11,13 @@
 namespace
 {
 	//モデルの初期値
-	Vector3 DEFAULT_POSITION = { 0.0f,1000.0f,-8000.0f };
-	Vector3 DEFAULT_SCALE = { 3.0f,3.0f,3.0f };
-	Vector3 DEFAULT_TARGET = { 0.0f,1000.0f,-0.0f };
+	Vector3 DEFAULT_POSITION		= { 0.0f,1000.0f,-8000.0f };
+	Vector3 DEFAULT_SCALE			= { 3.0f,3.0f,3.0f };
+	Vector3 DEFAULT_TARGET			= { 0.0f,1000.0f,-0.0f };
 
 	//パラメーター
-	float DEFAULT_MOVE_SPEED = 3.0f;
-	float DEFAULT_ROTATION_SPEED = 1.5f;
+	float DEFAULT_MOVE_SPEED		= 3.0f;
+	float DEFAULT_ROTATION_SPEED	= 1.5f;
 }
 
 SpaceShip::~SpaceShip()
@@ -29,10 +29,10 @@ SpaceShip::~SpaceShip()
 bool SpaceShip::Start()
 {
 	//FindGO
-	m_gameOver = FindGO<GameOver>("gameOver");
-	m_gameCamera = FindGO<GameCamera>("gameCamera");
-	m_stage = FindGO<Stage>("stage");
-	m_spawnManager = FindGO<SpawnManager>("spawnManager");
+	m_gameOver		= FindGO<GameOver>("gameOver");
+	m_gameCamera	= FindGO<GameCamera>("gameCamera");
+	m_stage			= FindGO<Stage>("stage");
+	m_spawnManager	= FindGO<SpawnManager>("spawnManager");
 	m_turretManager = FindGO<TurretManager>("turretManager");
 
 	m_position = DEFAULT_POSITION;
@@ -68,6 +68,8 @@ void SpaceShip::Move()
 	{
 		m_spawnManager->EffectPlayExplosion(m_position);
 		m_spawnManager->SoundPlayExplosion();
+		m_gameOver->SubHP();
+		m_gameOver->SubHP();
 		m_gameOver->SubHP();
 		m_gameCamera->SetCameraShake();
 		DeleteGO(this);

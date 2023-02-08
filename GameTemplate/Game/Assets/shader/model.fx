@@ -10,26 +10,26 @@ static const float PI = 3.1415926f; // 円周率
 // ディレクションライト
 struct DirectionLight
 {
-    float3      direction;          // 方向
-    float3      color;              // カラー
+    float3          direction;          // 方向
+    float3          color;              // カラー
 };
 
 // ポイントライト
 struct PointLight
 {
-    float3      position;           // 位置
-    float3      color;              // カラー
-    float       range;              // 影響範囲
+    float3          position;           // 位置
+    float3          color;              // カラー
+    float           range;              // 影響範囲
 };
 
 // スポットライト
 struct SpotLight
 {
-    float3      position;           // 位置
-    float3      color;              // カラー
-    float       range;              // 影響範囲
-    float3      direction;          // 方向
-    float       angle;              // 角度
+    float3          position;           // 位置
+    float3          color;              // カラー
+    float           range;              // 影響範囲
+    float3          direction;          // 方向
+    float           angle;              // 角度
 };
 
 ////////////////////////////////////////////////
@@ -38,19 +38,19 @@ struct SpotLight
 
 cbuffer ModelCb : register(b0)
 {
-    float4x4 mWorld;
-    float4x4 mView;
-    float4x4 mProj;
+    float4x4        mWorld;
+    float4x4        mView;
+    float4x4        mProj;
 };
 
 cbuffer LightCb : register(b1)
 {
-    DirectionLight directionLight;
-    PointLight pointLight;
-    SpotLight spotLight;
-    float3 ambientLight;
+    DirectionLight  directionLight;
+    PointLight      pointLight;
+    SpotLight       spotLight;
+    float3          ambientLight;
 
-    float3 eyePos;
+    float3          eyePos;
 }
 
 ////////////////////////////////////////////////
@@ -60,33 +60,33 @@ cbuffer LightCb : register(b1)
 // スキニング用の頂点データをひとまとめ。
 struct SSkinVSIn
 {
-    int4        Indices      : BLENDINDICES0;
-    float4      Weights      : BLENDWEIGHT0;
+    int4            Indices      : BLENDINDICES0;
+    float4          Weights      : BLENDWEIGHT0;
 };
 
 // 頂点シェーダーへの入力。
 struct SVSIn
 {
-    float4      pos          : POSITION;        // モデルの頂点座標
-    float3      normal       : NORMAL;          // 法線
-    float2      uv           : TEXCOORD0;       // UV座標
+    float4          pos          : POSITION;        // モデルの頂点座標
+    float3          normal       : NORMAL;          // 法線
+    float2          uv           : TEXCOORD0;       // UV座標
     
-    float3      tangent      : TANGENT;         // 接ベクトル
-    float3      biNormal     : BINORMAL;        // 従ベクトル
+    float3          tangent      : TANGENT;         // 接ベクトル
+    float3          biNormal     : BINORMAL;        // 従ベクトル
     
-    SSkinVSIn   skinVert;                       // スキン用のデータ
+    SSkinVSIn       skinVert;                       // スキン用のデータ
 };
 
 // ピクセルシェーダーへの入力。
 struct SPSIn
 {
-    float4      pos          : SV_POSITION;     // スクリーン空間でのピクセルの座標
-    float3      normal       : NORMAL;          // 法線
-    float2      uv           : TEXCOORD0;       // uv座標
-    float3      worldPos     : TEXCOORD1;       // ワールド座標
+    float4          pos          : SV_POSITION;     // スクリーン空間でのピクセルの座標
+    float3          normal       : NORMAL;          // 法線
+    float2          uv           : TEXCOORD0;       // uv座標
+    float3          worldPos     : TEXCOORD1;       // ワールド座標
     
-    float3      tangent      : TANGENT;         // 接ベクトル
-    float3      biNormal     : BINORMAL;        // 従ベクトル
+    float3          tangent      : TANGENT;         // 接ベクトル
+    float3          biNormal     : BINORMAL;        // 従ベクトル
 };
 
 ////////////////////////////////////////////////
@@ -181,14 +181,13 @@ float CookTorranceSpecular(float3 L, float3 V, float3 N, float metallic)
 /// フレネル反射は、光が物体の表面で反射する現象のとこで、鏡面反射の強さになります
 /// 一方拡散反射は、光が物体の内部に入って、内部錯乱を起こして、拡散して反射してきた光のことです
 /// つまりフレネル反射が弱いときには、拡散反射が大きくなり、フレネル反射が強いときは、拡散反射が小さくなります
-///
 /// </remark>
 /// <param name="N">法線</param>
 /// <param name="L">光源に向かうベクトル。光の方向と逆向きのベクトル。</param>
 /// <param name="V">視線に向かうベクトル。</param>
 float CalcDiffuseFromFresnel(float3 N, float3 L, float3 V)
 {
-    // step-1 ディズニーベースのフレネル反射による拡散反射を真面目に実装する。
+    // ディズニーベースのフレネル反射による拡散反射を真面目に実装する。
     // 光源に向かうベクトルと視線に向かうベクトルのハーフベクトルを求める
     float3 H = normalize(L + V);
 

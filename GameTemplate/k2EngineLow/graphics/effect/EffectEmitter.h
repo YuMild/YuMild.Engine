@@ -64,6 +64,14 @@ namespace nsK2EngineLow {
 			m_effect.SetScale(scale);
 		}
 		/// <summary>
+		/// スエール(拡大率を指定)。
+		/// </summary>
+		/// <param name="scale">スケール(拡大率)。</param>
+		void SetScale(const float& scale)
+		{
+			m_effect.SetScale({ scale,scale,scale });
+		}
+		/// <summary>
 		/// スケール(拡大率)を取得。
 		/// </summary>
 		/// <returns>スケール(拡大率)。</returns>

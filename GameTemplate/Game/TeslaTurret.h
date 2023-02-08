@@ -205,10 +205,11 @@ private:
 	SoundSource*				m_fireSE			= nullptr;
 
 	//ƒ‚ƒfƒ‹
+	Texture						m_turretEmissionMap;
 	ModelRender					m_turretMR;
 	ModelRender					m_baseMR;
 	ModelRender					m_base2MR;
-	Texture						m_emissionMap;
+	Texture						m_baseEmissionMap;
 	ModelRender					m_attackRangeMR;
 
 	//HP

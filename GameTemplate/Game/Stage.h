@@ -3,6 +3,7 @@
 #include "Game.h"
 
 class Game;
+class GameOver;
 
 /// <summary>
 /// ステージを管理するクラス
@@ -39,6 +40,9 @@ private:
 	/// </summary>
 	/// <param name="position"></param>
 	void EffectPlayEnergy(const Vector3& position);
+
+	//クラス
+	GameOver*			m_gameOver					= nullptr;
 
 	//モデル
 	Texture				m_stageEmissionMap;

@@ -8,7 +8,7 @@ namespace
 	//HP
 	const float DEFAULT_HP_UFO					= 100.0f;
 	const float DEFAULT_HP_DEMPA				= 100.0f;
-	const float DEFAULT_HP_SPACESHIP			= 5000.0f;
+	const float DEFAULT_HP_SPACESHIP			= 50.0f;
 	
 	//スポーンタイマー
 	const float DEFAULT_SPAWNTIME_UFO			= 3.0f;
@@ -67,13 +67,13 @@ void SpawnManager::LevelUp()
 	//レベルアップ
 	if (m_levelTimer > LEVELUP_TIME)
 	{
-		if (m_defaultHP_UFO < 1000.0f)
+		if (m_defaultHP_UFO < 2000.0f)
 		{
-			m_defaultHP_UFO *= 1.2f;
+			m_defaultHP_UFO *= 1.1f;
 		}
-		if (m_defaultHP_Missile < 5000.0f)
+		if (m_defaultHP_Missile < 1000.0f)
 		{
-			m_defaultHP_Missile *= 1.2f;
+			m_defaultHP_Missile *= 1.1f;
 		}
 		m_levelTimer = 0.0f;
 	}

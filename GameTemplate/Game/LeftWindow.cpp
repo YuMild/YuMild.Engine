@@ -134,7 +134,15 @@ void LeftWindow::OperationNormal()
 	//選択位置をデフォルトに設定
 	m_selectTurretNumber = 0;
 
-	m_gameCamera->SetCameraState(enCameraState_Normal);
+	if (m_gameCamera->GetCameraState() != enCameraState_SpaceShip)
+	{
+		m_gameCamera->SetCameraState(enCameraState_Normal);
+	}
+
+	if (m_gameCamera->GetCameraState() != enCameraState_Normal)
+	{
+		m_gameCamera->SetCameraState(enCameraState_SpaceShip);
+	}
 
 	/// <summary>
 	/// ウィンドウを左にスライド

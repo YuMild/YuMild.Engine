@@ -23,6 +23,7 @@ namespace
 
 bool GameCamera::Start()
 {
+	//ƒJƒƒ‰‚Ì‰Šú‰»
 	m_cameraTarget_Z = CAMERATARGET_NORMAL_Z;
 	g_camera3D->SetTarget({ 0.0f,0.0f,m_cameraTarget_Z });
 	m_cameraPosition_X = 0.0f;
@@ -166,7 +167,7 @@ void GameCamera::Update()
 		if (m_cameraPosition_Y >= 1500.0f)
 		{
 			m_cameraPosition_Y = 1500.0f;
-			m_cameraTarget_Z = 1000.0f;
+			m_cameraTarget_Z = -1000.0f;
 		}
 		//X
 		if (m_cameraPosition_X < CAMERAPOSITION_SPACESHIP_X)
@@ -180,11 +181,11 @@ void GameCamera::Update()
 		//Y
 		if (m_cameraPosition_Y < CAMERAPOSITION_SPACESHIP_Y)
 		{
-			m_cameraPosition_Y += 10.0f;
+			m_cameraPosition_Y += 5.0f;
 		}
 		else if (m_cameraPosition_Y > CAMERAPOSITION_SPACESHIP_Y)
 		{
-			m_cameraPosition_Y -= 10.0f;
+			m_cameraPosition_Y -= 5.0f;
 		}
 		//Z
 		if (m_cameraPosition_Z < CAMERAPOSITION_SPACESHIP_Z)
@@ -258,8 +259,8 @@ void GameCamera::Update()
 
 void GameCamera::Render(RenderContext& renderContext)
 {
-	//m_fontRenderCameraState.Draw(renderContext);
-	//m_fontRenderX.Draw(renderContext);
-	//m_fontRenderY.Draw(renderContext);
-	//m_fontRenderZ.Draw(renderContext);
+	m_fontRenderCameraState.Draw(renderContext);
+	m_fontRenderX.Draw(renderContext);
+	m_fontRenderY.Draw(renderContext);
+	m_fontRenderZ.Draw(renderContext);
 }

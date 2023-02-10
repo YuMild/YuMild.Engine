@@ -2,6 +2,12 @@
 
 class Game;
 
+enum enFadeState
+{
+	enFadeState_FadeIn,
+	enFadeState_FadeOut
+};
+
 /// <summary>
 /// タイトル
 /// </summary>
@@ -17,9 +23,19 @@ public:
 
 private:
 
+	/// <summary>
+	/// 動作を管理
+	/// </summary>
+	void Move();
+
 	//クラス
 	Game*					m_game;
 
 	//画像
 	SpriteRender			m_titleSR;
+	SpriteRender			m_pressAButtonSR;
+
+	bool					m_fadeState			= 0;
+	float					m_fadeTimer			= 0.0f;
+	float					m_fadeDelayTimer	= 0.0f;
 };

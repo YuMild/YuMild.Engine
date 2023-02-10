@@ -305,7 +305,7 @@ float4 PSMain(SPSIn psIn) : SV_Target0
 
     // エミッション
     float3 emission = g_emission.Sample(g_sampler, psIn.uv);
-    
+    //float3 emission = 0.0f;
     // 視線に向かって伸びるベクトルを計算する
     float3 toEye = normalize(eyePos - psIn.worldPos);
     
@@ -339,7 +339,7 @@ float4 PSMain(SPSIn psIn) : SV_Target0
     // 最終カラーを求める
     float4 finalColor = 1.0f;
     finalColor.xyz *= finalLight;
-    finalColor.xyz += emission * 2.5f;
+    finalColor.xyz += emission * 5.0f;
     
     return finalColor;
 }

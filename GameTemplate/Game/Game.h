@@ -20,37 +20,6 @@ enum enGameState
 	enGameState_GameOver
 };
 
-enum enEffectNumber
-{
-	enEffectNumber_Energy,
-	enEffectNumber_Explosion,
-	enEffectNumber_CursorAfter,
-	enEffectNumber_Smoke,
-	enEffectNumber_NormalTurret,
-	enEffectNumber_DualGunTurret,
-	enEffectNumber_LaserTurret,
-	enEffectNumber_TeslaTurret,
-	enEffectNumber_HolyTurret
-};
-
-enum enSoundNumber
-{
-	enSoundNumber_NormalBGM,
-	enSoundNumber_Alarm,
-	enSoundNumber_BossBGM,
-	enSoundNumber_Window,
-	enSoundNumber_Choice,
-	enSoundNumber_CursorAfter,
-	enSoundNumber_Explosion,
-	enSoundNumber_NotEnoughCost,
-	enSoundNumber_SetTurret,
-	enSoundNumber_NormalTurret,
-	enSoundNumber_DualGunTurret,
-	enSoundNumber_LaserTurret,
-	enSoundNumber_TeslaTurret,
-	enSoundNumber_HolyTurret
-};
-
 /// <summary>
 /// クラスの生成削除を行うクラス
 /// </summary>
@@ -62,7 +31,6 @@ public:
 	~Game();
 	bool Start()override;
 	void Update()override;
-	void Render(RenderContext& renderContext)override;
 
 	/// <summary>
 	/// ゲームステートを設定
@@ -83,16 +51,6 @@ public:
 	}
 
 private:
-
-	/// <summary>
-	/// エフェクトを登録
-	/// </summary>
-	void InitEffect();
-
-	/// <summary>
-	/// サウンドを登録
-	/// </summary>
-	void InitSound();
 
 	//クラス
 	Missile*					m_missile				= nullptr;

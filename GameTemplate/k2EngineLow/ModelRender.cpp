@@ -26,7 +26,7 @@ namespace  nsK2EngineLow
 
 		if (emission != nullptr)
 		{
-			initData.m_expandShaderResoruceView[1] = emission;
+			initData.m_expandShaderResoruceView[2] = emission;
 		}
 
 		if (shadow == ShadowDrop)

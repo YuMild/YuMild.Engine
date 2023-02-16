@@ -98,7 +98,7 @@ Texture2D<float4>           g_normalMap : register(t1);             // 法線マ
 Texture2D<float4>           g_metallicSmoothMap : register(t2);     // スペキュラマップ
 StructuredBuffer<float4x4>  g_boneMatrix : register(t3);            // ボーン行列
 sampler                     g_sampler : register(s0);               // サンプラステート
-Texture2D<float4>           g_emission : register(t11);             // エミッション
+Texture2D<float4>           g_emission : register(t12);             // エミッション
 
 ////////////////////////////////////////////////
 // 関数定義。

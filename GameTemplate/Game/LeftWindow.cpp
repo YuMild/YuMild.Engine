@@ -29,10 +29,10 @@ namespace
 bool LeftWindow::Start()
 {
 	//FindGO
-	m_energy = FindGO<Energy>("energy");
-	m_gameCamera = FindGO<GameCamera>("gameCamera");
-	m_player = FindGO<Player>("player");
-	m_turretManager = FindGO<TurretManager>("turretManager");
+	m_energy			= FindGO<Energy>("energy");
+	m_gameCamera		= FindGO<GameCamera>("gameCamera");
+	m_player			= FindGO<Player>("player");
+	m_turretManager		= FindGO<TurretManager>("turretManager");
 
 	//モデルの生成
 	//グリッド

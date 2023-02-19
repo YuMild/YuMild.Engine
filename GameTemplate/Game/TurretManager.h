@@ -49,7 +49,7 @@ public:
 	/// タレットの合計数を取得
 	/// </summary>
 	/// <returns></returns>
-	int GetTurretSum() const
+	const int& GetTurretSum() const
 	{
 		return m_turretsSum;
 	}
@@ -112,19 +112,19 @@ private:
 	std::vector<IGameObject*>		m_turrets;
 
 	//クラス
-	Energy*							m_energy;
-	LeftWindow*						m_leftWindow;
+	Energy*							m_energy					= nullptr;
+	LeftWindow*						m_leftWindow				= nullptr;
 	LeftWindowDelete*				m_leftWindowDelete[12];
 
 	//タレット
-	NormalTurret*					m_normalTurret;
-	DualGunTurret*					m_dualGunTurret;
-	LaserTurret*					m_laserTurret;
-	RocketTurret*					m_rocketTurret;
-	GeneratorTurret*				m_generatorTurret;
-	HealTurret*						m_healTurret;
-	TeslaTurret*					m_teslaTurret;
-	HolyTurret*						m_holyTurret;
+	NormalTurret*					m_normalTurret				= nullptr;
+	DualGunTurret*					m_dualGunTurret				= nullptr;
+	LaserTurret*					m_laserTurret				= nullptr;
+	RocketTurret*					m_rocketTurret				= nullptr;
+	GeneratorTurret*				m_generatorTurret			= nullptr;
+	HealTurret*						m_healTurret				= nullptr;
+	TeslaTurret*					m_teslaTurret				= nullptr;
+	HolyTurret*						m_holyTurret				= nullptr;
 
 	//Delete画像
 	SpriteRender					m_deleteWindow;
@@ -132,33 +132,33 @@ private:
 	SpriteRender					m_deleteDeleteChoice;
 	SpriteRender					m_deleteCancel;
 	SpriteRender					m_deleteCancelChoice;
-	float							m_deleteSpriteScale = 0.0f;
+	float							m_deleteSpriteScale			= 0.0f;
 
 	//エフェクト
-	EffectEmitter*					m_cursorAfterEF;
+	EffectEmitter*					m_cursorAfterEF				= nullptr;
 
 	//サウンド
-	SoundSource*					m_cursorAfterSE;
-	SoundSource*					m_setTurretSE;
+	SoundSource*					m_cursorAfterSE				= nullptr;
+	SoundSource*					m_setTurretSE				= nullptr;
 
 	//カーソルポジション
-	Vector3							m_cursorPosition;
-	Vector3							m_cursorPositionOld;
+	Vector3							m_cursorPosition			= Vector3::Zero;
+	Vector3							m_cursorPositionOld			= Vector3::Zero;
 	Vector3							m_deleteSpritePosition[12];
 
 	//モデルの作成
-	bool							m_isModelNewGO = false;
-	bool							m_isGorstModelNewGO = false;
+	bool							m_isModelNewGO				= false;
+	bool							m_isGorstModelNewGO			= false;
 	
 	//タレットの種類
-	int								m_turretType = 0;
+	int								m_turretType				= 0;
 
 	//タレットの合計
-	int								m_turretsSum = 0;
+	int								m_turretsSum				= 0;
 
 	//タレットの削除確認用ステート
-	int								m_turretDeleteState = enDeleteState_Null;
+	int								m_turretDeleteState			= enDeleteState_Null;
 
 	//タレットの回転
-	float							m_rotation = 0.0f;
+	float							m_rotation					= 0.0f;
 };

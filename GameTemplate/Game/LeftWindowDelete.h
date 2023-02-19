@@ -19,6 +19,10 @@ enum InitDeleteTurretSprite
 class LeftWindowDelete : public IGameObject
 {
 public:
+
+	bool Start()override;
+	void Update()override;
+	void Render(RenderContext& renderContext)override;
 	
 	/// <summary>
 	/// 削除用の画像を作成
@@ -36,7 +40,7 @@ public:
 	/// タレットの種類を取得
 	/// </summary>
 	/// <returns></returns>
-	int GetTurretType() const
+	const int& GetTurretType() const
 	{
 		return m_initDeleteSpriteNumber;
 	}
@@ -46,7 +50,7 @@ public:
 	/// </summary>
 	/// <param name="number"></param>
 	/// <returns></returns>
-	void SetPosition(const Vector3& position)
+	const void SetPosition(const Vector3& position)
 	{
 		m_position = position;
 	}
@@ -55,7 +59,7 @@ public:
 	/// 削除用の画像のポジションを取得
 	/// </summary>
 	/// <returns></returns>
-	Vector3 GetPosition() const
+	const Vector3& GetPosition() const
 	{
 		return m_position;
 	}
@@ -64,7 +68,7 @@ public:
 	/// ドローするか否か設定
 	/// </summary>
 	/// <param name="isDraw"></param>
-	void SetIsDraw(const bool isDraw)
+	const void SetIsDraw(const bool isDraw)
 	{
 		m_isDraw = isDraw;
 	}
@@ -73,30 +77,26 @@ public:
 	/// ドローするか否か取得
 	/// </summary>
 	/// <returns></returns>
-	bool GetIsDraw()const
+	const bool& GetIsDraw()const
 	{
 		return m_isDraw;
 	}
 
 private:
 
-	bool Start()override;
-	void Update()override;
-	void Render(RenderContext& renderContext)override;
-
 	//クラス
-	LeftWindow*			m_leftWindow;
-	TurretManager*		m_turretManager;
+	LeftWindow*			m_leftWindow				= nullptr;
+	TurretManager*		m_turretManager				= nullptr;
 
 	//画像
 	SpriteRender		m_spriteRender;
 
 	//ポジション
-	Vector3				m_position;
+	Vector3				m_position					= Vector3::Zero;
 
 	//ドローするか否か
-	bool				m_isDraw = false;
+	bool				m_isDraw					= false;
 
 	//描画するタレットの種類
-	int					m_initDeleteSpriteNumber = enInitDeleteTurretSprite_Null;
+	int					m_initDeleteSpriteNumber	= enInitDeleteTurretSprite_Null;
 };

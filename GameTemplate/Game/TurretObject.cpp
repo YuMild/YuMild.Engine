@@ -6,72 +6,72 @@ TurretObject::~TurretObject()
 
 }
 
-void TurretObject::SetModelPosition(const Vector3& position)
+const void TurretObject::SetModelPosition(const Vector3 position)
 {
 
 }
 
-Vector3 TurretObject::GetModelPosition() const
-{
-	return Vector3();
-}
-
-void TurretObject::SetSpritePosition(const Vector3& position)
-{
-
-}
-
-Vector3 TurretObject::GetSpritePosition() const
+const Vector3& TurretObject::GetModelPosition() const
 {
 	return Vector3();
 }
 
-void TurretObject::SetModelRotation(const float rotation)
+const void TurretObject::SetSpritePosition(const Vector3 position)
 {
 
 }
 
-Quaternion TurretObject::GetModelRotation() const
+const Vector3& TurretObject::GetSpritePosition() const
+{
+	return Vector3();
+}
+
+const void TurretObject::SetModelRotation(const float rotation)
+{
+
+}
+
+const Quaternion& TurretObject::GetModelRotation() const
 {
 	return Quaternion();
 }
 
-void TurretObject::SetModelRotationTurnRight()
+const void TurretObject::SetModelRotationTurnRight()
 {
 
 }
 
-void TurretObject::SetModelRotationTurnLeft()
+const void TurretObject::SetModelRotationTurnLeft()
 {
 
 }
 
-void TurretObject::SetAttackReady(bool ready)
+const void TurretObject::SetAttackReady(bool ready)
 {
 
 }
 
-bool TurretObject::GetAttackReady() const
-{
-	return bool();
-}
-
-bool TurretObject::GetAlive() const
+const bool& TurretObject::GetAttackReady() const
 {
 	return bool();
 }
 
-void TurretObject::AddTurretHP(float value)
+const bool& TurretObject::GetAlive() const
+{
+	return bool();
+}
+
+const void TurretObject::AddTurretHP(float value)
 {
 
 }
 
-void TurretObject::SubTurretHP(float value)
+const void TurretObject::SubTurretHP(float value)
 {
 
 }
 
-void TurretObject::SetDebuff()
+const void TurretObject::SetDebuff()
 {
 
 }

@@ -16,7 +16,7 @@ public:
 	/// <summary>
 	/// HPを減らす
 	/// </summary>
-	void SubHP()
+	const void SubHP()
 	{
 		m_hp -= 1;
 		if (m_hp < 0)
@@ -29,7 +29,7 @@ public:
 	/// HPを取得
 	/// </summary>
 	/// <returns></returns>
-	int GetHP()
+	const int& GetHP()
 	{
 		return m_hp;
 	}
@@ -38,7 +38,7 @@ public:
 	/// ステートを取得
 	/// </summary>
 	/// <returns></returns>
-	int GetState()
+	const int& GetState()
 	{
 		return m_state;
 	}
@@ -56,9 +56,11 @@ private:
 	void Sprite();
 
 	//クラス
-	Game*				m_game;
+	Game*				m_game				= nullptr;
 
 	//画像
+	SpriteRender		m_backGroundSR;
+	float				m_backGroundAlpha	= 0.0f;
 	SpriteRender		m_windowSR;
 	SpriteRender		m_pressAButtonSR;
 
@@ -66,12 +68,12 @@ private:
 	FontRender			m_scoreFR;
 
 	//HP
-	int					m_hp = 0;
+	int					m_hp				= 0;
 
 	//ステート
-	int					m_state = 0;
-	float				m_stateTimer = 0.0f;
+	int					m_state				= 0;
+	float				m_stateTimer		= 0.0f;
 
 	//スコア
-	float				m_score = 0.0f;
+	float				m_score				= 0.0f;
 };

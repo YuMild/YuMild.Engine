@@ -24,9 +24,9 @@ public:
 
 	Stage();
 	~Stage();
-	bool Start();
-	void Update();
-	void Render(RenderContext& renderCntext);
+	bool Start()override;
+	void Update()override;
+	void Render(RenderContext& renderCntext)override;
 
 private:
 
@@ -34,6 +34,12 @@ private:
 	/// 動作を管理
 	/// </summary>
 	void Move();
+
+	/// <summary>
+	/// エフェクトを再生
+	/// </summary>
+	/// <param name="position"></param>
+	void EffectPlayBarrier(const Vector3& position);
 
 	/// <summary>
 	/// エフェクトを再生
@@ -49,6 +55,9 @@ private:
 	ModelRender			m_stageMR;
 	Texture				m_campEmissionMap;
 	ModelRender			m_campMR;
+
+	//エフェクト
+	EffectEmitter*		m_barrierEF;
 	EffectEmitter*		m_energyEF;
 
 	//背景モデル

@@ -24,7 +24,7 @@ public:
 	/// UFOのデフォルトHPを設定
 	/// </summary>
 	/// <returns></returns>
-	float GetDefaultHP_UFO()
+	const float& GetDefaultHP_UFO()
 	{
 		return m_defaultHP_UFO;
 	}
@@ -33,7 +33,7 @@ public:
 	/// MissileのデフォルトHPを設定
 	/// </summary>
 	/// <returns></returns>
-	float GetDefaultHP_Missile()
+	const float& GetDefaultHP_Missile()
 	{
 		return m_defaultHP_Missile;
 	}
@@ -42,7 +42,7 @@ public:
 	/// SpaceShipのデフォルトHPを設定
 	/// </summary>
 	/// <returns></returns>
-	float GetDefaultHP_SpaceShip()
+	const float& GetDefaultHP_SpaceShip()
 	{
 		return m_defaultHP_SpaceShip;
 	}
@@ -86,16 +86,16 @@ private:
 	void SoundPlayBossSpawn();
 
 	//クラス
-	Missile*		m_missile;
-	UFO*			m_ufo;
-	SpaceShip*		m_spaceShip;
+	Missile*		m_missile								= nullptr;
+	UFO*			m_ufo									= nullptr;
+	SpaceShip*		m_spaceShip								= nullptr;
 
 	//エフェクト
-	EffectEmitter*	m_explosionEF;
+	EffectEmitter*	m_explosionEF							= nullptr;
 
 	//音声
-	SoundSource*	m_explosionSE;
-	SoundSource*	m_bossSpawnSE;;
+	SoundSource*	m_explosionSE							= nullptr;
+	SoundSource*	m_bossSpawnSE							= nullptr;
 
 	//画像
 	SpriteRender	m_warningSR;
@@ -103,32 +103,32 @@ private:
 	SpriteRender	m_warningLeftCircleSR;
 
 	//アップデートを止めているか否か
-	bool			m_isStop = false;
+	bool			m_isStop								= false;
 
 	//Warningを管理する
-	bool			m_fade = true;
-	float			m_warningTimer = 0.0f;
-	float			m_stopTimer = 0.0f;
-	Quaternion		m_warningRightCircle_Rotation;
-	Quaternion		m_warningLeftCircle_Rotation;
-	float			m_warningRightCircle_RotationNumber = 0.0f;
-	float			m_warningLeftCircle_RotationNumber = 0.0f;
+	bool			m_fade									= true;
+	float			m_warningTimer							= 0.0f;
+	float			m_stopTimer								= 0.0f;
+	Quaternion		m_warningRightCircle_Rotation			= Quaternion::Identity;
+	Quaternion		m_warningLeftCircle_Rotation			= Quaternion::Identity;
+	float			m_warningRightCircle_RotationNumber		= 0.0f;
+	float			m_warningLeftCircle_RotationNumber		= 0.0f;
 
 	//レベルを管理するタイマー
-	float			m_levelTimer = 0.0f;
+	float			m_levelTimer							= 0.0f;
 
 	//UFO
-	float			m_spawnTime_UFO = 0.0f;
-	float			m_spawnTimer_UFO = 0.0f;
-	float			m_defaultHP_UFO = 0.0f;
+	float			m_spawnTime_UFO							= 0.0f;
+	float			m_spawnTimer_UFO						= 0.0f;
+	float			m_defaultHP_UFO							= 0.0f;
 
 	//Missile
-	float			m_spawnTime_Missile = 0.0f;
-	float			m_spawnTimer_Missile = 0.0f;
-	float			m_defaultHP_Missile = 0.0f;
+	float			m_spawnTime_Missile						= 0.0f;
+	float			m_spawnTimer_Missile					= 0.0f;
+	float			m_defaultHP_Missile						= 0.0f;
 
 	//SpaceShip
-	float			m_spawnTime_SpaceShip = 0.0f;
-	float			m_spawnTimer_SpaceShip = 0.0f;
-	float			m_defaultHP_SpaceShip = 0.0f;
+	float			m_spawnTime_SpaceShip					= 0.0f;
+	float			m_spawnTimer_SpaceShip					= 0.0f;
+	float			m_defaultHP_SpaceShip					= 0.0f;
 };

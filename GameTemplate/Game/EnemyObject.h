@@ -16,35 +16,35 @@ public:
 	/// ƒ|ƒWƒVƒ‡ƒ“‚ğæ“¾
 	/// </summary>
 	/// <returns></returns>
-	virtual Vector3 GetPosition() = 0;
+	virtual const Vector3& GetPosition() = 0;
 
 	/// <summary>
 	/// HP‚ğæ“¾
 	/// </summary>
 	/// <returns></returns>
-	virtual float GetDefaultHP() = 0;
+	virtual const float& GetDefaultHP() = 0;
 
 	/// <summary>
 	/// HP‚ğİ’è
 	/// </summary>
 	/// <param name="setHP"></param>
-	virtual void SetDefaultHP(const int setDefaultHP) = 0;
+	virtual const void SetDefaultHP(const int setDefaultHP) = 0;
 
 	/// <summary>
 	/// HP‚ğ‰ÁZ
 	/// </summary>
 	/// <param name="addHP"></param>
-	virtual void AddEnemyHP(const int value) = 0;
+	virtual const void AddEnemyHP(const int value) = 0;
 
 	/// <summary>
 	/// HP‚ğœZ
 	/// </summary>
 	/// <param name="addHP"></param>
-	virtual void SubEnemyHP(const int value) = 0;
+	virtual const void SubEnemyHP(const int value) = 0;
 
 	/// <summary>
 	/// S‘©ŠÔ‚ğİ’è
 	/// </summary>
 	/// <param name="bindTime"></param>
-	virtual void SetBind(const float bindTime) = 0;
+	virtual const void SetBind(const float bindTime) = 0;
 };

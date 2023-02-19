@@ -1,5 +1,7 @@
 #pragma once
 
+class Game;
+
 enum CameraState
 {
 	enCameraState_Normal,
@@ -21,7 +23,7 @@ public:
 	/// <summary>
 	/// カメラの位置を設定
 	/// </summary>
-	void SetCameraPosition(float x, float y, float z)
+	const void SetCameraPosition(float x, float y, float z)
 	{
 		m_cameraPosition_X = x;
 		m_cameraPosition_Y = y;
@@ -31,7 +33,7 @@ public:
 	/// <summary>
 	/// カメラの状態を設定
 	/// </summary>
-	void SetCameraState(int state)
+	const void SetCameraState(int state)
 	{
 		m_cameraState = state;
 	}
@@ -40,7 +42,7 @@ public:
 	/// カメラの状態を取得
 	/// </summary>
 	/// <returns></returns>
-	int GetCameraState()
+	const int& GetCameraState()
 	{
 		return m_cameraState;
 	}
@@ -48,7 +50,7 @@ public:
 	/// <summary>
 	/// カメラを揺らす
 	/// </summary>
-	void SetCameraShake()
+	const void SetCameraShake()
 	{
 		m_cameraShake = true;
 		m_shakeTimer = 0.0f;
@@ -56,14 +58,17 @@ public:
 
 private:
 
-	bool			m_cameraShake		= false;
-	float			m_shakeTimer		= 0.0f;
+	//クラス
+	Game*			m_game						= nullptr;
 
-	int				m_cameraState		= enCameraState_Normal;
-	float			m_cameraTarget_Z	= 0.0f;
-	float			m_cameraPosition_X	= 0.0f;
-	float			m_cameraPosition_Y	= 0.0f;
-	float			m_cameraPosition_Z	= 0.0f;
+	bool			m_cameraShake				= false;
+	float			m_shakeTimer				= 0.0f;
+
+	int				m_cameraState				= enCameraState_Normal;
+	float			m_cameraTarget_Z			= 0.0f;
+	float			m_cameraPosition_X			= 0.0f;
+	float			m_cameraPosition_Y			= 0.0f;
+	float			m_cameraPosition_Z			= 0.0f;
 
 	//フォント
 	FontRender		m_fontRenderCameraState;

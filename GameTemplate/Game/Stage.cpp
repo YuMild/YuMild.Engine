@@ -20,7 +20,7 @@ namespace
 	const float 	MOON_FIRST_SCALE			= 100.0f;
 	const float		MOON_ROTATIONSPEED			= -0.00025f;
 	//宇宙ステーション
-	const Vector3	SPACEJUNK_FIRST_POSITION	= { 4000.0f,1000.0f,-10000.0f };
+	const Vector3	SPACEJUNK_FIRST_POSITION	= { 4000.0f,1000.0f,-13000.0f };
 	const float 	SPACEJUNK_FIRST_SCALE		= 10.0f;
 	const float		SPACEJUNK_ROTATIONSPEED		= 0.0001f;
 	//隕石群
@@ -55,7 +55,7 @@ namespace
 	const Vector3	ASTEROID_10_SCALE			= { 3.0f,3.0f,3.0f };
 	const float		ASTEROID_10_ROTATION		= 0.0030f;
 	//エフェクト
-	const Vector3	ENERGY_FIRST_POSITION		= { 0.0f,400.0f,500.0f };
+	const Vector3	ENERGY_FIRST_POSITION		= { 0.0f,450.0f,500.0f };
 	const float		ENERGY_EFFECTSIZE			= 300.0f;
 	//サウンド
 	const float		DEFAULT_NORMALBGM_VOLUME	= 0.05f;
@@ -84,6 +84,7 @@ bool Stage::Start()
 	m_normalBGMVolume = DEFAULT_NORMALBGM_VOLUME;
 
 	//エフェクト
+	EffectPlayBarrier(ENERGY_FIRST_POSITION);
 	EffectPlayEnergy(ENERGY_FIRST_POSITION);
 
 	//モデル
@@ -169,12 +170,20 @@ void Stage::Move()
 	}
 
 	//エフェクトのループ
+	if (m_barrierEF != nullptr && m_barrierEF->IsPlay() == false)
+	{
+		EffectPlayBarrier({ ENERGY_FIRST_POSITION });
+	}
 	if (m_energyEF != nullptr && m_energyEF->IsPlay() == false)
 	{
 		EffectPlayEnergy({ ENERGY_FIRST_POSITION });
 	}
 
 	//エフェクトのサイズ
+	if (m_barrierEF != nullptr)
+	{
+		m_barrierEF->SetScale(((Vector3::One * ENERGY_EFFECTSIZE) * (m_gameOver->GetHP() / 3.0f)));
+	}
 	if (m_energyEF != nullptr)
 	{
 		m_energyEF->SetScale(((Vector3::One * ENERGY_EFFECTSIZE) * (m_gameOver->GetHP() / 3.0f)));
@@ -287,11 +296,20 @@ void Stage::SetBossBGM()
 	}
 }
 
+void Stage::EffectPlayBarrier(const Vector3& position)
+{
+	m_barrierEF = NewGO<EffectEmitter>(0);
+	m_barrierEF->Init(enEffectNumber_Barrier);
+	m_barrierEF->SetPosition(position);
+	m_barrierEF->SetScale((Vector3::One * 1000.0f)/* * (m_gameOver->GetHP() / m_gameOver->GetHP())*/);
+	m_barrierEF->Play();
+}
+
 void Stage::EffectPlayEnergy(const Vector3& position)
 {
 	m_energyEF = NewGO<EffectEmitter>(0);
 	m_energyEF->Init(enEffectNumber_Energy);
-	m_energyEF->SetPosition({ position.x,position.y + 100.0f,position.z });
+	m_energyEF->SetPosition(position);
 	m_energyEF->SetScale((Vector3::One * ENERGY_EFFECTSIZE) * (m_gameOver->GetHP() / m_gameOver->GetHP()));
 	m_energyEF->Play();
 }

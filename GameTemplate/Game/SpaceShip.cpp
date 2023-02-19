@@ -11,9 +11,9 @@
 namespace
 {
 	//モデルの初期値
-	Vector3 DEFAULT_POSITION		= { 0.0f,1000.0f,-8000.0f };
-	Vector3 DEFAULT_SCALE			= { 3.0f,3.0f,3.0f };
-	Vector3 DEFAULT_TARGET			= { 0.0f,1000.0f,-0.0f };
+	Vector3 DEFAULT_POSITION		= { 0.0f,800.0f,-8000.0f };
+	float	DEFAULT_SCALE			= 2.8f;
+	Vector3 DEFAULT_TARGET			= { 0.0f,800.0f,-0.0f };
 
 	//パラメーター
 	float DEFAULT_MOVE_SPEED		= 3.0f;
@@ -36,14 +36,13 @@ bool SpaceShip::Start()
 	m_turretManager = FindGO<TurretManager>("turretManager");
 
 	m_position = DEFAULT_POSITION;
-	m_scale = DEFAULT_SCALE;
 
 	//モデル
 	m_emissionMap.InitFromDDSFile(L"Assets/modelData/Enemy/SpaceShip_Emission.DDS");
 	m_modelRender.Init("Assets/modelData/Enemy/SpaceShip.tkm", ShadowNone, false, nullptr, 0, enModelUpAxisZ, &m_emissionMap);
 	m_modelRender.SetPosition(m_position);
 	m_modelRender.SetRotation(m_rotation);
-	m_modelRender.SetScale(m_scale);
+	m_modelRender.SetScale(Vector3::One * m_scale);
 	m_modelRender.Update();
 
 	//HP
@@ -89,10 +88,16 @@ void SpaceShip::Move()
 	moveSpeed *= DEFAULT_MOVE_SPEED;
 	m_position += moveSpeed;
 
+	//徐々に大きくする
+	if (m_scale <= DEFAULT_SCALE)
+	{
+		m_scale += 0.1f;
+	}
+
 	//更新処理
 	m_modelRender.SetPosition(m_position);
 	m_modelRender.SetRotation(m_rotation);
-	m_modelRender.SetScale(m_scale);
+	m_modelRender.SetScale(Vector3::One * m_scale);
 	m_modelRender.Update();
 }
 

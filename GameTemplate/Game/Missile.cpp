@@ -9,8 +9,8 @@
 namespace
 {
 	//モデルの初期値
-	Vector3		DEFAULT_POSITION		= { 0.0f,300.0f,-8000.0f };
-	Vector3		DEFAULT_SCALE			= { 0.7f,0.7f,0.7f };
+	Vector3		DEFAULT_POSITION		= { 0.0f,300.0f,-9500.0f };
+	float		DEFAULT_SCALE			= 0.8f;
 
 	//パラメーター
 	float		DEFAULT_MOVE_SPEED		= 15.0f;
@@ -30,14 +30,12 @@ bool Missile::Start()
 	m_turretManager = FindGO<TurretManager>("turretManager");
 
 	m_position = DEFAULT_POSITION;
-	m_scale = DEFAULT_SCALE;
 
 	//モデル
 	m_emissionMap.InitFromDDSFile(L"Assets/modelData/Enemy/Missile_Emission.DDS");
 	m_modelRender.Init("Assets/modelData/Enemy/Missile.tkm", ShadowNone, false, nullptr, 0, enModelUpAxisZ, &m_emissionMap);
 	m_modelRender.SetPosition(m_position);
 	m_modelRender.SetRotation(m_rotation);
-	m_modelRender.SetScale(m_scale);
 	m_modelRender.Update();
 
 	//HP
@@ -108,10 +106,16 @@ void Missile::Move()
 		m_bindTimer -= g_gameTime->GetFrameDeltaTime();
 	}
 
+	//徐々に大きくする
+	if (m_scale <= DEFAULT_SCALE)
+	{
+		m_scale += 0.25f;
+	}
+
 	//更新処理
 	m_modelRender.SetPosition(m_position);
 	m_modelRender.SetRotation(m_rotation);
-	m_modelRender.SetScale(m_scale);
+	m_modelRender.SetScale(Vector3::One * m_scale);
 	m_modelRender.Update();
 }
 

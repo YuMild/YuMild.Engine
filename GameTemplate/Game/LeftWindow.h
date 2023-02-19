@@ -26,7 +26,7 @@ public:
 	/// 操作ステートを設定
 	/// </summary>
 	/// <param name="number"></param>
-	void SetOperationState(OperationState operationState)
+	const void SetOperationState(OperationState operationState)
 	{
 		m_operationState = operationState;
 	}
@@ -35,7 +35,7 @@ public:
 	/// 操作ステートを取得
 	/// </summary>
 	/// <returns></returns>
-	int GetOperationState()
+	const int& GetOperationState()
 	{
 		return m_operationState;
 	}
@@ -44,7 +44,7 @@ public:
 	/// 移動距離を取得
 	/// </summary>
 	/// <returns></returns>
-	float GetMoveNumber()
+	const float& GetMoveNumber()
 	{
 		return m_moveNumber;
 	}
@@ -52,7 +52,7 @@ public:
 	/// <summary>
 	/// カーソルを一段上に
 	/// </summary>
-	void TurretCursorUp()
+	const void TurretCursorUp()
 	{
 		if (m_selectTurretNumber >= 4)
 		{
@@ -64,7 +64,7 @@ public:
 	/// <summary>
 	/// カーソルを一段下に
 	/// </summary>
-	void TurretCursorDown()
+	const void TurretCursorDown()
 	{
 		if (m_selectTurretNumber <= 7)
 		{
@@ -76,7 +76,7 @@ public:
 	/// <summary>
 	/// カーソルを一段右に
 	/// </summary>
-	void TurretCursorRight()
+	const void TurretCursorRight()
 	{
 		if (m_selectTurretNumber != 11)
 		{
@@ -88,7 +88,7 @@ public:
 	/// <summary>
 	/// カーソルを一段左に
 	/// </summary>
-	void TurretCursorLeft()
+	const void TurretCursorLeft()
 	{
 		if (m_selectTurretNumber != 0)
 		{
@@ -101,7 +101,7 @@ public:
 	/// 選択されているタレットを取得
 	/// </summary>
 	/// <returns></returns>
-	int GetSelectTurretNumber()
+	const int& GetSelectTurretNumber()
 	{
 		return m_selectTurretNumber;
 	}
@@ -109,7 +109,7 @@ public:
 	/// <summary>
 	/// ボタンのディレイを有効化する
 	/// </summary>
-	void SetButtonDelay()
+	const void SetButtonDelay()
 	{
 		m_buttonDelay = 0.0f;
 	}
@@ -118,7 +118,7 @@ public:
 	/// ボタンが使用可能か否か取得
 	/// </summary>
 	/// <returns></returns>
-	bool GetButtonReady()
+	const bool& GetButtonReady()
 	{
 		return m_buttonReady;
 	}
@@ -184,7 +184,7 @@ private:
 	//モデル
 	ModelRender					m_gridMR;
 	ModelRender					m_gridCursorMR;
-	Vector3						m_gridCursorPosition;
+	Vector3						m_gridCursorPosition			= Vector3::Zero;
 
 	//画像
 	//枠

@@ -8,7 +8,7 @@ class EnemyObject;
 /// <summary>
 /// TeslaTurret
 /// </summary>
-class TeslaTurret : public TurretObject
+class TeslaTurret final : public TurretObject
 {
 public:
 
@@ -21,7 +21,7 @@ public:
 	/// モデルのポジションを設定
 	/// </summary>
 	/// <param name="position"></param>
-	void SetModelPosition(const Vector3& position) override
+	const void SetModelPosition(const Vector3 position) override
 	{
 		m_modelPosition = position;
 	}
@@ -30,7 +30,7 @@ public:
 	/// ポジションを取得
 	/// </summary>
 	/// <returns></returns>
-	Vector3 GetModelPosition() const override
+	const Vector3& GetModelPosition() const override
 	{
 		return m_modelPosition;
 	}
@@ -39,7 +39,7 @@ public:
 	/// 画像のポジションを設定
 	/// </summary>
 	/// <param name="position"></param>
-	void SetSpritePosition(const Vector3& position) override
+	const void SetSpritePosition(const Vector3 position) override
 	{
 		m_spritePosition = position;
 	}
@@ -48,7 +48,7 @@ public:
 	/// 画像のポジションを取得
 	/// </summary>
 	/// <returns></returns>
-	Vector3 GetSpritePosition() const override
+	const Vector3& GetSpritePosition() const override
 	{
 		return m_spritePosition;
 	}
@@ -57,7 +57,7 @@ public:
 	/// モデルの回転を設定
 	/// </summary>
 	/// <param name="rotation"></param>
-	void SetModelRotation(const float rotation) override
+	const void SetModelRotation(const float rotation) override
 	{
 		m_modelRotation.AddRotationDegY(rotation);
 	}
@@ -66,7 +66,7 @@ public:
 	/// モデルの回転を取得
 	/// </summary>
 	/// <returns></returns>
-	Quaternion GetModelRotation() const override
+	const Quaternion& GetModelRotation() const override
 	{
 		return m_modelRotation;
 	}
@@ -74,7 +74,7 @@ public:
 	/// <summary>
 	/// モデルを時計回りに回転
 	/// </summary>
-	void SetModelRotationTurnRight() override
+	const void SetModelRotationTurnRight() override
 	{
 		m_modelRotation.AddRotationDegY(180.0f);
 	}
@@ -82,7 +82,7 @@ public:
 	/// <summary>
 	/// モデルを反時計回りに回転
 	/// </summary>
-	void SetModelRotationTurnLeft() override
+	const void SetModelRotationTurnLeft() override
 	{
 		m_modelRotation.AddRotationDegY(-180.0f);
 	}
@@ -90,7 +90,7 @@ public:
 	/// <summary>
 	/// タレットの攻撃態勢を設定
 	/// </summary>
-	void SetAttackReady(bool ready) override
+	const void SetAttackReady(bool ready) override
 	{
 		m_moveReady = ready;
 	}
@@ -99,7 +99,7 @@ public:
 	/// タレットの攻撃態勢を取得
 	/// </summary>
 	/// <returns></returns>
-	bool GetAttackReady() const override
+	const bool& GetAttackReady() const override
 	{
 		return m_moveReady;
 	}
@@ -108,7 +108,7 @@ public:
 	/// タレットの状態を取得
 	/// </summary>
 	/// <returns></returns>
-	virtual bool GetAlive() const override
+	const bool& GetAlive() const override
 	{
 		return m_alive;
 	}
@@ -117,7 +117,7 @@ public:
 	/// タレットのHPを加算する
 	/// </summary>
 	/// <param name="value"></param>
-	void AddTurretHP(float value) override
+	const void AddTurretHP(float value) override
 	{
 		m_hp += value;
 		//上限より増えない様に
@@ -136,7 +136,7 @@ public:
 	/// タレットのHPを減算する
 	/// </summary>
 	/// <param name="value"></param>
-	void SubTurretHP(float value) override
+	const void SubTurretHP(float value) override
 	{
 		m_hp -= value;
 		//上限より増えない様に
@@ -154,7 +154,7 @@ public:
 	/// <summary>
 	/// デバフを設定
 	/// </summary>
-	void SetDebuff() override
+	const void SetDebuff() override
 	{
 		m_debuffTimer = 5.0f;
 	}

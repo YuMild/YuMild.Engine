@@ -12,7 +12,7 @@ class TurretManager;
 /// <summary>
 /// SpaceShip
 /// </summary>
-class SpaceShip : public EnemyObject
+class SpaceShip final : public EnemyObject
 {
 public:
 
@@ -25,7 +25,7 @@ public:
 	/// ポジションを取得
 	/// </summary>
 	/// <returns></returns>
-	Vector3 GetPosition()
+	const Vector3& GetPosition()
 	{
 		return m_position;
 	}
@@ -34,7 +34,7 @@ public:
 	/// HPを取得
 	/// </summary>
 	/// <returns></returns>
-	float GetDefaultHP()override
+	const float& GetDefaultHP()override
 	{
 		return m_hp;
 	}
@@ -43,7 +43,7 @@ public:
 	/// HPを設定
 	/// </summary>
 	/// <param name="setHP"></param>
-	void SetDefaultHP(const int setDefaultHP)override
+	const void SetDefaultHP(const int setDefaultHP)override
 	{
 		m_hp = setDefaultHP;
 	}
@@ -52,7 +52,7 @@ public:
 	/// エネミーのHPを加算する
 	/// </summary>
 	/// <param name="addHP"></param>
-	void AddEnemyHP(const int value)override
+	const void AddEnemyHP(const int value)override
 	{
 		m_hp += value;
 		//上限より増えない様に
@@ -71,7 +71,7 @@ public:
 	/// エネミーのHPを除算する
 	/// </summary>
 	/// <param name="addHP"></param>
-	void SubEnemyHP(const int value)override
+	const void SubEnemyHP(const int value)override
 	{
 		m_hp -= value;
 		//上限より増えない様に
@@ -90,7 +90,7 @@ public:
 	/// 拘束時間を設定
 	/// </summary>
 	/// <param name="bindTime"></param>
-	virtual void SetBind(const float bindTime)
+	const void SetBind(const float bindTime)
 	{
 		m_bindTimer = bindTime;
 	}
@@ -112,8 +112,8 @@ private:
 	GameCamera*					m_gameCamera		= nullptr;
 	Stage*						m_stage				= nullptr;
 
-	SpawnManager*				m_spawnManager;
-	TurretManager*				m_turretManager;
+	SpawnManager*				m_spawnManager		= nullptr;
+	TurretManager*				m_turretManager		= nullptr;
 
 	//モデル
 	Texture						m_emissionMap;
@@ -132,7 +132,7 @@ private:
 	//SpaceShip
 	Vector3						m_position			= Vector3::Zero;
 	Quaternion					m_rotation			= Quaternion::Identity;
-	Vector3						m_scale				= Vector3::Zero;
+	float						m_scale				= 0.0f;
 
 	//移動
 	Vector3						m_target			= Vector3::Zero;

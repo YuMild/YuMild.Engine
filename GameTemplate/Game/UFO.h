@@ -11,7 +11,7 @@ class TurretManager;
 /// <summary>
 /// UFO
 /// </summary>
-class UFO : public EnemyObject
+class UFO final : public EnemyObject
 {
 public:
 
@@ -24,7 +24,7 @@ public:
 	/// ポジションを取得
 	/// </summary>
 	/// <returns></returns>
-	Vector3 GetPosition()
+	const Vector3& GetPosition()
 	{
 		return m_position;
 	}
@@ -33,7 +33,7 @@ public:
 	/// HPを取得
 	/// </summary>
 	/// <returns></returns>
-	float GetDefaultHP()override
+	const float& GetDefaultHP()override
 	{
 		return m_hp;
 	}
@@ -42,7 +42,7 @@ public:
 	/// HPを設定
 	/// </summary>
 	/// <param name="setHP"></param>
-	void SetDefaultHP(const int setDefaultHP)override
+	const void SetDefaultHP(const int setDefaultHP)override
 	{
 		m_hp = setDefaultHP;
 	}
@@ -51,7 +51,7 @@ public:
 	/// エネミーのHPを加算する
 	/// </summary>
 	/// <param name="addHP"></param>
-	void AddEnemyHP(const int value)override
+	const void AddEnemyHP(const int value)override
 	{
 		m_hp += value;
 		//上限より増えない様に
@@ -70,7 +70,7 @@ public:
 	/// エネミーのHPを除算する
 	/// </summary>
 	/// <param name="addHP"></param>
-	void SubEnemyHP(const int value)override
+	const void SubEnemyHP(const int value)override
 	{
 		m_hp -= value;
 		//上限より増えない様に
@@ -89,7 +89,7 @@ public:
 	/// 拘束時間を設定
 	/// </summary>
 	/// <param name="bindTime"></param>
-	virtual void SetBind(const float bindTime)override
+	const void SetBind(const float bindTime)override
 	{
 		m_bindTimer = bindTime;
 	}
@@ -130,7 +130,7 @@ private:
 	//UFO
 	Vector3						m_position			= { 0.0f,0.0f,-8000.0f };
 	Quaternion					m_rotation			= Quaternion::Identity;
-	Vector3						m_scale				= Vector3::Zero;
+	float 						m_scale				= 0.0f;
 
 	//パス移動
 	std::vector<Vector3>		m_pointList;

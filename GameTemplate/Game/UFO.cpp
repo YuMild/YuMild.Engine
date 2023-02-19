@@ -10,21 +10,21 @@
 namespace
 {
 	//モデルの初期値
-	Vector3 DEFAULT_POSITION = { 0.0f,0.0f,-8000.0f };
-	Vector3 DEFAULT_SCALE = { 2.95f,2.95f,2.95f };
+	Vector3 DEFAULT_POSITION		= { 0.0f,200.0f,-9500.0f };
+	float	DEFAULT_SCALE			= 2.95f;
 
 	//ポイントポジション
-	Vector3 POINT_1_POSITION = { 0.0f,0.0f,-5900.0f };
-	Vector3 POINT_2_POSITION = { -2750.0f,0.0f,-5900.0f };
-	Vector3 POINT_3_POSITION = { -2750.0f,0.0f,-3150.0f };
-	Vector3 POINT_4_POSITION = { 2750.0f,0.0f,-3150.0f };
-	Vector3 POINT_5_POSITION = { 2750.0f,0.0f,-2000.0f };
-	Vector3 POINT_6_POSITION = { 0.0f,0.0f,-2000.0f };
-	Vector3 POINT_7_POSITION = { 0.0f,0.0f,0.0f };
+	Vector3 POINT_1_POSITION		= { 0.0f,0.0f,-5900.0f };
+	Vector3 POINT_2_POSITION		= { -2750.0f,0.0f,-5900.0f };
+	Vector3 POINT_3_POSITION		= { -2750.0f,0.0f,-3150.0f };
+	Vector3 POINT_4_POSITION		= { 2750.0f,0.0f,-3150.0f };
+	Vector3 POINT_5_POSITION		= { 2750.0f,0.0f,-2000.0f };
+	Vector3 POINT_6_POSITION		= { 0.0f,0.0f,-2000.0f };
+	Vector3 POINT_7_POSITION		= { 0.0f,0.0f,0.0f };
 
 	//パラメーター
-	float DEFAULT_MOVE_SPEED = 15.0f;
-	float DEFAULT_ROTATION_SPEED = 1.5f;
+	float DEFAULT_MOVE_SPEED		= 15.0f;
+	float DEFAULT_ROTATION_SPEED	= 1.5f;
 }
 
 UFO::~UFO()
@@ -41,7 +41,6 @@ bool UFO::Start()
 	m_turretManager = FindGO<TurretManager>("turretManager");
 	
 	m_position = DEFAULT_POSITION;
-	m_scale = DEFAULT_SCALE;
 
 	//モデル
 	m_emissionMap.InitFromDDSFile(L"Assets/modelData/Enemy/UFO_Blue_Emission.DDS");
@@ -120,10 +119,16 @@ void UFO::Move()
 		m_bindTimer -= g_gameTime->GetFrameDeltaTime();
 	}
 
+	//徐々に大きくする
+	if (m_scale <= DEFAULT_SCALE)
+	{
+		m_scale += 0.25f;
+	}
+
 	//更新処理
 	m_modelRender.SetPosition(m_position);
 	m_modelRender.SetRotation(m_rotation);
-	m_modelRender.SetScale(m_scale);
+	m_modelRender.SetScale(Vector3::One * m_scale);
 	m_modelRender.Update();
 }
 

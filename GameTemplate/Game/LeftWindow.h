@@ -7,6 +7,7 @@ class Game;
 class GameCamera;
 class LeftWindowDelete;
 class Player;
+class SpaceShip;
 class TurretManager;
 
 enum OperationState
@@ -174,6 +175,7 @@ private:
 	GameCamera*					m_gameCamera					= nullptr;
 	LeftWindowDelete*			m_leftWindowDelete				= nullptr;
 	Player*						m_player						= nullptr;
+	SpaceShip*					m_spaceShip						= nullptr;
 	TurretManager*				m_turretManager					= nullptr;
 	std::vector<TurretObject*>	m_turrets;
 
@@ -202,14 +204,26 @@ private:
 	SpriteRender				m_detail_HealTurretSR;
 	SpriteRender				m_detail_TeslaTurretSR;
 	SpriteRender				m_detail_HolyTurretSR;
-
+	//説明文
+	SpriteRender				m_descride_NormalTurretSR;
+	SpriteRender				m_descride_DualGunTurretSR;
+	SpriteRender				m_descride_LaserTurretSR;
+	SpriteRender				m_descride_RocketTurretSR;
+	SpriteRender				m_descride_GenerationTurretSR;
+	SpriteRender				m_descride_HealTurretSR;
+	SpriteRender				m_descride_TeslaTurretSR;
+	SpriteRender				m_descride_HolyTurretSR;
 	//背景
 	SpriteRender				m_weapons_BackGroundSR;
 	SpriteRender				m_delete_BackGroundSR;
 	SpriteRender				m_turret_BackGroundSR;
+	//UIアニメーション
+	SpriteRender				m_choiceEffectSR;
 
 	//背景のポジション
 	Vector3						m_turretBackGroundPosition[12];
+	//UIアニメーションのポジション
+	Vector3						m_choiceEffectPosition			= Vector3::Zero;
 
 	//ステート
 	int							m_operationState				= enOperationState_Normal_LeftWindow;

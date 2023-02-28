@@ -48,7 +48,7 @@ bool SpaceShip::Start()
 	//HP
 	m_hp = m_spawnManager->GetDefaultHP_SpaceShip();
 	m_maxHp = m_spawnManager->GetDefaultHP_SpaceShip();
-	m_hpBarSR.Init("Assets/Sprite/Enemy/EnemyHP.dds", 30.0f, 30.0f);
+	m_hpBarSR.Init("Assets/Sprite/Enemy/EnemyHP.dds", 300.0f, 300.0f);
 
 	//ボス用の視点に変更
 	m_gameCamera->SetCameraState(enCameraState_SpaceShip);

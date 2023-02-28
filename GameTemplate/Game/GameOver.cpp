@@ -49,7 +49,7 @@ void GameOver::Sprite()
 	m_stateTimer += g_gameTime->GetFrameDeltaTime();
 
 	//フェードイン
-	if (m_backGroundAlpha <= 0.3f)
+	if (m_backGroundAlpha <= 0.7f)
 	{
 		m_backGroundAlpha += g_gameTime->GetFrameDeltaTime() / 10.0f;
 	}

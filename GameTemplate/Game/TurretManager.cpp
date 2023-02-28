@@ -112,6 +112,7 @@ void TurretManager::StateManager()
 	/// </summary>
 	if (m_turretType == enTurret_NormalTurret)
 	{
+		//‰¼ƒ‚ƒfƒ‹‚ð•`‰æ
 		if (m_isGorstModelNewGO)
 		{
 			m_normalTurret = NewGO<NormalTurret>(0, "turret");
@@ -232,6 +233,7 @@ void TurretManager::StateManager()
 	/// </summary>
 	else if (m_turretType == enTurret_DualGunTurret)
 	{
+		//‰¼ƒ‚ƒfƒ‹‚ð•`‰æ
 		if (m_isGorstModelNewGO)
 		{
 			m_dualGunTurret = NewGO<DualGunTurret>(0, "turret");
@@ -352,6 +354,7 @@ void TurretManager::StateManager()
 	/// </summary>
 	else if (m_turretType == enTurret_LaserTurret)
 	{
+		//‰¼ƒ‚ƒfƒ‹‚ð•`‰æ
 		if (m_isGorstModelNewGO)
 		{
 			m_laserTurret = NewGO<LaserTurret>(0, "turret");
@@ -472,6 +475,7 @@ void TurretManager::StateManager()
 	/// </summary>
 	else if (m_turretType == enTurret_RocketTurret)
 	{
+		//‰¼ƒ‚ƒfƒ‹‚ð•`‰æ
 		if (m_isGorstModelNewGO)
 		{
 			m_rocketTurret = NewGO<RocketTurret>(0, "turret");
@@ -581,7 +585,7 @@ void TurretManager::StateManager()
 		//Bƒ{ƒ^ƒ“(KƒL[)
 		if (m_leftWindow->GetOperationState() == enOperationState_SetTurret_LeftWindow && g_pad[0]->IsTrigger(enButtonB) && m_leftWindow->GetButtonReady() == true)
 		{
-			DeleteGO(m_dualGunTurret);
+			DeleteGO(m_rocketTurret);
 			m_leftWindow->SoundPlayWindow();
 			m_leftWindow->SetOperationState(enOperationState_SelectTurret_LeftWindow);
 			m_isModelNewGO = false;
@@ -592,6 +596,7 @@ void TurretManager::StateManager()
 	/// </summary>
 	else if (m_turretType == enTurret_GeneratorTurret)
 	{
+		//‰¼ƒ‚ƒfƒ‹‚ð•`‰æ
 		if (m_isGorstModelNewGO)
 		{
 			m_generatorTurret = NewGO<GeneratorTurret>(0, "turret");
@@ -701,7 +706,7 @@ void TurretManager::StateManager()
 		//Bƒ{ƒ^ƒ“(KƒL[)
 		if (m_leftWindow->GetOperationState() == enOperationState_SetTurret_LeftWindow && g_pad[0]->IsTrigger(enButtonB) && m_leftWindow->GetButtonReady() == true)
 		{
-			DeleteGO(m_dualGunTurret);
+			DeleteGO(m_generatorTurret);
 			m_leftWindow->SoundPlayWindow();
 			m_leftWindow->SetOperationState(enOperationState_SelectTurret_LeftWindow);
 			m_isModelNewGO = false;
@@ -712,6 +717,7 @@ void TurretManager::StateManager()
 	/// </summary>
 	else if (m_turretType == enTurret_HealTurret)
 	{
+		//‰¼ƒ‚ƒfƒ‹‚ð•`‰æ
 		if (m_isGorstModelNewGO)
 		{
 			m_healTurret = NewGO<HealTurret>(0, "turret");
@@ -832,6 +838,7 @@ void TurretManager::StateManager()
 	/// </summary>
 	else if (m_turretType == enTurret_TeslaTurret)
 	{
+		//‰¼ƒ‚ƒfƒ‹‚ð•`‰æ
 		if (m_isGorstModelNewGO)
 		{
 			m_teslaTurret = NewGO<TeslaTurret>(0, "turret");

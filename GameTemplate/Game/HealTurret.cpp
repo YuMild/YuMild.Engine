@@ -80,9 +80,9 @@ void HealTurret::Move()
 			//全てのタレットとの距離を取る
 			Vector3 difference = turrets->GetModelPosition() - m_modelPosition;
 			//射程内なら
-			if (difference.Length() <= 1000.0f && turrets->GetAttackReady() == true)
+			if (difference.Length() <= 1000.0f && turrets->GetAttackReady() == true && turrets != this && turrets->GetAlive() == true)
 			{
-				turrets->SetModelRotationTurnRight();
+				turrets->AddTurretHP(0.1f);
 			}
 		}
 		m_modelRotation.AddRotationDegY(2.0f);

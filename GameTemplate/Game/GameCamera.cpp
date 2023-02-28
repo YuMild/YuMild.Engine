@@ -90,7 +90,7 @@ void GameCamera::Update()
 				m_cameraPosition_X -= 25.0f;
 			}
 			//Y
-			if (m_cameraPosition_Y < CAMERAPOSITION_NORMAL_Y)
+			if (m_cameraPosition_Y + 100.0f < CAMERAPOSITION_NORMAL_Y)
 			{
 				m_cameraPosition_Y += 200.0f;
 			}
@@ -135,7 +135,7 @@ void GameCamera::Update()
 				m_cameraPosition_X -= 25.0f;
 			}
 			//Y
-			if (m_cameraPosition_Y < CAMERAPOSITION_SETTURRET_Y)
+			if (m_cameraPosition_Y + 100.0f < CAMERAPOSITION_SETTURRET_Y)
 			{
 				m_cameraPosition_Y += 200.0f;
 			}
@@ -186,7 +186,7 @@ void GameCamera::Update()
 				m_cameraPosition_X -= 25.0f;
 			}
 			//Y
-			if (m_cameraPosition_Y < CAMERAPOSITION_SPACESHIP_Y)
+			if (m_cameraPosition_Y + 100.0f < CAMERAPOSITION_SPACESHIP_Y)
 			{
 				m_cameraPosition_Y += 5.0f;
 			}

@@ -19,7 +19,7 @@ namespace
 	const float CAMERAPOSITION_SETTURRET_Y	= 5500.0f;
 	const float CAMERAPOSITION_SETTURRET_Z	= 1000.0f;
 	const float CAMERAPOSITION_SPACESHIP_X	= 0.0f;
-	const float CAMERAPOSITION_SPACESHIP_Y	= 900.0f;
+	const float CAMERAPOSITION_SPACESHIP_Y	= 800.0f;
 	const float CAMERAPOSITION_SPACESHIP_Z	= 1500.0f;
 }
 
@@ -186,7 +186,7 @@ void GameCamera::Update()
 				m_cameraPosition_X -= 25.0f;
 			}
 			//Y
-			if (m_cameraPosition_Y + 100.0f < CAMERAPOSITION_SPACESHIP_Y)
+			if (m_cameraPosition_Y < CAMERAPOSITION_SPACESHIP_Y)
 			{
 				m_cameraPosition_Y += 5.0f;
 			}

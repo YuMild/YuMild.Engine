@@ -11,17 +11,18 @@
 namespace
 {
 	//モデルの初期値
-	Vector3 DEFAULT_POSITION		= { 0.0f,800.0f,-8000.0f };
-	float	DEFAULT_SCALE			= 2.8f;
-	Vector3 DEFAULT_TARGET			= { 0.0f,800.0f,-0.0f };
+	const Vector3	DEFAULT_POSITION		= { 0.0f,800.0f,-8000.0f };
+	const float		DEFAULT_SCALE			= 2.8f;
+	const Vector3	DEFAULT_TARGET			= { 0.0f,800.0f,-0.0f };
 
 	//パラメーター
-	float DEFAULT_MOVE_SPEED		= 3.0f;
-	float DEFAULT_ROTATION_SPEED	= 1.5f;
+	const float		DEFAULT_MOVE_SPEED		= 3.0f;
+	const float		DEFAULT_ROTATION_SPEED	= 1.5f;
 }
 
 SpaceShip::~SpaceShip()
 {
+	m_alive = false;
 	m_gameCamera->SetCameraState(enCameraState_Normal);
 	m_stage->SetNormalBGM();
 }
@@ -35,6 +36,7 @@ bool SpaceShip::Start()
 	m_spawnManager	= FindGO<SpawnManager>("spawnManager");
 	m_turretManager = FindGO<TurretManager>("turretManager");
 
+	m_alive = true;
 	m_position = DEFAULT_POSITION;
 
 	//モデル
@@ -48,7 +50,7 @@ bool SpaceShip::Start()
 	//HP
 	m_hp = m_spawnManager->GetDefaultHP_SpaceShip();
 	m_maxHp = m_spawnManager->GetDefaultHP_SpaceShip();
-	m_hpBarSR.Init("Assets/Sprite/Enemy/EnemyHP.dds", 300.0f, 300.0f);
+	m_hpBarSR.Init("Assets/Sprite/Enemy/EnemyHP.dds", 300.0f, 50.0f);
 
 	//ボス用の視点に変更
 	m_gameCamera->SetCameraState(enCameraState_SpaceShip);

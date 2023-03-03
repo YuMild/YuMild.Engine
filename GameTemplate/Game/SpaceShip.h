@@ -34,9 +34,18 @@ public:
 	/// HP‚ğæ“¾
 	/// </summary>
 	/// <returns></returns>
-	const float& GetDefaultHP()override
+	const float& GetDefaultHP() const override
 	{
 		return m_hp;
+	}
+
+	/// <summary>
+	/// ó‘Ô‚ğæ“¾
+	/// </summary>
+	/// <returns></returns>
+	const float& GetAlive()
+	{
+		return m_alive;
 	}
 
 	/// <summary>
@@ -126,6 +135,7 @@ private:
 	Vector2						m_hpBarPosition		= Vector2::Zero;
 
 	//ó‘Ô
+	bool						m_alive				= false;
 	float						m_slowTimer			= 0.0f;
 	float						m_bindTimer			= 0.0f;
 

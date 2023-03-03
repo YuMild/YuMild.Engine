@@ -1,5 +1,6 @@
 #pragma once
 
+#include "EnemyObject.h"
 #include "TurretObject.h"
 
 class Energy;
@@ -178,6 +179,7 @@ private:
 	SpaceShip*					m_spaceShip						= nullptr;
 	TurretManager*				m_turretManager					= nullptr;
 	std::vector<TurretObject*>	m_turrets;
+	std::vector<EnemyObject*>	m_enemys;
 
 	//âπê∫
 	SoundSource*				m_windowSE						= nullptr;

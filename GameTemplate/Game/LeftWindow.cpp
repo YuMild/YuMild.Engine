@@ -183,16 +183,8 @@ void LeftWindow::OperationNormal()
 	//選択位置をデフォルトに設定
 	m_selectTurretNumber = 0;
 
-	m_spaceShip = FindGO<SpaceShip>("spaceShip");
 	//カメラ
-	if (m_spaceShip != nullptr)
-	{
-		m_gameCamera->SetCameraState(enCameraState_SpaceShip);
-	}
-	else
-	{
-		m_gameCamera->SetCameraState(enCameraState_Normal);
-	}
+	m_gameCamera->SetCameraState(enCameraState_Normal);
 
 	/// <summary>
 	/// ウィンドウを左にスライド

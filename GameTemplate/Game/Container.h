@@ -44,7 +44,7 @@ private:
 	//サウンド
 	SoundSource*	m_containerDoorSE		= nullptr;
 	SoundSource*	m_containerShipMoveSE	= nullptr;
-	float			m_soundSize = 0.0f;
+	float			m_soundSize				= 0.0f;
 
 	//モデル動作
 	Vector3			m_modelPosition			= Vector3::Zero;

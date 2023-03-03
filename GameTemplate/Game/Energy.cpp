@@ -7,7 +7,7 @@
 namespace
 {
     //ゲームスタート時の初期エネルギー量
-    const float FIRST_ENERGY = 500.0f;
+    const float FIRST_ENERGY = 5000.0f;
 
     //デフォルトの生産効率
     const float DEFAULT_ENERGY_EFFICIENCY = 10.0f;
@@ -97,4 +97,12 @@ void Energy::Render(RenderContext& renderContext)
 
     //フォント
     m_fontRender.Draw(renderContext);
+}
+
+void Energy::SoundPlayNotEnoughCost()
+{
+    m_notEnoughCost = NewGO<SoundSource>(0);
+    m_notEnoughCost->Init(enSoundNumber_NotEnoughCost);
+    m_notEnoughCost->SetVolume(0.05f);
+    m_notEnoughCost->Play(false);
 }

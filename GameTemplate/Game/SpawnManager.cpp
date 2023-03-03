@@ -6,18 +6,18 @@
 namespace
 {
 	//HP
-	const float DEFAULT_HP_UFO					= 100.0f;
-	const float DEFAULT_HP_DEMPA				= 100.0f;
-	const float DEFAULT_HP_SPACESHIP			= 5000.0f;
+	const float DEFAULT_HP_UFO					= 200.0f;
+	const float DEFAULT_HP_MISSILE				= 300.0f;
+	const float DEFAULT_HP_SPACESHIP			= 20000.0f;
 	
 	//スポーンタイマー
 	const float DEFAULT_SPAWNTIME_UFO			= 3.0f;
-	const float DEFAULT_SPAWNTIME_DEMPA			= 10.0f;
+	const float DEFAULT_SPAWNTIME_MISSILE		= 10.0f;
 	const float DEFAULT_SPAWNTIME_SPACESHIP		= 120.0f;
 
 	//初スポーンまでの時間
 	const float DELAY_UFO						= 0.0f;
-	const float DELAY_DEMPA						= 0.0f;
+	const float DELAY_MISSILE					= 0.0f;
 	const float DELAY_SPACESHIP					= 0.0f;
 
 	//レベルアップ
@@ -49,12 +49,12 @@ bool SpawnManager::Start()
 
 	//HP
 	m_defaultHP_UFO = DEFAULT_HP_UFO;
-	m_defaultHP_Missile = DEFAULT_HP_DEMPA;
+	m_defaultHP_Missile = DEFAULT_HP_MISSILE;
 	m_defaultHP_SpaceShip = DEFAULT_HP_SPACESHIP;
 
 	//ディレイ
 	m_spawnTimer_UFO = -DELAY_UFO;
-	m_spawnTimer_Missile = -DELAY_DEMPA;
+	m_spawnTimer_Missile = -DELAY_MISSILE;
 	m_spawnTimer_SpaceShip = -DELAY_SPACESHIP;
 
 	return true;
@@ -67,11 +67,11 @@ void SpawnManager::LevelUp()
 	//レベルアップ
 	if (m_levelTimer > LEVELUP_TIME)
 	{
-		if (m_defaultHP_UFO < 2000.0f)
+		if (m_defaultHP_UFO < 10000.0f)
 		{
 			m_defaultHP_UFO *= 1.1f;
 		}
-		if (m_defaultHP_Missile < 1000.0f)
+		if (m_defaultHP_Missile < 5000.0f)
 		{
 			m_defaultHP_Missile *= 1.1f;
 		}
@@ -96,7 +96,7 @@ void SpawnManager::SpawnMissile()
 	m_spawnTimer_Missile += g_gameTime->GetFrameDeltaTime();
 
 	//Dempaのスポーン
-	if (m_spawnTimer_Missile >= DEFAULT_SPAWNTIME_DEMPA)
+	if (m_spawnTimer_Missile >= DEFAULT_SPAWNTIME_MISSILE)
 	{
 		m_missile = NewGO<Missile>(0, "normal");
 		m_spawnTimer_Missile = 0.0f;

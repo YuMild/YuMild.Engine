@@ -29,7 +29,7 @@ public:
 	/// エネルギーを設定
 	/// </summary>
 	/// <param name="setEnergy"></param>
-	const void SetEnergy(const float setEnergy)
+	void SetEnergy(const float setEnergy)
 	{
 		m_energy = setEnergy;
 	}
@@ -38,7 +38,7 @@ public:
 	/// エネルギーを取得
 	/// </summary>
 	/// <param name="setEnergy"></param>
-	const float& GetEnergy() const
+	float& GetEnergy()
 	{
 		return m_energy;
 	}
@@ -48,7 +48,7 @@ public:
 	/// </summary>
 	/// <param name="addEnergy"></param>
 	/// <returns></returns>
-	const void AddEnergy(const float addEnergy)
+	void AddEnergy(const float addEnergy)
 	{
 		m_energy += addEnergy;
 	}
@@ -58,7 +58,7 @@ public:
 	/// </summary>
 	/// <param name="subEnergy"></param>
 	/// <returns></returns>
-	const void SubEnergy(const float subEnergy)
+	void SubEnergy(const float subEnergy)
 	{
 		m_energy -= subEnergy;
 	}
@@ -66,7 +66,7 @@ public:
 	/// <summary>
 	/// ジェネレーションタレットの数を加算
 	/// </summary>
-	const void AddGenerationTurret()
+	void AddGenerationTurret()
 	{
 		m_generatorTurret += 1;
 	}
@@ -74,7 +74,7 @@ public:
 	/// <summary>
 	/// ジェネレーションタレットの数を減算
 	/// </summary>
-	const void SubGenerationTurret()
+	void SubGenerationTurret()
 	{
 		m_generatorTurret -= 1;
 	}
@@ -82,13 +82,7 @@ public:
 	/// <summary>
 	/// コスト不足時の音声を再生
 	/// </summary>
-	const void SoundPlayNotEnoughCost()
-	{
-		m_notEnoughCost = NewGO<SoundSource>(0);
-		m_notEnoughCost->Init(7);
-		m_notEnoughCost->SetVolume(0.05f);
-		m_notEnoughCost->Play(false);
-	}
+	void SoundPlayNotEnoughCost();
 
 private:
 

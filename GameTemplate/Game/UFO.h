@@ -33,7 +33,7 @@ public:
 	/// HP‚ğæ“¾
 	/// </summary>
 	/// <returns></returns>
-	const float& GetDefaultHP()override
+	const float& GetDefaultHP() const override
 	{
 		return m_hp;
 	}

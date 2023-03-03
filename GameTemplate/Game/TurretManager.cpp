@@ -83,8 +83,6 @@ bool TurretManager::Start()
 		m_leftWindowDelete[i]->SetPosition(m_deleteSpritePosition[m_turretsSum]);
 	}
 
-	//エフェクトの作成
-
 	//音声の作成
 	g_soundEngine->ResistWaveFileBank(enSoundNumber_SetTurret, "Assets/sound/SetTurret.wav");
 

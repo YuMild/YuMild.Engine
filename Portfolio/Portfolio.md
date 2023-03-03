@@ -103,5 +103,5 @@
 ![5.0](Emission_2.png)
   **20.0（過度に強くした強度）**  
 ![20.0](Emission_3.png)
-  
+  aaa
 **PlanetBreakerの紹介は以上です。**

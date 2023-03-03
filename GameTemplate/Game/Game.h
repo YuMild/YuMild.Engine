@@ -19,7 +19,8 @@ enum enGameState
 	enGameState_Title,
 	enGameState_Container,
 	enGameState_InGame,
-	enGameState_GameOver
+	enGameState_GameOver,
+	enGameState_Result
 };
 
 enum enEffectNumber

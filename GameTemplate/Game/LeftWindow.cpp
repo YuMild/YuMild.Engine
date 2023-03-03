@@ -254,7 +254,7 @@ void LeftWindow::OperationSelectTurret()
 	/// <summary>
 	/// ƒ^ƒŒƒbƒg‚Ìì¬
 	/// </summary>
-	if (g_pad[0]->IsTrigger(enButtonA) && m_operationState == enOperationState_SelectTurret_LeftWindow && GetButtonReady() == true)
+	if (g_pad[0]->IsTrigger(enButtonB) && m_operationState == enOperationState_SelectTurret_LeftWindow && GetButtonReady() == true)
 	{
 		SetButtonDelay();
 

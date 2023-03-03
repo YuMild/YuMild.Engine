@@ -54,7 +54,7 @@ bool Game::Start()
 void Game::Move()
 {
 	//ゲームオーバー
-	if (m_state == enGameState_GameOver && g_pad[0]->IsTrigger(enButtonA))
+	if (m_state == enGameState_Result && g_pad[0]->IsTrigger(enButtonB))
 	{
 		m_title = NewGO<Title>(0, "title");
 		DeleteGO(this);

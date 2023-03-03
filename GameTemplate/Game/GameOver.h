@@ -2,6 +2,13 @@
 
 class Game;
 
+enum enGameOverState
+{
+	enGameOverState_BackGround,
+	enGameOverState_GameOver,
+	enGameOverState_PressAButton
+};
+
 /// <summary>
 /// ゲームオーバー
 /// </summary>

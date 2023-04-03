@@ -9,7 +9,7 @@
 namespace
 {
 	//モデルの初期値
-	Vector3		DEFAULT_POSITION		= { 0.0f,300.0f,-9500.0f };
+	Vector3		DEFAULT_POSITION		= { 0.0f,500.0f,-9500.0f };
 	float		DEFAULT_SCALE			= 0.8f;
 
 	//パラメーター

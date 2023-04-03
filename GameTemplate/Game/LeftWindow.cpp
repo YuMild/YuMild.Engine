@@ -207,6 +207,15 @@ void LeftWindow::OperationNormal()
 void LeftWindow::OperationSelectTurret()
 {
 	/// <summary>
+	/// 操作モードを変更
+	/// </summary>
+	if (g_pad[0]->IsTrigger(enButtonB))
+	{
+		m_operationState = enOperationState_Normal_LeftWindow;
+		SoundPlayWindow();
+	}
+
+	/// <summary>
 	/// ウィンドウを右にスライド
 	/// </summary>
 	if (m_moveNumber <= LEFTWINDOW_MOVE_X_LIMIT)
@@ -246,7 +255,7 @@ void LeftWindow::OperationSelectTurret()
 	/// <summary>
 	/// タレットの作成
 	/// </summary>
-	if (g_pad[0]->IsTrigger(enButtonB) && m_operationState == enOperationState_SelectTurret_LeftWindow && GetButtonReady() == true)
+	if (g_pad[0]->IsTrigger(enButtonA) && m_operationState == enOperationState_SelectTurret_LeftWindow && GetButtonReady() == true)
 	{
 		SetButtonDelay();
 
@@ -379,6 +388,15 @@ void LeftWindow::OperationSetTurret()
 
 void LeftWindow::OperationDelete()
 {
+	/// <summary>
+	/// 操作モードを変更
+	/// </summary>
+	if (g_pad[0]->IsTrigger(enButtonB))
+	{
+		m_operationState = enOperationState_Normal_LeftWindow;
+		SoundPlayWindow();
+	}
+
 	//UIアニメーションの動作
 	//徐々に下に
 	m_choiceEffectPosition.y -= 1.0f;
@@ -433,44 +451,44 @@ void LeftWindow::SetParameterBar()
 	switch (m_selectTurretNumber)
 	{
 	case enTurret_NormalTurret:
-		m_rangeNumber = 0.25f;
-		m_damageNumber = 0.2f;
-		m_fireRateNumber = 0.25f;
+		m_damageNumber = 0.1f;
+		m_fireRateNumber = 0.2f;
+		m_rangeNumber = 0.7f;
 		break;
 	case enTurret_DualGunTurret:
+		m_damageNumber = 0.2f;
+		m_fireRateNumber = 0.7f;
 		m_rangeNumber = 0.25f;
-		m_damageNumber = 0.1f;
-		m_fireRateNumber = 1.0f;
 		break;
 	case enTurret_LaserTurret:
-		m_rangeNumber = 1.0f;
-		m_damageNumber = 0.5f;
-		m_fireRateNumber = 0.25f;
+		m_damageNumber = 0.7f;
+		m_fireRateNumber = 0.1f;
+		m_rangeNumber = 0.2f;
 		break;
 	case enTurret_RocketTurret:
-		m_rangeNumber = 0.75f;
-		m_damageNumber = 0.75f;
-		m_fireRateNumber = 0.1f;
+		m_damageNumber = 0.7f;
+		m_fireRateNumber = 0.7f;
+		m_rangeNumber = 0.1f;
 		break;
 	case enTurret_GeneratorTurret:
-		m_rangeNumber = 0.0f;
 		m_damageNumber = 0.0f;
 		m_fireRateNumber = 0.0f;
+		m_rangeNumber = 0.0f;
 		break;
 	case enTurret_HealTurret:
-		m_rangeNumber = 0.25f;
 		m_damageNumber = 0.0f;
 		m_fireRateNumber = 0.0f;
+		m_rangeNumber = 0.25f;
 		break;
 	case enTurret_TeslaTurret:
-		m_rangeNumber = 0.75f;
-		m_damageNumber = 0.75f;
+		m_damageNumber = 1.0f;
 		m_fireRateNumber = 0.1f;
+		m_rangeNumber = 0.7f;
 		break;
 	case enTurret_HolyTurret:
-		m_rangeNumber = 1.0f;
 		m_damageNumber = 0.0f;
-		m_fireRateNumber = 0.05f;
+		m_fireRateNumber = 0.1f;
+		m_rangeNumber = 1.0f;
 		break;
 	default:
 		break;
@@ -478,29 +496,29 @@ void LeftWindow::SetParameterBar()
 
 	//パラメーターバーの動作
 	//Range
-	if (m_rangeSetNumber < m_rangeNumber)
+	if (m_rangeSetNumber < m_damageNumber)
 	{
 		m_rangeSetNumber += PARAMETER_MOVE_SPEED;
 	}
-	if (m_rangeSetNumber > m_rangeNumber)
+	if (m_rangeSetNumber > m_damageNumber)
 	{
 		m_rangeSetNumber -= PARAMETER_MOVE_SPEED;
 	}
 	//Damage
-	if (m_damageSetNumber < m_damageNumber)
+	if (m_damageSetNumber < m_fireRateNumber)
 	{
 		m_damageSetNumber += PARAMETER_MOVE_SPEED;
 	}
-	if (m_damageSetNumber > m_damageNumber)
+	if (m_damageSetNumber > m_fireRateNumber)
 	{
 		m_damageSetNumber -= PARAMETER_MOVE_SPEED;
 	}
 	//FireRate
-	if (m_fireRateSetNumber < m_fireRateNumber)
+	if (m_fireRateSetNumber < m_rangeNumber)
 	{
 		m_fireRateSetNumber += PARAMETER_MOVE_SPEED;
 	}
-	if (m_fireRateSetNumber > m_fireRateNumber)
+	if (m_fireRateSetNumber > m_rangeNumber)
 	{
 		m_fireRateSetNumber -= PARAMETER_MOVE_SPEED;
 	}

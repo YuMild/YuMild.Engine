@@ -9,7 +9,7 @@ namespace
 {
 	const float	MAX_HP				= 100.0f;
 	const float FIRERATE			= 0.5f;
-	const float ATTACKPOWER			= 50.0f;
+	const float ATTACKPOWER			= 70.0f;
 	const float ATTACKRANGE			= 2000.0f;
 	const float EFFECTSIZE_SMOKE	= 50.0f;
 }

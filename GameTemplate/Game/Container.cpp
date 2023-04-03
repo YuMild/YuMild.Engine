@@ -100,7 +100,7 @@ void Container::Move()
 	if (difference.Length() >= 10.0f)
 	{
 		//スキップ
-		if (g_pad[0]->IsTrigger(enButtonB))
+		if (g_pad[0]->IsTrigger(enButtonA))
 		{
 			//モデルを移動
 			m_modelPosition = { -0.0f,2700.0f,-9500.0f };

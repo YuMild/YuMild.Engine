@@ -53,7 +53,7 @@ bool SpaceShip::Start()
 	m_hpBarSR.Init("Assets/Sprite/Enemy/EnemyHP.dds", 300.0f, 50.0f);
 
 	//ボス用の視点に変更
-	m_gameCamera->SetCameraState(enCameraState_SpaceShip);
+	//m_gameCamera->SetCameraState(enCameraState_SpaceShip);
 	m_stage->SetBossBGM();
 
 	return true;

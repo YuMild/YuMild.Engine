@@ -191,7 +191,7 @@ void TurretManager::StateManager()
 		}
 
 		//Rボタン(Lキー)
-		if (g_pad[0]->IsTrigger(enButtonRB2))
+		if (g_pad[0]->IsTrigger(enButtonRB1))
 		{
 			m_normalTurret->SetModelRotationTurnRight();
 			m_rotation += 180.0f;
@@ -199,7 +199,7 @@ void TurretManager::StateManager()
 		}
 
 		//Lボタン(Iキー)
-		if (g_pad[0]->IsTrigger(enButtonLB2))
+		if (g_pad[0]->IsTrigger(enButtonLB1))
 		{
 			m_normalTurret->SetModelRotationTurnLeft();
 			m_rotation -= 180.0f;
@@ -207,7 +207,7 @@ void TurretManager::StateManager()
 		}
 
 		//Aボタン(Jキー)
-		if (m_leftWindow->GetOperationState() == enOperationState_SetTurret_LeftWindow && g_pad[0]->IsTrigger(enButtonB) && m_leftWindow->GetButtonReady() == true)
+		if (m_leftWindow->GetOperationState() == enOperationState_SetTurret_LeftWindow && g_pad[0]->IsTrigger(enButtonA) && m_leftWindow->GetButtonReady() == true)
 		{
 			m_leftWindow->SetButtonDelay();
 			DeleteGO(m_normalTurret);
@@ -218,7 +218,7 @@ void TurretManager::StateManager()
 		}
 
 		//Bボタン(Kキー)
-		if (m_leftWindow->GetOperationState() == enOperationState_SetTurret_LeftWindow && g_pad[0]->IsTrigger(enButtonA) && m_leftWindow->GetButtonReady() == true)
+		if (m_leftWindow->GetOperationState() == enOperationState_SetTurret_LeftWindow && g_pad[0]->IsTrigger(enButtonB) && m_leftWindow->GetButtonReady() == true)
 		{
 			DeleteGO(m_normalTurret);
 			m_leftWindow->SoundPlayWindow();
@@ -312,7 +312,7 @@ void TurretManager::StateManager()
 		}
 
 		//Rボタン(Lキー)
-		if (g_pad[0]->IsTrigger(enButtonRB2))
+		if (g_pad[0]->IsTrigger(enButtonRB1))
 		{
 			m_dualGunTurret->SetModelRotationTurnRight();
 			m_rotation += 180.0f;
@@ -320,7 +320,7 @@ void TurretManager::StateManager()
 		}
 
 		//Lボタン(Iキー)
-		if (g_pad[0]->IsTrigger(enButtonLB2))
+		if (g_pad[0]->IsTrigger(enButtonLB1))
 		{
 			m_dualGunTurret->SetModelRotationTurnLeft();
 			m_rotation -= 180.0f;
@@ -328,7 +328,7 @@ void TurretManager::StateManager()
 		}
 
 		//Aボタン(Jキー)
-		if (m_leftWindow->GetOperationState() == enOperationState_SetTurret_LeftWindow && g_pad[0]->IsTrigger(enButtonB) && m_leftWindow->GetButtonReady() == true)
+		if (m_leftWindow->GetOperationState() == enOperationState_SetTurret_LeftWindow && g_pad[0]->IsTrigger(enButtonA) && m_leftWindow->GetButtonReady() == true)
 		{
 			m_leftWindow->SetButtonDelay();
 			DeleteGO(m_dualGunTurret);
@@ -339,7 +339,7 @@ void TurretManager::StateManager()
 		}
 
 		//Bボタン(Kキー)
-		if (m_leftWindow->GetOperationState() == enOperationState_SetTurret_LeftWindow && g_pad[0]->IsTrigger(enButtonA) && m_leftWindow->GetButtonReady() == true)
+		if (m_leftWindow->GetOperationState() == enOperationState_SetTurret_LeftWindow && g_pad[0]->IsTrigger(enButtonB) && m_leftWindow->GetButtonReady() == true)
 		{
 			DeleteGO(m_dualGunTurret);
 			m_leftWindow->SoundPlayWindow();
@@ -433,7 +433,7 @@ void TurretManager::StateManager()
 		}
 
 		//Rボタン(Lキー)
-		if (g_pad[0]->IsTrigger(enButtonRB3))
+		if (g_pad[0]->IsTrigger(enButtonRB1))
 		{
 			m_laserTurret->SetModelRotationTurnRight();
 			m_rotation += 180.0f;
@@ -441,7 +441,7 @@ void TurretManager::StateManager()
 		}
 
 		//Lボタン(Iキー)
-		if (g_pad[0]->IsTrigger(enButtonLB3))
+		if (g_pad[0]->IsTrigger(enButtonLB1))
 		{
 			m_laserTurret->SetModelRotationTurnLeft();
 			m_rotation -= 180.0f;
@@ -449,7 +449,7 @@ void TurretManager::StateManager()
 		}
 
 		//Aボタン(Jキー)
-		if (m_leftWindow->GetOperationState() == enOperationState_SetTurret_LeftWindow && g_pad[0]->IsTrigger(enButtonB) && m_leftWindow->GetButtonReady() == true)
+		if (m_leftWindow->GetOperationState() == enOperationState_SetTurret_LeftWindow && g_pad[0]->IsTrigger(enButtonA) && m_leftWindow->GetButtonReady() == true)
 		{
 			m_leftWindow->SetButtonDelay();
 			DeleteGO(m_laserTurret);
@@ -460,7 +460,7 @@ void TurretManager::StateManager()
 		}
 
 		//Bボタン(Kキー)
-		if (m_leftWindow->GetOperationState() == enOperationState_SetTurret_LeftWindow && g_pad[0]->IsTrigger(enButtonA) && m_leftWindow->GetButtonReady() == true)
+		if (m_leftWindow->GetOperationState() == enOperationState_SetTurret_LeftWindow && g_pad[0]->IsTrigger(enButtonB) && m_leftWindow->GetButtonReady() == true)
 		{
 			DeleteGO(m_laserTurret);
 			m_leftWindow->SoundPlayWindow();
@@ -554,7 +554,7 @@ void TurretManager::StateManager()
 		}
 
 		//Rボタン(Lキー)
-		if (g_pad[0]->IsTrigger(enButtonRB2))
+		if (g_pad[0]->IsTrigger(enButtonRB1))
 		{
 			m_rocketTurret->SetModelRotationTurnRight();
 			m_rotation += 180.0f;
@@ -562,7 +562,7 @@ void TurretManager::StateManager()
 		}
 
 		//Lボタン(Iキー)
-		if (g_pad[0]->IsTrigger(enButtonLB2))
+		if (g_pad[0]->IsTrigger(enButtonLB1))
 		{
 			m_rocketTurret->SetModelRotationTurnLeft();
 			m_rotation -= 180.0f;
@@ -570,7 +570,7 @@ void TurretManager::StateManager()
 		}
 
 		//Aボタン(Jキー)
-		if (m_leftWindow->GetOperationState() == enOperationState_SetTurret_LeftWindow && g_pad[0]->IsTrigger(enButtonB) && m_leftWindow->GetButtonReady() == true)
+		if (m_leftWindow->GetOperationState() == enOperationState_SetTurret_LeftWindow && g_pad[0]->IsTrigger(enButtonA) && m_leftWindow->GetButtonReady() == true)
 		{
 			m_leftWindow->SetButtonDelay();
 			DeleteGO(m_rocketTurret);
@@ -581,7 +581,7 @@ void TurretManager::StateManager()
 		}
 
 		//Bボタン(Kキー)
-		if (m_leftWindow->GetOperationState() == enOperationState_SetTurret_LeftWindow && g_pad[0]->IsTrigger(enButtonA) && m_leftWindow->GetButtonReady() == true)
+		if (m_leftWindow->GetOperationState() == enOperationState_SetTurret_LeftWindow && g_pad[0]->IsTrigger(enButtonB) && m_leftWindow->GetButtonReady() == true)
 		{
 			DeleteGO(m_rocketTurret);
 			m_leftWindow->SoundPlayWindow();
@@ -675,7 +675,7 @@ void TurretManager::StateManager()
 		}
 
 		//Rボタン(Lキー)
-		if (g_pad[0]->IsTrigger(enButtonRB2))
+		if (g_pad[0]->IsTrigger(enButtonRB1))
 		{
 			m_generatorTurret->SetModelRotationTurnRight();
 			m_rotation += 180.0f;
@@ -683,7 +683,7 @@ void TurretManager::StateManager()
 		}
 
 		//Lボタン(Iキー)
-		if (g_pad[0]->IsTrigger(enButtonLB2))
+		if (g_pad[0]->IsTrigger(enButtonLB1))
 		{
 			m_generatorTurret->SetModelRotationTurnLeft();
 			m_rotation -= 180.0f;
@@ -691,7 +691,7 @@ void TurretManager::StateManager()
 		}
 
 		//Aボタン(Jキー)
-		if (m_leftWindow->GetOperationState() == enOperationState_SetTurret_LeftWindow && g_pad[0]->IsTrigger(enButtonB) && m_leftWindow->GetButtonReady() == true)
+		if (m_leftWindow->GetOperationState() == enOperationState_SetTurret_LeftWindow && g_pad[0]->IsTrigger(enButtonA) && m_leftWindow->GetButtonReady() == true)
 		{
 			m_leftWindow->SetButtonDelay();
 			DeleteGO(m_generatorTurret);
@@ -702,7 +702,7 @@ void TurretManager::StateManager()
 		}
 
 		//Bボタン(Kキー)
-		if (m_leftWindow->GetOperationState() == enOperationState_SetTurret_LeftWindow && g_pad[0]->IsTrigger(enButtonA) && m_leftWindow->GetButtonReady() == true)
+		if (m_leftWindow->GetOperationState() == enOperationState_SetTurret_LeftWindow && g_pad[0]->IsTrigger(enButtonB) && m_leftWindow->GetButtonReady() == true)
 		{
 			DeleteGO(m_generatorTurret);
 			m_leftWindow->SoundPlayWindow();
@@ -796,7 +796,7 @@ void TurretManager::StateManager()
 		}
 
 		//Rボタン(Lキー)
-		if (g_pad[0]->IsTrigger(enButtonRB2))
+		if (g_pad[0]->IsTrigger(enButtonRB1))
 		{
 			m_healTurret->SetModelRotationTurnRight();
 			m_rotation += 180.0f;
@@ -804,7 +804,7 @@ void TurretManager::StateManager()
 		}
 
 		//Lボタン(Iキー)
-		if (g_pad[0]->IsTrigger(enButtonLB2))
+		if (g_pad[0]->IsTrigger(enButtonLB1))
 		{
 			m_healTurret->SetModelRotationTurnLeft();
 			m_rotation -= 180.0f;
@@ -812,7 +812,7 @@ void TurretManager::StateManager()
 		}
 
 		//Aボタン(Jキー)
-		if (m_leftWindow->GetOperationState() == enOperationState_SetTurret_LeftWindow && g_pad[0]->IsTrigger(enButtonB) && m_leftWindow->GetButtonReady() == true)
+		if (m_leftWindow->GetOperationState() == enOperationState_SetTurret_LeftWindow && g_pad[0]->IsTrigger(enButtonA) && m_leftWindow->GetButtonReady() == true)
 		{
 			m_leftWindow->SetButtonDelay();
 			DeleteGO(m_healTurret);
@@ -823,7 +823,7 @@ void TurretManager::StateManager()
 		}
 
 		//Bボタン(Kキー)
-		if (m_leftWindow->GetOperationState() == enOperationState_SetTurret_LeftWindow && g_pad[0]->IsTrigger(enButtonA) && m_leftWindow->GetButtonReady() == true)
+		if (m_leftWindow->GetOperationState() == enOperationState_SetTurret_LeftWindow && g_pad[0]->IsTrigger(enButtonB) && m_leftWindow->GetButtonReady() == true)
 		{
 			DeleteGO(m_healTurret);
 			m_leftWindow->SoundPlayWindow();
@@ -917,7 +917,7 @@ void TurretManager::StateManager()
 		}
 
 		//Rボタン(Lキー)
-		if (g_pad[0]->IsTrigger(enButtonRB2))
+		if (g_pad[0]->IsTrigger(enButtonRB1))
 		{
 			m_teslaTurret->SetModelRotationTurnRight();
 			m_rotation += 180.0f;
@@ -925,7 +925,7 @@ void TurretManager::StateManager()
 		}
 
 		//Lボタン(Iキー)
-		if (g_pad[0]->IsTrigger(enButtonLB2))
+		if (g_pad[0]->IsTrigger(enButtonLB1))
 		{
 			m_teslaTurret->SetModelRotationTurnLeft();
 			m_rotation -= 180.0f;
@@ -933,7 +933,7 @@ void TurretManager::StateManager()
 		}
 
 		//Aボタン(Jキー)
-		if (m_leftWindow->GetOperationState() == enOperationState_SetTurret_LeftWindow && g_pad[0]->IsTrigger(enButtonB) && m_leftWindow->GetButtonReady() == true)
+		if (m_leftWindow->GetOperationState() == enOperationState_SetTurret_LeftWindow && g_pad[0]->IsTrigger(enButtonA) && m_leftWindow->GetButtonReady() == true)
 		{
 			m_leftWindow->SetButtonDelay();
 			DeleteGO(m_teslaTurret);
@@ -944,7 +944,7 @@ void TurretManager::StateManager()
 		}
 
 		//Bボタン(Kキー)
-		if (m_leftWindow->GetOperationState() == enOperationState_SetTurret_LeftWindow && g_pad[0]->IsTrigger(enButtonA) && m_leftWindow->GetButtonReady() == true)
+		if (m_leftWindow->GetOperationState() == enOperationState_SetTurret_LeftWindow && g_pad[0]->IsTrigger(enButtonB) && m_leftWindow->GetButtonReady() == true)
 		{
 			DeleteGO(m_teslaTurret);
 			m_leftWindow->SoundPlayWindow();
@@ -1037,7 +1037,7 @@ void TurretManager::StateManager()
 		}
 
 		//Rボタン(Lキー)
-		if (g_pad[0]->IsTrigger(enButtonRB2))
+		if (g_pad[0]->IsTrigger(enButtonRB1))
 		{
 			m_holyTurret->SetModelRotationTurnRight();
 			m_rotation += 180.0f;
@@ -1045,7 +1045,7 @@ void TurretManager::StateManager()
 		}
 
 		//Lボタン(Iキー)
-		if (g_pad[0]->IsTrigger(enButtonLB2))
+		if (g_pad[0]->IsTrigger(enButtonLB1))
 		{
 			m_holyTurret->SetModelRotationTurnLeft();
 			m_rotation -= 180.0f;
@@ -1053,7 +1053,7 @@ void TurretManager::StateManager()
 		}
 
 		//Aボタン(Jキー)
-		if (m_leftWindow->GetOperationState() == enOperationState_SetTurret_LeftWindow && g_pad[0]->IsTrigger(enButtonB) && m_leftWindow->GetButtonReady() == true)
+		if (m_leftWindow->GetOperationState() == enOperationState_SetTurret_LeftWindow && g_pad[0]->IsTrigger(enButtonA) && m_leftWindow->GetButtonReady() == true)
 		{
 			m_leftWindow->SetButtonDelay();
 			DeleteGO(m_holyTurret);
@@ -1064,7 +1064,7 @@ void TurretManager::StateManager()
 		}
 
 		//Bボタン(Kキー)
-		if (m_leftWindow->GetOperationState() == enOperationState_SetTurret_LeftWindow && g_pad[0]->IsTrigger(enButtonA) && m_leftWindow->GetButtonReady() == true)
+		if (m_leftWindow->GetOperationState() == enOperationState_SetTurret_LeftWindow && g_pad[0]->IsTrigger(enButtonB) && m_leftWindow->GetButtonReady() == true)
 		{
 			DeleteGO(m_holyTurret);
 			m_leftWindow->SoundPlayWindow();
@@ -1090,7 +1090,7 @@ void TurretManager::DeleteTurret()
 	}
 	
 	//タレットが存在している箇所を選択している状態でSelect
-	if (m_leftWindow->GetOperationState() == enOperationState_Delete_LeftWindow && g_pad[0]->IsTrigger(enButtonB) && m_leftWindow->GetButtonReady() == true && m_leftWindowDelete[m_leftWindow->GetSelectTurretNumber()]->GetIsDraw() == true)
+	if (m_leftWindow->GetOperationState() == enOperationState_Delete_LeftWindow && g_pad[0]->IsTrigger(enButtonA) && m_leftWindow->GetButtonReady() == true && m_leftWindowDelete[m_leftWindow->GetSelectTurretNumber()]->GetIsDraw() == true)
 	{
 		m_turretDeleteState = enDeleteState_Cancel;
 		m_leftWindow->SetOperationState(enOperationState_DeleteCheck_LeftWindow);
@@ -1106,7 +1106,7 @@ void TurretManager::DeleteTurret()
 	}
 
 	//Delete確認ウィンドウでCancelが選択されている時にSelect
-	else if (m_turretDeleteState == enDeleteState_Cancel && g_pad[0]->IsTrigger(enButtonB) && m_leftWindow->GetButtonReady() == true)
+	else if (m_turretDeleteState == enDeleteState_Cancel && g_pad[0]->IsTrigger(enButtonA) && m_leftWindow->GetButtonReady() == true)
 	{
 		m_turretDeleteState = enDeleteState_Null;
 		m_leftWindow->SetOperationState(enOperationState_Delete_LeftWindow);
@@ -1122,7 +1122,7 @@ void TurretManager::DeleteTurret()
 	}
 
 	//Delete確認ウィンドウでDeleteが選択されている時にSelect
-	else if (m_turretDeleteState == enDeleteState_Delete && g_pad[0]->IsTrigger(enButtonB) && m_leftWindow->GetButtonReady() == true)
+	else if (m_turretDeleteState == enDeleteState_Delete && g_pad[0]->IsTrigger(enButtonA) && m_leftWindow->GetButtonReady() == true)
 	{
 		std::vector<IGameObject*>::iterator it;
 		//要素を探す

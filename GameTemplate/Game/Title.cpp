@@ -63,7 +63,7 @@ void Title::Move()
 	m_pressAButtonSR.Update();
 
 	//ボタンを押すとゲームスタート
-	if (g_pad[0]->IsTrigger(enButtonB))
+	if (g_pad[0]->IsTrigger(enButtonA))
 	{
 		m_game = NewGO<Game>(0, "game");
 		m_game->SetGameState(enGameState_Container);

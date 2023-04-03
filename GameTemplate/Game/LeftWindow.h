@@ -238,9 +238,9 @@ private:
 	float						m_buttonDelay					= 0.0f;
 
 	//パラメーター
-	float						m_rangeNumber					= 0.0f;
 	float						m_damageNumber					= 0.0f;
-	float						m_fireRateNumber				= 0.0f;
+	float						m_fireRateNumber					= 0.0f;
+	float						m_rangeNumber				= 0.0f;
 	float						m_rangeSetNumber				= 0.0f;
 	float						m_damageSetNumber				= 0.0f;
 	float						m_fireRateSetNumber				= 0.0f;

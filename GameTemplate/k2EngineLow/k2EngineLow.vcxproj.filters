@@ -230,7 +230,6 @@
     <ClCompile Include="Bloom.cpp" />
     <ClCompile Include="PostEffect.cpp" />
     <ClCompile Include="RenderingEngine.cpp" />
-    <ClCompile Include="ShadowMapRender.cpp" />
     <ClCompile Include="SpriteRender.cpp" />
     <ClCompile Include="FontRender.cpp" />
     <ClCompile Include="SkyCube.cpp" />
@@ -513,7 +512,6 @@
     <ClInclude Include="Bloom.h" />
     <ClInclude Include="PostEffect.h" />
     <ClInclude Include="RenderingEngine.h" />
-    <ClInclude Include="ShadowMapRender.h" />
     <ClInclude Include="SpriteRender.h" />
     <ClInclude Include="FontRender.h" />
     <ClInclude Include="SkyCube.h" />

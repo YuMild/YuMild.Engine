@@ -1,17 +1,13 @@
 #include "k2EngineLowPreCompile.h"
 #include "RenderingEngine.h"
 
-#include "ShadowMapRender.h"
-
 namespace nsK2EngineLow
 {
 	RenderingEngine g_renderingEngine;
 
 	void RenderingEngine::Init()
 	{
-		m_shadowMapRender = &g_shadowMapRender;
 		InitMainRenderTarget();
-		InitShadowMapRender();
 	}
 
 	void RenderingEngine::InitMainRenderTarget()
@@ -26,11 +22,6 @@ namespace nsK2EngineLow
 			DXGI_FORMAT_D32_FLOAT           //デプステンシルバッファーのフォーマット
 		);
 		g_postEffect.Init();
-	}
-
-	void RenderingEngine::InitShadowMapRender()
-	{
-		m_shadowMapRender->Init();
 	}
 
 	void RenderingEngine::Draw(RenderContext& renderContext)
@@ -58,11 +49,6 @@ namespace nsK2EngineLow
 		m_modelRenderObject.clear();
 	}
 
-	void RenderingEngine::RenderToShadowMap(RenderContext& renderContext)
-	{
-		m_shadowMapRender->Render(renderContext, m_modelRenderObject);
-	}
-
 	void RenderingEngine::SpriteDraw(RenderContext& renderContext)
 	{
 		for (auto& sprite : m_spriteRenderObject)
@@ -85,8 +71,6 @@ namespace nsK2EngineLow
 
 	void RenderingEngine::Execute(RenderContext& renderContext)
 	{
-		//シャドウマップをドロー
-		RenderToShadowMap(renderContext);
 		//モデルをドロー
 		Draw(renderContext);
 		//エフェクトをドロー

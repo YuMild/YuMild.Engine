@@ -54,7 +54,7 @@ bool Container::Start()
 	m_containerDoorMR.Update();
 	m_campEmissionMap.InitFromDDSFile(L"Assets/modelData/Stage/Camp_Emission.DDS");
 	//ƒLƒƒƒ“ƒv
-	m_campMR.Init("Assets/ModelData/Stage/Camp.tkm", ShadowNone, false, nullptr, 0, enModelUpAxisZ, &m_campEmissionMap);
+	m_campMR.Init("Assets/ModelData/Stage/Camp.tkm", Normal, 0, 0, enModelUpAxisZ, &m_campEmissionMap);
 	m_campMR.SetPosition({ m_modelPosition.x,m_modelPosition.y - 2700.0f,m_modelPosition.z });
 	m_campMR.SetScale(Vector3::One * CAMP_SCALE);
 	m_campMR.Update();

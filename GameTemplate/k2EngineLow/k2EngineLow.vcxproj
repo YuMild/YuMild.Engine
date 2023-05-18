@@ -328,7 +328,6 @@
     <ClCompile Include="physics\PhysicsStaticObject.cpp" />
     <ClCompile Include="physics\RigidBody.cpp" />
     <ClCompile Include="physics\SphereCollider.cpp" />
-    <ClCompile Include="ShadowMapRender.cpp" />
     <ClCompile Include="SkyCube.cpp" />
     <ClCompile Include="sound\SoundEngine.cpp" />
     <ClCompile Include="sound\SoundSource.cpp" />
@@ -427,7 +426,6 @@
     <ClInclude Include="physics\PhysicsStaticObject.h" />
     <ClInclude Include="physics\RigidBody.h" />
     <ClInclude Include="physics\SphereCollider.h" />
-    <ClInclude Include="ShadowMapRender.h" />
     <ClInclude Include="SkyCube.h" />
     <ClInclude Include="sound\SoundEngine.h" />
     <ClInclude Include="sound\SoundSource.h" />

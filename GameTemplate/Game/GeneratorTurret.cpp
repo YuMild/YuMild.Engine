@@ -28,20 +28,20 @@ bool GeneratorTurret::Start()
 	m_energy = FindGO<Energy>("energy");
 
 	//ƒ^ƒŒƒbƒg
-	m_turretMR.Init("Assets/ModelData/Turret/GenerationTurret.tkm", ShadowNone, true);
+	m_turretMR.Init("Assets/ModelData/Turret/GenerationTurret.tkm", Normal);
 	m_turretMR.SetPosition(m_modelPosition);
 	m_turretMR.SetRotation(m_modelRotation);
 	m_turretMR.SetScale({ 1.0f,1.0f,1.0f });
 	m_turretMR.Update();
 
 	//“y‘ä
-	m_baseMR.Init("Assets/ModelData/Turret/Base.tkm", ShadowNone, true);
+	m_baseMR.Init("Assets/ModelData/Turret/Base.tkm", Normal);
 	m_baseMR.SetPosition(m_modelPosition);
 	m_baseMR.SetRotation(m_modelRotation);
 	m_baseMR.SetScale({ 1.0f,1.0f,1.0f });
 	m_baseMR.Update();
 	m_emissionMap.InitFromDDSFile(L"Assets/modelData/Turret/Base2_Emission.DDS");
-	m_base2MR.Init("Assets/ModelData/Turret/Base2.tkm", ShadowNone, false, nullptr, 0, enModelUpAxisZ, &m_emissionMap);
+	m_base2MR.Init("Assets/ModelData/Turret/Base2.tkm", Normal, 0, 0, enModelUpAxisZ, &m_emissionMap);
 	m_base2MR.SetPosition(m_modelPosition);
 	m_base2MR.SetRotation(m_modelRotation);
 	m_base2MR.SetScale({ 1.0f,1.0f,1.0f });

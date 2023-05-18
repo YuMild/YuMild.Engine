@@ -305,7 +305,7 @@ float4 PSMain(SPSIn psIn) : SV_Target0
 
     // エミッション
     float3 emission = g_emission.Sample(g_sampler, psIn.uv);
-    //float3 emission = 0.0f;
+
     // 視線に向かって伸びるベクトルを計算する
     float3 toEye = normalize(eyePos - psIn.worldPos);
     

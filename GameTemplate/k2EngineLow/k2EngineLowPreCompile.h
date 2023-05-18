@@ -76,8 +76,6 @@ using namespace Microsoft::WRL;
 #include "graphics/Model.h"
 #include "HID/GamePad.h"
 
-#include "ShadowMapRender.h"
-
 #include "graphics/GaussianBlur.h"
 #include "PostEffect.h"
 #include "Bloom.h"

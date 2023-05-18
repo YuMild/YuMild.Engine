@@ -27,27 +27,27 @@ bool TeslaTurret::Start()
 {
 	//ƒ^ƒŒƒbƒg
 	m_turretEmissionMap.InitFromDDSFile(L"Assets/modelData/Turret/TeslaTurret_Emission.DDS");
-	m_turretMR.Init("Assets/ModelData/Turret/TeslaTurret.tkm", ShadowNone, false, nullptr, 0, enModelUpAxisZ, &m_turretEmissionMap);
+	m_turretMR.Init("Assets/ModelData/Turret/TeslaTurret.tkm", Normal, 0, 0, enModelUpAxisZ, &m_turretEmissionMap);
 	m_turretMR.SetPosition(m_modelPosition);
 	m_turretMR.SetRotation(m_modelRotation);
 	m_turretMR.SetScale({ 1.0f,1.0f,1.0f });
 	m_turretMR.Update();
 
 	//“y‘ä
-	m_baseMR.Init("Assets/ModelData/Turret/Base.tkm", ShadowNone, true);
+	m_baseMR.Init("Assets/ModelData/Turret/Base.tkm", Normal);
 	m_baseMR.SetPosition(m_modelPosition);
 	m_baseMR.SetRotation(m_modelRotation);
 	m_baseMR.SetScale({ 1.0f,1.0f,1.0f });
 	m_baseMR.Update();
 	m_baseEmissionMap.InitFromDDSFile(L"Assets/modelData/Turret/Base2_Emission.DDS");
-	m_base2MR.Init("Assets/ModelData/Turret/Base2.tkm", ShadowNone, false, nullptr, 0, enModelUpAxisZ, &m_baseEmissionMap);
+	m_base2MR.Init("Assets/ModelData/Turret/Base2.tkm", Normal, 0, 0, enModelUpAxisZ, &m_baseEmissionMap);
 	m_base2MR.SetPosition(m_modelPosition);
 	m_base2MR.SetRotation(m_modelRotation);
 	m_base2MR.SetScale({ 1.0f,1.0f,1.0f });
 	m_base2MR.Update();
 
 	//ŽË’ö”ÍˆÍ
-	m_attackRangeMR.Init("Assets/ModelData/Turret/AttackRange_Circle.tkm", Dithering, true);
+	m_attackRangeMR.Init("Assets/ModelData/Turret/AttackRange_Circle.tkm", Dithering);
 	m_attackRangeMR.SetPosition(m_modelPosition);
 	m_attackRangeMR.SetRotation(m_modelRotation);
 	m_attackRangeMR.SetScale({ 0.5f,1.0f,0.5f });

@@ -1,7 +1,5 @@
 #pragma once
 
-#include "ShadowMapRender.h"
-
 namespace nsK2EngineLow
 {
 	class RenderingEngine
@@ -17,11 +15,6 @@ namespace nsK2EngineLow
 		/// レンダーターゲットを作成
 		/// </summary>
 		void InitMainRenderTarget();
-
-		/// <summary>
-		/// シャドウマップレンダーを作成
-		/// </summary>
-		void InitShadowMapRender();
 
 		/// <summary>
 		/// モデルレンダーオブジェクトの数を追加
@@ -57,12 +50,6 @@ namespace nsK2EngineLow
 		void Draw(RenderContext& renderContext);
 
 		/// <summary>
-		/// モデルの描画
-		/// </summary>
-		/// <param name="renderContext"></param>
-		void RenderToShadowMap(RenderContext& renderContext);
-
-		/// <summary>
 		/// 画像の描画
 		/// </summary>
 		/// <param name="renderContext"></param>
@@ -94,7 +81,6 @@ namespace nsK2EngineLow
 		std::vector<ModelRender*>		m_modelRenderObject;
 		std::vector<SpriteRender*>		m_spriteRenderObject;
 		std::vector<FontRender*>		m_fontRenderObject;
-		ShadowMapRender*				m_shadowMapRender;
 		RenderTarget					m_mainRenderTarget;
 	};
 

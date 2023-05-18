@@ -25,34 +25,34 @@ NormalTurret::~NormalTurret()
 bool NormalTurret::Start()
 {
 	//タレット
-	m_turretMR.Init("Assets/ModelData/Turret/NormalTurret.tkm", ShadowNone, true);
+	m_turretMR.Init("Assets/ModelData/Turret/NormalTurret.tkm", Normal);
 	m_turretMR.SetPosition(m_modelPosition);
 	m_turretMR.SetRotation(m_modelRotation);
 	m_turretMR.SetScale({ 1.0f,1.0f,1.0f });
 	m_turretMR.Update();
 
 	//タレット土台
-	m_turretBaseMR.Init("Assets/ModelData/Turret/TurretBase.tkm", ShadowNone, true);
+	m_turretBaseMR.Init("Assets/ModelData/Turret/TurretBase.tkm", Normal);
 	m_turretBaseMR.SetPosition(m_modelPosition);
 	m_turretBaseMR.SetRotation(m_modelRotation);
 	m_turretBaseMR.SetScale({ 1.0f,1.0f,1.0f });
 	m_turretBaseMR.Update();
 
 	//土台
-	m_baseMR.Init("Assets/ModelData/Turret/Base.tkm", ShadowNone, true);
+	m_baseMR.Init("Assets/ModelData/Turret/Base.tkm", Normal);
 	m_baseMR.SetPosition(m_modelPosition);
 	m_baseMR.SetRotation(m_modelRotation);
 	m_baseMR.SetScale({ 1.0f,1.0f,1.0f });
 	m_baseMR.Update();
 	m_emissionMap.InitFromDDSFile(L"Assets/modelData/Turret/Base2_Emission.DDS");
-	m_base2MR.Init("Assets/ModelData/Turret/Base2.tkm", ShadowNone, false, nullptr, 0, enModelUpAxisZ, &m_emissionMap);
+	m_base2MR.Init("Assets/ModelData/Turret/Base2.tkm", Normal, 0, 0, enModelUpAxisZ, &m_emissionMap);
 	m_base2MR.SetPosition(m_modelPosition);
 	m_base2MR.SetRotation(m_modelRotation);
 	m_base2MR.SetScale({ 1.0f,1.0f,1.0f });
 	m_base2MR.Update();
 
 	//射程範囲
-	m_attackRangeMR.Init("Assets/ModelData/Turret/AttackRange_Circle.tkm", Dithering, true);
+	m_attackRangeMR.Init("Assets/ModelData/Turret/AttackRange_Circle.tkm", Dithering);
 	m_attackRangeMR.SetPosition(m_modelPosition);
 	m_attackRangeMR.SetRotation(m_modelRotation);
 	m_attackRangeMR.SetScale({ 0.5f,1.0f,0.5f });

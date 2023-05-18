@@ -41,7 +41,7 @@ bool SpaceShip::Start()
 
 	//ƒ‚ƒfƒ‹
 	m_emissionMap.InitFromDDSFile(L"Assets/modelData/Enemy/SpaceShip_Emission.DDS");
-	m_modelRender.Init("Assets/modelData/Enemy/SpaceShip.tkm", ShadowNone, false, nullptr, 0, enModelUpAxisZ, &m_emissionMap);
+	m_modelRender.Init("Assets/modelData/Enemy/SpaceShip.tkm", Normal, 0, 0, enModelUpAxisZ, &m_emissionMap);
 	m_modelRender.SetPosition(m_position);
 	m_modelRender.SetRotation(m_rotation);
 	m_modelRender.SetScale(Vector3::One * m_scale);

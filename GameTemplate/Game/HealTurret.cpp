@@ -22,27 +22,27 @@ HealTurret::~HealTurret()
 bool HealTurret::Start()
 {
 	//タレット
-	m_turretMR.Init("Assets/ModelData/Turret/HealTurret.tkm", ShadowNone, true);
+	m_turretMR.Init("Assets/ModelData/Turret/HealTurret.tkm", Normal);
 	m_turretMR.SetPosition(m_modelPosition);
 	m_turretMR.SetRotation(m_modelRotation);
 	m_turretMR.SetScale({ 1.0f,1.0f,1.0f });
 	m_turretMR.Update();
 
 	//タレット土台
-	m_turretBaseMR.Init("Assets/ModelData/Turret/HealTurretBase.tkm", ShadowNone, true);
+	m_turretBaseMR.Init("Assets/ModelData/Turret/HealTurretBase.tkm", Normal);
 	m_turretBaseMR.SetPosition(m_modelPosition);
 	m_turretBaseMR.SetRotation(m_modelRotation);
 	m_turretBaseMR.SetScale({ 1.0f,1.0f,1.0f });
 	m_turretBaseMR.Update();
 
 	//土台
-	m_baseMR.Init("Assets/ModelData/Turret/Base.tkm", ShadowNone, true);
+	m_baseMR.Init("Assets/ModelData/Turret/Base.tkm", Normal);
 	m_baseMR.SetPosition(m_modelPosition);
 	m_baseMR.SetRotation(m_modelRotation);
 	m_baseMR.SetScale({ 1.0f,1.0f,1.0f });
 	m_baseMR.Update();
 	m_emissionMap.InitFromDDSFile(L"Assets/modelData/Turret/Base2_Emission.DDS");
-	m_base2MR.Init("Assets/ModelData/Turret/Base2.tkm", ShadowNone, false, nullptr, 0, enModelUpAxisZ, &m_emissionMap);
+	m_base2MR.Init("Assets/ModelData/Turret/Base2.tkm", Normal, 0, 0, enModelUpAxisZ, &m_emissionMap);
 	m_base2MR.SetPosition(m_modelPosition);
 	m_base2MR.SetRotation(m_modelRotation);
 	m_base2MR.SetScale({ 1.0f,1.0f,1.0f });

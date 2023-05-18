@@ -44,7 +44,7 @@ bool UFO::Start()
 
 	//ƒ‚ƒfƒ‹
 	m_emissionMap.InitFromDDSFile(L"Assets/modelData/Enemy/UFO_Blue_Emission.DDS");
-	m_modelRender.Init("Assets/modelData/Enemy/UFO_Blue.tkm", ShadowNone, false, nullptr, 0, enModelUpAxisZ, &m_emissionMap);
+	m_modelRender.Init("Assets/modelData/Enemy/UFO_Blue.tkm", Normal, 0, 0, enModelUpAxisZ, &m_emissionMap);
 	m_modelRender.SetPosition(m_position);
 	m_modelRender.SetRotation(m_rotation);
 	m_modelRender.Update();

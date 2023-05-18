@@ -2,12 +2,9 @@
 
 namespace
 {
-	enum ShadowMode
+	enum DrowMode
 	{
-		ShadowDrop,
-		ShadowRecieve,
-		ShadowRecieveAndDrop,
-		ShadowNone,
+		Normal,
 		Dithering
 	};
 }
@@ -22,28 +19,20 @@ namespace  nsK2EngineLow
 		~ModelRender();
 
 		/// <summary>
-		/// モデルの描画
-		/// シャドウ
-		/// ShadowDrop = シャドウを落とす
-		/// ShadowRecieve = シャドウを受ける
-		/// ShadowRecieveAndDrop = シャドウを受けつつ落とす
-		/// ShadowNone = シャドウイングをしない
-		/// 半透明
-		/// true = 半透明描画
 		/// </summary>
 		/// <param name="filePath"></param>
+		/// <param name="shadow"></param>
+		/// <param name="trans"></param>
+		/// <param name="animationClips"></param>
+		/// <param name="numAnimationClips"></param>
+		/// <param name="enModelUpAxis"></param>
+		/// <param name="emission"></param>
 		void Init(const char* filePath,
-			int shadow = ShadowNone,
-			bool trans = false,
+			int shadow = Normal,
 			AnimationClip* animationClips = nullptr,
 			int numAnimationClips = 0,
 			EnModelUpAxis enModelUpAxis = enModelUpAxisZ,
 			Texture* emission = nullptr);
-
-		/// <summary>
-		/// シャドウマップを落とすモデルを作成
-		/// </summary>
-		void InitDrawShadowMapModel(const char* filePath);
 
 		/// <summary>
 		/// 更新処理
@@ -62,12 +51,6 @@ namespace  nsK2EngineLow
 		/// <param name="rc"></param>
 		/// <param name="camera"></param>
 		void Draw(RenderContext& rc, Camera& camera);
-
-		/// <summary>
-		/// カメラ指定のシャドウマップの描画
-		/// </summary>
-		/// <param name="rc"></param>
-		void ShadowMapDraw(RenderContext& rc, Camera& camera);
 
 		/// <summary>
 		/// ポジションを設定
@@ -152,8 +135,6 @@ namespace  nsK2EngineLow
 		Vector3			m_scale = Vector3::One;
 		Quaternion		m_rotation = Quaternion::Identity;
 		Model			m_model;
-		Model			m_drawShadowModel;
-		Model			m_shadowRecieverModel;
 		Skeleton		m_skeleton;
 	};
 }

@@ -22,34 +22,34 @@ HolyTurret::~HolyTurret()
 bool HolyTurret::Start()
 {
 	//éûåvìyë‰
-	m_turret_BaseMR.Init("Assets/ModelData/Turret/HolyTurret_Base.tkm", ShadowNone, true);
+	m_turret_BaseMR.Init("Assets/ModelData/Turret/HolyTurret_Base.tkm", Normal);
 	m_turret_BaseMR.SetPosition(m_modelPosition);
 	m_turret_BaseMR.SetRotation(m_modelRotation);
 	m_turret_BaseMR.SetScale({ 1.0f,1.0f,1.0f });
 	m_turret_BaseMR.Update();
 
 	//íZêj
-	m_turret_HourHandMR.Init("Assets/ModelData/Turret/HolyTurret_HourHand.tkm", ShadowNone, true);
+	m_turret_HourHandMR.Init("Assets/ModelData/Turret/HolyTurret_HourHand.tkm", Normal);
 	m_turret_HourHandMR.SetPosition(m_modelPosition);
 	m_turret_HourHandMR.SetRotation(m_modelRotation);
 	m_turret_HourHandMR.SetScale({ 1.0f,1.0f,1.0f });
 	m_turret_HourHandMR.Update();
 
 	//í∑êj
-	m_turret_MiniteHandMR.Init("Assets/ModelData/Turret/HolyTurret_MiniteHand.tkm", ShadowNone, true);
+	m_turret_MiniteHandMR.Init("Assets/ModelData/Turret/HolyTurret_MiniteHand.tkm", Normal);
 	m_turret_MiniteHandMR.SetPosition(m_modelPosition);
 	m_turret_MiniteHandMR.SetRotation(m_modelRotation);
 	m_turret_MiniteHandMR.SetScale({ 1.0f,1.0f,1.0f });
 	m_turret_MiniteHandMR.Update();
 
 	//ìyë‰
-	m_baseMR.Init("Assets/ModelData/Turret/Base.tkm", ShadowNone, true);
+	m_baseMR.Init("Assets/ModelData/Turret/Base.tkm", Normal);
 	m_baseMR.SetPosition(m_modelPosition);
 	m_baseMR.SetRotation(m_modelRotation);
 	m_baseMR.SetScale({ 1.0f,1.0f,1.0f });
 	m_baseMR.Update();
 	m_emissionMap.InitFromDDSFile(L"Assets/modelData/Turret/Base2_Emission.DDS");
-	m_base2MR.Init("Assets/ModelData/Turret/Base2.tkm", ShadowNone, false, nullptr, 0, enModelUpAxisZ, &m_emissionMap);
+	m_base2MR.Init("Assets/ModelData/Turret/Base2.tkm", Normal, 0, 0, enModelUpAxisZ, &m_emissionMap);
 	m_base2MR.SetPosition(m_modelPosition);
 	m_base2MR.SetRotation(m_modelRotation);
 	m_base2MR.SetScale({ 1.0f,1.0f,1.0f });

@@ -89,18 +89,18 @@ bool Stage::Start()
 
 	//ƒ‚ƒfƒ‹
 	m_stageEmissionMap.InitFromDDSFile(L"Assets/modelData/Stage/Stage_Emission.DDS");
-	m_stageMR.Init("Assets/ModelData/Stage/Stage.tkm", ShadowNone, false, nullptr, 0, enModelUpAxisZ, &m_stageEmissionMap);
+	m_stageMR.Init("Assets/ModelData/Stage/Stage.tkm", Normal, 0, 0, enModelUpAxisZ, &m_stageEmissionMap);
 	m_stageMR.SetPosition(STAGE_FIRST_POSITION);
 	m_stageMR.SetScale(Vector3::One * STAGE_FIRST_SCALE);
 	m_stageMR.Update();
 	m_campEmissionMap.InitFromDDSFile(L"Assets/modelData/Stage/Camp_Emission.DDS");
-	m_campMR.Init("Assets/ModelData/Stage/Camp.tkm", ShadowNone, false, nullptr, 0, enModelUpAxisZ, &m_campEmissionMap);
+	m_campMR.Init("Assets/ModelData/Stage/Camp.tkm", Normal, 0, 0, enModelUpAxisZ, &m_campEmissionMap);
 	m_campMR.SetPosition(CAMP_FIRST_POSITION);
 	m_campMR.SetScale(Vector3::One * CAMP_FIRST_SCALE);
 	m_campMR.Update();
 	//”wŒiƒ‚ƒfƒ‹
 	m_earthEmissionMap.InitFromDDSFile(L"Assets/modelData/Stage/Earth_Emission.DDS");
-	m_earthMR.Init("Assets/ModelData/Stage/Earth.tkm", ShadowNone, false, nullptr, 0, enModelUpAxisZ, &m_earthEmissionMap);
+	m_earthMR.Init("Assets/ModelData/Stage/Earth.tkm", Normal, 0, 0, enModelUpAxisZ, &m_earthEmissionMap);
 	m_earthMR.SetPosition(EARTH_FIRST_POSITION);
 	m_earthMR.SetScale(Vector3::One * EARTH_FIRST_SCALE);
 	m_earthMR.Update();
@@ -109,7 +109,7 @@ bool Stage::Start()
 	m_moonMR.SetScale(Vector3::One * MOON_FIRST_SCALE);
 	m_moonMR.Update();
 	m_spaceJunkEmissionMap.InitFromDDSFile(L"Assets/modelData/Stage/SpaceJunk_Emission.DDS");
-	m_spaceJunkMR.Init("Assets/ModelData/Stage/SpaceJunk.tkm", ShadowNone, false, nullptr, 0, enModelUpAxisZ, &m_spaceJunkEmissionMap);
+	m_spaceJunkMR.Init("Assets/ModelData/Stage/SpaceJunk.tkm", Normal, 0, 0, enModelUpAxisZ, &m_spaceJunkEmissionMap);
 	m_spaceJunkMR.SetPosition(SPACEJUNK_FIRST_POSITION);
 	m_spaceJunkMR.SetScale(Vector3::One * SPACEJUNK_FIRST_SCALE);
 	m_spaceJunkMR.Update();
